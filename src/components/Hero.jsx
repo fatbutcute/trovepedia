@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
+import bgImage from '../img/background.png';
 
 export default function Hero() {
   const navigate = useNavigate()
@@ -23,12 +24,12 @@ return (
   <div style={{ position: "relative", minHeight: "100vh", overflow: "hidden" }}>
 
     {/* BACKGROUND */}
-    <div
+<div
       style={{
         position: "fixed",
         inset: 0,
         zIndex: 0,
-        backgroundImage: "url('/src/img/trovepediabg.png')",
+        backgroundImage: `url(${bgImage})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         transform: `translate(${mouse.x}px, ${mouse.y}px) scale(1.08)`,
@@ -85,9 +86,8 @@ return (
         height: "320px",
         zIndex: 2,
         pointerEvents: "none",
-
         background:
-          "linear-gradient(to bottom, #000312 50%, #070d2b 100%))"
+          "linear-gradient(to bottom, #000312 50%, #070d2b 100%)"
       }}
     />
 
