@@ -36,7 +36,7 @@ export default function Footer() {
             onClick={() => navigate('/')}
             style={{ background: 'none', border: 'none', cursor: 'pointer' }}
           >
-            <span className="diamond">♦</span>
+            <span className="diamond"></span>
             <span style={{ fontFamily: 'Blinker' }}>Trovepedia</span>
           </button>
           <p>Trovepedia, made by the community.</p>
