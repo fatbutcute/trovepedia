@@ -77,7 +77,7 @@ return (
     </div>
 
     {/* 🔥 BOTTOM FADE */}
-    <div
+<div
       style={{
         position: "absolute",
         bottom: 0,
@@ -86,8 +86,8 @@ return (
         height: "320px",
         zIndex: 2,
         pointerEvents: "none",
-        background:
-          "linear-gradient(to bottom, #000312 50%, #070d2b 100%)"
+        // JAVÍTÁS: Átlátszóból indul (0%), és fokozatosan lesz sötétkék (100%)
+        background: "linear-gradient(to bottom, transparent 0%, #070d2b 100%)"
       }}
     />
 

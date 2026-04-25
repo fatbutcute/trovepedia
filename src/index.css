@@ -147,7 +147,7 @@ nav {
   padding: 120px 24px 80px;
   background-image:
     linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
-    url('src/img/trovebackground.png');
+    url('src/img/background.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
