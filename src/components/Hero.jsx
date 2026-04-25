@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import bgImage from '../img/background.png';
 
 export default function Hero() {
   const navigate = useNavigate()
@@ -29,7 +28,7 @@ return (
         position: "fixed",
         inset: 0,
         zIndex: 0,
-        backgroundImage: `url(${bgImage})`,
+        backgroundImage: "url('/images/background.png')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         transform: `translate(${mouse.x}px, ${mouse.y}px) scale(1.08)`,

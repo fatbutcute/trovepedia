@@ -145,9 +145,7 @@ nav {
   justify-content: center;
   text-align: center;
   padding: 120px 24px 80px;
-  background-image:
-    linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
-    url('src/img/background.png');
+  background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('/images/background.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -183,8 +181,8 @@ nav {
 
 .hero-sub {
   margin-top: 22px;
-  max-width: 540px;
-  color: #bfc3db;
+  max-width: 600px;
+  color: #ebeeff;
   font-size: 1.4rem;
   line-height: 1.4em;
   opacity: 0;
