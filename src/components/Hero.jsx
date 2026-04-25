@@ -28,7 +28,7 @@ return (
         position: "fixed",
         inset: 0,
         zIndex: 0,
-        backgroundImage: "url('/img/trovepediabg.png')",
+        backgroundImage: "url('/src/img/trovepediabg.png')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         transform: `translate(${mouse.x}px, ${mouse.y}px) scale(1.08)`,
