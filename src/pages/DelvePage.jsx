@@ -36,7 +36,7 @@ const DelvePage = () => {
                         >
                             <span className="pyrodisc-spin-wrapper">
                                 <img 
-                                    src="src/img/pyrodisc.png" 
+                                    src="/images/pyrodisc.png" 
                                     alt="Pyrodisc Logo" 
                                     className="pyrodisc-image" 
                                 />
