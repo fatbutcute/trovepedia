@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@800&family=Rajdhani:wght@600;700&display=swap');
+
+.status-outer-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto; 
+    box-sizing: border-box;
+}
+
+.status-container {
+    display: flex;
+    gap: 20px;
+    background: var(--card-bg);
+    padding: 40px 60px;
+    border-radius: 28px;
+    border: 1px solid #252535;
+    width: 95%;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.6);
+    box-sizing: border-box;
+    position: relative;
+}
+
+.timer-card { 
+    flex: 1; 
+    text-align: center; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.timer-card:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: -10px;
+    top: 20%;
+    height: 60%;
+    width: 1px;
+    background: linear-gradient(transparent, #252535, transparent);
+}
+
+.timer-header {
+    font-family: 'Blinker', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 2.5px;
+    color: var(--text-faint);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.time-val {
+    font-family: 'NunitoSans', sans-serif;
+    font-size: 2.2rem;
+    margin-bottom: 18px;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    color: #ffffff;
+    text-shadow: 0 0 20px rgba(255,255,255,0.1);
+    font-weight: 600;
+}
+
+.meta-container {
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.tz-display {
+    font-family: 'SFPRODISPLAY', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: var(--text-faint);
+    border: 1px solid #252535;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 3px 12px;
+    border-radius: 4px;
+    letter-spacing: 1px;
+}
+
+.progress-track { 
+    width: 60%;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.05);
+    position: relative;
+}
+
+.progress-fill { 
+    height: 100%; 
+    position: relative;
+    transition: width 0.5s ease;
+}
+
+/* Színkódolt kiemelések */
+.accent-blue i { color: var(--blue); text-shadow: 0 0 10px var(--glow-blue); }
+.accent-blue .progress-fill { 
+    background: var(--blue); 
+    box-shadow: 0 0 12px var(--blue); 
+}
+
+.accent-yellow i { color: var(--yellow); text-shadow: 0 0 10px var(--glow-yellow); }
+.accent-yellow .progress-fill { 
+    background: var(--yellow); 
+    box-shadow: 0 0 12px var(--yellow); 
+}
+
+@media (max-width: 768px) {
+    .status-container { 
+        justify-content: center;
+        align-items: center;
+        flex-direction: column; 
+        padding: 40px;
+        gap: 40px;
+    }
+    .timer-card:not(:last-child)::after { display: none; }
+    .time-val { font-size: 2.2rem; }
+}

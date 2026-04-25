@@ -1,0 +1,494 @@
+.delve-page-container {
+    width: 100%;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 120px 20px 80px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.delve-search-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto 40px auto;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.5s ease-out 0.4s forwards;
+}
+
+.search-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: rgba(22, 22, 36, 0.7);
+    border: 1px solid rgba(160, 32, 240, 0.3);
+    border-radius: 50px;
+    padding: 5px 25px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.search-input-wrapper:focus-within {
+    border-color: #a63aff;
+    box-shadow: 0 0 20px rgba(227, 12, 255, 0.3);
+    transform: scale(1.02);
+}
+
+.search-icon {
+    width: 20px;
+    height: 20px;
+    filter: brightness(0.7);
+    margin-right: 15px;
+}
+
+.delve-search-input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1.1rem;
+    padding: 12px 0;
+}
+
+/* Összevont cím stílus */
+.delve-title {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 4.5em;
+    text-align: center;
+    background: linear-gradient(to right, #0aeafa, #a020f0);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-transform: uppercase;
+    filter: drop-shadow(0 0 20px rgba(10, 234, 250, 0.4));
+    margin: 0 !important; /* Itt az összevont margó */
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeUp 0.5s ease-out forwards;
+}
+
+.delve-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 1300px;
+    position: relative;
+    margin-top: 50px;
+}
+
+.pyrodisc-container {
+    position: absolute;
+    right: -60px;
+    display: flex;
+    align-items: center;
+    z-index: 10;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 1s forwards;
+    margin-top: 25px;
+    animation-delay: 1.5s;
+}
+
+.pyrodisc-link {
+    display: block;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    position: relative;
+    margin-left: 60px;
+}
+
+/* LÁTHATATLAN HITBOX: Hogy ne staggereljen a forgás miatt */
+.pyrodisc-link::after {
+    content: '';
+    position: absolute;
+    width: 140px; 
+    height: 140px;
+    top: -40px;
+    left: -40px;
+    z-index: 5;
+}
+
+/* 1. ALAP FORGÁS: Ez a réteg forog lassan, végtelenítve */
+.pyrodisc-spin-wrapper {
+    display: block;
+    width: 60px;
+    height: 60px;
+    animation: slowSpin 15s linear infinite;
+}
+
+/* 2. HOVER ANIMÁCIÓ: Ez a kép végzi a nagyítást és a kért transition-t */
+.pyrodisc-image {
+    width: 60px !important;
+    height: 60px !important;
+    display: block;
+    object-fit: contain;
+    /* Kért transition érték */
+    transition: all 0.8s cubic-bezier(0.25, 0.45, 0.25, 1);
+    filter: drop-shadow(0 0 5px rgba(183, 0, 255, 0.2));
+}
+
+/* Hoverkor a kép kiemelkedik a forgó keretből */
+.pyrodisc-container:hover .pyrodisc-image {
+    transform: scale(1.25) rotate(360deg);
+    filter: drop-shadow(0 0 25px rgba(195, 0, 255, 1));
+}
+
+/* LASSÚ FORGÁS DEFINÍCIÓJA */
+@keyframes slowSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* ... (Tooltip és a többi stílus változatlan) ... */
+
+.pyrodisc-tooltip {
+    position: absolute;
+    left: 175px;
+    white-space: normal;
+    background: rgba(13, 13, 21, 0.98);
+    border: 1px solid #ae0afa;
+    filter: drop-shadow(0 0 10px rgb(97, 7, 124));
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-family: 'Blinker', sans-serif;
+    color: #fff;
+    font-size: 0.9rem;
+    box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.5);
+    z-index: 100;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-20px);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1);
+    pointer-events: none;
+    width: 400px;
+}
+
+.pyrodisc-container:hover .pyrodisc-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+}
+
+.pyrodisc-h2 {
+    font-family: 'Blinker', serif;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #fff;
+    text-align: center;
+    letter-spacing: 0.03em;
+    line-height: 1.3;
+}
+
+.pyrodisc-desc {
+    font-family: 'Blinker', sans-serif;
+    font-size: 1.1rem;
+    color: #d0d3a5;
+    margin-top: 8px;
+    line-height: 1.4;
+}
+
+@media (max-width: 900px) {
+    .delve-title-row {
+        flex-direction: column;
+        gap: 20px;
+    }
+    .pyrodisc-container {
+        position: static;
+    }
+    .pyrodisc-tooltip {
+        display: none;
+    }
+}
+
+.delve-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.week-badge, .delve-week-badge {
+    background: rgba(160, 32, 240, 0.15);
+    border: 1px solid #a020f0;
+    color: #fff;
+    padding: 6px 25px;
+    border-radius: 30px;
+    font-family: 'NunitoSans', sans-serif;
+    font-size: 2em;
+    box-shadow: 0 0 15px rgba(160, 32, 240, 0.3);
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeUp 0.5s ease-out forwards;
+    animation-delay: 0.1s;
+}
+
+.delve-desc {
+    font-family: 'Blinker', sans-serif;
+    font-size: 1.3em;
+    color: #d0d3a5;
+    text-align: center;
+    max-width: 1200px;
+    line-height: 1.4;
+    margin-top: 20px;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeUp 0.5s ease-out forwards;
+    animation-delay: 0.2s;
+}
+
+.delve-separator {
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(to right, transparent, #a020f0, #0aeafa, transparent);
+    margin: 40px 0;
+    border-radius: 2px;
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- ÚJ KÁRTYA STÍLUSOK (A LOSIQN.HTML ALAPJÁN) --- */
+
+:root {
+    --yellow: #bf7aff;
+    --blue: #0aeafa;
+    --bg: #0d0d15;
+    --panel: #161624;
+    --text: #ffffff;
+    --dim: #8a8a9d;
+}
+
+.delve-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+    justify-content: center;
+    justify-items: center;
+    gap: 25px;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    margin-bottom: 70px;
+}
+
+.ui-card {
+    background-color: var(--bg);
+    border: 1px solid rgba(160, 32, 240, 0.25);
+    border-radius: 12px;
+    padding: 18px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    transition: transform 0.2s, border-color 0.2s, box-shadow 0.35s;
+    width: 100%;
+    max-width: 350px;
+    will-change: transform;
+    opacity: 0;
+    transform: translateX(-50px);
+    animation: cardSlideIn 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    animation-delay: 1s !important;
+}
+
+@keyframes cardSlideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.ui-card:nth-child(1) { animation-delay: 0.05s; }
+.ui-card:nth-child(2) { animation-delay: 0.10s; }
+.ui-card:nth-child(3) { animation-delay: 0.15s; }
+.ui-card:nth-child(4) { animation-delay: 0.20s; }
+.ui-card:nth-child(5) { animation-delay: 0.25s; }
+.ui-card:nth-child(6) { animation-delay: 0.30s; }
+.ui-card:nth-child(7) { animation-delay: 0.35s; }
+.ui-card:nth-child(8) { animation-delay: 0.40s; }
+.ui-card:nth-child(9) { animation-delay: 0.45s; }
+.ui-card:nth-child(10){ animation-delay: 0.50s; }
+.ui-card:nth-child(n+11){ animation-delay: 0.55s; }
+
+.ui-card:hover {
+    box-shadow: 0 16px 40px rgba(0,0,0,0.6), 0 0 15px rgba(182, 10, 250, 0.733);
+    transform: translateY(-6px);
+    transform: scale(1.02) translateY(-4px);
+}
+
+.ui-card .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.depth-badge {
+    color: #bf7aff;
+    font-weight: 400;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    border: 2px solid #bf7aff;
+    padding: 2px 8px;
+    border-radius: 8px;
+    font-family: SFPRODISPLAY, sans-serif;
+}
+
+.difficulty-tag {
+    color: var(--blue);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: Quicksand, sans-serif;
+}
+
+.ui-card .title {
+    color: var(--yellow);
+    font-size: 1.3rem;
+    margin: 0 0 12px 0;
+    font-weight: 800;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.modifier-bar {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.mod-badge {
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--dim);
+    border: 1px solid rgba(160, 32, 240, 0.2);
+    padding: 2px 6px;
+    border-radius: 3px;
+    background: rgba(160, 240, 32, 0.05);
+    font-family: 'Blinker', sans-serif;
+}
+
+.info-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+.row {
+    background: var(--panel);
+    padding: 10px 14px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.icon-box1 {
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--dim);
+    background-image: url('./icons/target.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    width: 20px;
+    height: 20px;
+    margin-left: -2px;
+}
+
+.icon-box2 {
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--dim);
+    background-image: url('./icons/monster.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    width: 20px;
+    height: 20px;
+}
+
+.icon-box3 {
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--dim);
+    background-image: url('./icons/enemy.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    width: 20px !important;
+    height: 20px !important;
+    margin-top: 2px;
+}
+
+.main-text {
+    font-weight: 500;
+    font-size: 1rem;
+    color: #ebb435;
+    font-family: Quicksand, sans-serif;
+}
+
+.objective {
+    border-left: 3px solid #a63aff;
+    background: linear-gradient(90deg, rgba(0,229,255,0.05) 0%, var(--panel) 100%);
+}
+
+.objective .main-text, .objective .icon-box {
+    color: #bf7aff;
+}
+
+.enemies { 
+    align-items: flex-start;
+    display: flex;
+    height: 120px;
+}
+
+.text-group {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.label {
+    color: var(--dim);
+    font-size: 1.1rem;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 2px;
+}
+
+.list-text {
+    font-size: 0.9rem;
+    line-height: 1.3;
+    color: #ffffff;
+    opacity: 0.8;
+    font-family: Quicksand, sans-serif;
+}
+
+.no-data-notice {
+    text-align: center;
+    color: var(--dim);
+    padding: 40px;
+}

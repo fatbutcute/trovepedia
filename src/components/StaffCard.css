@@ -1,0 +1,101 @@
+/* ─── STAFF CARD (footer-brand) ─── */
+
+.staff-card {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  cursor: pointer;
+  margin-top: 10px;
+  position: relative;
+  width: 250px;
+  margin-left: -10px;
+}
+
+/* Avatar wrapper */
+.staff-avatar-wrapper {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+.staff-avatar-img {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+  position: relative;
+  z-index: 15;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  background: var(--bg3);
+}
+
+/* Rainbow glow mögötte */
+.staff-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #f549ec, #ff0000, #7c5cfc, #40d0ff, #f549ec);
+  background-size: 400% 400%;
+  filter: blur(14px);
+  opacity: 0;
+  z-index: 5;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* Hover: avatar grow + glow megjelenik */
+.staff-card:hover .staff-avatar-img {
+  transform: scale(1.08);
+}
+.staff-card:hover .staff-glow {
+  opacity: 0.85;
+  transform: scale(1.12);
+  animation: staff-rainbow 3s linear infinite;
+}
+
+@keyframes staff-rainbow {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Info: kicsúszik hover-re */
+.staff-info {
+  max-width: 0;
+  opacity: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  white-space: nowrap;
+  padding-left: 0;
+  transition: max-width 0.45s cubic-bezier(0.23, 1, 0.32, 1),
+              opacity    0.35s ease,
+              padding-left 0.45s ease;
+}
+
+.staff-card:hover .staff-info {
+  max-width: 200px;
+  opacity: 1;
+  padding-left: 18px;
+}
+
+.staff-name {
+  font-family: 'Blinker', serif;
+  font-size: 1.2em;
+  font-weight: 300;
+  color: #fff;
+  line-height: 1.2;
+}
+
+.staff-role {
+  font-family: 'Blinker', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: 3px;
+
+}

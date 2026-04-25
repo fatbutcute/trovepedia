@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refined Delve Timers</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@800&family=Rajdhani:wght@600;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --yellow: #ffd700;
+            --blue: #00e5ff;
+            --bg-dark: #08080c;
+            --card-bg: #11111b;
+            --text-faint: #84849a;
+            --glow-blue: rgba(0, 229, 255, 0.4);
+            --glow-yellow: rgba(255, 215, 0, 0.4);
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: white;
+        }
+
+        .status-container {
+            display: flex;
+            gap: 20px;
+            background: var(--card-bg);
+            padding: 40px 60px;
+            border-radius: 28px;
+            border: 1px solid #252535;
+            width: 100%;
+            max-width: 900px;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.6);
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .timer-card { 
+            flex: 1; 
+            text-align: center; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Divider lines between sections */
+        .timer-card:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: -10px;
+            top: 20%;
+            height: 60%;
+            width: 1px;
+            background: linear-gradient(transparent, #252535, transparent);
+        }
+
+        .timer-header {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.75rem;
+            letter-spacing: 2.5px;
+            color: var(--text-faint);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .time-val {
+            font-family: 'Nunito', sans-serif;
+            font-size: 2.6rem; /* Increased size for impact */
+            margin-bottom: 18px;
+            line-height: 1;
+            font-variant-numeric: tabular-nums;
+            color: #ffffff; /* Keeping numbers neutral */
+            text-shadow: 0 0 20px rgba(255,255,255,0.1);
+        }
+
+        .meta-container {
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .tz-display {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: var(--text-faint); /* De-saturated for better balance */
+            border: 1px solid #252535;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 3px 12px;
+            border-radius: 4px;
+            letter-spacing: 1px;
+        }
+
+        /* Thinner filament style progress track */
+        .progress-track { 
+            width: 60%;
+            height: 2px; /* Ultra thin */
+            background: rgba(255, 255, 255, 0.05);
+            position: relative;
+        }
+
+        .progress-fill { 
+            height: 100%; 
+            position: relative;
+            transition: width 0.5s ease;
+        }
+
+        /* Accent Styles */
+        .accent-blue i { color: var(--blue); text-shadow: 0 0 10px var(--glow-blue); }
+        .accent-blue .progress-fill { 
+            background: var(--blue); 
+            box-shadow: 0 0 12px var(--blue); 
+        }
+        
+        .accent-yellow i { color: var(--yellow); text-shadow: 0 0 10px var(--glow-yellow); }
+        .accent-yellow .progress-fill { 
+            background: var(--yellow); 
+            box-shadow: 0 0 12px var(--yellow); 
+        }
+
+        @media (max-width: 768px) {
+            .status-container { flex-direction: column; padding: 40px; }
+            .timer-card:not(:last-child)::after { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="status-container">
+        <div class="timer-card">
+            <div class="timer-header">
+                <i class="ri-time-line"></i> CURRENT TIME
+            </div>
+            <div class="time-val" id="current-time">00:00:00</div>
+            <div class="meta-container">
+                <div class="tz-display" id="user-tz">LOCAL TIME (GMT+2)</div>
+            </div>
+        </div>
+
+        <div class="timer-card accent-blue">
+            <div class="timer-header">
+                <i class="ri-sun-cloudy-line"></i> DAILY RESET
+            </div>
+            <div class="time-val">10:45:35</div>
+            <div class="meta-container">
+                <div class="progress-track">
+                    <div class="progress-fill" style="width: 60%"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="timer-card accent-yellow">
+            <div class="timer-header">
+                <i class="ri-calendar-todo-line"></i> WEEKLY RESET
+            </div>
+            <div class="time-val">154:45:35</div>
+            <div class="meta-container">
+                <div class="progress-track">
+                    <div class="progress-fill" style="width: 35%"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const h = String(now.getHours()).padStart(2, '0');
+            const m = String(now.getMinutes()).padStart(2, '0');
+            const s = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById('current-time').textContent = `${h}:${m}:${s}`;
+
+            const offset = -now.getTimezoneOffset() / 60;
+            const sign = offset >= 0 ? "+" : "";
+            document.getElementById('user-tz').textContent = `LOCAL TIME (GMT${sign}${offset})`;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
+</body>
+</html>

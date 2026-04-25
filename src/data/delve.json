@@ -1,0 +1,5658 @@
+{
+  "success": true,
+  "data": {
+    "weekNumber": "25",
+    "total": 62,
+    "filters": {
+      "depthMin": null,
+      "depthMax": null,
+      "search": null,
+      "page": 1,
+      "limit": null
+    },
+    "depths": [
+      {
+        "id": 1030,
+        "depth": 110,
+        "biome": " The Understacks",
+        "zone": " Pure Midnight",
+        "boss": {
+          "n": "Shadowshroom King",
+          "b": [
+            "Antumbral",
+            "Flame Spitters"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Stiltstitcher",
+            "b": [],
+            "c": 14
+          },
+          {
+            "n": "Permafrost Guardian",
+            "b": [],
+            "c": 14
+          },
+          {
+            "n": "Pentapod Shadowcaster",
+            "b": [
+              "Physical Resistance",
+              "Featherwhisperer"
+            ],
+            "c": 11
+          },
+          {
+            "n": "Vespucci Dragon Ogre",
+            "b": [
+              "Flame Spitters"
+            ],
+            "c": 14
+          }
+        ],
+        "objective": 4,
+        "killType": 0,
+        "killAmount": 0,
+        "killString": null,
+        "objectiveText": "Clear 4 Monoliths",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          []
+        ],
+        "submittedBy": "564730e6-69d2-4a35-b818-64e57c3ee7b3",
+        "isVaultFloor": false
+      },
+      {
+        "id": 1031,
+        "depth": 111,
+        "biome": " Primordial Pit",
+        "zone": " Pure Midnight",
+        "boss": {
+          "n": "Ice Giant King",
+          "b": [
+            "Antumbral",
+            "Flame Spitters"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Dimetrodon",
+            "b": [
+              "Physical Resistance"
+            ],
+            "c": 13
+          },
+          {
+            "n": "Saurian Troglodyte",
+            "b": [
+              "Unbridled Fury"
+            ],
+            "c": 10
+          },
+          {
+            "n": "Anuran Troglodyte",
+            "b": [
+              "Agile"
+            ],
+            "c": 14
+          },
+          {
+            "n": "Simian Troglodyte",
+            "b": [
+              "Agile"
+            ],
+            "c": 13
+          }
+        ],
+        "objective": 2,
+        "killType": 2,
+        "killAmount": 75,
+        "killString": null,
+        "objectiveText": "Kill 75 enemies",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 2
+          },
+          []
+        ],
+        "submittedBy": "564730e6-69d2-4a35-b818-64e57c3ee7b3",
+        "isVaultFloor": false
+      },
+      {
+        "id": 1033,
+        "depth": 112,
+        "biome": " Neon Underground",
+        "zone": " Pure Midnight",
+        "boss": {
+          "n": "Weeping Prophet",
+          "b": [
+            "Antumbral",
+            "Featherwhisperer"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Bladebot",
+            "b": [
+              "Fury"
+            ],
+            "c": 12
+          },
+          {
+            "n": "Decompiler",
+            "b": [
+              "Physical Resistance",
+              "Flame Spitters"
+            ],
+            "c": 11
+          },
+          {
+            "n": "Flying Cannonbot",
+            "b": [
+              "Distance Shielding"
+            ],
+            "c": 12
+          },
+          {
+            "n": "Robospider",
+            "b": [],
+            "c": 13
+          }
+        ],
+        "objective": 3,
+        "killType": 0,
+        "killAmount": 0,
+        "killString": null,
+        "objectiveText": "Empty 5 Rooms",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 2
+          },
+          []
+        ],
+        "submittedBy": "564730e6-69d2-4a35-b818-64e57c3ee7b3",
+        "isVaultFloor": true
+      },
+      {
+        "id": 1034,
+        "depth": 113,
+        "biome": " Subnautic Passage",
+        "zone": " Uber Twilight",
+        "boss": {
+          "n": "Mean Gene the Green",
+          "b": [
+            "Antumbral",
+            "Featherwhisperer"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Blue Crab",
+            "b": [
+              "Antumbral",
+              "Split Personality"
+            ],
+            "c": 20
+          },
+          {
+            "n": "Emerald Iguana",
+            "b": [
+              "Antumbral",
+              "Spore Carrier"
+            ],
+            "c": 20
+          },
+          {
+            "n": "Crustacean Corsair",
+            "b": [
+              "Cursed by Light"
+            ],
+            "c": 14
+          },
+          {
+            "n": "Red Crab",
+            "b": [
+              "Unbridled Fury"
+            ],
+            "c": 7
+          }
+        ],
+        "objective": 2,
+        "killType": 2,
+        "killAmount": 92,
+        "killString": null,
+        "objectiveText": "Kill 92 enemies",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          []
+        ],
+        "submittedBy": "564730e6-69d2-4a35-b818-64e57c3ee7b3",
+        "isVaultFloor": false
+      },
+      {
+        "id": 1035,
+        "depth": 114,
+        "biome": " The Understacks",
+        "zone": " Uber Twilight",
+        "boss": {
+          "n": "Shadowshroom King",
+          "b": [
+            "Agile",
+            "Antumbral"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Scribe's Familiar",
+            "b": [
+              "Antumbral",
+              "Featherwhisperer"
+            ],
+            "c": 25
+          },
+          {
+            "n": "Lanky Lurcher",
+            "b": [
+              "Antumbral",
+              "Spore Carrier"
+            ],
+            "c": 25
+          },
+          {
+            "n": "Vespucci Dragon Ogre",
+            "b": [
+              "Cursed by Light"
+            ],
+            "c": 17
+          },
+          {
+            "n": "Ricci Dragon Ogre",
+            "b": [
+              "Weakened",
+              "Ensnaring Grip"
+            ],
+            "c": 11
+          }
+        ],
+        "objective": 2,
+        "killType": 1,
+        "killAmount": 38,
+        "killString": "Scribe's Familiar",
+        "objectiveText": "Kill 38 Scribe's Familiar",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          []
+        ],
+        "submittedBy": "564730e6-69d2-4a35-b818-64e57c3ee7b3",
+        "isVaultFloor": false
+      },
+      {
+        "id": 1036,
+        "depth": 115,
+        "biome": " Confectious Caverns",
+        "zone": " Uber Twilight",
+        "boss": {
+          "n": "Vengeful Pinata God",
+          "b": [
+            "Antumbral",
+            "Flame Spitters"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Pound Cake",
+            "b": [
+              "Antumbral",
+              "Cursed by Light"
+            ],
+            "c": 8
+          },
+          {
+            "n": "Red Popman",
+            "b": [
+              "Magical Resistance"
+            ],
+            "c": 1
+          },
+          {
+            "n": "Gingerbread Man",
+            "b": [
+              "Tenebrous I",
+              "Flame Spitters"
+            ],
+            "c": 1
+          },
+          {
+            "n": "Muffin Tough",
+            "b": [
+              "Antumbral",
+              "Spore Carrier"
+            ],
+            "c": 6
+          }
+        ],
+        "objective": 4,
+        "killType": 0,
+        "killAmount": 0,
+        "killString": null,
+        "objectiveText": "Clear 4 Monoliths",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          []
+        ],
+        "submittedBy": "564730e6-69d2-4a35-b818-64e57c3ee7b3",
+        "isVaultFloor": true
+      },
+      {
+        "id": 1038,
+        "depth": 116,
+        "biome": " Forbidden Depths",
+        "zone": " Uber Twilight",
+        "boss": {
+          "n": "Ice Giant King",
+          "b": [
+            "Gladiator",
+            "Antumbral"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Smoky Fox Phantom",
+            "b": [
+              "Magical Resistance",
+              "Flame Spitters"
+            ],
+            "c": 1
+          },
+          {
+            "n": "Vespucci Dragon Ogre",
+            "b": [],
+            "c": 2
+          },
+          {
+            "n": "Jade Scarab",
+            "b": [
+              "Cursed by Light"
+            ],
+            "c": 3
+          },
+          {
+            "n": "Jadebound Phantom",
+            "b": [
+              "Weakened",
+              "Spore Carrier"
+            ],
+            "c": 2
+          }
+        ],
+        "objective": 3,
+        "killType": 0,
+        "killAmount": 0,
+        "killString": null,
+        "objectiveText": "Empty 5 Rooms",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          []
+        ],
+        "submittedBy": "564730e6-69d2-4a35-b818-64e57c3ee7b3",
+        "isVaultFloor": false
+      },
+      {
+        "id": 1039,
+        "depth": 117,
+        "biome": " Trovian Delve",
+        "zone": " Mega Dark - Gloom",
+        "boss": {
+          "n": "Magman",
+          "b": [
+            "Antumbral",
+            "Featherwhisperer"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Wild Fae Plant",
+            "b": [
+              "Ensnaring Grip"
+            ],
+            "c": 7
+          },
+          {
+            "n": "Permafrost Guardian",
+            "b": [
+              "Ensnaring Grip"
+            ],
+            "c": 7
+          },
+          {
+            "n": "Watchful Gourdian",
+            "b": [
+              "Split Personality"
+            ],
+            "c": 11
+          },
+          {
+            "n": "Emerald Iguana",
+            "b": [
+              "Fury"
+            ],
+            "c": 10
+          }
+        ],
+        "objective": 2,
+        "killType": 2,
+        "killAmount": 53,
+        "killString": null,
+        "objectiveText": "Kill 53 enemies",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 2
+          },
+          []
+        ],
+        "submittedBy": "564730e6-69d2-4a35-b818-64e57c3ee7b3",
+        "isVaultFloor": false
+      },
+      {
+        "id": 1040,
+        "depth": 118,
+        "biome": " Primordial Pit",
+        "zone": " Mega Dark - Gloom",
+        "boss": {
+          "n": "Quetzalcoatlus",
+          "b": [
+            "Antumbral"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Saurian Troglodyte",
+            "b": [
+              "Agile",
+              "Distance Shielding"
+            ],
+            "c": 7
+          },
+          {
+            "n": "Dimetrodon",
+            "b": [
+              "Split Personality"
+            ],
+            "c": 8
+          },
+          {
+            "n": "Anuran Troglodyte",
+            "b": [
+              "Antumbral",
+              "Flame Spitters"
+            ],
+            "c": 18
+          },
+          {
+            "n": "Giant Dragonfly",
+            "b": [
+              "Antumbral",
+              "Cursed by Light"
+            ],
+            "c": 20
+          }
+        ],
+        "objective": 2,
+        "killType": 2,
+        "killAmount": 80,
+        "killString": null,
+        "objectiveText": "Kill 80 enemies",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 2
+          },
+          []
+        ],
+        "submittedBy": "564730e6-69d2-4a35-b818-64e57c3ee7b3",
+        "isVaultFloor": true
+      },
+      {
+        "id": 1042,
+        "depth": 119,
+        "biome": " Flakbeard's Hideaway",
+        "zone": " Mega Dark - Gloom",
+        "boss": {
+          "n": "Blue Barry",
+          "b": [
+            "Gladiator",
+            "Antumbral"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Pirate Sailor",
+            "b": [
+              "Flame Spitters"
+            ],
+            "c": 5
+          },
+          {
+            "n": "Red Crab",
+            "b": [
+              "Tenebrous I"
+            ],
+            "c": 4
+          },
+          {
+            "n": "Undead Pirate Sailor",
+            "b": [
+              "Agile",
+              "Cursed by Light"
+            ],
+            "c": 5
+          },
+          {
+            "n": "Crustacean Corsair",
+            "b": [
+              "Agile",
+              "Magical Resistance"
+            ],
+            "c": 3
+          }
+        ],
+        "objective": 2,
+        "killType": 2,
+        "killAmount": 38,
+        "killString": null,
+        "objectiveText": "Kill 38 enemies",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          []
+        ],
+        "submittedBy": "564730e6-69d2-4a35-b818-64e57c3ee7b3",
+        "isVaultFloor": false
+      },
+      {
+        "id": 1043,
+        "depth": 120,
+        "biome": " Toxic Tunnels",
+        "zone": " Mega Dark - Gloom",
+        "boss": {
+          "n": "Squawk Red-Eye",
+          "b": [
+            "Antumbral",
+            "Flame Spitters"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Anuran Troglodyte",
+            "b": [
+              "Fragile",
+              "Unbridled Fury"
+            ],
+            "c": 5
+          },
+          {
+            "n": "Emerald Iguana",
+            "b": [
+              "Weakened",
+              "Flame Spitters"
+            ],
+            "c": 8
+          },
+          {
+            "n": "Jade Scarab",
+            "b": [
+              "Antumbral",
+              "Fury"
+            ],
+            "c": 13
+          },
+          {
+            "n": "Dark Mushroom Man",
+            "b": [
+              "Magical Resistance",
+              "Cursed by Light"
+            ],
+            "c": 7
+          }
+        ],
+        "objective": 4,
+        "killType": 0,
+        "killAmount": 0,
+        "killString": null,
+        "objectiveText": "Clear 4 Monoliths",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          []
+        ],
+        "submittedBy": "564730e6-69d2-4a35-b818-64e57c3ee7b3",
+        "isVaultFloor": false
+      },
+      {
+        "id": 1044,
+        "depth": 121,
+        "biome": " Neon Underground",
+        "zone": " Mega Dark - Gloom",
+        "boss": {
+          "n": "Weeping Prophet",
+          "b": [
+            "Antumbral",
+            "Featherwhisperer"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Biped Cannonbot",
+            "b": [
+              "Distance Shielding",
+              "Split Personality"
+            ],
+            "c": 10
+          },
+          {
+            "n": "Robospider",
+            "b": [
+              "Cursed by Light"
+            ],
+            "c": 13
+          },
+          {
+            "n": "Cyberdrone",
+            "b": [
+              "Weakened",
+              "Antumbral"
+            ],
+            "c": 23
+          },
+          {
+            "n": "Cyberian Android",
+            "b": [
+              "Gladiator",
+              "Antumbral"
+            ],
+            "c": 12
+          }
+        ],
+        "objective": 2,
+        "killType": 1,
+        "killAmount": 35,
+        "killString": "Cyberdrone",
+        "objectiveText": "Kill 35 Cyberdrone",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 1
+          },
+          []
+        ],
+        "submittedBy": "564730e6-69d2-4a35-b818-64e57c3ee7b3",
+        "isVaultFloor": true
+      },
+      {
+        "id": 1045,
+        "depth": 122,
+        "biome": " Trovian Delve",
+        "zone": " Mega Dark - Gloom",
+        "boss": {
+          "n": "Red Dragon",
+          "b": [
+            "Antumbral",
+            "Featherwhisperer"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Cave Beetle",
+            "b": [
+              "Fragile",
+              "Featherwhisperer"
+            ],
+            "c": 9
+          },
+          {
+            "n": "Red Dragon",
+            "b": [
+              "Fragile",
+              "Spore Carrier"
+            ],
+            "c": 9
+          },
+          {
+            "n": "Brown Wolf",
+            "b": [
+              "Fragile",
+              "Split Personality"
+            ],
+            "c": 9
+          },
+          {
+            "n": "Magman",
+            "b": [
+              "Fragile",
+              "Distance Shielding"
+            ],
+            "c": 9
+          }
+        ],
+        "objective": 3,
+        "killType": 0,
+        "killAmount": 0,
+        "killString": null,
+        "objectiveText": "Empty 5 Rooms",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          []
+        ],
+        "submittedBy": "564730e6-69d2-4a35-b818-64e57c3ee7b3",
+        "isVaultFloor": false
+      },
+      {
+        "id": 1047,
+        "depth": 123,
+        "biome": " The Understacks",
+        "zone": " Mega Dark - Gloom",
+        "boss": {
+          "n": "Shadowshroom King",
+          "b": [
+            "Featherwhisperer",
+            "Flame Spitters"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Vespucci Dragon Ogre",
+            "b": [
+              "Featherwhisperer",
+              "Flame Spitters"
+            ],
+            "c": 10
+          },
+          {
+            "n": "Pentapod Shadowcaster",
+            "b": [
+              "Tenebrous I"
+            ],
+            "c": 9
+          },
+          {
+            "n": "Stiltstitcher",
+            "b": [
+              "Split Personality",
+              "Cursed by Light"
+            ],
+            "c": 12
+          },
+          {
+            "n": "Ricci Dragon Ogre",
+            "b": [
+              "Physical Resistance",
+              "Fury"
+            ],
+            "c": 8
+          }
+        ],
+        "objective": 2,
+        "killType": 2,
+        "killAmount": 59,
+        "killString": null,
+        "objectiveText": "Kill 59 enemies",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 1
+          },
+          []
+        ],
+        "submittedBy": "564730e6-69d2-4a35-b818-64e57c3ee7b3",
+        "isVaultFloor": false
+      },
+      {
+        "id": 1048,
+        "depth": 124,
+        "biome": " Outrageous Trovian Delve",
+        "zone": " Mega Dark - Gloom",
+        "boss": {
+          "n": "Spike Walker",
+          "b": [
+            "Gladiator",
+            "Antumbral"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Pirate Sailor",
+            "b": [
+              "Gladiator",
+              "Flame Spitters"
+            ],
+            "c": 3
+          },
+          {
+            "n": "Blue Crab",
+            "b": [
+              "Agile",
+              "Cursed by Light"
+            ],
+            "c": 7
+          },
+          {
+            "n": "Anuran Troglodyte",
+            "b": [
+              "Magical Resistance",
+              "Featherwhisperer"
+            ],
+            "c": 5
+          },
+          {
+            "n": "Gingerbread Man",
+            "b": [
+              "Gladiator",
+              "Physical Resistance"
+            ],
+            "c": 2
+          }
+        ],
+        "objective": 4,
+        "killType": 0,
+        "killAmount": 0,
+        "killString": null,
+        "objectiveText": "Clear 4 Monoliths",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          []
+        ],
+        "submittedBy": "564730e6-69d2-4a35-b818-64e57c3ee7b3",
+        "isVaultFloor": true
+      },
+      {
+        "id": 1049,
+        "depth": 125,
+        "biome": " The Hive",
+        "zone": " Mega Dark - Gloom",
+        "boss": {
+          "n": "Mean Gene the Green",
+          "b": [
+            "Antumbral"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Magmito",
+            "b": [
+              "Flame Spitters"
+            ],
+            "c": 7
+          },
+          {
+            "n": "Hive Bee",
+            "b": [
+              "Fury",
+              "Spore Carrier"
+            ],
+            "c": 5
+          },
+          {
+            "n": "Firefly",
+            "b": [
+              "Antumbral",
+              "Featherwhisperer"
+            ],
+            "c": 13
+          },
+          {
+            "n": "Candy Cornet",
+            "b": [
+              "Antumbral"
+            ],
+            "c": 14
+          }
+        ],
+        "objective": 2,
+        "killType": 2,
+        "killAmount": 59,
+        "killString": null,
+        "objectiveText": "Kill 59 enemies",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 1
+          },
+          []
+        ],
+        "submittedBy": "564730e6-69d2-4a35-b818-64e57c3ee7b3",
+        "isVaultFloor": false
+      },
+      {
+        "id": 1050,
+        "depth": 126,
+        "biome": " Extreme Trovian Delve",
+        "zone": " Mega Dark - Gloom",
+        "boss": {
+          "n": "Blue Barry",
+          "b": [
+            "Agile",
+            "Antumbral"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Gingerbread Man",
+            "b": [
+              "Distance Shielding",
+              "Ensnaring Grip"
+            ],
+            "c": 1
+          },
+          {
+            "n": "Wild Fae Plant",
+            "b": [
+              "Weakened",
+              "Flame Spitters"
+            ],
+            "c": 4
+          },
+          {
+            "n": "Wild Fae Caster",
+            "b": [
+              "Weakened",
+              "Antumbral"
+            ],
+            "c": 10
+          },
+          {
+            "n": "Pirate Cannoneer",
+            "b": [
+              "Spore Carrier",
+              "Ensnaring Grip"
+            ],
+            "c": 1
+          }
+        ],
+        "objective": 3,
+        "killType": 0,
+        "killAmount": 0,
+        "killString": null,
+        "objectiveText": "Empty 5 Rooms",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 3
+          },
+          []
+        ],
+        "submittedBy": "564730e6-69d2-4a35-b818-64e57c3ee7b3",
+        "isVaultFloor": false
+      },
+      {
+        "id": 1051,
+        "depth": 127,
+        "biome": " Confectious Caverns",
+        "zone": " Mega Dark - Gloom",
+        "boss": {
+          "n": "Darknik Dreadnought Mk II",
+          "b": [
+            "Gladiator",
+            "Antumbral"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Muffin Tough",
+            "b": [
+              "Tenebrous I"
+            ],
+            "c": 3
+          },
+          {
+            "n": "Pound Cake",
+            "b": [
+              "Tenebrous I"
+            ],
+            "c": 3
+          },
+          {
+            "n": "Gingerbread Man",
+            "b": [
+              "Weakened"
+            ],
+            "c": 5
+          },
+          {
+            "n": "Red Popman",
+            "b": [
+              "Gladiator",
+              "Distance Shielding"
+            ],
+            "c": 1
+          }
+        ],
+        "objective": 2,
+        "killType": 2,
+        "killAmount": 27,
+        "killString": null,
+        "objectiveText": "Kill 27 enemies",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          []
+        ],
+        "submittedBy": "564730e6-69d2-4a35-b818-64e57c3ee7b3",
+        "isVaultFloor": true
+      },
+      {
+        "id": 1052,
+        "depth": 128,
+        "biome": " Cursed Caves",
+        "zone": " Mega Dark - Gloom",
+        "boss": {
+          "n": "Bone Blade",
+          "b": [
+            "Gladiator",
+            "Antumbral"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Cave Recluse",
+            "b": [
+              "Antumbral",
+              "Magical Resistance"
+            ],
+            "c": 24
+          },
+          {
+            "n": "Boneblade Wraith",
+            "b": [
+              "Agile",
+              "Ensnaring Grip"
+            ],
+            "c": 9
+          },
+          {
+            "n": "Dragon Whelp",
+            "b": [
+              "Tenebrous I",
+              "Spore Carrier"
+            ],
+            "c": 12
+          },
+          {
+            "n": "Wraiths",
+            "b": [
+              "Weakened",
+              "Cursed by Light"
+            ],
+            "c": 20
+          }
+        ],
+        "objective": 2,
+        "killType": 1,
+        "killAmount": 18,
+        "killString": "Dragon Whelp",
+        "objectiveText": "Kill 18 Dragon Whelp",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 0
+          },
+          []
+        ],
+        "submittedBy": "564730e6-69d2-4a35-b818-64e57c3ee7b3",
+        "isVaultFloor": false
+      },
+      {
+        "id": 1053,
+        "depth": 129,
+        "biome": " The Hive",
+        "zone": " Mega Dark - Dusk",
+        "boss": {
+          "n": "Balefire Dragon",
+          "b": [
+            "Antumbral"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Firefly",
+            "b": [
+              "Antumbral"
+            ],
+            "c": 24
+          },
+          {
+            "n": "Candy Cornet",
+            "b": [
+              "Magical Resistance"
+            ],
+            "c": 11
+          },
+          {
+            "n": "Hive Bee",
+            "b": [
+              "Physical Resistance"
+            ],
+            "c": 11
+          },
+          {
+            "n": "Magmito",
+            "b": [
+              "Cursed by Light"
+            ],
+            "c": 16
+          }
+        ],
+        "objective": 2,
+        "killType": 2,
+        "killAmount": 93,
+        "killString": null,
+        "objectiveText": "Kill 93 enemies",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 0
+          },
+          []
+        ],
+        "submittedBy": "564730e6-69d2-4a35-b818-64e57c3ee7b3",
+        "isVaultFloor": false
+      },
+      {
+        "id": 1054,
+        "depth": 130,
+        "biome": " Toxic Tunnels",
+        "zone": " Mega Dark - Dusk",
+        "boss": {
+          "n": "Weeping Prophet",
+          "b": [
+            "Antumbral",
+            "Flame Spitters"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Dark Mushroom Man",
+            "b": [
+              "Physical Resistance",
+              "Featherwhisperer"
+            ],
+            "c": 6
+          },
+          {
+            "n": "Emerald Iguana",
+            "b": [
+              "Tenebrous I"
+            ],
+            "c": 7
+          },
+          {
+            "n": "Jade Scarab",
+            "b": [
+              "Reactive Distance Shielding",
+              "Split Personality"
+            ],
+            "c": 7
+          },
+          {
+            "n": "Anuran Troglodyte",
+            "b": [
+              "Agile",
+              "Tenebrous I"
+            ],
+            "c": 6
+          }
+        ],
+        "objective": 4,
+        "killType": 0,
+        "killAmount": 0,
+        "killString": null,
+        "objectiveText": "Clear 4 Monoliths",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          []
+        ],
+        "submittedBy": "564730e6-69d2-4a35-b818-64e57c3ee7b3",
+        "isVaultFloor": true
+      },
+      {
+        "id": 1055,
+        "depth": 131,
+        "biome": " Subnautic Passage",
+        "zone": " Mega Dark - Dusk",
+        "boss": {
+          "n": "Squawk Red-Eye",
+          "b": [
+            "Antumbral",
+            "Featherwhisperer"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Blue Crab",
+            "b": [
+              "Fury",
+              "Cursed by Light"
+            ],
+            "c": 10
+          },
+          {
+            "n": "Red Crab",
+            "b": [
+              "Weakened",
+              "Spore Carrier"
+            ],
+            "c": 10
+          },
+          {
+            "n": "Crustacean Corsair",
+            "b": [
+              "Gladiator",
+              "Antumbral"
+            ],
+            "c": 12
+          },
+          {
+            "n": "Emerald Iguana",
+            "b": [
+              "Reactive Distance Shielding"
+            ],
+            "c": 9
+          }
+        ],
+        "objective": 3,
+        "killType": 0,
+        "killAmount": 0,
+        "killString": null,
+        "objectiveText": "Empty 5 Rooms",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 1
+          },
+          []
+        ],
+        "submittedBy": "564730e6-69d2-4a35-b818-64e57c3ee7b3",
+        "isVaultFloor": false
+      },
+      {
+        "id": 1056,
+        "depth": 132,
+        "biome": " Castle Catastra",
+        "zone": " Mega Dark - Dusk",
+        "boss": {
+          "n": "Balefire Dragon",
+          "b": [
+            "Antumbral"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Hairball Hopper",
+            "b": [
+              "Tenebrous I",
+              "Flame Spitters"
+            ],
+            "c": 11
+          },
+          {
+            "n": "Bonesnatcher",
+            "b": [
+              "Weakened",
+              "Physical Resistance"
+            ],
+            "c": 12
+          },
+          {
+            "n": "Catastrophic Crawler",
+            "b": [
+              "Fragile",
+              "Tenebrous I"
+            ],
+            "c": 13
+          },
+          {
+            "n": "Ragdoll Reaper",
+            "b": [
+              "Spore Carrier",
+              "Ensnaring Grip"
+            ],
+            "c": 8
+          }
+        ],
+        "objective": 4,
+        "killType": 0,
+        "killAmount": 0,
+        "killString": null,
+        "objectiveText": "Clear 4 Monoliths",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          []
+        ],
+        "submittedBy": "564730e6-69d2-4a35-b818-64e57c3ee7b3",
+        "isVaultFloor": false
+      },
+      {
+        "id": 1057,
+        "depth": 133,
+        "biome": " Toxic Tunnels",
+        "zone": " Mega Dark - Dusk",
+        "boss": {
+          "n": "Shadow Hydrakken",
+          "b": [
+            "Antumbral",
+            "Featherwhisperer"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Dark Mushroom Man",
+            "b": [],
+            "c": 17
+          },
+          {
+            "n": "Emerald Iguana",
+            "b": [
+              "Distance Shielding",
+              "Flame Spitters"
+            ],
+            "c": 16
+          },
+          {
+            "n": "Jade Scarab",
+            "b": [
+              "Antumbral",
+              "Featherwhisperer"
+            ],
+            "c": 28
+          },
+          {
+            "n": "Anuran Troglodyte",
+            "b": [
+              "Fragile",
+              "Reactive Distance Shielding"
+            ],
+            "c": 19
+          }
+        ],
+        "objective": 2,
+        "killType": 2,
+        "killAmount": 120,
+        "killString": null,
+        "objectiveText": "Kill 120 enemies",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          []
+        ],
+        "submittedBy": "564730e6-69d2-4a35-b818-64e57c3ee7b3",
+        "isVaultFloor": true
+      },
+      {
+        "id": 1058,
+        "depth": 134,
+        "biome": " Primordial Pit",
+        "zone": " Mega Dark - Dusk",
+        "boss": {
+          "n": "Quetzalcoatlus",
+          "b": [
+            "Antumbral",
+            "Reactive Distance Shielding"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Simian Troglodyte",
+            "b": [
+              "Reactive Distance Shielding"
+            ],
+            "c": 10
+          },
+          {
+            "n": "Archeosaurus",
+            "b": [
+              "Spore Carrier"
+            ],
+            "c": 10
+          },
+          {
+            "n": "Avian Troglodyte",
+            "b": [
+              "Featherwhisperer"
+            ],
+            "c": 10
+          },
+          {
+            "n": "Dimetrodon",
+            "b": [
+              "Fragile"
+            ],
+            "c": 13
+          }
+        ],
+        "objective": 2,
+        "killType": 2,
+        "killAmount": 97,
+        "killString": null,
+        "objectiveText": "Kill 97 enemies",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 3
+          },
+          []
+        ],
+        "submittedBy": "564730e6-69d2-4a35-b818-64e57c3ee7b3",
+        "isVaultFloor": false
+      },
+      {
+        "id": 1059,
+        "depth": 135,
+        "biome": " Extreme Trovian Delve",
+        "zone": " Mega Dark - Dusk",
+        "boss": {
+          "n": "Black Beak",
+          "b": [
+            "Antumbral"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Red Crab",
+            "b": [
+              "Spore Carrier",
+              "Cursed by Light"
+            ],
+            "c": 5
+          },
+          {
+            "n": "Gingerbread Man",
+            "b": [
+              "Weakened",
+              "Ensnaring Grip"
+            ],
+            "c": 2
+          },
+          {
+            "n": "Saurian Troglodyte",
+            "b": [
+              "Antumbral"
+            ],
+            "c": 10
+          },
+          {
+            "n": "Crustacean Corsair",
+            "b": [
+              "Physical Resistance",
+              "Flame Spitters"
+            ],
+            "c": 3
+          }
+        ],
+        "objective": 3,
+        "killType": 0,
+        "killAmount": 0,
+        "killString": null,
+        "objectiveText": "Empty 5 Rooms",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 2
+          },
+          []
+        ],
+        "submittedBy": "564730e6-69d2-4a35-b818-64e57c3ee7b3",
+        "isVaultFloor": false
+      },
+      {
+        "id": 1060,
+        "depth": 136,
+        "biome": " Neon Underground",
+        "zone": " Mega Dark - Dusk",
+        "boss": {
+          "n": "Spike Walker",
+          "b": [
+            "Gladiator",
+            "Antumbral"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Taseroid",
+            "b": [
+              "Weakened",
+              "Split Personality"
+            ],
+            "c": 3
+          },
+          {
+            "n": "Bladebot",
+            "b": [
+              "Fragile"
+            ],
+            "c": 4
+          },
+          {
+            "n": "Cyberian Android",
+            "b": [
+              "Fury",
+              "Featherwhisperer"
+            ],
+            "c": 1
+          },
+          {
+            "n": "Robospider",
+            "b": [
+              "Antumbral",
+              "Distance Shielding"
+            ],
+            "c": 7
+          }
+        ],
+        "objective": 3,
+        "killType": 0,
+        "killAmount": 0,
+        "killString": null,
+        "objectiveText": "Empty 5 Rooms",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          []
+        ],
+        "submittedBy": "564730e6-69d2-4a35-b818-64e57c3ee7b3",
+        "isVaultFloor": true
+      },
+      {
+        "id": 1061,
+        "depth": 137,
+        "biome": " Outrageous Trovian Delve",
+        "zone": " Mega Dark - Dusk",
+        "boss": {
+          "n": "Ice Giant King",
+          "b": [
+            "Antumbral"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Emerald Iguana",
+            "b": [
+              "Weakened"
+            ],
+            "c": 21
+          },
+          {
+            "n": "Gingerbread Man",
+            "b": [
+              "Weakened"
+            ],
+            "c": 21
+          },
+          {
+            "n": "Cave Beetle",
+            "b": [
+              "Antumbral",
+              "Ensnaring Grip"
+            ],
+            "c": 24
+          },
+          {
+            "n": "Crustacean Corsair",
+            "b": [
+              "Split Personality"
+            ],
+            "c": 19
+          }
+        ],
+        "objective": 2,
+        "killType": 0,
+        "killAmount": 18,
+        "killString": "Antumbral",
+        "objectiveText": "Kill 18 Antumbral",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 1
+          },
+          []
+        ],
+        "submittedBy": "564730e6-69d2-4a35-b818-64e57c3ee7b3",
+        "isVaultFloor": false
+      },
+      {
+        "id": 1062,
+        "depth": 138,
+        "biome": " Amperia",
+        "zone": " Mega Dark - Dusk",
+        "boss": {
+          "n": "Magman",
+          "b": [
+            "Antumbral"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Amperium Spiderbot",
+            "b": [
+              "Antumbral",
+              "Featherwhisperer"
+            ],
+            "c": 8
+          },
+          {
+            "n": "Amperium Mobile Artillery",
+            "b": [
+              "Physical Resistance"
+            ],
+            "c": 2
+          },
+          {
+            "n": "Amperium Infantry Drone",
+            "b": [
+              "Antumbral",
+              "Physical Immunity"
+            ],
+            "c": 3
+          },
+          {
+            "n": "Amperium Launcher",
+            "b": [
+              "Antumbral"
+            ],
+            "c": 9
+          }
+        ],
+        "objective": 4,
+        "killType": 0,
+        "killAmount": 0,
+        "killString": null,
+        "objectiveText": "Clear 4 Monoliths",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          []
+        ],
+        "submittedBy": "564730e6-69d2-4a35-b818-64e57c3ee7b3",
+        "isVaultFloor": false
+      },
+      {
+        "id": 1063,
+        "depth": 139,
+        "biome": " Trovian Delve",
+        "zone": " Mega Dark - Dusk",
+        "boss": {
+          "n": "Weeping Prophet",
+          "b": ["-"]
+        },
+        "enemies": [
+          {
+            "n": "Wild Fae Warrioress",
+            "b": [
+              "Fragile",
+              "Magical Immunity"
+            ],
+            "c": 2
+          },
+          {
+            "n": "Red Popman",
+            "b": [
+              "Agile",
+              "Cursed by Light"
+            ],
+            "c": 6
+          },
+          {
+            "n": "Pirate Sailor",
+            "b": [
+              "Weakened",
+              "Magical Resistance"
+            ],
+            "c": 5
+          },
+          {
+            "n": "Sharkman Raider",
+            "b": [
+              "Fragile",
+              "Physical Immunity"
+            ],
+            "c": 2
+          }
+        ],
+        "objective": 2,
+        "killType": 2,
+        "killAmount": 23,
+        "killString": null,
+        "objectiveText": "Kill 23 enemies",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          []
+        ],
+        "submittedBy": "564730e6-69d2-4a35-b818-64e57c3ee7b3",
+        "isVaultFloor": true
+      },
+      {
+        "id": 1008,
+        "depth": 150,
+        "biome": " The Understacks",
+        "zone": " Mega Dark - Shrouded",
+        "boss": {
+          "n": "Frozen Dracolich",
+          "b": [
+            "Antumbral",
+            "Reactive Distance Shielding"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Permafrost Guardian",
+            "b": [
+              "Physical Immunity",
+              "Unbridled Fury"
+            ],
+            "c": 2
+          },
+          {
+            "n": "Stiltstitcher",
+            "b": [
+              "Agile"
+            ],
+            "c": 10
+          },
+          {
+            "n": "Pentapod Shadowcaster",
+            "b": [
+              "Magical Immunity"
+            ],
+            "c": 5
+          },
+          {
+            "n": "Ricci Dragon Ogre",
+            "b": [
+              "Featherwhisperer",
+              "Ensnaring Grip"
+            ],
+            "c": 7
+          }
+        ],
+        "objective": 2,
+        "killType": 1,
+        "killAmount": 11,
+        "killString": "Ricci Dragon Ogre",
+        "objectiveText": "Kill 11 Ricci Dragon Ogre",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          []
+        ],
+        "submittedBy": "dd2ebad1-ce6b-4408-92f7-649b070f333f",
+        "isVaultFloor": false
+      },
+      {
+        "id": 1014,
+        "depth": 151,
+        "biome": " Outrageous Trovian Delve",
+        "zone": " Mega Dark - Shrouded",
+        "boss": {
+          "n": "Weeping Prophet",
+          "b": [
+            "Antumbral"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Simian Troglodyte",
+            "b": [
+              "Magical Resistance"
+            ],
+            "c": 1
+          },
+          {
+            "n": "Ricci Dragon Ogre",
+            "b": [
+              "Ensnaring Grip",
+              "Cursed by Light"
+            ],
+            "c": 1
+          },
+          {
+            "n": "Pound Cake",
+            "b": [
+              "Fury",
+              "Split Personality"
+            ],
+            "c": 1
+          },
+          {
+            "n": "Grey Wolf",
+            "b": [
+              "Fury",
+              "Reactive Distance Shielding"
+            ],
+            "c": 1
+          }
+        ],
+        "objective": 2,
+        "killType": 2,
+        "killAmount": 9,
+        "killString": null,
+        "objectiveText": "Kill 9 enemies",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          []
+        ],
+        "submittedBy": "dd2ebad1-ce6b-4408-92f7-649b070f333f",
+        "isVaultFloor": true
+      },
+      {
+        "id": 1016,
+        "depth": 152,
+        "biome": " Castle Catastra",
+        "zone": " Mega Dark - Midnight",
+        "boss": {
+          "n": "Lowly Caretaker",
+          "b": [
+            "Gladiator",
+            "Antumbral"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Bonesnatcher",
+            "b": [
+              "Reactive Distance Shielding",
+              "Ensnaring Grip"
+            ],
+            "c": 8
+          },
+          {
+            "n": "Ragdoll Reaper",
+            "b": [
+              "Weakened",
+              "Magical Resistance"
+            ],
+            "c": 12
+          },
+          {
+            "n": "Ragdoll Caster",
+            "b": [
+              "Split Personality",
+              "Ensnaring Grip"
+            ],
+            "c": 8
+          },
+          {
+            "n": "Hairball Hopper",
+            "b": [
+              "Physical Resistance",
+              "Flame Spitters"
+            ],
+            "c": 11
+          }
+        ],
+        "objective": 4,
+        "killType": 0,
+        "killAmount": 0,
+        "killString": null,
+        "objectiveText": "Clear 4 Monoliths",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          []
+        ],
+        "submittedBy": "dd2ebad1-ce6b-4408-92f7-649b070f333f",
+        "isVaultFloor": false
+      },
+      {
+        "id": 1018,
+        "depth": 153,
+        "biome": " Neon Underground",
+        "zone": " Mega Dark - Midnight",
+        "boss": {
+          "n": "Ice Giant King",
+          "b": [
+            "Antumbral"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Cyberdrone",
+            "b": [
+              "Weakened"
+            ],
+            "c": 17
+          },
+          {
+            "n": "Bladebot",
+            "b": [
+              "Weakened"
+            ],
+            "c": 17
+          },
+          {
+            "n": "Robospider",
+            "b": [
+              "Weakened",
+              "Split Personality"
+            ],
+            "c": 15
+          },
+          {
+            "n": "Flying Cannonbot",
+            "b": [
+              "Magical Resistance"
+            ],
+            "c": 13
+          }
+        ],
+        "objective": 3,
+        "killType": 0,
+        "killAmount": 0,
+        "killString": null,
+        "objectiveText": "Empty 5 Rooms",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          []
+        ],
+        "submittedBy": "dd2ebad1-ce6b-4408-92f7-649b070f333f",
+        "isVaultFloor": false
+      },
+      {
+        "id": 1019,
+        "depth": 154,
+        "biome": " Forbidden Depths",
+        "zone": " Mega Dark - Midnight",
+        "boss": {
+          "n": "Daughter of the Moon",
+          "b": [
+            "Antumbral"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Jadebound Phantom",
+            "b": [
+              "Physical Resistance",
+              "Fury"
+            ],
+            "c": 9
+          },
+          {
+            "n": "Terracotta Warrior",
+            "b": [
+              "Fury"
+            ],
+            "c": 11
+          },
+          {
+            "n": "Jade Scarab",
+            "b": [
+              "Tenebrous I",
+              "Unbridled Fury"
+            ],
+            "c": 6
+          },
+          {
+            "n": "Vespucci Dragon Ogre",
+            "b": [
+              "Antumbral"
+            ],
+            "c": 23
+          }
+        ],
+        "objective": 4,
+        "killType": 0,
+        "killAmount": 0,
+        "killString": null,
+        "objectiveText": "Clear 4 Monoliths",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 2
+          },
+          []
+        ],
+        "submittedBy": "dd2ebad1-ce6b-4408-92f7-649b070f333f",
+        "isVaultFloor": true
+      },
+      {
+        "id": 1020,
+        "depth": 155,
+        "biome": " Subnautic Passage",
+        "zone": " Mega Dark - Midnight",
+        "boss": {
+          "n": "Black Beak",
+          "b": [
+            "Antumbral",
+            "Featherwhisperer"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Emerald Iguana",
+            "b": [
+              "Weakened",
+              "Featherwhisperer"
+            ],
+            "c": 7
+          },
+          {
+            "n": "Red Crab",
+            "b": [
+              "Distance Shielding",
+              "Spore Carrier"
+            ],
+            "c": 6
+          },
+          {
+            "n": "Blue Crab",
+            "b": [
+              "Weakened",
+              "Reactive Distance Shielding"
+            ],
+            "c": 7
+          },
+          {
+            "n": "Anuran Troglodyte",
+            "b": [
+              "Fragile",
+              "Magical Resistance"
+            ],
+            "c": 7
+          }
+        ],
+        "objective": 2,
+        "killType": 2,
+        "killAmount": 41,
+        "killString": null,
+        "objectiveText": "Kill 41 enemies",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 2
+          },
+          []
+        ],
+        "submittedBy": "dd2ebad1-ce6b-4408-92f7-649b070f333f",
+        "isVaultFloor": false
+      },
+      {
+        "id": 1021,
+        "depth": 156,
+        "biome": " Primordial Pit",
+        "zone": " Mega Dark - Midnight",
+        "boss": {
+          "n": "Blue Barry",
+          "b": [
+            "Gladiator",
+            "Antumbral"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Dimetrodon",
+            "b": [
+              "Fragile",
+              "Spore Carrier"
+            ],
+            "c": 6
+          },
+          {
+            "n": "Saurian Troglodyte",
+            "b": [
+              "Agile",
+              "Featherwhisperer"
+            ],
+            "c": 4
+          },
+          {
+            "n": "Archeosaurus",
+            "b": [
+              "Agile",
+              "Flame Spitters"
+            ],
+            "c": 4
+          },
+          {
+            "n": "Avian Troglodyte",
+            "b": [
+              "Agile",
+              "Antumbral"
+            ],
+            "c": 10
+          }
+        ],
+        "objective": 2,
+        "killType": 2,
+        "killAmount": 36,
+        "killString": null,
+        "objectiveText": "Kill 36 enemies",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 0
+          },
+          []
+        ],
+        "submittedBy": "dd2ebad1-ce6b-4408-92f7-649b070f333f",
+        "isVaultFloor": false
+      },
+      {
+        "id": 1022,
+        "depth": 157,
+        "biome": " Outrageous Trovian Delve",
+        "zone": " Mega Dark - Midnight",
+        "boss": {
+          "n": "Timmense, the Powerful Pontoon",
+          "b": [
+            "Antumbral"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Undead Pirate Cannoneer",
+            "b": [
+              "Antumbral",
+              "Featherwhisperer"
+            ],
+            "c": 25
+          },
+          {
+            "n": "Cave Yeti",
+            "b": [
+              "Antumbral",
+              "Reactive Distance Shielding"
+            ],
+            "c": 25
+          },
+          {
+            "n": "Avian Troglodyte",
+            "b": [
+              "Weakened",
+              "Magical Resistance"
+            ],
+            "c": 13
+          },
+          {
+            "n": "Pentapod Shadowcaster",
+            "b": [
+              "Antumbral",
+              "Spore Carrier"
+            ],
+            "c": 25
+          }
+        ],
+        "objective": 2,
+        "killType": 2,
+        "killAmount": 66,
+        "killString": null,
+        "objectiveText": "Kill 66 enemies",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 2
+          },
+          []
+        ],
+        "submittedBy": "dd2ebad1-ce6b-4408-92f7-649b070f333f",
+        "isVaultFloor": true
+      },
+      {
+        "id": 1023,
+        "depth": 158,
+        "biome": " Castle Catastra",
+        "zone": " Mega Dark - Midnight",
+        "boss": {
+          "n": "Balefire Dragon",
+          "b": [
+            "Antumbral"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Ragdoll Reaper",
+            "b": [
+              "Distance Shielding"
+            ],
+            "c": 1
+          },
+          {
+            "n": "Hairball Hopper",
+            "b": [
+              "Reactive Distance Shielding"
+            ],
+            "c": 1
+          },
+          {
+            "n": "Bonesnatcher",
+            "b": [
+              "Spore Carrier"
+            ],
+            "c": 1
+          },
+          {
+            "n": "Creepy Crawler",
+            "b": [
+              "Split Personality"
+            ],
+            "c": 1
+          }
+        ],
+        "objective": 3,
+        "killType": 0,
+        "killAmount": 0,
+        "killString": null,
+        "objectiveText": "Empty 5 Rooms",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 2
+          },
+          []
+        ],
+        "submittedBy": "dd2ebad1-ce6b-4408-92f7-649b070f333f",
+        "isVaultFloor": false
+      },
+      {
+        "id": 1024,
+        "depth": 159,
+        "biome": " Trovian Delve",
+        "zone": " Mega Dark - Midnight",
+        "boss": {
+          "n": "Squawk Red-Eye",
+          "b": [
+            "Antumbral",
+            "Flame Spitters"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Pirate Sailor",
+            "b": [
+              "Unbridled Fury",
+              "Ensnaring Grip"
+            ],
+            "c": 5
+          },
+          {
+            "n": "Brown Wolf",
+            "b": [
+              "Fragile",
+              "Cursed by Light"
+            ],
+            "c": 18
+          },
+          {
+            "n": "Anuran Troglodyte",
+            "b": [
+              "Physical Resistance"
+            ],
+            "c": 12
+          },
+          {
+            "n": "Red Popman",
+            "b": [
+              "Reactive Distance Shielding",
+              "Split Personality"
+            ],
+            "c": 12
+          }
+        ],
+        "objective": 2,
+        "killType": 0,
+        "killAmount": 14,
+        "killString": "Fragile",
+        "objectiveText": "Kill 14 Fragile",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          []
+        ],
+        "submittedBy": "dd2ebad1-ce6b-4408-92f7-649b070f333f",
+        "isVaultFloor": false
+      },
+      {
+        "id": 1025,
+        "depth": 160,
+        "biome": " Cursed Caves",
+        "zone": " Mega Dark - Midnight",
+        "boss": {
+          "n": "Bone Blade",
+          "b": [
+            "Antumbral"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Wraiths",
+            "b": [
+              "Physical Resistance"
+            ],
+            "c": 6
+          },
+          {
+            "n": "Cave Recluse",
+            "b": [
+              "Agile",
+              "Antumbral"
+            ],
+            "c": 13
+          },
+          {
+            "n": "Dragon Whelp",
+            "b": [
+              "Antumbral",
+              "Featherwhisperer"
+            ],
+            "c": 13
+          },
+          {
+            "n": "Boneblade Wraith",
+            "b": [
+              "Split Personality",
+              "Spore Carrier"
+            ],
+            "c": 6
+          }
+        ],
+        "objective": 2,
+        "killType": 2,
+        "killAmount": 57,
+        "killString": null,
+        "objectiveText": "Kill 57 enemies",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          []
+        ],
+        "submittedBy": "dd2ebad1-ce6b-4408-92f7-649b070f333f",
+        "isVaultFloor": true
+      },
+      {
+        "id": 1026,
+        "depth": 161,
+        "biome": " Neon Underground",
+        "zone": " Mega Dark - Midnight",
+        "boss": {
+          "n": "Ice Giant King",
+          "b": [
+            "Antumbral",
+            "Reactive Distance Shielding"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Bladebot",
+            "b": [
+              "Fury",
+              "Split Personality"
+            ],
+            "c": 2
+          },
+          {
+            "n": "Decompiler",
+            "b": [
+              "Fury",
+              "Distance Shielding"
+            ],
+            "c": 2
+          },
+          {
+            "n": "Taseroid",
+            "b": [
+              "Antumbral",
+              "Magical Resistance"
+            ],
+            "c": 7
+          },
+          {
+            "n": "Robospider",
+            "b": [
+              "Weakened",
+              "Ensnaring Grip"
+            ],
+            "c": 1
+          }
+        ],
+        "objective": 4,
+        "killType": 0,
+        "killAmount": 0,
+        "killString": null,
+        "objectiveText": "Clear 4 Monoliths",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 1
+          },
+          []
+        ],
+        "submittedBy": "dd2ebad1-ce6b-4408-92f7-649b070f333f",
+        "isVaultFloor": false
+      },
+      {
+        "id": 1027,
+        "depth": 162,
+        "biome": " Castle Catastra",
+        "zone": " Mega Dark - Everdark",
+        "boss": {
+          "n": "Lowly Caretaker",
+          "b": [
+            "Agile",
+            "Antumbral"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Ragdoll Reaper",
+            "b": [
+              "Physical Resistance",
+              "Flame Spitters"
+            ],
+            "c": 11
+          },
+          {
+            "n": "Hairball Hopper",
+            "b": [
+              "Fragile",
+              "Magical Resistance"
+            ],
+            "c": 13
+          },
+          {
+            "n": "Catastrophic Crawler",
+            "b": [
+              "Reactive Distance Shielding",
+              "Ensnaring Grip"
+            ],
+            "c": 8
+          },
+          {
+            "n": "Soulthief",
+            "b": [
+              "Spore Carrier",
+              "Ensnaring Grip"
+            ],
+            "c": 8
+          }
+        ],
+        "objective": 4,
+        "killType": 0,
+        "killAmount": 0,
+        "killString": null,
+        "objectiveText": "Clear 4 Monoliths",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          []
+        ],
+        "submittedBy": "dd2ebad1-ce6b-4408-92f7-649b070f333f",
+        "isVaultFloor": false
+      },
+      {
+        "id": 1028,
+        "depth": 163,
+        "biome": " The Hive",
+        "zone": " Mega Dark - Everdark",
+        "boss": {
+          "n": "Weeping Prophet",
+          "b": [
+            "Antumbral",
+            "Reactive Distance Shielding"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Candy Cornet",
+            "b": [
+              "Agile",
+              "Antumbral"
+            ],
+            "c": 18
+          },
+          {
+            "n": "Hive Bee",
+            "b": [
+              "Tenebrous I"
+            ],
+            "c": 9
+          },
+          {
+            "n": "Firefly",
+            "b": [
+              "Tenebrous I"
+            ],
+            "c": 9
+          },
+          {
+            "n": "Magmito",
+            "b": [
+              "Magical Resistance",
+              "Cursed by Light"
+            ],
+            "c": 11
+          }
+        ],
+        "objective": 3,
+        "killType": 0,
+        "killAmount": 0,
+        "killString": null,
+        "objectiveText": "Empty 5 Rooms",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          []
+        ],
+        "submittedBy": "dd2ebad1-ce6b-4408-92f7-649b070f333f",
+        "isVaultFloor": true
+      },
+      {
+        "id": 1029,
+        "depth": 164,
+        "biome": " Outrageous Trovian Delve",
+        "zone": " Mega Dark - Everdark",
+        "boss": {
+          "n": "Squawk Red-Eye",
+          "b": [
+            "Antumbral"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Blue Crab",
+            "b": [
+              "Fury",
+              "Cursed by Light"
+            ],
+            "c": 16
+          },
+          {
+            "n": "Red Popman",
+            "b": [
+              "Fragile",
+              "Antumbral"
+            ],
+            "c": 31
+          },
+          {
+            "n": "Jade Scarab",
+            "b": [
+              "Weakened",
+              "Physical Immunity"
+            ],
+            "c": 8
+          },
+          {
+            "n": "Dimetrodon",
+            "b": [
+              "Weakened",
+              "Magical Immunity"
+            ],
+            "c": 8
+          }
+        ],
+        "objective": 2,
+        "killType": 1,
+        "killAmount": 12,
+        "killString": "Jade Scarab",
+        "objectiveText": "Kill 12 Jade Scarab",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 0
+          },
+          []
+        ],
+        "submittedBy": "dd2ebad1-ce6b-4408-92f7-649b070f333f",
+        "isVaultFloor": false
+      },
+      {
+        "id": 1007,
+        "depth": 184,
+        "biome": " Castle Catastra",
+        "zone": " Mega Dark - Nightmare",
+        "boss": {
+          "n": "Furrious Fiona",
+          "b": [
+            "Antumbral",
+            "Featherwhisperer"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Soulthief",
+            "b": [],
+            "c": 10
+          },
+          {
+            "n": "Ragdoll Caster",
+            "b": [
+              "Featherwhisperer",
+              "Cursed by Light"
+            ],
+            "c": 11
+          },
+          {
+            "n": "Ragdoll Reaper",
+            "b": [
+              "Agile",
+              "Fragile"
+            ],
+            "c": 10
+          },
+          {
+            "n": "Catastrophic Crawler",
+            "b": [],
+            "c": 10
+          }
+        ],
+        "objective": 2,
+        "killType": 2,
+        "killAmount": 92,
+        "killString": null,
+        "objectiveText": "Kill 92 enemies",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 1
+          },
+          []
+        ],
+        "submittedBy": "d0b54d69-5be4-4b7c-a12f-64b8396e0f96",
+        "isVaultFloor": true
+      },
+      {
+        "id": 1009,
+        "depth": 186,
+        "biome": " The Hive",
+        "zone": " Mega Dark - Nightmare",
+        "boss": {
+          "n": "Triceratops",
+          "b": [
+            "Antumbral"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Dimetrodon",
+            "b": [
+              "Fragile",
+              "Spore Carrier"
+            ],
+            "c": 18
+          },
+          {
+            "n": "Anuran Troglodyte",
+            "b": [
+              "Fragile",
+              "Distance Shielding"
+            ],
+            "c": 19
+          },
+          {
+            "n": "Saurian Troglodyte",
+            "b": [
+              "Antumbral",
+              "Flame Spitters"
+            ],
+            "c": 30
+          },
+          {
+            "n": "Avian Troglodyte",
+            "b": [
+              "Cursed by Light"
+            ],
+            "c": 19
+          }
+        ],
+        "objective": 2,
+        "killType": 0,
+        "killAmount": 9,
+        "killString": "Flame Spitters",
+        "objectiveText": "Kill 9 Flame Spitters",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 2
+          },
+          []
+        ],
+        "submittedBy": "51e77499-e40d-4d0b-8afd-64f3452477ab",
+        "isVaultFloor": false
+      },
+      {
+        "id": 1012,
+        "depth": 187,
+        "biome": " Outrageous Trovian Delve",
+        "zone": " Mega Dark - Nightmare",
+        "boss": {
+          "n": "Furrious Fiona",
+          "b": [
+            "Antumbral",
+            "Featherwhisperer"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Soulthief",
+            "b": [],
+            "c": 10
+          },
+          {
+            "n": "Ragdoll Caster",
+            "b": [
+              "Featherwhisperer",
+              "Cursed by Light"
+            ],
+            "c": 11
+          },
+          {
+            "n": "Ragdoll Reaper",
+            "b": [
+              "Agile",
+              "Fragile"
+            ],
+            "c": 10
+          },
+          {
+            "n": "Catastrophic Crawler",
+            "b": [],
+            "c": 10
+          }
+        ],
+        "objective": 4,
+        "killType": 0,
+        "killAmount": 0,
+        "killString": null,
+        "objectiveText": "Clear 4 Monoliths",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 1
+          },
+          []
+        ],
+        "submittedBy": "51e77499-e40d-4d0b-8afd-64f3452477ab",
+        "isVaultFloor": true
+      },
+      {
+        "id": 1017,
+        "depth": 188,
+        "biome": " Castle Catastra",
+        "zone": " Mega Dark - Nightmare",
+        "boss": {
+          "n": "Balefire Dragon",
+          "b": [
+            "Antumbral",
+            "Flame Spitters"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Soulthief",
+            "b": [
+              "Split Personality"
+            ],
+            "c": 1
+          },
+          {
+            "n": "Ragdoll Caster",
+            "b": [
+              "Distance Shielding"
+            ],
+            "c": 1
+          },
+          {
+            "n": "Creepy Crawler",
+            "b": [
+              "Spore Carrier"
+            ],
+            "c": 1
+          },
+          {
+            "n": "Ragdoll Reaper",
+            "b": [
+              "Fragile",
+              "Antumbral"
+            ],
+            "c": 7
+          }
+        ],
+        "objective": 3,
+        "killType": 0,
+        "killAmount": 0,
+        "killString": null,
+        "objectiveText": "Empty 5 Rooms",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 2
+          },
+          []
+        ],
+        "submittedBy": "51e77499-e40d-4d0b-8afd-64f3452477ab",
+        "isVaultFloor": false
+      },
+      {
+        "id": 1006,
+        "depth": 189,
+        "biome": " Volcanic Vaults",
+        "zone": " Mega Dark - Nightmare",
+        "boss": {
+          "n": "Mean Gene the Green",
+          "b": [
+            "Antumbral",
+            "Reactive Distance Shielding"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Magmito",
+            "b": [
+              "Reactive Distance Shielding",
+              "Spore Carrier"
+            ],
+            "c": 5
+          },
+          {
+            "n": "Lava Crab",
+            "b": [
+              "Magical Immunity",
+              "Split Personality"
+            ],
+            "c": 1
+          },
+          {
+            "n": "Red Dragon",
+            "b": [
+              "Weakened",
+              "Tenebrous I"
+            ],
+            "c": 5
+          },
+          {
+            "n": "Magman",
+            "b": [
+              "Weakened",
+              "Tenebrous I"
+            ],
+            "c": 5
+          }
+        ],
+        "objective": 2,
+        "killType": 2,
+        "killAmount": 24,
+        "killString": null,
+        "objectiveText": "Kill 24 enemies",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          []
+        ],
+        "submittedBy": "7860fe13-dae2-43d0-8d8d-649b071091c4",
+        "isVaultFloor": false
+      },
+      {
+        "id": 1010,
+        "depth": 190,
+        "biome": " Extreme Trovian Delve",
+        "zone": " Mega Dark - Nightmare",
+        "boss": {
+          "n": "Shadow Hydrakken",
+          "b": [
+            "Antumbral",
+            "Reactive Distance Shielding"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Avian Troglodyte",
+            "b": [
+              "Fury",
+              "Distance Shielding"
+            ],
+            "c": 1
+          },
+          {
+            "n": "Simian Troglodyte",
+            "b": [
+              "Fury",
+              "Spore Carrier"
+            ],
+            "c": 1
+          },
+          {
+            "n": "Lava Crab",
+            "b": [
+              "Ensnaring Grip",
+              "Cursed by Light"
+            ],
+            "c": 1
+          },
+          {
+            "n": "Stiltstitcher",
+            "b": [
+              "Antumbral",
+              "Ensnaring Grip"
+            ],
+            "c": 4
+          }
+        ],
+        "objective": 4,
+        "killType": 0,
+        "killAmount": 0,
+        "killString": null,
+        "objectiveText": "Clear 4 Monoliths",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          []
+        ],
+        "submittedBy": "7860fe13-dae2-43d0-8d8d-649b071091c4",
+        "isVaultFloor": true
+      },
+      {
+        "id": 1011,
+        "depth": 191,
+        "biome": " The Hive",
+        "zone": " Mega Dark - Nightmare",
+        "boss": {
+          "n": "Black Beak",
+          "b": [
+            "Antumbral"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Hive Bee",
+            "b": [
+              "Cursed by Light",
+              "Flame Spitters"
+            ],
+            "c": 6
+          },
+          {
+            "n": "Firefly",
+            "b": [
+              "Antumbral",
+              "Ensnaring Grip"
+            ],
+            "c": 7
+          },
+          {
+            "n": "Candy Cornet",
+            "b": [
+              "Magical Resistance",
+              "Split Personality"
+            ],
+            "c": 3
+          },
+          {
+            "n": "Magmito",
+            "b": [],
+            "c": 5
+          }
+        ],
+        "objective": 2,
+        "killType": 2,
+        "killAmount": 32,
+        "killString": null,
+        "objectiveText": "Kill 32 enemies",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          []
+        ],
+        "submittedBy": "7860fe13-dae2-43d0-8d8d-649b071091c4",
+        "isVaultFloor": false
+      },
+      {
+        "id": 1013,
+        "depth": 192,
+        "biome": " Outrageous Trovian Delve",
+        "zone": " Mega Dark - Nightmare",
+        "boss": {
+          "n": "Squawk Red-Eye",
+          "b": [
+            "Antumbral",
+            "Reactive Distance Shielding"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Muffin Tough",
+            "b": [
+              "Fragile",
+              "Physical Resistance"
+            ],
+            "c": 1
+          },
+          {
+            "n": "Cave Beetle",
+            "b": [
+              "Fragile",
+              "Tenebrous I"
+            ],
+            "c": 1
+          },
+          {
+            "n": "Magman",
+            "b": [
+              "Fragile",
+              "Tenebrous I"
+            ],
+            "c": 1
+          },
+          {
+            "n": "Avian Troglodyte",
+            "b": [
+              "Weakened",
+              "Distance Shielding"
+            ],
+            "c": 1
+          }
+        ],
+        "objective": 2,
+        "killType": 2,
+        "killAmount": 9,
+        "killString": null,
+        "objectiveText": "Kill 9 enemies",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          []
+        ],
+        "submittedBy": "7860fe13-dae2-43d0-8d8d-649b071091c4",
+        "isVaultFloor": false
+      },
+      {
+        "id": 1015,
+        "depth": 193,
+        "biome": " Confectious Caverns",
+        "zone": " Mega Dark - Void",
+        "boss": {
+          "n": "Vengeful Pinata God",
+          "b": [
+            "Antumbral"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Gingerbread Man",
+            "b": [
+              "Weakened",
+              "Antumbral"
+            ],
+            "c": 25
+          },
+          {
+            "n": "Red Popman",
+            "b": [
+              "Reactive Distance Shielding"
+            ],
+            "c": 12
+          },
+          {
+            "n": "Candy Cornet",
+            "b": [
+              "Physical Resistance",
+              "Fury"
+            ],
+            "c": 9
+          },
+          {
+            "n": "Muffin Tough",
+            "b": [
+              "Antumbral",
+              "Ensnaring Grip"
+            ],
+            "c": 16
+          }
+        ],
+        "objective": 3,
+        "killType": 0,
+        "killAmount": 0,
+        "killString": null,
+        "objectiveText": "Empty 5 Rooms",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          []
+        ],
+        "submittedBy": "7860fe13-dae2-43d0-8d8d-649b071091c4",
+        "isVaultFloor": true
+      },
+      {
+        "id": 1032,
+        "depth": 194,
+        "biome": " Outrageous Trovian Delve",
+        "zone": " Mega Dark - Void",
+        "boss": {
+          "n": "Vengeful Pinata God",
+          "b": [
+            "Antumbral"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Gingerbread Man",
+            "b": [
+              "Weakened",
+              "Antumbral"
+            ],
+            "c": 25
+          },
+          {
+            "n": "Red Popman",
+            "b": [
+              "Reactive Distance Shielding"
+            ],
+            "c": 12
+          },
+          {
+            "n": "Candy Cornet",
+            "b": [
+              "Physical Resistance",
+              "Fury"
+            ],
+            "c": 9
+          },
+          {
+            "n": "Muffin Tough",
+            "b": [
+              "Antumbral",
+              "Ensnaring Grip"
+            ],
+            "c": 16
+          }
+        ],
+        "objective": 4,
+        "killType": 0,
+        "killAmount": 0,
+        "killString": null,
+        "objectiveText": "Clear 4 Monoliths",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          []
+        ],
+        "submittedBy": "51e77499-e40d-4d0b-8afd-64f3452477ab",
+        "isVaultFloor": false
+      },
+      {
+        "id": 1037,
+        "depth": 195,
+        "biome": " Subnautic Passage",
+        "zone": " Mega Dark - Nightmare",
+        "boss": {
+          "n": "Mean Gene the Green",
+          "b": [
+            "Antumbral"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Anuran Troglodyte",
+            "b": [
+              "Agile",
+              "Physical Immunity"
+            ],
+            "c": 7
+          },
+          {
+            "n": "Emerald Iguana",
+            "b": [
+              "Spore Carrier",
+              "Flame Spitters"
+            ],
+            "c": 15
+          },
+          {
+            "n": "Crustacean Corsair",
+            "b": [
+              "Fragile"
+            ],
+            "c": 19
+          },
+          {
+            "n": "Blue Crab",
+            "b": [
+              "Magical Resistance",
+              "Ensnaring Grip"
+            ],
+            "c": 9
+          }
+        ],
+        "objective": 2,
+        "killType": 0,
+        "killAmount": 11,
+        "killString": "Flame Spitters",
+        "objectiveText": "Kill 11 Flame Spitters",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          []
+        ],
+        "submittedBy": "51e77499-e40d-4d0b-8afd-64f3452477ab",
+        "isVaultFloor": false
+      },
+      {
+        "id": 1041,
+        "depth": 196,
+        "biome": " The Understacks",
+        "zone": " Mega Dark - Void",
+        "boss": {
+          "n": "Vengeful Pinata God",
+          "b": [
+            "Antumbral",
+            "Featherwhisperer"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Permafrost Guardian",
+            "b": [
+              "Antumbral",
+              "Fury"
+            ],
+            "c": 22
+          },
+          {
+            "n": "Scribe's Familiar",
+            "b": [
+              "Antumbral",
+              "Distance Shielding"
+            ],
+            "c": 23
+          },
+          {
+            "n": "Sharkman Shaman",
+            "b": [
+              "Tenebrous II",
+              "Cursed by Light"
+            ],
+            "c": 10
+          },
+          {
+            "n": "Stiltstitcher",
+            "b": [
+              "Fury",
+              "Reactive Distance Shielding"
+            ],
+            "c": 11
+          }
+        ],
+        "objective": 4,
+        "killType": 0,
+        "killAmount": 0,
+        "killString": null,
+        "objectiveText": "Clear 4 Monoliths",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          []
+        ],
+        "submittedBy": "51e77499-e40d-4d0b-8afd-64f3452477ab",
+        "isVaultFloor": true
+      },
+      {
+        "id": 1046,
+        "depth": 197,
+        "biome": " Outrageous Trovian Delve",
+        "zone": " Mega Dark - Void",
+        "boss": {
+          "n": "Bone Blade",
+          "b": [
+            "Gladiator",
+            "Antumbral"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Smoky Fox Phantom",
+            "b": [
+              "Gladiator",
+              "Physical Resistance"
+            ],
+            "c": 6
+          },
+          {
+            "n": "Permafrost Guardian",
+            "b": [
+              "Gladiator",
+              "Tenebrous I"
+            ],
+            "c": 6
+          },
+          {
+            "n": "Cave Yeti",
+            "b": [
+              "Gladiator",
+              "Magical Resistance"
+            ],
+            "c": 6
+          },
+          {
+            "n": "Megaton Marigold",
+            "b": [
+              "Physical Immunity",
+              "Cursed by Light"
+            ],
+            "c": 9
+          }
+        ],
+        "objective": 3,
+        "killType": 0,
+        "killAmount": 0,
+        "killString": null,
+        "objectiveText": "Empty 5 Rooms",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 3
+          },
+          []
+        ],
+        "submittedBy": "51e77499-e40d-4d0b-8afd-64f3452477ab",
+        "isVaultFloor": false
+      },
+      {
+        "id": 1064,
+        "depth": 198,
+        "biome": " Cursed Caves",
+        "zone": " Mega Dark - Void",
+        "boss": {
+          "n": "Wight King",
+          "b": [
+            "Antumbral",
+            "Reactive Distance Shielding"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Watchful Gourdian",
+            "b": [
+              "Tenebrous II"
+            ],
+            "c": 9
+          },
+          {
+            "n": "Dragon Whelp",
+            "b": [
+              "Fury"
+            ],
+            "c": 12
+          },
+          {
+            "n": "Boneblade Wraith",
+            "b": [
+              "Magical Immunity",
+              "Spore Carrier"
+            ],
+            "c": 6
+          },
+          {
+            "n": "Wraiths",
+            "b": [
+              "Magical Resistance",
+              "Flame Spitters"
+            ],
+            "c": 12
+          }
+        ],
+        "objective": 4,
+        "killType": 0,
+        "killAmount": 0,
+        "killString": null,
+        "objectiveText": "Clear 4 Monoliths",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 1
+          },
+          []
+        ],
+        "submittedBy": "51e77499-e40d-4d0b-8afd-64f3452477ab",
+        "isVaultFloor": false
+      },
+      {
+        "id": 1065,
+        "depth": 199,
+        "biome": " Volcanic Vaults",
+        "zone": " Mega Dark - Void",
+        "boss": {
+          "n": "Vengeful Pinata God",
+          "b": [
+            "Agile",
+            "Antumbral"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Red Dragon",
+            "b": [
+              "Agile",
+              "Magical Resistance"
+            ],
+            "c": 9
+          },
+          {
+            "n": "Lava Crab",
+            "b": [
+              "Magical Immunity",
+              "Ensnaring Grip"
+            ],
+            "c": 3
+          },
+          {
+            "n": "Magman",
+            "b": [
+              "Agile",
+              "Physical Resistance"
+            ],
+            "c": 9
+          },
+          {
+            "n": "Lava Beetle",
+            "b": [
+              "Antumbral",
+              "Distance Shielding"
+            ],
+            "c": 23
+          }
+        ],
+        "objective": 4,
+        "killType": 0,
+        "killAmount": 0,
+        "killString": null,
+        "objectiveText": "Clear 4 Monoliths",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          []
+        ],
+        "submittedBy": "51e77499-e40d-4d0b-8afd-64f3452477ab",
+        "isVaultFloor": true
+      },
+      {
+        "id": 1066,
+        "depth": 200,
+        "biome": " Cursed Caves",
+        "zone": " Mega Dark - Void",
+        "boss": {
+          "n": "Wight King",
+          "b": [
+            "Agile",
+            "Antumbral"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Cave Recluse",
+            "b": [
+              "Cursed by Light"
+            ],
+            "c": 17
+          },
+          {
+            "n": "Cave Bat",
+            "b": [
+              "Antumbral",
+              "Distance Shielding"
+            ],
+            "c": 24
+          },
+          {
+            "n": "Dragon Whelp",
+            "b": [
+              "Featherwhisperer",
+              "Flame Spitters"
+            ],
+            "c": 13
+          },
+          {
+            "n": "Wraiths",
+            "b": [
+              "Weakened",
+              "Physical Immunity"
+            ],
+            "c": 8
+          }
+        ],
+        "objective": 3,
+        "killType": 0,
+        "killAmount": 0,
+        "killString": null,
+        "objectiveText": "Empty 5 Rooms",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 2
+          },
+          []
+        ],
+        "submittedBy": "51e77499-e40d-4d0b-8afd-64f3452477ab",
+        "isVaultFloor": false
+      },
+      {
+        "id": 1067,
+        "depth": 201,
+        "biome": " Trovian Delve",
+        "zone": " Mega Dark - Void",
+        "boss": {
+          "n": "Ice Giant King",
+          "b": [
+            "Antumbral",
+            "Featherwhisperer"
+          ]
+        },
+        "enemies": [
+          {
+            "n": "Incendiary Iris",
+            "b": [
+              "Physical Resistance",
+              "Featherwhisperer"
+            ],
+            "c": 12
+          },
+          {
+            "n": "Jadebound Phantom",
+            "b": [
+              "Tenebrous I"
+            ],
+            "c": 11
+          },
+          {
+            "n": "Muffin Tough",
+            "b": [
+              "Magical Resistance"
+            ],
+            "c": 11
+          },
+          {
+            "n": "Ricci Dragon Ogre",
+            "b": [
+              "Gladiator"
+            ],
+            "c": 8
+          }
+        ],
+        "objective": 3,
+        "killType": 0,
+        "killAmount": 0,
+        "killString": null,
+        "objectiveText": "Empty 5 Rooms",
+        "roomDetails": [
+          {
+            "e": 0
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 0
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 1
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 2
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          {
+            "e": 3
+          },
+          []
+        ],
+        "submittedBy": "51e77499-e40d-4d0b-8afd-64f3452477ab",
+        "isVaultFloor": false
+      }
+    ]
+  }
+}

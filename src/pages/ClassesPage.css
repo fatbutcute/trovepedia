@@ -1,0 +1,218 @@
+.classes-wrapper {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 120px 20px 80px 20px;
+    overflow: hidden;
+}
+
+.icon-box-equipment {
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    min-height: 20px;
+    background-image: url('/icons/angle-small-right.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    flex-shrink: 0;
+    display: inline-block;
+    flex: none;
+    margin-top: 3px;
+}
+
+.classes-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.classes-header h1 {
+    font-family: 'sfprodisplay', sans-serif;
+    font-size: 4.5rem;
+    background: linear-gradient(to right, #ffd700, #ff8c00);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.3));
+}
+
+.classes-header p {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1.4rem;
+    color: #d8ddf5;
+    opacity: 0.8;
+}
+
+.classes-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 35px;
+    justify-items: center;
+}
+
+.class-card {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    aspect-ratio: 1 / 1;
+    border-radius: 20px;
+    background: #0a0a0f;
+    border: 1px solid rgba(255, 215, 0, 0.1);
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    animation: slideUpRight 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.class-card-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.3;
+    transition: transform 0.8s cubic-bezier(0.15, 0.85, 0.35, 1), opacity 0.5s ease;
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+.class-card:hover .class-card-bg {
+    transform: scale(1.18);
+    opacity: 0.45;
+}
+
+.class-content {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.class-img {
+    width: 95%;
+    height: 95%;
+    object-fit: contain;
+    transition: transform 0.6s cubic-bezier(0.15, 0.85, 0.35, 1);
+}
+
+.class-card:hover .class-img {
+    transform: translateY(-10px) scale(1.05);
+}
+
+.class-name-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40%;
+    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 25px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.4s ease;
+}
+
+.class-card:hover .class-name-overlay {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.class-name-overlay span {
+    font-family: 'Blinker', sans-serif;
+    color: #ffd700;
+    font-size: 2.2rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    text-shadow: #ffd700 0px 0px 10px;
+}
+/* --- MODAL --- */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+}
+
+.modal-overlay.is-open { animation: fadeIn 0.3s ease-out forwards; }
+.modal-overlay.is-closing { animation: fadeOut 0.3s ease-in forwards !important; }
+
+.modal-box {
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    width: 100%;
+    max-width: 1300px;
+    min-height: 800px;
+    border-radius: 24px;
+    position: relative;
+    display: flex;
+    overflow: hidden;
+    border: 1px solid rgba(37, 37, 37, 0.18);
+    opacity: 0;
+    transform: scale(0.9);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.08), 0 0 30px rgba(255, 255, 255, 0.1);
+}
+
+.modal-box.is-open { animation: scaleIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+.modal-box.is-closing { animation: scaleOut 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards !important; }
+
+.modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.modal-close img { width: 30px; filter: invert(1); }
+
+.modal-body { display: flex; width: 1200px !important; padding: 40px; gap: 40px;}
+.modal-left { flex: 1; display: flex; align-items: center; justify-content: center; width: 200px;}
+.modal-char-img { max-width: 100%; height: auto; animation: slideInFromLeft 0.6s ease-out 0.2s both; }
+.modal-right { flex: 1.5; display: flex; flex-direction: column;}
+.modal-title { font-family: 'Ubuntu', sans-serif; font-size: 3rem; color: #ffd700; margin-bottom: 20px; text-transform: uppercase; font-weight: 300;}
+.modal-tabs { display: flex; gap: 15px; margin-bottom: 30px; }
+.tab-btn { background: rgba(20, 20, 20, 0.8); border: 1px solid rgba(255, 255, 255, 0.1); color: #fff; padding: 10px 20px; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; font-family: Blinker; font-size: 1.3rem;}
+.tab-btn.active { border-color: #ffd700; box-shadow: 0 0 15px rgba(255, 215, 0, 0.4); color: #ffd700; }
+.generic-tab-text {width: 650px;}
+
+/* --- CONTENT ANIMATIONS --- */
+.tab-content-area h3 { opacity: 0; animation: titleSlideIn 0.5s ease-out forwards; font-family: Blinker; font-size: 1.8rem; color: #fff2aa; margin-bottom: 15px; font-weight: 400; margin-left: 5px;}
+.tab-content-area p { display: flex; align-items: flex-start; gap: 12px; opacity: 0; filter: blur(5px); animation: aiReveal 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards; animation-delay: 0.15s; font-family: 'Quicksand', sans-serif; font-size: 1rem; line-height: 1.5; color: #d8ddf5; margin-bottom: 10px; font-size: 1.1rem;
+}
+.tab-content-area p span:last-child { 
+    flex: 1; 
+}
+.equipment-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; width: 650px; overflow: hidden;}
+.equip-box { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); padding: 15px; border-radius: 15px; opacity: 0; animation: titleSlideIn 0.4s ease-out forwards; padding: 20px;}
+.equip-box:nth-child(1) { animation-delay: 0.05s; }
+.equip-box:nth-child(2) { animation-delay: 0.10s; }
+.equip-box:nth-child(3) { animation-delay: 0.15s; }
+.equip-box:nth-child(4) { animation-delay: 0.20s; }
+.equip-box:nth-child(5) { animation-delay: 0.25s; }
+.equip-box:nth-child(6) { animation-delay: 0.30s; }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
+@keyframes scaleIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+@keyframes scaleOut { from { opacity: 1; transform: scale(1); } to { opacity: 0; transform: scale(0.9); } }
+@keyframes slideInFromLeft { from { opacity: 0; transform: translateX(-50px) scale(0.8); } to { opacity: 1; transform: translateX(0) scale(1); } }
+@keyframes titleSlideIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes aiReveal { 0% { opacity: 0; filter: blur(8px); } 100% { opacity: 1; filter: blur(0); } }
+@keyframes slideUpRight { from { opacity: 0; transform: translate(-60px, 60px); filter: blur(10px); } to { opacity: 1; transform: translate(0, 0); filter: blur(0); } }
