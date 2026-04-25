@@ -50,7 +50,6 @@ return (
 
     {/* CONTENT */}
     <div className="hero" style={{ position: "relative", zIndex: 2 }}>
-
       <h1>
         <span className="Trovepedia">Trovepedia</span>
       </h1>

@@ -70,9 +70,11 @@ nav {
 }
 .nav-logo .diamond {
   display: inline-block;
-  width: 18px; height: 18px;
-  background: linear-gradient(135deg, var(--gold), var(--cyan));
-  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  width: 40px; height: 40px;
+  background-image: url('/icons/holographic2.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
   flex-shrink: 0;
 }
 
@@ -169,6 +171,7 @@ nav {
   line-height: 1.1;
   opacity: 0;
   animation: slideUp 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) forwards 0.35s;
+  margin-top: -200px;
 }
 
 .hero h1 em {
