@@ -138,7 +138,7 @@ nav {
 }
 
 .hero {
-  position: relative;
+position: relative;
   z-index: 1;
   min-height: 100vh;
   display: flex;
@@ -147,11 +147,7 @@ nav {
   justify-content: center;
   text-align: center;
   padding: 120px 24px 80px;
-  background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('/images/background.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  overflow: hidden;
+  overflow: hidden; /* Ez nagyon fontos, ez vágja le a kilógó mozgó hátteret! */
 }
 
 .hero-eyebrow {

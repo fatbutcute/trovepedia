@@ -85,7 +85,7 @@
   font-family: 'Blinker', sans-serif;
   font-size: clamp(1.1rem, 2.5vw, 1.2rem);
   font-weight: 400;
-  color: rgb(131, 131, 131);
+  color: #b1b1b1;
   letter-spacing: 0.03em;
   line-height: 1.4em;
   opacity: 0;
