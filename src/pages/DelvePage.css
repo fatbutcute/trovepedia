@@ -688,9 +688,9 @@
 }
 
 .m-enemy-info { flex: 1; }
-.m-enemy-name { font-size: 18px; font-weight: 500; color: #C8D5E8; line-height: 1.2; margin-bottom: 5px; font-family: 'NunitoSans', sans-serif; }
+.m-enemy-name { font-size: 18px; font-weight: 500; color: #C8D5E8; line-height: 1.2; font-family: 'NunitoSans', sans-serif; }
 .m-enemy-count-wrap { display: flex; align-items: center; gap: 6px; justify-content: center;}
-.m-enemy-count { font-family: 'Exo', monospace; font-size: 20px; font-weight: 500; color: #64B4FF; align-items: center; justify-content: center; margin-top: -5px;}
+.m-enemy-count { font-family: 'Exo', monospace; font-size: 20px; font-weight: 500; color: #64B4FF; align-items: center; justify-content: center; margin-top: -4px;}
 .m-enemy-count-label { font-size: 12px; color: #97a0af; letter-spacing: 1px; }
 
 /* Room map */
@@ -738,7 +738,7 @@
 .m-room.boss-room .m-room-id { color: #DC3232; font-size: 15px; font-family: 'Exo', sans-serif; }
 
 .m-map-legend { display: flex; gap: 16px; margin-top: 12px; justify-content: flex-end; }
-.m-legend-item { display: flex; align-items: center; gap: 10px; font-size: 17px; color: #4A5568; letter-spacing: 1px; font-family: 'Dosis', sans-serif; align-items: center; }
+.m-legend-item { display: flex; align-items: center; gap: 10px; font-size: 17px; color: #4A5568; letter-spacing: 1px; font-family: 'Dosis', sans-serif; align-items: center; margin-top: -1px;}
 .m-legend-dot { width: 8px; height: 8px; border-radius: 1px; }
 .m-legend-dot.s { background: rgba(245,166,35,0.4); border: 1px solid #F5A623; }
 .m-legend-dot.b { background: rgba(220,50,50,0.4); border: 1px solid #DC3232; }
