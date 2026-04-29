@@ -1,53 +1,60 @@
 import React, { useState, useEffect } from 'react';
+// ⚠️ FONTOS: Állítsd be a pontos útvonalat a saját json fájlodhoz!
+import delveFallback from '../data/delve.json'; 
 import './DelvePage.css';
 
 const DelvePage = () => {
     const [delves, setDelves] = useState([]);
     const [weekNumber, setWeekNumber] = useState("N/A");
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedDelve, setSelectedDelve] = useState(null);
 
-    // MULTI-PROXY FETCH RENDSZER A GARANTÁLT BETÖLTÉSÉRT
+    // HIBRID FETCH RENDSZER BIZTONSÁGI HÁLÓVAL
     useEffect(() => {
         const fetchDelveData = async () => {
             const targetUrl = "https://www.pyrodisc.one/api/trove/delve/current.php";
-            
-            // Ha az egyik proxy hibát dob, automatikusan próbálja a másikat!
             const proxies = [
                 `https://api.codetabs.com/v1/proxy?quest=${targetUrl}`,
                 `https://api.allorigins.win/raw?url=${encodeURIComponent(targetUrl)}`
             ];
 
             setLoading(true);
-            setError(null);
-            
             let success = false;
+
+            // 1. LÉPÉS: Megpróbáljuk letölteni a legfrissebb élő adatokat
             for (const proxy of proxies) {
                 try {
                     const response = await fetch(proxy, { headers: { "Accept": "application/json" } });
-                    if (!response.ok) throw new Error("Hibás válasz a szervertől");
+                    if (!response.ok) throw new Error("Proxy hiba");
                     
                     const data = await response.json();
-                    setDelves(data?.data?.depths || data?.depths || []);
-                    setWeekNumber(data?.data?.weekNumber || data?.weekNumber || "N/A");
-                    success = true;
-                    break; // Ha sikerült, kilépünk a ciklusból
+                    
+                    // Ellenőrizzük, hogy valós JSON adat jött-e vissza
+                    if (data && (data.data?.depths || data.depths)) {
+                        setDelves(data.data?.depths || data.depths);
+                        setWeekNumber(data.data?.weekNumber || data.weekNumber || "N/A");
+                        success = true;
+                        break; // Sikerült az élő lekérés, kilépünk!
+                    }
                 } catch (err) {
-                    console.warn("Proxy próbálkozás sikertelen, váltás a következőre...");
+                    console.warn("Proxy próbálkozás sikertelen, ugrás a következőre...");
                 }
             }
 
+            // 2. LÉPÉS: BIZTONSÁGI HÁLÓ - Ha minden proxy blokkolva van, betöltjük a helyi JSON-t!
             if (!success) {
-                setError("Jelenleg nem érhetőek el az adatok. Kérlek, frissíts rá az oldalra később!");
+                console.log("Élő adatok blokkolva. Helyi (offline) JSON betöltése!");
+                setDelves(delveFallback?.data?.depths || delveFallback?.depths || []);
+                setWeekNumber(delveFallback?.data?.weekNumber || delveFallback?.weekNumber || "N/A");
             }
+
             setLoading(false);
         };
         fetchDelveData();
     }, []);
 
-    // Szűrési logika
+    // Szűrési logika (Golyóálló)
     const filteredDelves = (delves || []).filter(item => {
         if (!item) return false;
         const lowerSearch = searchTerm.toLowerCase();
@@ -103,9 +110,7 @@ const DelvePage = () => {
 
             <main className="delve-container">
                 {loading ? (
-                    <div className="no-data-notice"><p style={{ color: "var(--gold)" }}>Connecting to Pyrodisc Database...</p></div>
-                ) : error ? (
-                    <div className="no-data-notice"><p style={{ color: "#ff4f6a" }}>{error}</p></div>
+                    <div className="no-data-notice"><p style={{ color: "var(--gold)" }}>Connecting to Database...</p></div>
                 ) : (
                     <div className="delve-grid">
                         {filteredDelves.map((item, index) => (
@@ -116,7 +121,6 @@ const DelvePage = () => {
                                 onClick={(e) => {
                                     e.preventDefault();
                                     e.stopPropagation();
-                                    // A setTimeout védi ki a "Fantom Kattintást" (10ms várakozás)
                                     setTimeout(() => setSelectedDelve(item), 10);
                                 }}
                             >
@@ -148,11 +152,10 @@ const DelvePage = () => {
                 )}
             </main>
 
-            {/* ATOMBIZTOS FELUGRÓ ABLAK (KÉP ALAPJÁN) */}
+            {/* FELUGRÓ ABLAK (MODAL) */}
             {selectedDelve && (
                 <div 
                     className="dm-overlay" 
-                    // onMouseDown használata véglegesen kilövi az esemény-továbbterjedési hibákat
                     onMouseDown={(e) => {
                         if (e.target === e.currentTarget) setSelectedDelve(null);
                     }}
@@ -182,12 +185,12 @@ const DelvePage = () => {
 
                         <h3 className="dm-section-title">Enemies</h3>
                         <div className="dm-enemies-grid">
-                            {selectedDelve.enemies?.map((en, i) => (
+                            {(selectedDelve.enemies || []).map((en, i) => (
                                 <div key={i} className="dm-enemy-card">
                                     <div className="dm-enemy-name">{en.n}</div>
                                     <div className="dm-enemy-count">Count: {en.c}</div>
                                     <div className="dm-tags">
-                                        {en.b?.map((buff, j) => <span key={j} className="dm-tag-gray">{buff}</span>)}
+                                        {(en.b || []).map((buff, j) => <span key={j} className="dm-tag-gray">{buff}</span>)}
                                     </div>
                                 </div>
                             ))}
@@ -201,8 +204,11 @@ const DelvePage = () => {
                             
                             {(selectedDelve.roomDetails || []).map((room, i) => {
                                 if (room.e === undefined) return null;
-                                const enemyName = selectedDelve.enemies[room.e]?.n || "Unknown";
-                                const shortName = enemyName.substring(0, 8); // Csak 8 betű, mint a képen
+                                
+                                // JAVÍTÁS: Extrém védelem, ha hiányozna az ellenség adata!
+                                const enemyList = selectedDelve.enemies || [];
+                                const enemyName = enemyList[room.e]?.n || "Unknown";
+                                const shortName = enemyName.substring(0, 8); 
                                 
                                 return (
                                     <div key={i} className="dm-room">
