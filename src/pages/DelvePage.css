@@ -615,8 +615,8 @@
 
 .m-boss-card {
   background: linear-gradient(135deg, rgba(200,30,30,0.12), rgba(120,10,10,0.06));
-  border: 1px solid rgba(220,50,50,0.25);
-  border-radius: 4px;
+  border: 0px solid rgba(220,50,50,0.25);
+  border-radius: 8px;
   padding: 18px 20px;
   position: relative;
   overflow: hidden;
@@ -678,9 +678,9 @@
 
 .m-enemy {
   background: rgba(255,255,255,0.025);
-  border: 1px solid rgba(255,255,255,0.05);
+  border: 0px solid rgba(255,255,255,0.05);
   border-left: 2px solid rgba(100,180,255,0.3);
-  border-radius: 3px;
+  border-radius: 10px;
   padding: 12px 14px;
   display: flex;
   justify-content: space-between;
