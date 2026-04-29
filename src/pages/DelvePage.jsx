@@ -9,41 +9,45 @@ const DelvePage = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedDelve, setSelectedDelve] = useState(null);
 
-    // ADATOK LEKÉRÉSE AUTÓMATIKUS ÚJRAPRÓBÁLKOZÁSSAL (Auto-Retry)
+    // MULTI-PROXY FETCH RENDSZER A GARANTÁLT BETÖLTÉSÉRT
     useEffect(() => {
         const fetchDelveData = async () => {
             const targetUrl = "https://www.pyrodisc.one/api/trove/delve/current.php";
-            const proxyUrl = `https://api.codetabs.com/v1/proxy?quest=${targetUrl}`;
-            let retries = 3; // 3-szor próbálja meg letölteni, ha megszakadna a kapcsolat
+            
+            // Ha az egyik proxy hibát dob, automatikusan próbálja a másikat!
+            const proxies = [
+                `https://api.codetabs.com/v1/proxy?quest=${targetUrl}`,
+                `https://api.allorigins.win/raw?url=${encodeURIComponent(targetUrl)}`
+            ];
 
-            for (let i = 0; i < retries; i++) {
+            setLoading(true);
+            setError(null);
+            
+            let success = false;
+            for (const proxy of proxies) {
                 try {
-                    setLoading(true);
-                    const response = await fetch(proxyUrl, { headers: { "Accept": "application/json" } });
-                    
-                    if (!response.ok) throw new Error(`Status: ${response.status}`);
+                    const response = await fetch(proxy, { headers: { "Accept": "application/json" } });
+                    if (!response.ok) throw new Error("Hibás válasz a szervertől");
                     
                     const data = await response.json();
                     setDelves(data?.data?.depths || data?.depths || []);
                     setWeekNumber(data?.data?.weekNumber || data?.weekNumber || "N/A");
-                    setError(null);
-                    break; // Ha sikerült, kilépünk a próbálkozási ciklusból
+                    success = true;
+                    break; // Ha sikerült, kilépünk a ciklusból
                 } catch (err) {
-                    console.warn(`Lekérés sikertelen (${i + 1}/${retries}). Újrapróbálkozás...`);
-                    if (i === retries - 1) {
-                        setError("Szerver hiba. Kérlek frissíts rá az oldalra később.");
-                    }
-                    // Vár 1 másodpercet a következő próbálkozás előtt
-                    await new Promise(resolve => setTimeout(resolve, 1000));
-                } finally {
-                    if (i === retries - 1 || !error) setLoading(false);
+                    console.warn("Proxy próbálkozás sikertelen, váltás a következőre...");
                 }
             }
+
+            if (!success) {
+                setError("Jelenleg nem érhetőek el az adatok. Kérlek, frissíts rá az oldalra később!");
+            }
+            setLoading(false);
         };
         fetchDelveData();
-    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    }, []);
 
-    // Szűrés
+    // Szűrési logika
     const filteredDelves = (delves || []).filter(item => {
         if (!item) return false;
         const lowerSearch = searchTerm.toLowerCase();
@@ -99,7 +103,7 @@ const DelvePage = () => {
 
             <main className="delve-container">
                 {loading ? (
-                    <div className="no-data-notice"><p style={{ color: "var(--gold)" }}>Connecting to Pyrodisc DB...</p></div>
+                    <div className="no-data-notice"><p style={{ color: "var(--gold)" }}>Connecting to Pyrodisc Database...</p></div>
                 ) : error ? (
                     <div className="no-data-notice"><p style={{ color: "#ff4f6a" }}>{error}</p></div>
                 ) : (
@@ -108,8 +112,13 @@ const DelvePage = () => {
                             <div 
                                 key={item.id || index} 
                                 className={`ui-card slide-up-animation ${item.isVaultFloor ? 'vault-card' : ''}`}
-                                style={{animationDelay: `${index * 0.01}s`}}
-                                onClick={() => setSelectedDelve(item)}
+                                style={{animationDelay: `${index * 0.01}s`, cursor: 'pointer'}}
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                    // A setTimeout védi ki a "Fantom Kattintást" (10ms várakozás)
+                                    setTimeout(() => setSelectedDelve(item), 10);
+                                }}
                             >
                                 <div className="header">
                                     <div className="depth-badge">Depth {item.depth}</div>
@@ -139,73 +148,72 @@ const DelvePage = () => {
                 )}
             </main>
 
-            {/* ATOMBIZTOS FELUGRÓ ABLAK (MODAL) */}
+            {/* ATOMBIZTOS FELUGRÓ ABLAK (KÉP ALAPJÁN) */}
             {selectedDelve && (
-                <div className="delve-modal-overlay" onClick={() => setSelectedDelve(null)}>
-                    <div className="delve-modal-content" onClick={(e) => e.stopPropagation()}>
+                <div 
+                    className="dm-overlay" 
+                    // onMouseDown használata véglegesen kilövi az esemény-továbbterjedési hibákat
+                    onMouseDown={(e) => {
+                        if (e.target === e.currentTarget) setSelectedDelve(null);
+                    }}
+                >
+                    <div className="dm-content">
+                        <button className="dm-close" onClick={() => setSelectedDelve(null)}>✕</button>
                         
-                        <button className="delve-modal-close" onClick={() => setSelectedDelve(null)}>✕</button>
-                        
-                        <div className="delve-modal-header">
-                            <h2>Depth {selectedDelve.depth}</h2>
-                            <p>{selectedDelve.biome} • {selectedDelve.zone}</p>
-                            {selectedDelve.isVaultFloor && <span className="delve-modal-vault">Vault Floor</span>}
+                        <div className="dm-header">
+                            <div className="dm-title-row">
+                                <h2>Depth {selectedDelve.depth}</h2>
+                                {selectedDelve.isVaultFloor && <span className="dm-vault-pill">👑 Vault Floor</span>}
+                            </div>
+                            <p className="dm-subtitle">{selectedDelve.biome} • {selectedDelve.zone}</p>
                         </div>
 
-                        <div className="delve-modal-section">
-                            <h3>Boss Information</h3>
-                            <div className="delve-modal-box boss-box">
-                                <span className="highlight">{selectedDelve.boss?.n}</span>
-                                <div className="delve-modal-tags">
-                                    {selectedDelve.boss?.b?.map((b, i) => <span key={i} className="tag tag-red">{b}</span>)}
-                                </div>
+                        <div className="dm-box dm-boss-box">
+                            <div className="dm-box-title">👑 Boss: {selectedDelve.boss?.n}</div>
+                            <div className="dm-tags">
+                                {selectedDelve.boss?.b?.map((b, i) => <span key={i} className="dm-tag-red">{b}</span>)}
                             </div>
                         </div>
 
-                        <div className="delve-modal-section">
-                            <h3>Objective</h3>
-                            <div className="delve-modal-box obj-box">
-                                <span className="highlight">{selectedDelve.objectiveText}</span>
-                            </div>
+                        <div className="dm-box dm-obj-box">
+                            <div className="dm-box-title">🎯 Objective</div>
+                            <div className="dm-obj-text">{selectedDelve.objectiveText}</div>
                         </div>
 
-                        <div className="delve-modal-section">
-                            <h3>Enemies</h3>
-                            <div className="delve-modal-enemies">
-                                {selectedDelve.enemies?.map((en, i) => (
-                                    <div key={i} className="delve-modal-enemy-card">
-                                        <div className="enemy-head">
-                                            <span className="enemy-name">{en.n}</span>
-                                            <span className="enemy-count">x{en.c}</span>
-                                        </div>
-                                        <div className="delve-modal-tags">
-                                            {en.b?.map((buff, j) => <span key={j} className="tag tag-gray">{buff}</span>)}
-                                        </div>
+                        <h3 className="dm-section-title">Enemies</h3>
+                        <div className="dm-enemies-grid">
+                            {selectedDelve.enemies?.map((en, i) => (
+                                <div key={i} className="dm-enemy-card">
+                                    <div className="dm-enemy-name">{en.n}</div>
+                                    <div className="dm-enemy-count">Count: {en.c}</div>
+                                    <div className="dm-tags">
+                                        {en.b?.map((buff, j) => <span key={j} className="dm-tag-gray">{buff}</span>)}
                                     </div>
-                                ))}
-                            </div>
+                                </div>
+                            ))}
                         </div>
 
-                        <div className="delve-modal-section">
-                            <h3>Room Layout</h3>
-                            <div className="delve-modal-layout">
-                                <div className="room-box room-spawn">Spawn</div>
-                                {(selectedDelve.roomDetails || []).map((room, i) => {
-                                    if (room.e === undefined) return null;
-                                    const enemyName = selectedDelve.enemies[room.e]?.n || "Unknown";
-                                    // Levágjuk a nevet, hogy beférjen a dobozba
-                                    const shortName = enemyName.split(' ')[0]; 
-                                    return (
-                                        <div key={i} className="room-box">
-                                            <span className="r-id">R{i+1}</span>
-                                            <span className="r-name">{shortName}</span>
-                                        </div>
-                                    );
-                                })}
-                                <div className="room-box room-boss">Boss</div>
-                            </div>
-                        </div>
+                        <h3 className="dm-section-title">
+                            Room Layout ({(selectedDelve.roomDetails || []).filter(r => r.e !== undefined).length + 2} Rooms)
+                        </h3>
+                        <div className="dm-layout-grid">
+                            <div className="dm-room dm-room-spawn">Spawn</div>
+                            
+                            {(selectedDelve.roomDetails || []).map((room, i) => {
+                                if (room.e === undefined) return null;
+                                const enemyName = selectedDelve.enemies[room.e]?.n || "Unknown";
+                                const shortName = enemyName.substring(0, 8); // Csak 8 betű, mint a képen
+                                
+                                return (
+                                    <div key={i} className="dm-room">
+                                        <span className="dm-r-id">R{i+1}</span>
+                                        <span className="dm-r-name">{shortName}</span>
+                                    </div>
+                                );
+                            })}
 
+                            <div className="dm-room dm-room-boss">Boss</div>
+                        </div>
                     </div>
                 </div>
             )}
