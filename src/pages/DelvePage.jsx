@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import './DelvePage.css';
 
 const DelvePage = () => {
-    // 1. Állapotok (State)
     const [delves, setDelves] = useState([]);
     const [weekNumber, setWeekNumber] = useState("N/A");
     const [loading, setLoading] = useState(true);
@@ -10,7 +9,6 @@ const DelvePage = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedDelve, setSelectedDelve] = useState(null);
 
-    // 2. Adatok lekérése a MŰKÖDŐ CodeTabs proxy-val!
     useEffect(() => {
         const fetchDelveData = async () => {
             try {
@@ -35,7 +33,6 @@ const DelvePage = () => {
         fetchDelveData();
     }, []);
 
-    // 3. Szűrési logika
     const filteredDelves = (delves || []).filter(item => {
         if (!item) return false;
         const lowerSearch = searchTerm.toLowerCase();
@@ -49,7 +46,6 @@ const DelvePage = () => {
 
     return (
         <div className="delve-page-wrapper">
-            {/* FEJLÉC */}
             <header className="delve-header">
                 <div className="delve-title-row">
                     <h1 className="delve-title">Delve Index</h1>
@@ -77,7 +73,6 @@ const DelvePage = () => {
                 </div>
             </header>
 
-            {/* KÁRTYÁK GRIDJE */}
             <main className="delve-container">
                 {loading ? (
                     <div className="no-data-notice"><p style={{ color: "var(--gold)" }}>Fetching live data from Pyrodisc...</p></div>
@@ -90,10 +85,12 @@ const DelvePage = () => {
                         {filteredDelves.map((item, index) => (
                             <div 
                                 key={item.id || index} 
-                                // Ha Vault, kap egy glow effektet a CSS-ből
                                 className={`ui-card slide-up-animation ${item.isVaultFloor ? 'vault-card' : ''}`}
-                                style={{animationDelay: `${index * 0.01}s`}}
-                                onClick={() => setSelectedDelve(item)} // Kattintásra kinyílik a Modal
+                                style={{animationDelay: `${index * 0.01}s`, cursor: 'pointer'}}
+                                onClick={() => {
+                                    console.log("Kártya megnyitva:", item); // Ellenőrzés a konzolban
+                                    setSelectedDelve(item);
+                                }}
                             >
                                 <div className="header">
                                     <div className="depth-badge">Depth {item.depth}</div>
@@ -107,7 +104,6 @@ const DelvePage = () => {
                                     ))}
                                 </div>
 
-                                {/* VISSZAÁLLÍTOTT RÉSZLETES KÁRTYA TARTALOM */}
                                 <div className="info-grid">
                                     <div className="row objective">
                                         <div className="icon-box1"></div>

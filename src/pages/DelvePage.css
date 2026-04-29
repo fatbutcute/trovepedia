@@ -493,29 +493,19 @@
     padding: 40px;
 }
 
+/* --- VAULT KÁRTYA (Csak keret és dropshadow) --- */
 .vault-card {
-    border-color: #ebb435 !important;
-    box-shadow: 0 0 20px rgba(235, 180, 53, 0.25) !important;
-    position: relative;
+    border-color: rgba(235, 180, 53, 0.6) !important;
+    box-shadow: 0 0 15px rgba(235, 180, 53, 0.4) !important;
 }
 
-.vault-card::after {
-    content: '';
-    position: absolute;
-    inset: -1px;
-    border-radius: 16px;
-    background: linear-gradient(135deg, rgba(235, 180, 53, 0.4), transparent);
-    pointer-events: none;
-    z-index: -1;
-}
-
-/* --- MODAL STYLES --- */
+/* --- MODAL STÍLUSOK (Ezek nélkül nem jelenik meg az ablak!) --- */
 .modal-overlay {
     position: fixed;
     inset: 0;
     background: rgba(0, 0, 0, 0.85);
     backdrop-filter: blur(10px);
-    z-index: 9999;
+    z-index: 999999; /* Nagyon magas z-index, hogy biztosan legfelül legyen */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -533,6 +523,7 @@
     position: relative;
     padding: 40px;
     animation: modalIn 0.3s ease-out;
+    color: #fff;
 }
 
 @keyframes modalIn {
@@ -554,29 +545,18 @@
 
 .modal-close:hover { opacity: 1; }
 
-.modal-header-box {
-    margin-bottom: 30px;
-}
-
-.vault-glow {
-    text-shadow: 0 0 15px rgba(235, 180, 53, 0.6);
-}
-
-.modal-depth { color: var(--gold); font-weight: 700; font-size: 1.2rem; }
+.modal-header-box { margin-bottom: 30px; }
+.vault-glow { text-shadow: 0 0 15px rgba(235, 180, 53, 0.6); }
+.modal-depth { color: #ebb435; font-weight: 700; font-size: 1.2rem; }
 .modal-biome { font-size: 2.5rem; margin: 5px 0; color: #fff; }
 
-.modal-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 30px;
-}
-
+.modal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
 .full-width { grid-column: span 2; }
 
 .modal-section h3 {
     text-transform: uppercase;
     font-size: 0.8rem;
-    color: var(--muted);
+    color: #8a8a9d;
     margin-bottom: 15px;
     letter-spacing: 1px;
 }
@@ -588,43 +568,13 @@
 }
 
 .highlight-text { color: #fff; font-size: 1.2rem; font-weight: 600; margin-bottom: 10px; }
+.enemy-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+.enemy-row .count { color: #40d0ff; font-weight: 700; }
 
-.enemy-row {
-    display: flex;
-    justify-content: space-between;
-    padding: 8px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.enemy-row .count { color: var(--cyan); font-weight: 700; }
-
-.layout-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-    gap: 8px;
-}
-
-.room {
-    background: rgba(255, 255, 255, 0.05);
-    padding: 10px;
-    text-align: center;
-    border-radius: 6px;
-    font-size: 0.8rem;
-}
-
-.room.spawn { border: 1px solid var(--cyan); color: var(--cyan); }
+.layout-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); gap: 8px; }
+.room { background: rgba(255, 255, 255, 0.05); padding: 10px; text-align: center; border-radius: 6px; font-size: 0.8rem; }
+.room.spawn { border: 1px solid #40d0ff; color: #40d0ff; }
 .room.boss { border: 1px solid #ff4f6a; color: #ff4f6a; font-weight: 700; }
-
-/* --- CARD UPDATES --- */
-.ui-card {
-    cursor: pointer;
-    transition: transform 0.2s, border-color 0.2s;
-}
-
-.ui-card:hover {
-    transform: translateY(-5px);
-    border-color: rgba(255, 255, 255, 0.3);
-}
 
 @media (max-width: 600px) {
     .modal-grid { grid-template-columns: 1fr; }
