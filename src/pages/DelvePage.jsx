@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import './DelvePage.css';
 
 const DelvePage = () => {
@@ -9,6 +10,7 @@ const DelvePage = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedDelve, setSelectedDelve] = useState(null);
 
+    // Adatok lekérése a Pyrodiscről (CodeTabs proxyval)
     useEffect(() => {
         const fetchDelveData = async () => {
             try {
@@ -33,6 +35,7 @@ const DelvePage = () => {
         fetchDelveData();
     }, []);
 
+    // Szűrési logika
     const filteredDelves = (delves || []).filter(item => {
         if (!item) return false;
         const lowerSearch = searchTerm.toLowerCase();
@@ -50,6 +53,7 @@ const DelvePage = () => {
                 <div className="delve-title-row">
                     <h1 className="delve-title">Delve Index</h1>
                     
+                    {/* Pyrodisc Logó + Tooltip visszarakva */}
                     <div className="pyrodisc-container">
                         <a 
                             href="https://www.pyrodisc.one/delves" 
@@ -65,7 +69,6 @@ const DelvePage = () => {
                                 />
                             </span>
                         </a>
-                        {/* VISSZARAKVA: A Pyrodisc felugró text box-a */}
                         <div className="pyrodisc-tooltip">
                             <span className='pyrodisc-h2'>Pyrodisc</span><br />
                             <p className='pyrodisc-desc'>
@@ -77,7 +80,7 @@ const DelvePage = () => {
 
                 <div className="week-badge">Week #{weekNumber}</div>
                 
-                {/* VISSZARAKVA: A közösségi leírás szövege */}
+                {/* Közösségi leírás visszarakva */}
                 <p className="delve-desc">
                     We are grateful to the Trove community for their daily contributions and dedication to keeping our data up to date.
                 </p>
@@ -100,11 +103,9 @@ const DelvePage = () => {
 
             <main className="delve-container">
                 {loading ? (
-                    <div className="no-data-notice"><p style={{ color: "var(--gold)" }}>Fetching live data from Pyrodisc...</p></div>
+                    <div className="no-data-notice"><p style={{ color: "var(--gold)" }}>Fetching live data...</p></div>
                 ) : error ? (
-                    <div className="no-data-notice"><p style={{ color: "#ff4f6a" }}>Error loading data: {error}</p></div>
-                ) : filteredDelves.length === 0 ? (
-                    <div className="no-data-notice"><p>No results found for "{searchTerm}".</p></div>
+                    <div className="no-data-notice"><p style={{ color: "#ff4f6a" }}>Error: {error}</p></div>
                 ) : (
                     <div className="delve-grid">
                         {filteredDelves.map((item, index) => (
@@ -135,17 +136,6 @@ const DelvePage = () => {
                                         <div className="icon-box2"></div>
                                         <span className="main-text">{item.boss?.n || "Unknown Boss"}</span>
                                     </div>
-                                    <div className="row enemies">
-                                        <div className="icon-box3"></div>
-                                        <div className="text-group">
-                                            <span className="label">Enemies</span>
-                                            <span className="list-text">
-                                                {item.enemies && item.enemies.length > 0 
-                                                    ? item.enemies.map(e => e.n).join(', ') 
-                                                    : "No enemy data"}
-                                            </span>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         ))}
@@ -153,53 +143,96 @@ const DelvePage = () => {
                 )}
             </main>
 
-            {/* MODAL MEGJELENÍTÉSE */}
-            {selectedDelve && (
+            {/* MODAL - KITELEPORTÁLVA A BODY-BA, KÉP ALAPJÁN STILIZÁLVA */}
+            {selectedDelve && createPortal(
                 <div className="modal-overlay" onClick={() => setSelectedDelve(null)}>
                     <div className="modal-content" onClick={e => e.stopPropagation()}>
-                        <button className="modal-close" onClick={() => setSelectedDelve(null)}>&times;</button>
+                        <button className="modal-close" onClick={() => setSelectedDelve(null)}>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                        </button>
                         
-                        <div className={`modal-header-box ${selectedDelve.isVaultFloor ? 'vault-glow' : ''}`}>
-                            <span className="modal-depth">Depth {selectedDelve.depth}</span>
-                            <h2 className="modal-biome">{selectedDelve.biome}</h2>
+                        <div className="modal-header-custom">
+                            <div className="modal-title-row-custom">
+                                <h2 className="modal-depth-title">Depth {selectedDelve.depth}</h2>
+                                {selectedDelve.isVaultFloor && (
+                                    <div className="vault-badge-custom">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M2 22h20M2 11l5-3 5 3 5-3 5 3v9H2v-9z"/></svg>
+                                        Vault Floor
+                                    </div>
+                                )}
+                            </div>
+                            <div className="modal-subtitle-custom">
+                                {selectedDelve.biome} • {selectedDelve.zone}
+                            </div>
                         </div>
 
-                        <div className="modal-grid">
-                            <section className="modal-section">
-                                <h3>Boss & Buffs</h3>
-                                <div className="detail-box">
-                                    <p className="highlight-text">{selectedDelve.boss?.n}</p>
-                                    <div className="modal-buffs">
-                                        {selectedDelve.boss?.b?.map((b, i) => <span key={i} className="mod-badge">{b}</span>)}
+                        <div className="modal-section-custom boss-section-custom">
+                            <div className="section-title-custom">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ff4f6a" strokeWidth="2"><path d="M2 22h20M2 11l5-3 5 3 5-3 5 3v9H2v-9z"/></svg>
+                                Boss: {selectedDelve.boss?.n}
+                            </div>
+                            <div className="badge-row-custom">
+                                {selectedDelve.boss?.b?.map((b, i) => (
+                                    <span key={i} className="tag-custom tag-red-custom">{b}</span>
+                                ))}
+                            </div>
+                        </div>
+
+                        <div className="modal-section-custom objective-section-custom">
+                            <div className="section-title-custom">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#40d0ff" strokeWidth="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                                Objective
+                            </div>
+                            <div className="objective-val-custom">{selectedDelve.objectiveText}</div>
+                        </div>
+
+                        <h3 className="section-heading-custom">Enemies</h3>
+                        <div className="enemies-grid-custom">
+                            {selectedDelve.enemies?.map((en, i) => (
+                                <div key={i} className="enemy-card-custom">
+                                    <h4>{en.n}</h4>
+                                    <div className="enemy-count-custom">Count: {en.c}</div>
+                                    <div className="badge-row-custom">
+                                        {en.b?.map((buff, j) => (
+                                            <span key={j} className="tag-custom tag-gray-custom">{buff}</span>
+                                        ))}
                                     </div>
                                 </div>
-                            </section>
+                            ))}
+                        </div>
 
-                            <section className="modal-section">
-                                <h3>Enemies</h3>
-                                <div className="enemy-list">
-                                    {selectedDelve.enemies?.map((en, i) => (
-                                        <div key={i} className="enemy-row">
-                                            <span>{en.n}</span>
-                                            <span className="count">x{en.c}</span>
-                                        </div>
-                                    ))}
-                                </div>
-                            </section>
+                        <h3 className="section-heading-custom">Room Layout ({selectedDelve.roomDetails?.filter(r => r.e !== undefined).length + 2} Rooms)</h3>
+                        <div className="layout-grid-custom">
+                            <div className="room-box-custom room-spawn-custom">
+                                <span className="room-name-custom">Spawn</span>
+                            </div>
+                            
+                            {selectedDelve.roomDetails?.map((room, i) => {
+                                if (room.e === undefined) return null;
+                                const enemyName = selectedDelve.enemies[room.e]?.n || "Unknown";
+                                const shortName = enemyName.substring(0, 8); // Csak az első 8 karakter, ahogy a képen
+                                
+                                return (
+                                    <div key={i} className="room-box-custom">
+                                        <span className="room-id-custom">R{i+1}</span>
+                                        <span className="room-name-custom">{shortName}</span>
+                                    </div>
+                                );
+                            })}
 
-                            <section className="modal-section full-width">
-                                <h3>Room Layout</h3>
-                                <div className="layout-grid">
-                                    <div className="room spawn">Spawn</div>
-                                    {selectedDelve.roomDetails?.slice(0, 12).map((r, i) => (
-                                        <div key={i} className="room">Room {i+1}</div>
-                                    ))}
-                                    <div className="room boss">BOSS</div>
-                                </div>
-                            </section>
+                            <div className="room-box-custom room-boss-custom">
+                                <span className="room-name-custom">Boss</span>
+                            </div>
+                        </div>
+
+                        <div className="layout-legend-custom">
+                            <span className="legend-item-custom"><span className="dot-custom dot-blue-custom"></span> Spawn</span>
+                            <span className="legend-item-custom"><span className="dot-custom dot-green-custom"></span> Objective</span>
+                            <span className="legend-item-custom"><span className="dot-custom dot-red-custom"></span> Boss</span>
                         </div>
                     </div>
-                </div>
+                </div>,
+                document.body
             )}
         </div>
     );

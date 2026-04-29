@@ -493,98 +493,100 @@
     padding: 40px;
 }
 
-/* --- VAULT KÁRTYA (Csak sárga dropshadow és border) --- */
 .vault-card {
-    border: 1px solid rgba(235, 180, 53, 0.7) !important;
-    box-shadow: 0 0 20px rgba(235, 180, 53, 0.3) !important;
+    border: 1px solid rgba(235, 180, 53, 0.5) !important;
+    box-shadow: 0 0 20px rgba(235, 180, 53, 0.25) !important;
 }
 
-/* --- MODAL ÖSSZES STÍLUSA --- */
+/* --- MODAL DESIGN (A KÉP ALAPJÁN) --- */
 .modal-overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.85);
-    backdrop-filter: blur(10px);
-    z-index: 2000; /* Sensible z-index */
+    inset: 0;
+    background: rgba(10, 10, 15, 0.9);
+    z-index: 999999;
     display: flex;
     align-items: center;
     justify-content: center;
-    pointer-events: all;
+    padding: 20px;
+    animation: modalFadeIn 0.2s ease-out;
 }
 
 .modal-content {
-    background: #0a0a12;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 24px;
-    width: 90%;
-    max-width: 800px;
-    max-height: 85vh;
+    background: #14141c;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 750px;
+    max-height: 90vh;
     overflow-y: auto;
-    padding: 40px;
-    position: fixed; /* Középre zárt pozíció */
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* Garantáltan a képernyő közepén */
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+    padding: 30px;
+    position: relative;
+    font-family: 'Quicksand', sans-serif;
     color: #fff;
-    animation: modalScaleUp 0.3s ease-out;
+    border: 1px solid rgba(255,255,255,0.05);
+    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.8);
 }
 
-@keyframes modalScaleUp {
-    from { opacity: 0; transform: translate(-50%, -40%) scale(0.95); }
-    to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+@keyframes modalFadeIn {
+    from { opacity: 0; transform: scale(0.98); }
+    to { opacity: 1; transform: scale(1); }
 }
 
 .modal-close {
     position: absolute;
     top: 20px;
-    right: 25px;
+    right: 20px;
     background: none;
     border: none;
-    color: #6a7090;
-    font-size: 2.5rem;
+    color: #8a8a9d;
     cursor: pointer;
+    padding: 5px;
     transition: color 0.2s;
 }
-
 .modal-close:hover { color: #fff; }
 
-.modal-header-box { margin-bottom: 30px; }
-.vault-glow { text-shadow: 0 0 15px rgba(235, 180, 53, 0.6); }
-.modal-depth { color: #e8b84b; font-weight: 700; font-size: 1.2rem; }
-.modal-biome { font-size: 2.5rem; color: #fff; margin: 5px 0; }
+.modal-header-custom { margin-bottom: 25px; }
+.modal-title-row-custom { display: flex; align-items: center; gap: 15px; }
+.modal-depth-title { font-size: 2.2rem; margin: 0; color: #a63aff; font-weight: 700; }
 
-.modal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
-.full-width { grid-column: span 2; }
-
-.modal-section h3 {
-    text-transform: uppercase;
-    font-size: 0.85rem;
-    color: #6a7090;
-    margin-bottom: 15px;
-    letter-spacing: 1.5px;
+.vault-badge-custom { 
+    display: flex; align-items: center; gap: 6px;
+    border: 1px solid #ebb435; color: #ebb435; 
+    padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 700; 
 }
+.modal-subtitle-custom { color: #8a8a9d; margin-top: 8px; font-size: 0.95rem; font-weight: 500; }
 
-.detail-box, .enemy-list {
-    background: rgba(255, 255, 255, 0.03);
-    padding: 20px;
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-}
+.modal-section-custom { border-radius: 12px; padding: 20px; margin-bottom: 20px; }
+.boss-section-custom { background: rgba(255, 79, 106, 0.05); border: 1px solid rgba(255, 79, 106, 0.3); }
+.objective-section-custom { background: rgba(64, 208, 255, 0.05); border: 1px solid rgba(64, 208, 255, 0.3); }
 
-.highlight-text { color: #fff; font-size: 1.3rem; font-weight: 600; margin-bottom: 15px; }
-.enemy-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
-.enemy-row .count { color: #40d0ff; font-weight: 700; }
+.section-title-custom { display: flex; align-items: center; gap: 10px; font-size: 1.2rem; font-weight: 700; margin-bottom: 12px; color: #fff; }
+.objective-val-custom { font-size: 1.1rem; font-weight: 600; color: #fff; margin-left: 30px; }
 
-.layout-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); gap: 10px; }
-.room { background: rgba(255, 255, 255, 0.05); padding: 12px; text-align: center; border-radius: 8px; font-size: 0.85rem; color: #d8ddf5; }
-.room.spawn { border: 1px solid #40d0ff; color: #40d0ff; }
-.room.boss { border: 1px solid #ff4f6a; color: #ff4f6a; font-weight: 700; }
+.badge-row-custom { display: flex; flex-wrap: wrap; gap: 8px; }
+.tag-custom { padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; }
+.tag-red-custom { border: 1px solid rgba(255, 79, 106, 0.5); color: #ff4f6a; }
+.tag-gray-custom { border: 1px solid rgba(255, 255, 255, 0.1); color: #ccc; }
 
-@media (max-width: 650px) {
-    .modal-grid { grid-template-columns: 1fr; }
-    .full-width { grid-column: span 1; }
-}
+.section-heading-custom { font-size: 1.3rem; margin: 30px 0 15px; font-weight: 700; color: #fff;}
+
+.enemies-grid-custom { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px; }
+.enemy-card-custom { background: #1c1c28; border: 1px solid rgba(255,255,255,0.05); padding: 18px; border-radius: 12px; }
+.enemy-card-custom h4 { margin: 0 0 5px 0; font-size: 1.1rem; color: #fff; }
+.enemy-count-custom { color: #8a8a9d; font-size: 0.9rem; margin-bottom: 15px; font-weight: 500; }
+
+.layout-grid-custom { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 12px; }
+.room-box-custom { background: #1c1c28; border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 12px 5px; text-align: center; display: flex; flex-direction: column; justify-content: center; min-height: 65px; }
+.room-id-custom { font-size: 0.85rem; font-weight: 700; margin-bottom: 4px; color: #fff; }
+.room-name-custom { font-size: 0.75rem; color: #8a8a9d; }
+
+.room-spawn-custom { border-color: rgba(64, 208, 255, 0.5); }
+.room-spawn-custom .room-name-custom { color: #fff; font-weight: 700; font-size: 0.9rem;}
+.room-boss-custom { border-color: rgba(255, 79, 106, 0.5); }
+.room-boss-custom .room-name-custom { color: #fff; font-weight: 700; font-size: 0.9rem;}
+
+.layout-legend-custom { display: flex; gap: 15px; margin-top: 20px; }
+.legend-item-custom { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; font-weight: 600; color: #fff; }
+.dot-custom { width: 12px; height: 12px; border-radius: 5px; }
+.dot-blue-custom { background: #40d0ff; }
+.dot-green-custom { background: #3fdc7f; }
+.dot-red-custom { background: #ff4f6a; }
