@@ -1,28 +1,64 @@
-import React, { useState } from 'react';
-import delveData from '../data/delve.json';
+import React, { useState, useEffect } from 'react';
 import './DelvePage.css';
 
 const DelvePage = () => {
-    // Adatok kinyerése és a keresési állapot
-    const [delves] = useState(delveData?.data?.depths || delveData?.depths || []);
-    const [weekNumber] = useState(delveData?.data?.weekNumber || delveData?.weekNumber || "N/A");
+    // 1. Állapotok (State) beállítása: Adatok, Töltés, Hiba, Keresés
+    const [delves, setDelves] = useState([]);
+    const [weekNumber, setWeekNumber] = useState("N/A");
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     const [searchTerm, setSearchTerm] = useState("");
 
-    // Szűrési logika: buff, boss, biome, depth, enemy név
-    const filteredDelves = delves.filter(item => {
+    // 2. Adatok lekérése (Fetch) az oldal betöltésekor
+    useEffect(() => {
+        const fetchDelveData = async () => {
+            try {
+                setLoading(true);
+                const response = await fetch("/api/delve", {
+                    method: "GET",
+                    headers: {
+                        "Accept": "application/json"
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error("Failed to fetch delve data from Pyrodisc.");
+                }
+
+                const data = await response.json();
+                
+                // Beállítjuk az adatokat pont úgy, ahogy a lokális JSON-nál is volt
+                setDelves(data?.data?.depths || data?.depths || []);
+                setWeekNumber(data?.data?.weekNumber || data?.weekNumber || "N/A");
+            } catch (err) {
+                console.error("Fetch error:", err);
+                setError(err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchDelveData();
+    }, []);
+
+    // 3. JAVÍTOTT Szűrési logika (100% Golyóálló)
+    const filteredDelves = (delves || []).filter(item => {
+        if (!item) return false; // Ha az item teljesen üres, átugorjuk
         const lowerSearch = searchTerm.toLowerCase();
         
-        const biomeMatch = item.biome?.toLowerCase().includes(lowerSearch);
-        const depthMatch = item.depth?.toString().includes(lowerSearch);
-        const bossMatch = item.boss?.n?.toLowerCase().includes(lowerSearch);
-        const buffMatch = item.boss?.b?.some(buff => buff.toLowerCase().includes(lowerSearch));
-        const enemyMatch = item.enemies?.some(enemy => enemy.n?.toLowerCase().includes(lowerSearch));
+        // A (valami || "") biztosítja, hogy ha hiányzik az adat, akkor is egy üres szöveget vizsgáljon, így nem omlik össze!
+        const biomeMatch = (item.biome || "").toLowerCase().includes(lowerSearch);
+        const depthMatch = (item.depth || "").toString().includes(lowerSearch);
+        const bossMatch = (item.boss?.n || "").toLowerCase().includes(lowerSearch);
+        const buffMatch = (item.boss?.b || []).some(buff => (buff || "").toLowerCase().includes(lowerSearch));
+        const enemyMatch = (item.enemies || []).some(enemy => (enemy?.n || "").toLowerCase().includes(lowerSearch));
 
         return biomeMatch || depthMatch || bossMatch || buffMatch || enemyMatch;
     });
 
     return (
         <div className="delve-page-wrapper">
+            {/* A FEJLÉC ÉRINTETLEN MARAD, MINDIG LÁTSZIK */}
             <header className="delve-header">
                 <div className="delve-title-row">
                     <h1 className="delve-title">Delve Index</h1>
@@ -51,14 +87,14 @@ const DelvePage = () => {
                     </div>
                 </div>
 
-                {weekNumber && <div className="week-badge">Week #{weekNumber}</div>}
+                {/* Hét száma */}
+                <div className="week-badge">Week #{weekNumber}</div>
                 
                 <p className="delve-desc">
                     We are grateful to the Trove community for their daily contributions and dedication to keeping our data up to date.
                 </p>
                 <div className="delve-separator"></div>
 
-                {/* ÚJ: Search Bar a separator és a grid között */}
                 <div className="delve-search-container">
                     <div className="search-input-wrapper">
                         <img src="/icons/search.png" alt="Search" className="search-icon" />
@@ -73,12 +109,25 @@ const DelvePage = () => {
                 </div>
             </header>
 
+            {/* ITT DŐL EL, HOGY MIT MUTATUNK A KÁRTYÁK HELYÉN */}
             <main className="delve-container">
-                {filteredDelves.length === 0 ? (
+                {loading ? (
+                    // Töltés állapota
+                    <div className="no-data-notice">
+                        <p style={{ color: "var(--gold)" }}>Fetching live data from Pyrodisc...</p>
+                    </div>
+                ) : error ? (
+                    // Hiba állapota
+                    <div className="no-data-notice">
+                        <p style={{ color: "#ff4f6a" }}>Error loading data: {error}</p>
+                    </div>
+                ) : filteredDelves.length === 0 ? (
+                    // Nincs találat a keresésre
                     <div className="no-data-notice">
                         <p>No results found for "{searchTerm}". Try a different term!</p>
                     </div>
                 ) : (
+                    // Sikeres betöltés: Kártyák megjelenítése
                     <div className="delve-grid">
                         {filteredDelves.map((item, index) => (
                             <div 
