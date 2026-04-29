@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './DelvePage.css';
 
 const DelvePage = () => {
+    // 1. Állapotok (State)
     const [delves, setDelves] = useState([]);
     const [weekNumber, setWeekNumber] = useState("N/A");
     const [loading, setLoading] = useState(true);
@@ -9,12 +10,13 @@ const DelvePage = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedDelve, setSelectedDelve] = useState(null);
 
+    // 2. Adatok lekérése a MŰKÖDŐ CodeTabs proxy-val!
     useEffect(() => {
         const fetchDelveData = async () => {
             try {
                 setLoading(true);
                 const targetUrl = "https://www.pyrodisc.one/api/trove/delve/current.php";
-                const response = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(targetUrl)}`, {
+                const response = await fetch(`https://api.codetabs.com/v1/proxy?quest=${targetUrl}`, {
                     method: "GET",
                     headers: { "Accept": "application/json" }
                 });
@@ -33,6 +35,7 @@ const DelvePage = () => {
         fetchDelveData();
     }, []);
 
+    // 3. Szűrési logika
     const filteredDelves = (delves || []).filter(item => {
         if (!item) return false;
         const lowerSearch = searchTerm.toLowerCase();
@@ -40,11 +43,13 @@ const DelvePage = () => {
         const depthMatch = (item.depth || "").toString().includes(lowerSearch);
         const bossMatch = (item.boss?.n || "").toLowerCase().includes(lowerSearch);
         const buffMatch = (item.boss?.b || []).some(buff => (buff || "").toLowerCase().includes(lowerSearch));
-        return biomeMatch || depthMatch || bossMatch || buffMatch;
+        const enemyMatch = (item.enemies || []).some(enemy => (enemy?.n || "").toLowerCase().includes(lowerSearch));
+        return biomeMatch || depthMatch || bossMatch || buffMatch || enemyMatch;
     });
 
     return (
         <div className="delve-page-wrapper">
+            {/* FEJLÉC */}
             <header className="delve-header">
                 <div className="delve-title-row">
                     <h1 className="delve-title">Delve Index</h1>
@@ -64,7 +69,7 @@ const DelvePage = () => {
                         <input 
                             type="text" 
                             className="delve-search-input"
-                            placeholder="Search delves..."
+                            placeholder="Search by depth, boss, buff, biome or enemy..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
@@ -72,33 +77,57 @@ const DelvePage = () => {
                 </div>
             </header>
 
+            {/* KÁRTYÁK GRIDJE */}
             <main className="delve-container">
                 {loading ? (
-                    <div className="no-data-notice"><p>Loading live data...</p></div>
+                    <div className="no-data-notice"><p style={{ color: "var(--gold)" }}>Fetching live data from Pyrodisc...</p></div>
                 ) : error ? (
-                    <div className="no-data-notice"><p>Error: {error}</p></div>
+                    <div className="no-data-notice"><p style={{ color: "#ff4f6a" }}>Error loading data: {error}</p></div>
+                ) : filteredDelves.length === 0 ? (
+                    <div className="no-data-notice"><p>No results found for "{searchTerm}".</p></div>
                 ) : (
                     <div className="delve-grid">
                         {filteredDelves.map((item, index) => (
                             <div 
                                 key={item.id || index} 
-                                // Ha Vault szint, hozzáadjuk a vault-card osztályt
+                                // Ha Vault, kap egy glow effektet a CSS-ből
                                 className={`ui-card slide-up-animation ${item.isVaultFloor ? 'vault-card' : ''}`}
-                                style={{animationDelay: `${index * 0.05}s`}}
-                                onClick={() => setSelectedDelve(item)}
+                                style={{animationDelay: `${index * 0.01}s`}}
+                                onClick={() => setSelectedDelve(item)} // Kattintásra kinyílik a Modal
                             >
                                 <div className="header">
                                     <div className="depth-badge">Depth {item.depth}</div>
                                     <div className="difficulty-tag">{item.zone}</div>
                                 </div>
                                 <h1 className="title">{item.biome}</h1>
+                                
                                 <div className="modifier-bar">
                                     {item.boss?.b?.map((buff, idx) => (
                                         <div key={idx} className="mod-badge">{buff}</div>
                                     ))}
                                 </div>
+
+                                {/* VISSZAÁLLÍTOTT RÉSZLETES KÁRTYA TARTALOM */}
                                 <div className="info-grid">
-                                    <div className="row"><div className="icon-box2"></div><span className="main-text">{item.boss?.n}</span></div>
+                                    <div className="row objective">
+                                        <div className="icon-box1"></div>
+                                        <span className="main-text">{item.objectiveText}</span>
+                                    </div>
+                                    <div className="row">
+                                        <div className="icon-box2"></div>
+                                        <span className="main-text">{item.boss?.n || "Unknown Boss"}</span>
+                                    </div>
+                                    <div className="row enemies">
+                                        <div className="icon-box3"></div>
+                                        <div className="text-group">
+                                            <span className="label">Enemies</span>
+                                            <span className="list-text">
+                                                {item.enemies && item.enemies.length > 0 
+                                                    ? item.enemies.map(e => e.n).join(', ') 
+                                                    : "No enemy data"}
+                                            </span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         ))}
@@ -106,7 +135,7 @@ const DelvePage = () => {
                 )}
             </main>
 
-            {/* MODAL */}
+            {/* FELUGRÓ ABLAK (MODAL) */}
             {selectedDelve && (
                 <div className="modal-overlay" onClick={() => setSelectedDelve(null)}>
                     <div className="modal-content" onClick={e => e.stopPropagation()}>
