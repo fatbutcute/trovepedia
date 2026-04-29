@@ -80,7 +80,6 @@ const DelvePage = () => {
 
                 <div className="week-badge">Week #{weekNumber}</div>
                 
-                {/* Közösségi leírás visszarakva */}
                 <p className="delve-desc">
                     We are grateful to the Trove community for their daily contributions and dedication to keeping our data up to date.
                 </p>
@@ -113,7 +112,11 @@ const DelvePage = () => {
                                 key={item.id || index} 
                                 className={`ui-card slide-up-animation ${item.isVaultFloor ? 'vault-card' : ''}`}
                                 style={{animationDelay: `${index * 0.01}s`, cursor: 'pointer'}}
-                                onClick={() => setSelectedDelve(item)}
+                                onClick={(e) => {
+                                    // 1. JAVÍTÁS: Ezzel megfogjuk a kattintást, hogy ne csapódjon tovább!
+                                    e.stopPropagation(); 
+                                    setSelectedDelve(item);
+                                }}
                             >
                                 <div className="header">
                                     <div className="depth-badge">Depth {item.depth}</div>
@@ -143,10 +146,18 @@ const DelvePage = () => {
                 )}
             </main>
 
-            {/* MODAL - KITELEPORTÁLVA A BODY-BA, KÉP ALAPJÁN STILIZÁLVA */}
+            {/* MODAL - KITELEPORTÁLVA A BODY-BA */}
             {selectedDelve && createPortal(
-                <div className="modal-overlay" onClick={() => setSelectedDelve(null)}>
-                    <div className="modal-content" onClick={e => e.stopPropagation()}>
+                <div 
+                    className="modal-overlay" 
+                    onClick={(e) => {
+                        // 2. JAVÍTÁS: A bezárás CSAK akkor indul el, ha tényleg magára a fekete háttérre kattintottál
+                        if (e.target === e.currentTarget) {
+                            setSelectedDelve(null);
+                        }
+                    }}
+                >
+                    <div className="modal-content">
                         <button className="modal-close" onClick={() => setSelectedDelve(null)}>
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
                         </button>
@@ -201,16 +212,19 @@ const DelvePage = () => {
                             ))}
                         </div>
 
-                        <h3 className="section-heading-custom">Room Layout ({selectedDelve.roomDetails?.filter(r => r.e !== undefined).length + 2} Rooms)</h3>
+                        {/* 3. JAVÍTÁS: Védelem arra az esetre, ha a szobák adatai hiányoznának */}
+                        <h3 className="section-heading-custom">
+                            Room Layout ({(selectedDelve.roomDetails || []).filter(r => r.e !== undefined).length + 2} Rooms)
+                        </h3>
                         <div className="layout-grid-custom">
                             <div className="room-box-custom room-spawn-custom">
                                 <span className="room-name-custom">Spawn</span>
                             </div>
                             
-                            {selectedDelve.roomDetails?.map((room, i) => {
+                            {(selectedDelve.roomDetails || []).map((room, i) => {
                                 if (room.e === undefined) return null;
                                 const enemyName = selectedDelve.enemies[room.e]?.n || "Unknown";
-                                const shortName = enemyName.substring(0, 8); // Csak az első 8 karakter, ahogy a képen
+                                const shortName = enemyName.substring(0, 8);
                                 
                                 return (
                                     <div key={i} className="room-box-custom">
