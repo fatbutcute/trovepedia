@@ -493,100 +493,89 @@
     padding: 40px;
 }
 
+/* --- VAULT KÁRTYA JELZÉS --- */
 .vault-card {
-    border: 1px solid rgba(235, 180, 53, 0.5) !important;
-    box-shadow: 0 0 20px rgba(235, 180, 53, 0.25) !important;
+    border: 1px solid rgba(235, 180, 53, 0.6) !important;
+    box-shadow: 0 0 15px rgba(235, 180, 53, 0.2) !important;
 }
 
-/* --- MODAL DESIGN (A KÉP ALAPJÁN) --- */
-.modal-overlay {
+/* --- ATOMBIZTOS MODAL DESIGN --- */
+.delve-modal-overlay {
     position: fixed;
-    inset: 0;
-    background: rgba(10, 10, 15, 0.9);
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(8, 8, 12, 0.9);
+    backdrop-filter: blur(5px);
     z-index: 999999;
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     padding: 20px;
-    animation: modalFadeIn 0.2s ease-out;
+    animation: fadeIn 0.2s ease-out;
 }
 
-.modal-content {
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+.delve-modal-content {
     background: #14141c;
+    border: 1px solid rgba(160, 32, 240, 0.4);
     border-radius: 12px;
     width: 100%;
-    max-width: 750px;
-    max-height: 90vh;
+    max-width: 650px;
+    max-height: 85vh;
     overflow-y: auto;
     padding: 30px;
     position: relative;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.8);
     font-family: 'Quicksand', sans-serif;
     color: #fff;
-    border: 1px solid rgba(255,255,255,0.05);
-    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.8);
+    cursor: default; /* Kártya hover ne ragadjon be */
 }
 
-@keyframes modalFadeIn {
-    from { opacity: 0; transform: scale(0.98); }
-    to { opacity: 1; transform: scale(1); }
-}
-
-.modal-close {
+.delve-modal-close {
     position: absolute;
-    top: 20px;
-    right: 20px;
-    background: none;
+    top: 15px; right: 20px;
+    background: transparent;
     border: none;
     color: #8a8a9d;
+    font-size: 2rem;
     cursor: pointer;
-    padding: 5px;
+    line-height: 1;
     transition: color 0.2s;
 }
-.modal-close:hover { color: #fff; }
+.delve-modal-close:hover { color: #fff; }
 
-.modal-header-custom { margin-bottom: 25px; }
-.modal-title-row-custom { display: flex; align-items: center; gap: 15px; }
-.modal-depth-title { font-size: 2.2rem; margin: 0; color: #a63aff; font-weight: 700; }
+.delve-modal-header { margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; }
+.delve-modal-header h2 { font-size: 2rem; color: #bf7aff; margin: 0 0 5px 0; }
+.delve-modal-header p { color: #8a8a9d; margin: 0; font-size: 1rem; }
+.delve-modal-vault { display: inline-block; margin-top: 10px; background: rgba(235, 180, 53, 0.1); border: 1px solid #ebb435; color: #ebb435; padding: 3px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; text-transform: uppercase; }
 
-.vault-badge-custom { 
-    display: flex; align-items: center; gap: 6px;
-    border: 1px solid #ebb435; color: #ebb435; 
-    padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 700; 
+.delve-modal-section { margin-bottom: 20px; }
+.delve-modal-section h3 { font-size: 1rem; color: #8a8a9d; text-transform: uppercase; margin-bottom: 10px; }
+
+.delve-modal-box { background: rgba(255,255,255,0.03); padding: 15px; border-radius: 8px; border-left: 3px solid #bf7aff; }
+.boss-box { border-left-color: #ff4f6a; }
+.obj-box { border-left-color: #40d0ff; }
+.highlight { font-size: 1.2rem; font-weight: bold; color: #fff; display: block; margin-bottom: 10px; }
+
+.delve-modal-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag { padding: 3px 10px; border-radius: 15px; font-size: 0.75rem; font-weight: bold; text-transform: uppercase; }
+.tag-red { border: 1px solid rgba(255, 79, 106, 0.4); color: #ff4f6a; background: rgba(255, 79, 106, 0.05); }
+.tag-gray { border: 1px solid rgba(255,255,255,0.2); color: #ccc; }
+
+.delve-modal-enemies { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.delve-modal-enemy-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 12px; border-radius: 8px; }
+.enemy-head { display: flex; justify-content: space-between; margin-bottom: 8px; }
+.enemy-name { font-weight: bold; color: #fff; font-size: 0.95rem; }
+.enemy-count { color: #40d0ff; font-weight: bold; font-size: 0.9rem; }
+
+.delve-modal-layout { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 8px; }
+.room-box { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 6px; padding: 10px 5px; text-align: center; display: flex; flex-direction: column; justify-content: center; min-height: 50px; }
+.r-id { font-size: 0.75rem; color: #8a8a9d; margin-bottom: 3px; font-weight: bold; }
+.r-name { font-size: 0.75rem; color: #fff; overflow: hidden; text-overflow: ellipsis; }
+
+.room-spawn { border-color: rgba(64, 208, 255, 0.4); color: #40d0ff; font-weight: bold; font-size: 0.85rem; }
+.room-boss { border-color: rgba(255, 79, 106, 0.4); color: #ff4f6a; font-weight: bold; font-size: 0.85rem; }
+
+@media (max-width: 600px) {
+    .delve-modal-enemies { grid-template-columns: 1fr; }
 }
-.modal-subtitle-custom { color: #8a8a9d; margin-top: 8px; font-size: 0.95rem; font-weight: 500; }
-
-.modal-section-custom { border-radius: 12px; padding: 20px; margin-bottom: 20px; }
-.boss-section-custom { background: rgba(255, 79, 106, 0.05); border: 1px solid rgba(255, 79, 106, 0.3); }
-.objective-section-custom { background: rgba(64, 208, 255, 0.05); border: 1px solid rgba(64, 208, 255, 0.3); }
-
-.section-title-custom { display: flex; align-items: center; gap: 10px; font-size: 1.2rem; font-weight: 700; margin-bottom: 12px; color: #fff; }
-.objective-val-custom { font-size: 1.1rem; font-weight: 600; color: #fff; margin-left: 30px; }
-
-.badge-row-custom { display: flex; flex-wrap: wrap; gap: 8px; }
-.tag-custom { padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; }
-.tag-red-custom { border: 1px solid rgba(255, 79, 106, 0.5); color: #ff4f6a; }
-.tag-gray-custom { border: 1px solid rgba(255, 255, 255, 0.1); color: #ccc; }
-
-.section-heading-custom { font-size: 1.3rem; margin: 30px 0 15px; font-weight: 700; color: #fff;}
-
-.enemies-grid-custom { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px; }
-.enemy-card-custom { background: #1c1c28; border: 1px solid rgba(255,255,255,0.05); padding: 18px; border-radius: 12px; }
-.enemy-card-custom h4 { margin: 0 0 5px 0; font-size: 1.1rem; color: #fff; }
-.enemy-count-custom { color: #8a8a9d; font-size: 0.9rem; margin-bottom: 15px; font-weight: 500; }
-
-.layout-grid-custom { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 12px; }
-.room-box-custom { background: #1c1c28; border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 12px 5px; text-align: center; display: flex; flex-direction: column; justify-content: center; min-height: 65px; }
-.room-id-custom { font-size: 0.85rem; font-weight: 700; margin-bottom: 4px; color: #fff; }
-.room-name-custom { font-size: 0.75rem; color: #8a8a9d; }
-
-.room-spawn-custom { border-color: rgba(64, 208, 255, 0.5); }
-.room-spawn-custom .room-name-custom { color: #fff; font-weight: 700; font-size: 0.9rem;}
-.room-boss-custom { border-color: rgba(255, 79, 106, 0.5); }
-.room-boss-custom .room-name-custom { color: #fff; font-weight: 700; font-size: 0.9rem;}
-
-.layout-legend-custom { display: flex; gap: 15px; margin-top: 20px; }
-.legend-item-custom { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; font-weight: 600; color: #fff; }
-.dot-custom { width: 12px; height: 12px; border-radius: 5px; }
-.dot-blue-custom { background: #40d0ff; }
-.dot-green-custom { background: #3fdc7f; }
-.dot-red-custom { background: #ff4f6a; }
