@@ -22,7 +22,6 @@ const DelvePage = () => {
             setLoading(true);
             let success = false;
 
-            // 1. LÉPÉS: Megpróbáljuk letölteni a legfrissebb élő adatokat
             for (const proxy of proxies) {
                 try {
                     const response = await fetch(proxy, { headers: { "Accept": "application/json" } });
@@ -30,19 +29,18 @@ const DelvePage = () => {
                     
                     const data = await response.json();
                     
-                    // Ellenőrizzük, hogy valós JSON adat jött-e vissza
                     if (data && (data.data?.depths || data.depths)) {
                         setDelves(data.data?.depths || data.depths);
                         setWeekNumber(data.data?.weekNumber || data.weekNumber || "N/A");
                         success = true;
-                        break; // Sikerült az élő lekérés, kilépünk!
+                        break; 
                     }
                 } catch (err) {
                     console.warn("Proxy próbálkozás sikertelen, ugrás a következőre...");
                 }
             }
 
-            // 2. LÉPÉS: BIZTONSÁGI HÁLÓ - Ha minden proxy blokkolva van, betöltjük a helyi JSON-t!
+            // BIZTONSÁGI HÁLÓ: Helyi JSON betöltése hiba esetén
             if (!success) {
                 console.log("Élő adatok blokkolva. Helyi (offline) JSON betöltése!");
                 setDelves(delveFallback?.data?.depths || delveFallback?.depths || []);
@@ -54,7 +52,7 @@ const DelvePage = () => {
         fetchDelveData();
     }, []);
 
-    // Szűrési logika (Golyóálló)
+    // Szűrési logika
     const filteredDelves = (delves || []).filter(item => {
         if (!item) return false;
         const lowerSearch = searchTerm.toLowerCase();
@@ -112,12 +110,13 @@ const DelvePage = () => {
                 {loading ? (
                     <div className="no-data-notice"><p style={{ color: "var(--gold)" }}>Connecting to Database...</p></div>
                 ) : (
-                    <div className="delve-grid">
+                    /* ZSENIÁLIS TRÜKK: A key={searchTerm} miatt a React újraépíti az egész dobozt minden betűnél, így a kártyák frissen animálódnak be! */
+                    <div className="delve-grid" key={`grid-${searchTerm}`}>
                         {filteredDelves.map((item, index) => (
                             <div 
                                 key={item.id || index} 
                                 className={`ui-card slide-up-animation ${item.isVaultFloor ? 'vault-card' : ''}`}
-                                style={{animationDelay: `${index * 0.01}s`, cursor: 'pointer'}}
+                                style={{animationDelay: `${index * 0.05}s`, cursor: 'pointer'}}
                                 onClick={(e) => {
                                     e.preventDefault();
                                     e.stopPropagation();
@@ -152,73 +151,96 @@ const DelvePage = () => {
                 )}
             </main>
 
-            {/* FELUGRÓ ABLAK (MODAL) */}
+            {/* ÚJ, EGYEDI FELUGRÓ ABLAK (Holographic Design) */}
             {selectedDelve && (
                 <div 
-                    className="dm-overlay" 
+                    className="holo-overlay" 
                     onMouseDown={(e) => {
                         if (e.target === e.currentTarget) setSelectedDelve(null);
                     }}
                 >
-                    <div className="dm-content">
-                        <button className="dm-close" onClick={() => setSelectedDelve(null)}>✕</button>
+                    <div className="holo-content">
+                        <button className="holo-close" onClick={() => setSelectedDelve(null)}>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                        </button>
                         
-                        <div className="dm-header">
-                            <div className="dm-title-row">
+                        <div className="holo-header">
+                            <div className="holo-title-wrap">
                                 <h2>Depth {selectedDelve.depth}</h2>
-                                {selectedDelve.isVaultFloor && <span className="dm-vault-pill">👑 Vault Floor</span>}
+                                {selectedDelve.isVaultFloor && <span className="holo-vault-badge">✦ Vault</span>}
                             </div>
-                            <p className="dm-subtitle">{selectedDelve.biome} • {selectedDelve.zone}</p>
+                            <p className="holo-subtitle">{selectedDelve.biome} <span>//</span> {selectedDelve.zone}</p>
                         </div>
 
-                        <div className="dm-box dm-boss-box">
-                            <div className="dm-box-title">👑 Boss: {selectedDelve.boss?.n}</div>
-                            <div className="dm-tags">
-                                {selectedDelve.boss?.b?.map((b, i) => <span key={i} className="dm-tag-red">{b}</span>)}
-                            </div>
-                        </div>
-
-                        <div className="dm-box dm-obj-box">
-                            <div className="dm-box-title">🎯 Objective</div>
-                            <div className="dm-obj-text">{selectedDelve.objectiveText}</div>
-                        </div>
-
-                        <h3 className="dm-section-title">Enemies</h3>
-                        <div className="dm-enemies-grid">
-                            {(selectedDelve.enemies || []).map((en, i) => (
-                                <div key={i} className="dm-enemy-card">
-                                    <div className="dm-enemy-name">{en.n}</div>
-                                    <div className="dm-enemy-count">Count: {en.c}</div>
-                                    <div className="dm-tags">
-                                        {(en.b || []).map((buff, j) => <span key={j} className="dm-tag-gray">{buff}</span>)}
+                        <div className="holo-body">
+                            {/* Bal oszlop: Fő infók */}
+                            <div className="holo-main-col">
+                                <div className="holo-card boss-card">
+                                    <div className="holo-card-icon">💀</div>
+                                    <div className="holo-card-info">
+                                        <h3>Boss Target</h3>
+                                        <h4>{selectedDelve.boss?.n}</h4>
+                                        <div className="holo-tags">
+                                            {selectedDelve.boss?.b?.map((b, i) => <span key={i} className="holo-tag-danger">{b}</span>)}
+                                        </div>
                                     </div>
                                 </div>
-                            ))}
+
+                                <div className="holo-card obj-card">
+                                    <div className="holo-card-icon">🎯</div>
+                                    <div className="holo-card-info">
+                                        <h3>Mission Objective</h3>
+                                        <h4>{selectedDelve.objectiveText}</h4>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Jobb oszlop: Ellenségek */}
+                            <div className="holo-side-col">
+                                <h3>Hostile Entities</h3>
+                                <div className="holo-enemy-list">
+                                    {(selectedDelve.enemies || []).map((en, i) => (
+                                        <div key={i} className="holo-enemy-item">
+                                            <div className="holo-enemy-main">
+                                                <span className="holo-enemy-name">{en.n}</span>
+                                                <span className="holo-enemy-count">x{en.c}</span>
+                                            </div>
+                                            <div className="holo-tags">
+                                                {(en.b || []).map((buff, j) => <span key={j} className="holo-tag-neutral">{buff}</span>)}
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
                         </div>
 
-                        <h3 className="dm-section-title">
-                            Room Layout ({(selectedDelve.roomDetails || []).filter(r => r.e !== undefined).length + 2} Rooms)
-                        </h3>
-                        <div className="dm-layout-grid">
-                            <div className="dm-room dm-room-spawn">Spawn</div>
-                            
-                            {(selectedDelve.roomDetails || []).map((room, i) => {
-                                if (room.e === undefined) return null;
+                        {/* Alsó sáv: Szoba elrendezés TÉRKÉP stílusban */}
+                        <div className="holo-map-section">
+                            <h3>Floor Blueprint ({(selectedDelve.roomDetails || []).filter(r => r.e !== undefined).length + 2} Rooms)</h3>
+                            <div className="holo-timeline">
+                                <div className="holo-node spawn-node">
+                                    <div className="node-dot"></div>
+                                    <span>Spawn</span>
+                                </div>
                                 
-                                // JAVÍTÁS: Extrém védelem, ha hiányozna az ellenség adata!
-                                const enemyList = selectedDelve.enemies || [];
-                                const enemyName = enemyList[room.e]?.n || "Unknown";
-                                const shortName = enemyName.substring(0, 8); 
-                                
-                                return (
-                                    <div key={i} className="dm-room">
-                                        <span className="dm-r-id">R{i+1}</span>
-                                        <span className="dm-r-name">{shortName}</span>
-                                    </div>
-                                );
-                            })}
+                                {(selectedDelve.roomDetails || []).map((room, i) => {
+                                    if (room.e === undefined) return null;
+                                    const enemyName = (selectedDelve.enemies || [])[room.e]?.n || "Unknown";
+                                    const shortName = enemyName.substring(0, 8) + (enemyName.length > 8 ? '.' : '');
+                                    
+                                    return (
+                                        <div key={i} className="holo-node">
+                                            <div className="node-dot"></div>
+                                            <span>{shortName}</span>
+                                        </div>
+                                    );
+                                })}
 
-                            <div className="dm-room dm-room-boss">Boss</div>
+                                <div className="holo-node boss-node">
+                                    <div className="node-dot"></div>
+                                    <span>Boss</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

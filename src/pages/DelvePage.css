@@ -500,80 +500,105 @@
 }
 
 /* ====================================================
-   MODERN MODAL DESIGN (A KÉP ALAPJÁN)
+   HOLOGRAPHIC MODAL DESIGN (Új, egyedi stílus)
    ==================================================== */
-.dm-overlay {
+.holo-overlay {
     position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(10, 10, 15, 0.9);
+    inset: 0;
+    background: rgba(5, 5, 10, 0.7);
+    backdrop-filter: blur(12px);
     z-index: 999999;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 20px;
-    animation: fadeInModal 0.2s ease-out;
+    animation: holoFadeIn 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-@keyframes fadeInModal { 
-    from { opacity: 0; transform: scale(0.98); } 
-    to { opacity: 1; transform: scale(1); } 
+@keyframes holoFadeIn {
+    from { opacity: 0; transform: translateY(20px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-.dm-content {
-    background: #14141c;
-    border-radius: 12px;
+.holo-content {
+    background: linear-gradient(145deg, rgba(30, 20, 50, 0.9), rgba(15, 15, 25, 0.95));
+    border: 1px solid rgba(160, 32, 240, 0.3);
+    border-radius: 20px;
     width: 100%;
-    max-width: 750px;
+    max-width: 850px;
     max-height: 90vh;
     overflow-y: auto;
-    padding: 30px;
+    padding: 35px;
     position: relative;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
-    font-family: 'Quicksand', sans-serif;
+    box-shadow: 0 0 40px rgba(160, 32, 240, 0.2), inset 0 0 20px rgba(0, 234, 250, 0.05);
     color: #fff;
-    cursor: default;
+    font-family: 'Quicksand', sans-serif;
 }
 
-.dm-close {
+/* Görgetősáv stílus a modalhoz */
+.holo-content::-webkit-scrollbar { width: 8px; }
+.holo-content::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); border-radius: 10px; }
+.holo-content::-webkit-scrollbar-thumb { background: rgba(160, 32, 240, 0.5); border-radius: 10px; }
+
+.holo-close {
     position: absolute;
-    top: 15px; right: 20px;
-    background: transparent;
-    border: none;
-    color: #8a8a9d;
-    font-size: 1.5rem;
+    top: 20px; right: 25px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 50%;
+    width: 40px; height: 40px;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff;
     cursor: pointer;
-    transition: color 0.2s;
+    transition: all 0.2s;
 }
-.dm-close:hover { color: #fff; }
+.holo-close:hover { background: rgba(255, 79, 106, 0.2); border-color: #ff4f6a; color: #ff4f6a; transform: rotate(90deg); }
 
-.dm-header { margin-bottom: 25px; }
-.dm-title-row { display: flex; align-items: center; gap: 15px; margin-bottom: 5px; }
-.dm-title-row h2 { font-size: 2.2rem; color: #bf7aff; margin: 0; font-weight: 700; }
-.dm-vault-pill { background: rgba(235, 180, 53, 0.15); color: #ebb435; border: 1px solid rgba(235, 180, 53, 0.6); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; }
-.dm-subtitle { color: #8a8a9d; font-size: 0.95rem; margin: 0; font-weight: 500; }
+.holo-header { margin-bottom: 30px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px; }
+.holo-title-wrap { display: flex; align-items: center; gap: 15px; }
+.holo-title-wrap h2 { font-size: 2.5rem; margin: 0; background: linear-gradient(90deg, #fff, #bf7aff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; }
+.holo-vault-badge { background: linear-gradient(90deg, #ebb435, #f5d27a); color: #000; padding: 4px 12px; border-radius: 20px; font-weight: 800; font-size: 0.85rem; box-shadow: 0 0 15px rgba(235, 180, 53, 0.4); text-transform: uppercase; }
+.holo-subtitle { color: #8a8a9d; font-size: 1.1rem; margin: 8px 0 0 0; font-weight: 500; }
+.holo-subtitle span { color: #0aeafa; opacity: 0.5; margin: 0 5px; }
 
-.dm-box { border-radius: 12px; padding: 20px; margin-bottom: 20px; }
-.dm-boss-box { background: rgba(255, 79, 106, 0.05); border: 1px solid rgba(255, 79, 106, 0.3); }
-.dm-obj-box { background: rgba(64, 208, 255, 0.05); border: 1px solid rgba(64, 208, 255, 0.3); }
-.dm-box-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 12px; color: #fff; display: flex; align-items: center; gap: 8px;}
-.dm-obj-text { font-size: 1.1rem; font-weight: 600; color: #fff; }
+.holo-body { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 30px; }
 
-.dm-tags { display: flex; flex-wrap: wrap; gap: 8px; }
-.dm-tag-red { padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; background: rgba(255, 79, 106, 0.05); border: 1px solid rgba(255, 79, 106, 0.5); color: #ff4f6a; text-transform: uppercase; }
-.dm-tag-gray { padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; border: 1px solid rgba(255, 255, 255, 0.15); color: #ccc; background: rgba(255, 255, 255, 0.02); text-transform: uppercase;}
+.holo-card { display: flex; align-items: flex-start; gap: 15px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); padding: 20px; border-radius: 16px; margin-bottom: 15px; transition: transform 0.2s; }
+.holo-card:hover { transform: translateX(5px); background: rgba(255,255,255,0.05); }
+.boss-card { border-left: 4px solid #ff4f6a; }
+.obj-card { border-left: 4px solid #0aeafa; }
 
-.dm-section-title { font-size: 1.3rem; margin: 30px 0 15px; font-weight: 700; color: #fff; }
+.holo-card-icon { font-size: 2rem; background: rgba(255,255,255,0.05); width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border-radius: 12px; }
+.holo-card-info h3 { margin: 0 0 5px 0; font-size: 0.9rem; color: #8a8a9d; text-transform: uppercase; letter-spacing: 1px; }
+.holo-card-info h4 { margin: 0 0 10px 0; font-size: 1.3rem; color: #fff; }
 
-.dm-enemies-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; }
-.dm-enemy-card { background: #1c1c28; border: 1px solid rgba(255, 255, 255, 0.05); padding: 18px; border-radius: 12px; }
-.dm-enemy-name { font-size: 1.1rem; font-weight: bold; color: #fff; margin-bottom: 5px; }
-.dm-enemy-count { color: #8a8a9d; font-size: 0.9rem; margin-bottom: 12px; font-weight: 600; }
+.holo-side-col h3 { margin: 0 0 15px 0; font-size: 1.1rem; color: #fff; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; }
 
-.dm-layout-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 12px; }
-.dm-room { background: #1c1c28; border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 12px 5px; text-align: center; display: flex; flex-direction: column; justify-content: center; min-height: 65px; }
-.dm-r-id { font-size: 0.85rem; font-weight: bold; margin-bottom: 4px; color: #fff; }
-.dm-r-name { font-size: 0.75rem; color: #8a8a9d; }
+.holo-enemy-list { display: flex; flex-direction: column; gap: 10px; }
+.holo-enemy-item { background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.03); padding: 12px 15px; border-radius: 10px; display: flex; flex-direction: column; gap: 8px; border-left: 2px solid #bf7aff; }
+.holo-enemy-main { display: flex; justify-content: space-between; align-items: center; }
+.holo-enemy-name { font-weight: 700; color: #e6e6e6; }
+.holo-enemy-count { background: rgba(10, 234, 250, 0.1); color: #0aeafa; padding: 2px 8px; border-radius: 10px; font-size: 0.8rem; font-weight: bold; }
 
-.dm-room-spawn { border-color: rgba(64, 208, 255, 0.5); color: #fff; font-weight: bold; font-size: 0.9rem; }
-.dm-room-boss { border-color: rgba(255, 79, 106, 0.5); color: #fff; font-weight: bold; font-size: 0.9rem; }
+.holo-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.holo-tag-danger { font-size: 0.7rem; padding: 2px 8px; border-radius: 10px; background: rgba(255, 79, 106, 0.1); color: #ff4f6a; border: 1px solid rgba(255, 79, 106, 0.3); text-transform: uppercase; font-weight: 700; }
+.holo-tag-neutral { font-size: 0.7rem; padding: 2px 8px; border-radius: 10px; background: rgba(255, 255, 255, 0.05); color: #aaa; border: 1px solid rgba(255, 255, 255, 0.1); text-transform: uppercase; font-weight: 600; }
+
+.holo-map-section { background: rgba(0,0,0,0.3); border-radius: 16px; padding: 25px; border: 1px solid rgba(255,255,255,0.05); }
+.holo-map-section h3 { margin: 0 0 20px 0; color: #fff; font-size: 1.1rem; text-align: center; text-transform: uppercase; letter-spacing: 1px;}
+
+.holo-timeline { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; position: relative; }
+.holo-node { display: flex; flex-direction: column; align-items: center; gap: 8px; width: 70px; }
+.node-dot { width: 16px; height: 16px; border-radius: 4px; background: #2a2a35; border: 2px solid #555; position: relative; z-index: 2; transition: all 0.3s; }
+.holo-node:hover .node-dot { transform: scale(1.2) rotate(45deg); border-color: #bf7aff; box-shadow: 0 0 10px #bf7aff; }
+.holo-node span { font-size: 0.75rem; color: #8a8a9d; text-align: center; word-break: break-all; }
+
+.spawn-node .node-dot { border-color: #0aeafa; background: rgba(10, 234, 250, 0.2); }
+.spawn-node span { color: #0aeafa; font-weight: bold; }
+.boss-node .node-dot { border-color: #ff4f6a; background: rgba(255, 79, 106, 0.2); border-radius: 50%; }
+.boss-node span { color: #ff4f6a; font-weight: bold; }
+
+@media (max-width: 768px) {
+    .holo-body { grid-template-columns: 1fr; }
+    .holo-content { padding: 20px; }
+}
