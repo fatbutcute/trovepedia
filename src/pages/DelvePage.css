@@ -736,7 +736,7 @@
   border-color: rgba(220,50,50,0.35);
 }
 
-.m-room.spawn-room .m-room-id { display: none; }
+.m-room.spawn .m-room-type { display: none; }
 .m-room.boss-room .m-room-id { color: #DC3232; font-size: 15px; font-family: 'Exo', sans-serif; }
 .m-room.boss-room .m-room-type { color: #DC3232; font-size: 15px; font-family: 'Exo', sans-serif; display: none; }
 
