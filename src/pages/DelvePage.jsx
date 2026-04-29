@@ -69,12 +69,13 @@ const DelvePage = () => {
         <div className="delve-page-wrapper">
             <header className="delve-header">
                 <div className="delve-title-row">
-                    <h1 className="delve-title">Delve Index</h1>
                     <div className='Sqze'><StaffCard
                          discordId="724956641023492116"
                           name="Sqze (Nepo)"
                           role="Developer, Pyrodisc"
-                     /></div>                         
+                     /></div>                     
+                    <h1 className="delve-title">Delve Index</h1>
+                        
                     <div className="pyrodisc-container">
                         <a href="https://www.pyrodisc.one/delves" target="_blank" rel="noopener noreferrer" className="pyrodisc-link">
                             <span className="pyrodisc-spin-wrapper">
