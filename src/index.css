@@ -630,3 +630,8 @@ footer {
   font-family: 'Quicksand';
   src: url('./fonts/Quicksand-Medium.ttf') format('truetype');
 }
+
+@font-face {
+  font-family: 'DM SANS';
+  src: url('./fonts/DMSANS-VariableFont.ttf') format('truetype');
+}

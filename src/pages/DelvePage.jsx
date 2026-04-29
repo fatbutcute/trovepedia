@@ -40,7 +40,7 @@ const DelvePage = () => {
                 }
             }
 
-            // BIZTONSÁGI HÁLÓ: Helyi JSON betöltése hiba esetén
+            // BIZTONSÁGI HÁLÓ
             if (!success) {
                 console.log("Élő adatok blokkolva. Helyi (offline) JSON betöltése!");
                 setDelves(delveFallback?.data?.depths || delveFallback?.depths || []);
@@ -110,7 +110,7 @@ const DelvePage = () => {
                 {loading ? (
                     <div className="no-data-notice"><p style={{ color: "var(--gold)" }}>Connecting to Database...</p></div>
                 ) : (
-                    /* ZSENIÁLIS TRÜKK: A key={searchTerm} miatt a React újraépíti az egész dobozt minden betűnél, így a kártyák frissen animálódnak be! */
+                    /* A key={searchTerm} MESTERTRÜKK biztosítja, hogy a kártyák mindig újra animálódjanak törléskor is! */
                     <div className="delve-grid" key={`grid-${searchTerm}`}>
                         {filteredDelves.map((item, index) => (
                             <div 
@@ -151,97 +151,128 @@ const DelvePage = () => {
                 )}
             </main>
 
-            {/* ÚJ, EGYEDI FELUGRÓ ABLAK (Holographic Design) */}
+            {/* ÚJ, ÁLTALAD BEKÜLDÖTT MODAL DIZÁJN ÉS STRUKTÚRA */}
             {selectedDelve && (
                 <div 
-                    className="holo-overlay" 
+                    className="m-wrap" 
                     onMouseDown={(e) => {
                         if (e.target === e.currentTarget) setSelectedDelve(null);
                     }}
                 >
-                    <div className="holo-content">
-                        <button className="holo-close" onClick={() => setSelectedDelve(null)}>
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
-                        </button>
+                    <div className="m-modal">
+                        <div className="m-accent-bar"></div>
                         
-                        <div className="holo-header">
-                            <div className="holo-title-wrap">
-                                <h2>Depth {selectedDelve.depth}</h2>
-                                {selectedDelve.isVaultFloor && <span className="holo-vault-badge">✦ Vault</span>}
+                        <div className="m-header">
+                            <div className="m-header-left">
+                                <div className="m-depth-row">
+                                    <div className="m-depth-num">{selectedDelve.depth}</div>
+                                    <div className="m-depth-tag">
+                                        <span className="m-depth-label">DEPTH LEVEL</span>
+                                        {selectedDelve.isVaultFloor && <span className="m-floor-badge">VAULT FLOOR</span>}
+                                    </div>
+                                </div>
+                                <div className="m-subtitle">{selectedDelve.biome} // {selectedDelve.zone}</div>
                             </div>
-                            <p className="holo-subtitle">{selectedDelve.biome} <span>//</span> {selectedDelve.zone}</p>
+                            <button className="m-close" onClick={() => setSelectedDelve(null)}>✕</button>
                         </div>
 
-                        <div className="holo-body">
-                            {/* Bal oszlop: Fő infók */}
-                            <div className="holo-main-col">
-                                <div className="holo-card boss-card">
-                                    <div className="holo-card-icon">💀</div>
-                                    <div className="holo-card-info">
-                                        <h3>Boss Target</h3>
-                                        <h4>{selectedDelve.boss?.n}</h4>
-                                        <div className="holo-tags">
-                                            {selectedDelve.boss?.b?.map((b, i) => <span key={i} className="holo-tag-danger">{b}</span>)}
-                                        </div>
+                        <div className="m-body">
+                            {/* TOP ROW: Boss & Objective */}
+                            <div className="m-top-row">
+                                <div className="m-boss-card">
+                                    <div className="m-card-eyebrow">TARGET BOSS</div>
+                                    <div className="m-boss-name">{selectedDelve.boss?.n}</div>
+                                    <div className="m-tags">
+                                        {selectedDelve.boss?.b?.map((b, i) => <span key={i} className="m-tag danger">{b}</span>)}
                                     </div>
                                 </div>
-
-                                <div className="holo-card obj-card">
-                                    <div className="holo-card-icon">🎯</div>
-                                    <div className="holo-card-info">
-                                        <h3>Mission Objective</h3>
-                                        <h4>{selectedDelve.objectiveText}</h4>
-                                    </div>
+                                <div className="m-obj-card">
+                                    <div className="m-card-eyebrow blue">MISSION OBJECTIVE</div>
+                                    <div className="m-obj-value">{selectedDelve.objectiveText}</div>
+                                    <div className="m-obj-label">Complete objective to reveal boss</div>
                                 </div>
                             </div>
 
-                            {/* Jobb oszlop: Ellenségek */}
-                            <div className="holo-side-col">
-                                <h3>Hostile Entities</h3>
-                                <div className="holo-enemy-list">
+                            {/* ENEMIES SECTION */}
+                            <div>
+                                <div className="m-section-head">
+                                    <span className="m-section-title">HOSTILE ENTITIES</span>
+                                    <div className="m-section-line"></div>
+                                </div>
+                                <div className="m-enemies-grid">
                                     {(selectedDelve.enemies || []).map((en, i) => (
-                                        <div key={i} className="holo-enemy-item">
-                                            <div className="holo-enemy-main">
-                                                <span className="holo-enemy-name">{en.n}</span>
-                                                <span className="holo-enemy-count">x{en.c}</span>
+                                        <div key={i} className="m-enemy">
+                                            <div className="m-enemy-info">
+                                                <div className="m-enemy-name">{en.n}</div>
+                                                <div className="m-tags">
+                                                    {(en.b || []).map((buff, j) => <span key={j} className="m-tag info">{buff}</span>)}
+                                                </div>
                                             </div>
-                                            <div className="holo-tags">
-                                                {(en.b || []).map((buff, j) => <span key={j} className="holo-tag-neutral">{buff}</span>)}
+                                            <div className="m-enemy-count-wrap">
+                                                <span className="m-enemy-count-label">QTY</span>
+                                                <span className="m-enemy-count">{en.c}</span>
                                             </div>
                                         </div>
                                     ))}
                                 </div>
                             </div>
-                        </div>
 
-                        {/* Alsó sáv: Szoba elrendezés TÉRKÉP stílusban */}
-                        <div className="holo-map-section">
-                            <h3>Floor Blueprint ({(selectedDelve.roomDetails || []).filter(r => r.e !== undefined).length + 2} Rooms)</h3>
-                            <div className="holo-timeline">
-                                <div className="holo-node spawn-node">
-                                    <div className="node-dot"></div>
-                                    <span>Spawn</span>
+                            {/* ROOM MAP SECTION */}
+                            <div className="m-map">
+                                <div className="m-section-head">
+                                    <span className="m-section-title">FLOOR BLUEPRINT</span>
+                                    <div className="m-section-line"></div>
+                                </div>
+                                <div className="m-room-grid">
+                                    <div className="m-room spawn">
+                                        <span className="m-room-id">SPWN</span>
+                                        <span className="m-room-type">Start</span>
+                                    </div>
+                                    
+                                    {(selectedDelve.roomDetails || []).map((room, i) => {
+                                        if (room.e === undefined) return null;
+                                        const enemyName = (selectedDelve.enemies || [])[room.e]?.n || "Unknown";
+                                        const shortName = enemyName.substring(0, 8);
+                                        return (
+                                            <div key={i} className="m-room">
+                                                <span className="m-room-id">R{i+1}</span>
+                                                <span className="m-room-type">{shortName}</span>
+                                            </div>
+                                        );
+                                    })}
+
+                                    <div className="m-room boss-room">
+                                        <span className="m-room-id">BOSS</span>
+                                        <span className="m-room-type">End</span>
+                                    </div>
                                 </div>
                                 
-                                {(selectedDelve.roomDetails || []).map((room, i) => {
-                                    if (room.e === undefined) return null;
-                                    const enemyName = (selectedDelve.enemies || [])[room.e]?.n || "Unknown";
-                                    const shortName = enemyName.substring(0, 8) + (enemyName.length > 8 ? '.' : '');
-                                    
-                                    return (
-                                        <div key={i} className="holo-node">
-                                            <div className="node-dot"></div>
-                                            <span>{shortName}</span>
-                                        </div>
-                                    );
-                                })}
-
-                                <div className="holo-node boss-node">
-                                    <div className="node-dot"></div>
-                                    <span>Boss</span>
+                                <div className="m-map-legend">
+                                    <div className="m-legend-item"><div className="m-legend-dot s"></div> SPAWN</div>
+                                    <div className="m-legend-item"><div className="m-legend-dot r"></div> ROOM</div>
+                                    <div className="m-legend-item"><div className="m-legend-dot b"></div> BOSS</div>
                                 </div>
                             </div>
                         </div>
+
+                        {/* FOOTER STATS */}
+                        <div className="m-footer">
+                            <div className="m-footer-stat">
+                                <span className="m-footer-val">{(selectedDelve.roomDetails || []).filter(r => r.e !== undefined).length + 2}</span>
+                                <span className="m-footer-label">TOTAL ROOMS</span>
+                            </div>
+                            <div className="m-footer-divider"></div>
+                            <div className="m-footer-stat">
+                                <span className="m-footer-val">{(selectedDelve.enemies || []).length}</span>
+                                <span className="m-footer-label">ENEMY TYPES</span>
+                            </div>
+                            <div className="m-footer-divider"></div>
+                            <div className="m-footer-stat">
+                                <span className="m-footer-val">{selectedDelve.zone}</span>
+                                <span className="m-footer-label">DIFFICULTY</span>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             )}
