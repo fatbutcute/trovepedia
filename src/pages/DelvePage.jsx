@@ -9,12 +9,15 @@ const DelvePage = () => {
     const [error, setError] = useState(null);
     const [searchTerm, setSearchTerm] = useState("");
 
-    // 2. Adatok lekérése (Fetch) az oldal betöltésekor
+    // 2. Adatok lekérése (Fetch) az oldal betöltésekor CORS proxy-n keresztül
     useEffect(() => {
         const fetchDelveData = async () => {
             try {
                 setLoading(true);
-                const response = await fetch("/api/delve", {
+                
+                // JAVÍTÁS: A corsproxy.io eltávolítja a blokkoló szabályokat!
+                const targetUrl = encodeURIComponent("https://www.pyrodisc.one/api/trove/delve/current.php");
+                const response = await fetch(`https://corsproxy.io/?${targetUrl}`, {
                     method: "GET",
                     headers: {
                         "Accept": "application/json"
@@ -22,7 +25,7 @@ const DelvePage = () => {
                 });
 
                 if (!response.ok) {
-                    throw new Error("Failed to fetch delve data from Pyrodisc.");
+                    throw new Error(`Nem sikerült letölteni az adatot (Hibakód: ${response.status})`);
                 }
 
                 const data = await response.json();
