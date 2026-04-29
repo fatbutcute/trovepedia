@@ -588,7 +588,7 @@
   width: fit-content;
 }
 
-.m-subtitle { font-size: 15px; color: #4A5568; letter-spacing: 1px; font-weight: 300; font-family: 'Exo2', sans-serif; }
+.m-subtitle { font-size: 17px; color: #4A5568; letter-spacing: 1px; font-weight: 600; font-family: 'Blinker', sans-serif; }
 
 .m-close { 
   background: rgba(255,255,255,0.04); 
@@ -629,10 +629,10 @@
   background: linear-gradient(90deg, #DC3232, transparent);
 }
 
-.m-card-eyebrow { font-size: 13px; letter-spacing: 3px; text-transform: uppercase; color: #DC3232; margin-bottom: 10px; font-family: 'Blinker', sans-serif; font-weight: 600; display: flex; align-items: center; gap: 6px; }
+.m-card-eyebrow { font-size: 16px; letter-spacing: 3px; text-transform: uppercase; color: #DC3232; margin-bottom: 10px; font-family: 'Blinker', sans-serif; font-weight: 400; display: flex; align-items: center; gap: 6px; }
 .m-card-eyebrow::before { content: ''; display: inline-block; width: 6px; height: 6px; background: #DC3232; border-radius: 50%; }
 
-.m-boss-name { font-family: 'Rajdhani', sans-serif; font-size: 22px; font-weight: 700; color: #F0F4FF; line-height: 1.1; margin-bottom: 12px; }
+.m-boss-name { font-family: 'Dosis', sans-serif; font-size: 22px; font-weight: 500; color: #F0F4FF; line-height: 1.1; margin-bottom: 12px; }
 
 .m-tags { display: flex; gap: 6px; flex-wrap: wrap; }
 .m-tag { letter-spacing: 2px; text-transform: uppercase; padding: 3px 8px; border-radius: 2px; }
@@ -659,7 +659,7 @@
 .m-card-eyebrow.blue::before { background: #3B82F6; }
 .m-card-eyebrow.blue { color: #3B82F6; }
 
-.m-obj-value { font-family: 'Blinker', monospace; font-size: 25px; font-weight: 500; color: #F5A623; line-height: 1; margin: 8px 0 4px; }
+.m-obj-value { font-family: 'Dosis', monospace; font-size: 25px; font-weight: 500; color: #F5A623; line-height: 1; margin: 8px 0 4px; }
 .m-obj-label { font-size: 12px; color: #4A5568; display: none;}
 
 /* Enemies section */
@@ -689,7 +689,7 @@
 .m-enemy-info { flex: 1; }
 .m-enemy-name { font-size: 18px; font-weight: 500; color: #C8D5E8; line-height: 1.2; margin-bottom: 5px; font-family: 'NunitoSans', sans-serif; }
 .m-enemy-count-wrap { display: flex; align-items: center; gap: 6px; }
-.m-enemy-count { font-family: 'Blinker', monospace; font-size: 20px; font-weight: 700; color: #64B4FF; }
+.m-enemy-count { font-family: 'Blinker', monospace; font-size: 20px; font-weight: 700; color: #64B4FF; align-items: center;}
 .m-enemy-count-label { font-size: 12px; color: #97a0af; letter-spacing: 1px; }
 
 /* Room map */
@@ -721,23 +721,23 @@
   gap: 3px;
 }
 
-.m-room-id { font-family: 'Orbitron', monospace; font-size: 8px; font-weight: 700; color: #64B4FF; letter-spacing: 1px; }
-.m-room-type { font-size: 10px; color: #6d798d; line-height: 1.3; font-family: 'Quicksand', sans-serif; font-weight: 400; }
+.m-room-id { font-family: 'Quicksand', monospace; font-size: 20px; font-weight: 300; color: #64B4FF; letter-spacing: 1px; }
+.m-room-type { font-size: 13px; color: #6d798d; line-height: 1.3; font-family: 'Quicksand', sans-serif; font-weight: 400; }
 
 .m-room.spawn {
   background: rgba(245,166,35,0.08);
   border-color: rgba(245,166,35,0.3);
 }
-.m-room.spawn .m-room-id { color: #F5A623; font-size: 9px; }
+.m-room.spawn .m-room-id { color: #F5A623; font-size: 15px; font-family: 'Exo', sans-serif; }
 
 .m-room.boss-room {
   background: rgba(220,50,50,0.1);
   border-color: rgba(220,50,50,0.35);
 }
-.m-room.boss-room .m-room-id { color: #DC3232; font-size: 9px; }
+.m-room.boss-room .m-room-id { color: #DC3232; font-size: 15px; font-family: 'Exo', sans-serif; }
 
 .m-map-legend { display: flex; gap: 16px; margin-top: 12px; justify-content: flex-end; }
-.m-legend-item { display: flex; align-items: center; gap: 5px; font-size: 9px; color: #4A5568; letter-spacing: 1px; font-family: 'Rajdhani', sans-serif; text-transform: uppercase; }
+.m-legend-item { display: flex; align-items: center; gap: 5px; font-size: 15px; color: #4A5568; letter-spacing: 1px; font-family: 'Dosis', sans-serif; align-items: center; }
 .m-legend-dot { width: 8px; height: 8px; border-radius: 1px; }
 .m-legend-dot.s { background: rgba(245,166,35,0.4); border: 1px solid #F5A623; }
 .m-legend-dot.b { background: rgba(220,50,50,0.4); border: 1px solid #DC3232; }

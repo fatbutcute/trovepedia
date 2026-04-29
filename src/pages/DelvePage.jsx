@@ -209,7 +209,7 @@ const DelvePage = () => {
                                                 </div>
                                             </div>
                                             <div className="m-enemy-count-wrap">
-                                                <span className="m-enemy-count-label">QTY</span>
+                                                <span className="m-enemy-count-label">QTY: </span>
                                                 <span className="m-enemy-count">{en.c}</span>
                                             </div>
                                         </div>
