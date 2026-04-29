@@ -91,7 +91,7 @@ const DelvePage = () => {
                 <p className="delve-desc">
                     We are grateful to the Trove community for their daily contributions and dedication to keeping our data up to date.
                 </p>
-                    <div><StaffCard
+                    <div className='Sqze'><StaffCard
                     discordId="724956641023492116"
                     name="Sqze (Nepo)"
                     role="Developer, Pyrodisc"

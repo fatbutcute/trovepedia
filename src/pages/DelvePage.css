@@ -146,6 +146,11 @@
 
 /* ... (Tooltip és a többi stílus változatlan) ... */
 
+.sqze {
+    margin: auto;
+    align-items: center;
+}
+
 .pyrodisc-tooltip {
     position: absolute;
     left: 175px;
