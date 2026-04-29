@@ -171,7 +171,7 @@ const DelvePage = () => {
                                         {selectedDelve.isVaultFloor && <span className="m-floor-badge">VAULT FLOOR</span>}
                                     </div>
                                 </div>
-                                <div className="m-subtitle">{selectedDelve.biome} // {selectedDelve.zone}</div>
+                                <div className="m-subtitle">{selectedDelve.biome} - {selectedDelve.zone}</div>
                             </div>
                             <button className="m-close" onClick={() => setSelectedDelve(null)}>✕</button>
                         </div>
