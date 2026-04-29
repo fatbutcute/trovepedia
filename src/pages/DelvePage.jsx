@@ -225,7 +225,7 @@ const DelvePage = () => {
                                 </div>
                                 <div className="m-room-grid">
                                     <div className="m-room spawn">
-                                        <span className="m-room-id">SPWN</span>
+                                        <span className="m-room-id">SPAWN</span>
                                         <span className="m-room-type">Start</span>
                                     </div>
                                     

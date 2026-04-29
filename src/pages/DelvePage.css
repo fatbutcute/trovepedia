@@ -567,11 +567,11 @@
 }
 
 .m-depth-label {
-  font-size: 9px;
+  font-size: 14px;
   letter-spacing: 3px;
   text-transform: uppercase;
-  color: #4A5568;
-  font-family: 'Rajdhani', sans-serif;
+  color: #6c778a;
+  font-family: 'Sora', sans-serif;
 }
 
 .m-floor-badge {
@@ -588,7 +588,7 @@
   width: fit-content;
 }
 
-.m-subtitle { font-size: 12px; color: #4A5568; letter-spacing: 1px; font-weight: 300; }
+.m-subtitle { font-size: 15px; color: #4A5568; letter-spacing: 1px; font-weight: 300; font-family: 'Exo2', sans-serif; }
 
 .m-close { 
   background: rgba(255,255,255,0.04); 
@@ -629,13 +629,13 @@
   background: linear-gradient(90deg, #DC3232, transparent);
 }
 
-.m-card-eyebrow { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: #DC3232; margin-bottom: 10px; font-family: 'Rajdhani', sans-serif; font-weight: 600; display: flex; align-items: center; gap: 6px; }
+.m-card-eyebrow { font-size: 13px; letter-spacing: 3px; text-transform: uppercase; color: #DC3232; margin-bottom: 10px; font-family: 'Blinker', sans-serif; font-weight: 600; display: flex; align-items: center; gap: 6px; }
 .m-card-eyebrow::before { content: ''; display: inline-block; width: 6px; height: 6px; background: #DC3232; border-radius: 50%; }
 
 .m-boss-name { font-family: 'Rajdhani', sans-serif; font-size: 22px; font-weight: 700; color: #F0F4FF; line-height: 1.1; margin-bottom: 12px; }
 
 .m-tags { display: flex; gap: 6px; flex-wrap: wrap; }
-.m-tag { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; font-family: 'Rajdhani', sans-serif; font-weight: 600; padding: 3px 8px; border-radius: 2px; }
+.m-tag { font-size: 15px; letter-spacing: 2px; text-transform: uppercase; font-family: 'Sora', sans-serif; font-weight: 600; padding: 3px 8px; border-radius: 2px; }
 .m-tag.danger { background: rgba(220,50,50,0.12); color: #DC3232; border: 1px solid rgba(220,50,50,0.3); }
 .m-tag.info { background: rgba(100,180,255,0.08); color: #64B4FF; border: 1px solid rgba(100,180,255,0.2); }
 
@@ -660,7 +660,7 @@
 .m-card-eyebrow.blue { color: #3B82F6; }
 
 .m-obj-value { font-family: 'Orbitron', monospace; font-size: 36px; font-weight: 700; color: #F5A623; line-height: 1; margin: 8px 0 4px; }
-.m-obj-label { font-size: 12px; color: #4A5568; }
+.m-obj-label { font-size: 12px; color: #4A5568; display: none;}
 
 /* Enemies section */
 .m-section-head {
@@ -669,7 +669,7 @@
   gap: 10px;
   margin-bottom: 12px;
 }
-.m-section-title { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: #4A5568; font-family: 'Rajdhani', sans-serif; font-weight: 600; }
+.m-section-title { font-size: 14px; letter-spacing: 3px; text-transform: uppercase; color: #4A5568; font-family: 'Rajdhani', sans-serif; font-weight: 600; }
 .m-section-line { flex: 1; height: 1px; background: rgba(255,255,255,0.05); }
 
 .m-enemies-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
@@ -687,10 +687,10 @@
 }
 
 .m-enemy-info { flex: 1; }
-.m-enemy-name { font-size: 13px; font-weight: 500; color: #C8D5E8; line-height: 1.2; margin-bottom: 5px; }
+.m-enemy-name { font-size: 13px; font-weight: 500; color: #C8D5E8; line-height: 1.2; margin-bottom: 5px; font-family: 'NunitoSans', sans-serif; }
 .m-enemy-count-wrap { display: flex; align-items: center; gap: 6px; }
-.m-enemy-count { font-family: 'Orbitron', monospace; font-size: 20px; font-weight: 700; color: #64B4FF; }
-.m-enemy-count-label { font-size: 9px; color: #4A5568; letter-spacing: 1px; }
+.m-enemy-count { font-family: 'Orbitron', monospace; font-size: 25px; font-weight: 700; color: #64B4FF; }
+.m-enemy-count-label { font-size: 12px; color: #97a0af; letter-spacing: 1px; }
 
 /* Room map */
 .m-map {
@@ -751,15 +751,15 @@
   align-items: center;
 }
 .m-footer-stat { display: flex; flex-direction: column; align-items: center; gap: 2px; }
-.m-footer-val { font-family: 'Orbitron', monospace; font-size: 16px; font-weight: 700; color: #E8EDF5; }
-.m-footer-label { font-size: 8px; color: #4A5568; letter-spacing: 2px; text-transform: uppercase; font-family: 'Rajdhani', sans-serif; }
+.m-footer-val { font-family: 'Dosis', monospace; font-size: 22px; font-weight: 700; color: #E8EDF5; }
+.m-footer-label { font-size: 12px; color: #6e798d; letter-spacing: 2px; text-transform: uppercase; font-family: 'Dosis', sans-serif; }
 .m-footer-divider { width: 1px; height: 30px; background: rgba(255,255,255,0.06); }
 
 @media (max-width: 580px) {
   .m-top-row { grid-template-columns: 1fr; }
   .m-enemies-grid { grid-template-columns: 1fr; }
   .m-room-grid { grid-template-columns: repeat(4, 1fr); }
-  .m-depth-num { font-size: 36px; }
+  .m-depth-num { font-size: 36px; font-family: 'DM Sans', sans-serif; }
   .m-body { padding: 18px; }
   .m-header { padding: 16px 18px; }
 }
