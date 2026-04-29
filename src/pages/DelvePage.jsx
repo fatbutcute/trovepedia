@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom'; // <-- EZ A VARÁZSLAT: Importáljuk a Portalt
 import './DelvePage.css';
 
 const DelvePage = () => {
@@ -87,10 +88,7 @@ const DelvePage = () => {
                                 key={item.id || index} 
                                 className={`ui-card slide-up-animation ${item.isVaultFloor ? 'vault-card' : ''}`}
                                 style={{animationDelay: `${index * 0.01}s`, cursor: 'pointer'}}
-                                onClick={() => {
-                                    console.log("Kártya megnyitva:", item); // Ellenőrzés a konzolban
-                                    setSelectedDelve(item);
-                                }}
+                                onClick={() => setSelectedDelve(item)}
                             >
                                 <div className="header">
                                     <div className="depth-badge">Depth {item.depth}</div>
@@ -131,8 +129,8 @@ const DelvePage = () => {
                 )}
             </main>
 
-            {/* FELUGRÓ ABLAK (MODAL) */}
-            {selectedDelve && (
+            {/* FELUGRÓ ABLAK (MODAL) - PORTALLAL KITELEPORTÁLVA A BODY-BA! */}
+            {selectedDelve && createPortal(
                 <div className="modal-overlay" onClick={() => setSelectedDelve(null)}>
                     <div className="modal-content" onClick={e => e.stopPropagation()}>
                         <button className="modal-close" onClick={() => setSelectedDelve(null)}>&times;</button>
@@ -177,7 +175,8 @@ const DelvePage = () => {
                             </section>
                         </div>
                     </div>
-                </div>
+                </div>,
+                document.body // <-- Ide teleportáljuk: a böngésző leggyökerébe!
             )}
         </div>
     );
