@@ -180,14 +180,14 @@ const DelvePage = () => {
                             {/* TOP ROW: Boss & Objective */}
                             <div className="m-top-row">
                                 <div className="m-boss-card">
-                                    <div className="m-card-eyebrow">TARGET BOSS</div>
+                                    <div className="m-card-eyebrow">BOSS</div>
                                     <div className="m-boss-name">{selectedDelve.boss?.n}</div>
                                     <div className="m-tags">
                                         {selectedDelve.boss?.b?.map((b, i) => <span key={i} className="m-tag danger">{b}</span>)}
                                     </div>
                                 </div>
                                 <div className="m-obj-card">
-                                    <div className="m-card-eyebrow blue">MISSION OBJECTIVE</div>
+                                    <div className="m-card-eyebrow blue">OBJECTIVE</div>
                                     <div className="m-obj-value">{selectedDelve.objectiveText}</div>
                                     <div className="m-obj-label">Complete objective to reveal boss</div>
                                 </div>

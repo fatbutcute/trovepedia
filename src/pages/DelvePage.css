@@ -578,7 +578,7 @@
   background: rgba(245,166,35,0.12);
   border: 1px solid rgba(245,166,35,0.35);
   color: #F5A623;
-  font-size: 10px;
+  font-size: 15px;
   letter-spacing: 2px;
   padding: 3px 10px;
   font-family: 'Rajdhani', sans-serif;
@@ -635,9 +635,9 @@
 .m-boss-name { font-family: 'Rajdhani', sans-serif; font-size: 22px; font-weight: 700; color: #F0F4FF; line-height: 1.1; margin-bottom: 12px; }
 
 .m-tags { display: flex; gap: 6px; flex-wrap: wrap; }
-.m-tag { font-size: 15px; letter-spacing: 2px; text-transform: uppercase; font-family: 'Sora', sans-serif; font-weight: 600; padding: 3px 8px; border-radius: 2px; }
+.m-tag { letter-spacing: 2px; text-transform: uppercase; padding: 3px 8px; border-radius: 2px; }
 .m-tag.danger { background: rgba(220,50,50,0.12); color: #DC3232; border: 1px solid rgba(220,50,50,0.3); }
-.m-tag.info { background: rgba(100,180,255,0.08); color: #64B4FF; border: 1px solid rgba(100,180,255,0.2); }
+.m-tag.info { background: rgba(100,180,255,0.08); color: #64B4FF; border: 1px solid rgba(100,180,255,0.2); font-size: 12px; font-family: 'Sora', sans-serif; font-weight: 600;}
 
 .m-obj-card {
   background: rgba(255,255,255,0.02);
@@ -659,7 +659,7 @@
 .m-card-eyebrow.blue::before { background: #3B82F6; }
 .m-card-eyebrow.blue { color: #3B82F6; }
 
-.m-obj-value { font-family: 'Orbitron', monospace; font-size: 36px; font-weight: 700; color: #F5A623; line-height: 1; margin: 8px 0 4px; }
+.m-obj-value { font-family: 'Quicksand', monospace; font-size: 25px; font-weight: 700; color: #F5A623; line-height: 1; margin: 8px 0 4px; }
 .m-obj-label { font-size: 12px; color: #4A5568; display: none;}
 
 /* Enemies section */
@@ -689,7 +689,7 @@
 .m-enemy-info { flex: 1; }
 .m-enemy-name { font-size: 13px; font-weight: 500; color: #C8D5E8; line-height: 1.2; margin-bottom: 5px; font-family: 'NunitoSans', sans-serif; }
 .m-enemy-count-wrap { display: flex; align-items: center; gap: 6px; }
-.m-enemy-count { font-family: 'Orbitron', monospace; font-size: 25px; font-weight: 700; color: #64B4FF; }
+.m-enemy-count { font-family: 'Blinker', monospace; font-size: 20px; font-weight: 700; color: #64B4FF; }
 .m-enemy-count-label { font-size: 12px; color: #97a0af; letter-spacing: 1px; }
 
 /* Room map */
@@ -722,7 +722,7 @@
 }
 
 .m-room-id { font-family: 'Orbitron', monospace; font-size: 8px; font-weight: 700; color: #64B4FF; letter-spacing: 1px; }
-.m-room-type { font-size: 7px; color: #4A5568; line-height: 1.3; }
+.m-room-type { font-size: 10px; color: #6d798d; line-height: 1.3; font-family: 'Quicksand', sans-serif; font-weight: 400; }
 
 .m-room.spawn {
   background: rgba(245,166,35,0.08);
@@ -759,7 +759,7 @@
   .m-top-row { grid-template-columns: 1fr; }
   .m-enemies-grid { grid-template-columns: 1fr; }
   .m-room-grid { grid-template-columns: repeat(4, 1fr); }
-  .m-depth-num { font-size: 36px; font-family: 'DM Sans', sans-serif; }
+  .m-depth-num { font-size: 36px; font-family: 'Quicksand', sans-serif; }
   .m-body { padding: 18px; }
   .m-header { padding: 16px 18px; }
 }
