@@ -566,8 +566,8 @@ footer {
 }
 
 @font-face {
-  font-family: 'Exo2';
-  src: url('.fonts/Exo2-VariableFont_wght.ttf') format('truetype');
+  font-family: 'Exo';
+  src: url('./fonts/Exo-VariableFont_wght.ttf') format('truetype');
   /* Mivel ez Variable font, nem kell külön weight-enként regisztrálni */
 }
 
