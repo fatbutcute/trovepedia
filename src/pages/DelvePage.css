@@ -154,12 +154,6 @@
     margin: auto;
 }
 
-.staff-card {
-    margin: auto;
-    align-items: center;
-    justify-content: center;
-}
-
 .pyrodisc-tooltip {
     position: absolute;
     left: 175px;
