@@ -148,12 +148,11 @@
 
 .Sqze {
     width: 100%;
-    align-items: left;
     position: absolute;
     left: -60px;
     display: flex;
     align-items: center;
-    margin-top: 25px;/
+    margin-top: 25px;
     z-index: 10;
     opacity: 0;
     transform: translateY(30px);
@@ -212,8 +211,9 @@
         flex-direction: column;
         gap: 20px;
     }
-    .pyrodisc-container {
+    .pyrodisc-container, .Sqze {
         position: static;
+        margin-top: 0;
     }
     .pyrodisc-tooltip {
         display: none;
