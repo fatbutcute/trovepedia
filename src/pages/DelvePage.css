@@ -146,10 +146,9 @@
 
 /* ... (Tooltip és a többi stílus változatlan) ... */
 
-.Sqze .staff-card{
-    display: flex;
-    margin-top: 15px;
-    margin-bottom: 20px;
+.Sqze {
+    width: 100%;
+    align-items: left;
 }
 
 .pyrodisc-tooltip {
