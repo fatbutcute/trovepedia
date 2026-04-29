@@ -730,7 +730,7 @@
   background: rgba(245,166,35,0.08);
   border-color: rgba(245,166,35,0.3);
 }
-.m-room.spawn .m-room-id { color: #F5A623; font-size: 15px; font-family: 'Exo', sans-serif; }
+.m-room.spawn .m-room-id { color: #F5A623; font-size: 15px; font-family: 'Quicksand', sans-serif; }
 
 .m-room.boss-room {
   background: rgba(220,50,50,0.1);
@@ -738,9 +738,9 @@
 }
 
 .m-room.spawn .m-room-type { display: none; }
-.m-room.spawn .m-room-id { font-weight: 500; }
-.m-room.boss-room .m-room-id { color: #DC3232; font-size: 15px; font-family: 'Exo', sans-serif; font-weight: 500; }
-.m-room.boss-room .m-room-type { color: #DC3232; font-size: 15px; font-family: 'Exo', sans-serif; display: none; font-weight: 500;}
+.m-room.spawn .m-room-id { font-weight: 600; }
+.m-room.boss-room .m-room-id { color: #DC3232; font-size: 15px; font-family: 'Quicksand', sans-serif; font-weight: 600; }
+.m-room.boss-room .m-room-type { color: #DC3232; font-size: 15px; font-family: 'Quicksand', sans-serif; display: none; font-weight: 600;}
 
 .m-map-legend { display: flex; gap: 16px; margin-top: 12px; justify-content: flex-end; }
 .m-legend-item { display: flex; align-items: center; gap: 10px; font-size: 17px; color: #4A5568; letter-spacing: 1px; font-family: 'Dosis', sans-serif; align-items: center; margin-top: -1px;}
