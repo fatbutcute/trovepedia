@@ -9,15 +9,15 @@ const DelvePage = () => {
     const [error, setError] = useState(null);
     const [searchTerm, setSearchTerm] = useState("");
 
-    // 2. Adatok lekérése (Fetch) az oldal betöltésekor AllOrigins proxy-n keresztül
+    // 2. Adatok lekérése (Fetch) az oldal betöltésekor CodeTabs proxy-n keresztül
     useEffect(() => {
         const fetchDelveData = async () => {
             try {
                 setLoading(true);
                 
-                // MÁSODIK PRÓBA: Az AllOrigins proxy-t használjuk a Cloudflare kikerülésére
-                const targetUrl = encodeURIComponent("https://www.pyrodisc.one/api/trove/delve/current.php");
-                const response = await fetch(`https://api.allorigins.win/raw?url=${targetUrl}`, {
+                // HARMADIK PRÓBA: CodeTabs proxy, ami jobban titkolja a bot mivoltát
+                const targetUrl = "https://www.pyrodisc.one/api/trove/delve/current.php";
+                const response = await fetch(`https://api.codetabs.com/v1/proxy?quest=${targetUrl}`, {
                     method: "GET",
                     headers: {
                         "Accept": "application/json"
