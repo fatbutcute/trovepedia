@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { createPortal } from 'react-dom'; // <-- EZ A VARÁZSLAT: Importáljuk a Portalt
+import { createPortal } from 'react-dom';
 import './DelvePage.css';
 
 const DelvePage = () => {
@@ -10,6 +10,7 @@ const DelvePage = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedDelve, setSelectedDelve] = useState(null);
 
+    // Adatok lekérése a Pyrodiscről
     useEffect(() => {
         const fetchDelveData = async () => {
             try {
@@ -26,6 +27,7 @@ const DelvePage = () => {
                 setDelves(data?.data?.depths || data?.depths || []);
                 setWeekNumber(data?.data?.weekNumber || data?.weekNumber || "N/A");
             } catch (err) {
+                console.error("Fetch hiba:", err);
                 setError(err.message);
             } finally {
                 setLoading(false);
@@ -34,6 +36,7 @@ const DelvePage = () => {
         fetchDelveData();
     }, []);
 
+    // Szűrés
     const filteredDelves = (delves || []).filter(item => {
         if (!item) return false;
         const lowerSearch = searchTerm.toLowerCase();
@@ -50,16 +53,41 @@ const DelvePage = () => {
             <header className="delve-header">
                 <div className="delve-title-row">
                     <h1 className="delve-title">Delve Index</h1>
+                    
+                    {/* VISSZARAKVA: Pyrodisc Container + Tooltip */}
                     <div className="pyrodisc-container">
-                        <a href="https://www.pyrodisc.one/delves" target="_blank" rel="noopener noreferrer" className="pyrodisc-link">
+                        <a 
+                            href="https://www.pyrodisc.one/delves" 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className="pyrodisc-link"
+                        >
                             <span className="pyrodisc-spin-wrapper">
-                                <img src="/images/pyrodisc.png" alt="Pyrodisc Logo" className="pyrodisc-image" />
+                                <img 
+                                    src="/images/pyrodisc.png" 
+                                    alt="Pyrodisc Logo" 
+                                    className="pyrodisc-image" 
+                                />
                             </span>
                         </a>
+                        <div className="pyrodisc-tooltip">
+                            <span className='pyrodisc-h2'>Pyrodisc</span><br />
+                            <p className='pyrodisc-desc'>
+                                A data-gathering, dashboard-like website that continuously collects data from delves, including daily and weekly bonuses.
+                            </p>
+                        </div>
                     </div>
                 </div>
+
                 <div className="week-badge">Week #{weekNumber}</div>
+                
+                {/* VISSZARAKVA: Közösségi köszönetnyilvánítás */}
+                <p className="delve-desc">
+                    We are grateful to the Trove community for their daily contributions and dedication to keeping our data up to date.
+                </p>
+                
                 <div className="delve-separator"></div>
+
                 <div className="delve-search-container">
                     <div className="search-input-wrapper">
                         <img src="/icons/search.png" alt="Search" className="search-icon" />
@@ -129,7 +157,7 @@ const DelvePage = () => {
                 )}
             </main>
 
-            {/* FELUGRÓ ABLAK (MODAL) - PORTALLAL KITELEPORTÁLVA A BODY-BA! */}
+            {/* MODAL PORTAL - Biztosítja, hogy megjelenjen minden felett */}
             {selectedDelve && createPortal(
                 <div className="modal-overlay" onClick={() => setSelectedDelve(null)}>
                     <div className="modal-content" onClick={e => e.stopPropagation()}>
@@ -176,7 +204,7 @@ const DelvePage = () => {
                         </div>
                     </div>
                 </div>,
-                document.body // <-- Ide teleportáljuk: a böngésző leggyökerébe!
+                document.body
             )}
         </div>
     );
