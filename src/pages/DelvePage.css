@@ -638,7 +638,7 @@
 .m-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 5px;}
 .m-tag { letter-spacing: 2px; text-transform: uppercase; padding: 3px 8px; border-radius: 2px; margin-top: 3px;}
 .m-tag.danger { background: rgba(220,50,50,0.12); color: #DC3232; border: 0px solid rgba(220,50,50,0.3); font-size: 15px; font-family: 'Dosis', sans-serif; font-weight: 600; border-radius: 7px;}
-.m-tag.info { background: rgba(100,180,255,0.08); color: #64B4FF; border: 0px solid rgba(100,180,255,0.2); font-size: 12px; font-family: 'Sora', sans-serif; font-weight: 600; border-radius: 7px; align-items: center; margin-top: 3px; padding: 5px;}
+.m-tag.info { background: rgba(100,180,255,0.08); color: #64B4FF; border: 0px solid rgba(100,180,255,0.2); font-size: 12px; font-family: 'Sora', sans-serif; font-weight: 600; border-radius: 7px; align-items: center; margin-top: 3px; padding: 5px; padding-left: 5px; padding-right: 5px; display: flex;}
 .m-tag.info .m-tag{  margin-top: 3px; }
 
 .m-obj-card {
