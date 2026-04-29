@@ -571,6 +571,7 @@
   text-transform: uppercase;
   color: #6c778a;
   font-family: 'Sora', sans-serif;
+  font-weight: 600;
 }
 
 .m-floor-badge {
@@ -580,11 +581,12 @@
   font-size: 15px;
   letter-spacing: 2px;
   padding: 3px 10px;
-  font-family: 'Rajdhani', sans-serif;
+  font-family: 'Blinker', sans-serif;
   font-weight: 600;
   text-transform: uppercase;
   border-radius: 2px;
   width: fit-content;
+  align-items: center;
 }
 
 .m-subtitle { font-size: 17px; color: #4A5568; letter-spacing: 1px; font-weight: 600; font-family: 'Blinker', sans-serif; }
