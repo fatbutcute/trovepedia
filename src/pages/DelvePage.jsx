@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { createPortal } from 'react-dom';
 import './DelvePage.css';
 
 const DelvePage = () => {
@@ -10,7 +9,7 @@ const DelvePage = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedDelve, setSelectedDelve] = useState(null);
 
-    // Adatok lekérése a Pyrodiscről
+    // Adatok lekérése a Pyrodiscről (CodeTabs proxyval)
     useEffect(() => {
         const fetchDelveData = async () => {
             try {
@@ -27,7 +26,6 @@ const DelvePage = () => {
                 setDelves(data?.data?.depths || data?.depths || []);
                 setWeekNumber(data?.data?.weekNumber || data?.weekNumber || "N/A");
             } catch (err) {
-                console.error("Fetch hiba:", err);
                 setError(err.message);
             } finally {
                 setLoading(false);
@@ -36,7 +34,7 @@ const DelvePage = () => {
         fetchDelveData();
     }, []);
 
-    // Szűrés
+    // Szűrési logika
     const filteredDelves = (delves || []).filter(item => {
         if (!item) return false;
         const lowerSearch = searchTerm.toLowerCase();
@@ -54,7 +52,7 @@ const DelvePage = () => {
                 <div className="delve-title-row">
                     <h1 className="delve-title">Delve Index</h1>
                     
-                    {/* VISSZARAKVA: Pyrodisc Container + Tooltip */}
+                    {/* Pyrodisc Logó + Tooltip */}
                     <div className="pyrodisc-container">
                         <a 
                             href="https://www.pyrodisc.one/delves" 
@@ -81,7 +79,7 @@ const DelvePage = () => {
 
                 <div className="week-badge">Week #{weekNumber}</div>
                 
-                {/* VISSZARAKVA: Közösségi köszönetnyilvánítás */}
+                {/* Visszarakott közösségi leírás */}
                 <p className="delve-desc">
                     We are grateful to the Trove community for their daily contributions and dedication to keeping our data up to date.
                 </p>
@@ -94,7 +92,7 @@ const DelvePage = () => {
                         <input 
                             type="text" 
                             className="delve-search-input"
-                            placeholder="Search by depth, boss, buff, biome or enemy..."
+                            placeholder="Search delves..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
@@ -104,11 +102,9 @@ const DelvePage = () => {
 
             <main className="delve-container">
                 {loading ? (
-                    <div className="no-data-notice"><p style={{ color: "var(--gold)" }}>Fetching live data from Pyrodisc...</p></div>
+                    <div className="no-data-notice"><p style={{ color: "var(--gold)" }}>Fetching live data...</p></div>
                 ) : error ? (
-                    <div className="no-data-notice"><p style={{ color: "#ff4f6a" }}>Error loading data: {error}</p></div>
-                ) : filteredDelves.length === 0 ? (
-                    <div className="no-data-notice"><p>No results found for "{searchTerm}".</p></div>
+                    <div className="no-data-notice"><p style={{ color: "#ff4f6a" }}>Error: {error}</p></div>
                 ) : (
                     <div className="delve-grid">
                         {filteredDelves.map((item, index) => (
@@ -139,17 +135,6 @@ const DelvePage = () => {
                                         <div className="icon-box2"></div>
                                         <span className="main-text">{item.boss?.n || "Unknown Boss"}</span>
                                     </div>
-                                    <div className="row enemies">
-                                        <div className="icon-box3"></div>
-                                        <div className="text-group">
-                                            <span className="label">Enemies</span>
-                                            <span className="list-text">
-                                                {item.enemies && item.enemies.length > 0 
-                                                    ? item.enemies.map(e => e.n).join(', ') 
-                                                    : "No enemy data"}
-                                            </span>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         ))}
@@ -157,8 +142,8 @@ const DelvePage = () => {
                 )}
             </main>
 
-            {/* MODAL PORTAL - Biztosítja, hogy megjelenjen minden felett */}
-            {selectedDelve && createPortal(
+            {/* MODAL - Az oldal közepén jelenik meg */}
+            {selectedDelve && (
                 <div className="modal-overlay" onClick={() => setSelectedDelve(null)}>
                     <div className="modal-content" onClick={e => e.stopPropagation()}>
                         <button className="modal-close" onClick={() => setSelectedDelve(null)}>&times;</button>
@@ -203,8 +188,7 @@ const DelvePage = () => {
                             </section>
                         </div>
                     </div>
-                </div>,
-                document.body
+                </div>
             )}
         </div>
     );
