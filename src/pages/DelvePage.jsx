@@ -85,11 +85,7 @@ const DelvePage = () => {
                             </p>
                         </div>
                     </div>
-                    <div className='Sqze'><StaffCard
-                         discordId="724956641023492116"
-                          name="Sqze (Nepo)"
-                          role="Developer, Pyrodisc"
-                     /></div>
+
                 </div>
 
                 <div className="week-badge">Week #{weekNumber}</div>
@@ -99,7 +95,11 @@ const DelvePage = () => {
                 </p>
 
                 <div className="delve-separator"></div>
-
+                    <div className='Sqze'><StaffCard
+                         discordId="724956641023492116"
+                          name="Sqze (Nepo)"
+                          role="Developer, Pyrodisc"
+                     /></div>
                 <div className="delve-search-container">
                     <div className="search-input-wrapper">
                         <img src="/icons/search.png" alt="Search" className="search-icon" />
