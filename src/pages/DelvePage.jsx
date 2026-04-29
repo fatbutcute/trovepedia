@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 // ⚠️ FONTOS: Állítsd be a pontos útvonalat a saját json fájlodhoz!
 import delveFallback from '../data/delve.json'; 
 import './DelvePage.css';
-import StaffCard from './StaffCard'
+import StaffCard from '../components/StaffCard'
 
 const DelvePage = () => {
     const [delves, setDelves] = useState([]);
@@ -91,11 +91,11 @@ const DelvePage = () => {
                 <p className="delve-desc">
                     We are grateful to the Trove community for their daily contributions and dedication to keeping our data up to date.
                 </p>
-                    <StaffCard
+                    <div><StaffCard
                     discordId="724956641023492116"
                     name="Sqze (Nepo)"
                     role="Developer, Pyrodisc"
-                    />  
+                    />  </div>
                 <div className="delve-separator"></div>
 
                 <div className="delve-search-container">
