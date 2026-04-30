@@ -56,16 +56,26 @@ const DelvePage = () => {
         fetchDelveData();
     }, []);
 
-    // Szűrési logika
+    // 🚀 OKOS SZŰRÉSI LOGIKA
     const filteredDelves = (delves || []).filter(item => {
         if (!item) return false;
-        const lowerSearch = searchTerm.toLowerCase();
+        const lowerSearch = searchTerm.toLowerCase().trim();
+
+        // 1. SPECIÁLIS SZŰRŐ: Ha KIFEJEZETTEN csak a Vault-okra keres (kiszűri a Volcanic Vaults-ot)
+        if (lowerSearch === "is:vault" || lowerSearch === "vault only") {
+            return item.isVaultFloor;
+        }
+
         const biomeMatch = (item.biome || "").toLowerCase().includes(lowerSearch);
         const depthMatch = (item.depth || "").toString().includes(lowerSearch);
         const bossMatch = (item.boss?.n || "").toLowerCase().includes(lowerSearch);
         const buffMatch = (item.boss?.b || []).some(buff => (buff || "").toLowerCase().includes(lowerSearch));
         const enemyMatch = (item.enemies || []).some(enemy => (enemy?.n || "").toLowerCase().includes(lowerSearch));
-        return biomeMatch || depthMatch || bossMatch || buffMatch || enemyMatch;
+        
+        // 2. Normál keresés kiegészítve: Ha csak elkezdi beírni, hogy "vault", listázza a Vault szobákat is
+        const vaultMatch = item.isVaultFloor && "vault".includes(lowerSearch);
+
+        return biomeMatch || depthMatch || bossMatch || buffMatch || enemyMatch || vaultMatch;
     });
 
     // Késleltetett bezárás az animáció miatt
@@ -119,7 +129,8 @@ const DelvePage = () => {
                         <input 
                             type="text" 
                             className="delve-search-input"
-                            placeholder="Search by depth, boss, buff, biome or enemy..."
+                            // FRISSÍTETT PLACEHOLDER SZÖVEG
+                            placeholder="Search boss, biome, enemy, buff, objective, difficulty or type 'is:vault' to list only vault floors..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />

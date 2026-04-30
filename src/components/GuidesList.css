@@ -1,0 +1,404 @@
+:root {
+    --bg-color: #05060f;
+    --card-bg: #000000; /* Alap fekete háttér, hogy a kép sötétítve jelenjen meg */
+    --accent: #7b42f5;
+    --text-primary: #ffffff;
+    --text-secondary: #9499c3;
+    --font-main: 'Nunito', sans-serif;
+}
+
+::selection {
+    background-color: rgba(123, 66, 245, 0.9);
+    color: #ffffff;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+::-moz-selection {
+    background-color: rgba(123, 66, 245, 0.9);
+    color: #ffffff;
+}
+
+.guides-wrapper {
+    max-width: 1100px;
+    margin: 50px auto;
+    padding: 0 20px;
+    font-family: var(--font-main);
+    color: var(--text-primary);
+}
+
+.guides-header {
+    margin-bottom: 40px;
+    display: none;
+}
+
+.guides-header h1 {
+    font-size: 2.8rem;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+}
+
+.guides-header p {
+    font-weight: 400;
+    color: var(--text-secondary);
+}
+
+.guides-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+    gap: 20px;
+}
+
+/* ====================================================
+   KÁRTYA ALAP STÍLUSOK
+   ==================================================== */
+.guide-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    background: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 24px;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    animation: slideInFromLeft 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.guide-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(123, 66, 245, 0.3);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+}
+
+/* ====================================================
+   1. RÉTEG: A HÁTTÉRKÉP (::after)
+   ==================================================== */
+.guide-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-size: cover; /* Kitölti a kártyát */
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.3; /* Alapállapotban sötét (fekete kártya alap miatt) */
+    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.6s ease;
+    pointer-events: none;
+}
+
+/* ====================================================
+   2. RÉTEG: BEÚSZÓ FEKETE FÁTYOL ÉS LILA CSÍK (::before)
+   ==================================================== */
+.guide-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Balról fekete, középtájt halványodik, a végén átlátszó */
+    background: linear-gradient(to right, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.7) 45%, transparent 100%);
+    border-left: 4px solid var(--accent); /* A bal oldali lila csík */
+    z-index: 1;
+    transform: translateX(-100%); /* Alapból kint van a képernyő bal szélén */
+    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+    pointer-events: none;
+}
+
+/* ====================================================
+   HOVER (EGÉR RÁHÚZÁS) EFFEKTEK
+   ==================================================== */
+
+/* A háttérkép kivilágosodik és finoman bezoomol */
+.guide-card:hover::after {
+    opacity: 0.9;
+    transform: scale(1.1);
+}
+
+/* A fekete fátyol beúszik balról a szöveg mögé */
+.guide-card:hover::before {
+    transform: translateX(0);
+}
+
+/* ====================================================
+   TARTALOM (Szöveg és Ikon)
+   Hogy mindig a képek és a fátyol felett maradjanak
+   ==================================================== */
+.guide-card .card-icon,
+.guide-card .card-body {
+    position: relative;
+    z-index: 2;
+}
+
+.card-icon {
+    background: rgba(123, 66, 245, 0.1);
+    color: var(--accent);
+    width: 50px;
+    height: 50px;
+    min-width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    transition: 0.5s;
+    /* Háttér elmosás, hogy a fátyolon kívül is jól mutasson */
+    backdrop-filter: blur(5px); 
+}
+
+.guide-card:hover .card-icon {
+    background: var(--accent);
+    color: white;
+    box-shadow: 0 0 15px rgba(123, 66, 245, 0.5);
+    scale: 1.05;
+}
+
+.card-body {
+    flex: 1;
+}
+
+.tag {
+    font-family: var(--font-main);
+    font-weight: 800;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: rgba(123, 66, 245, 0.1);
+    border-radius: 4px;
+    width: fit-content;
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center; 
+    padding: 6px 14px;
+    font-family: Comfortaa, sans-serif;
+    backdrop-filter: blur(5px);
+}
+
+.guide-card h3 {
+    margin: 0 0 5px 0;
+    font-size: 1.35rem;
+    font-weight: 400;
+    color: #fff;
+    font-family: Dosis, sans-serif;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8); /* Olvashatóság extra biztosítása */
+}
+
+.guide-card p {
+    margin: 0;
+    color: #c9cbe7;
+    font-size: 1.1rem;
+    line-height: 1.4;
+    font-weight: 500;
+    font-family: Quicksand, sans-serif;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+}
+
+.guide-card:active {
+    transform: scale(0.98);
+    transition: transform 0.1s;
+}
+
+/* ====================================================
+   EGYEDI HÁTTÉRKÉPEK A SLUG-OK ALAPJÁN
+   ==================================================== */
+
+.guide-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    /* A 'cover' biztosítja, hogy a kép arányosan kitöltse a teljes kártyát */
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
+    /* Alapból sötétített, hogy a szöveg olvasható legyen */
+    opacity: 0.35; 
+    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.6s ease;
+    pointer-events: none;
+}
+
+/* 2. RÉTEG: BEÚSZÓ FEKETE FÁTYOL ÉS LILA CSÍK (::before) */
+.guide-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Fekete átmenet balról jobbra */
+    background: linear-gradient(to right, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.6) 55%, transparent 100%);
+    border-left: 4px solid var(--accent);
+    z-index: 1;
+    /* Alapból kint van bal oldalon a képernyőn kívül */
+    transform: translateX(-100%); 
+    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+    pointer-events: none;
+}
+
+/* --- HOVER HATÁS (Amikor ráviszed az egeret) --- */
+
+/* A háttérkép kivilágosodik és bezoomol */
+.guide-card:hover::after {
+    opacity: 0.85; /* Eltűnik a sötétítés */
+    transform: scale(1.1); /* Bezoomol */
+}
+
+/* A fekete fátyol beúszik balról a szöveg mögé */
+.guide-card:hover::before {
+    transform: translateX(0);
+}
+
+/* Hogy a szöveg és az ikon mindig a képek és a fátyol felett maradjon */
+.guide-card .card-icon,
+.guide-card .card-body {
+    position: relative;
+    z-index: 2;
+}
+
+/* ====================================================
+   EGYEDI HÁTTÉRKÉPEK A SLUG-OK ALAPJÁN
+   (Figyelj a perjelre az elején: /guidebg/...)
+   ==================================================== */
+
+.crafting-paths {
+    --accent: #f39c12;
+}
+
+.crafting-paths::after {
+    background-image: url('/guidebg/skillchart.png'); 
+}
+
+.light-system {
+    --accent: #ffc569;
+}
+
+.light-system::after {
+    background-image: url('/guidebg/cosmic.png');
+}
+
+.leviathan-torch {
+    --accent: #fa1a1a;
+}
+
+.leviathan-torch::after {
+    background-image: url('/guidebg/leviathans.png');
+}
+
+.gardening {
+    --accent: #00e439;
+}
+
+.gardening::after {
+    background-image: url('/guidebg/gardening.png');
+}
+
+.gems {
+    --accent: #ff096f;
+}
+
+.gems::after {
+    background-image: url('/guidebg/gems.png');
+}
+
+.ring-abilities {
+    --accent: #cef542;
+}
+
+.ring-abilities::after {
+    background-image: url('/guidebg/ring.png');
+}
+
+.all-ring-abilities {
+    --accent: #9ceb0a;
+}
+
+.all-ring-abilities::after {
+    background-image: url('/guidebg/ring2.png');
+}
+
+.recommended-mods {
+    --accent: #b1b1b1;
+}
+
+.recommended-mods::after {
+    background-image: url('/guidebg/mods.png');
+}
+
+.leaderboard-rewards {
+    --accent: #ff5100;
+}
+
+.leaderboard-rewards::after {
+    background-image: url('/guidebg/leaderboard.png');
+}
+
+.crystal-gear {
+    --accent: #12f38a;
+}
+
+.crystal-gear::after {
+    background-image: url('/guidebg/crystalgear.png');
+}
+
+.mystic-gear {
+    --accent: #b800be;
+}
+
+.mystic-gear::after {
+    background-image: url('/guidebg/mysticgear.png');
+}
+
+.geode {
+    --accent: #00ffdd;
+}
+
+.geode::after {
+    background-image: url('/guidebg/geode.png');
+}
+
+.delves {
+    --accent: #ff18c5;
+}
+
+.delves::after {
+    background-image: url('/guidebg/delves.png');
+}
+
+.towers-ships {
+    --accent: #e2d411;
+}
+
+.towers-ships::after {
+    background-image: url('/guidebg/towersships.png');
+}
+
+@media (max-width: 768px) {
+    .guides-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .guide-card {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+
+@keyframes slideInFromLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
