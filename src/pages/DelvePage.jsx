@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 // ⚠️ FONTOS: Állítsd be a pontos útvonalat a saját json fájlodhoz!
 import delveFallback from '../data/delve.json'; 
 import './DelvePage.css';
-import StaffCard from '../components/StaffCard'
+import StaffCard from '../components/StaffCard';
 
 const DelvePage = () => {
     const [delves, setDelves] = useState([]);
@@ -10,6 +10,9 @@ const DelvePage = () => {
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedDelve, setSelectedDelve] = useState(null);
+    
+    // Állapot az eltűnő animáció kezeléséhez
+    const [isClosing, setIsClosing] = useState(false);
 
     // HIBRID FETCH RENDSZER BIZTONSÁGI HÁLÓVAL
     useEffect(() => {
@@ -65,15 +68,26 @@ const DelvePage = () => {
         return biomeMatch || depthMatch || bossMatch || buffMatch || enemyMatch;
     });
 
+    // Késleltetett bezárás az animáció miatt
+    const handleCloseModal = () => {
+        setIsClosing(true);
+        setTimeout(() => {
+            setSelectedDelve(null);
+            setIsClosing(false);
+        }, 200);
+    };
+
     return (
         <div className="delve-page-wrapper">
             <header className="delve-header">
                 <div className="delve-title-row">
-                    <div className='Sqze'><StaffCard
-                         discordId="724956641023492116"
-                          name="Sqze (Nepo)"
-                          role="Developer, Pyrodisc"
-                     /></div>                     
+                    <div className='Sqze'>
+                        <StaffCard
+                            discordId="724956641023492116"
+                            name="Sqze (Nepo)"
+                            role="Developer, Pyrodisc"
+                        />
+                    </div>                     
                     <h1 className="delve-title">Delve Index</h1>
                         
                     <div className="pyrodisc-container">
@@ -81,7 +95,6 @@ const DelvePage = () => {
                             <span className="pyrodisc-spin-wrapper">
                                 <img src="/images/pyrodisc.png" alt="Pyrodisc Logo" className="pyrodisc-image" />
                             </span>
-
                         </a>
                         <div className="pyrodisc-tooltip">
                             <span className='pyrodisc-h2'>Pyrodisc</span><br />
@@ -90,7 +103,6 @@ const DelvePage = () => {
                             </p>
                         </div>
                     </div>
-
                 </div>
 
                 <div className="week-badge">Week #{weekNumber}</div>
@@ -119,7 +131,6 @@ const DelvePage = () => {
                 {loading ? (
                     <div className="no-data-notice"><p style={{ color: "var(--gold)" }}>Connecting to Database...</p></div>
                 ) : (
-                    /* A key={searchTerm} MESTERTRÜKK biztosítja, hogy a kártyák mindig újra animálódjanak törléskor is! */
                     <div className="delve-grid" key={`grid-${searchTerm}`}>
                         {filteredDelves.map((item, index) => (
                             <div 
@@ -129,11 +140,18 @@ const DelvePage = () => {
                                 onClick={(e) => {
                                     e.preventDefault();
                                     e.stopPropagation();
+                                    setIsClosing(false);
                                     setTimeout(() => setSelectedDelve(item), 10);
                                 }}
                             >
                                 <div className="header">
-                                    <div className="depth-badge">Depth {item.depth}</div>
+                                    <div className="depth-badge">
+                                        Depth {item.depth}
+                                        {/* KORONA IKON BEILLESZTÉSE A KÁRTYÁRA */}
+                                        {item.isVaultFloor && (
+                                            <img src="/icons/crown.png" alt="Crown" className="vault-crown" style={{ marginLeft: '6px', width: '16px', height: '16px', objectFit: 'contain', filter: 'drop-shadow(0 0 10px rgba(231, 255, 19, 0.8))' }} />
+                                        )}
+                                    </div>
                                     <div className="difficulty-tag">{item.zone}</div>
                                 </div>
                                 <h1 className="title">{item.biome}</h1>
@@ -160,15 +178,15 @@ const DelvePage = () => {
                 )}
             </main>
 
-            {/* ÚJ, ÁLTALAD BEKÜLDÖTT MODAL DIZÁJN ÉS STRUKTÚRA */}
+            {/* MODAL */}
             {selectedDelve && (
                 <div 
-                    className="m-wrap" 
+                    className={`m-wrap ${isClosing ? 'closing' : ''}`} 
                     onMouseDown={(e) => {
-                        if (e.target === e.currentTarget) setSelectedDelve(null);
+                        if (e.target === e.currentTarget) handleCloseModal();
                     }}
                 >
-                    <div className="m-modal">
+                    <div className={`m-modal ${isClosing ? 'closing' : ''}`}>
                         <div className="m-accent-bar"></div>
                         
                         <div className="m-header">
@@ -177,12 +195,18 @@ const DelvePage = () => {
                                     <div className="m-depth-num">{selectedDelve.depth}</div>
                                     <div className="m-depth-tag">
                                         <span className="m-depth-label">DEPTH LEVEL</span>
-                                        {selectedDelve.isVaultFloor && <span className="m-floor-badge">VAULT FLOOR</span>}
+                                        {/* KORONA IKON BEILLESZTÉSE A MODAL VAULT JELVÉNYÉBE */}
+                                        {selectedDelve.isVaultFloor && (
+                                            <span className="m-floor-badge" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                                <img src="/icons/crown.png" alt="Crown" className="vault-crown" style={{ width: '16px', height: '16px', objectFit: 'contain' }} />
+                                                VAULT FLOOR
+                                            </span>
+                                        )}
                                     </div>
                                 </div>
                                 <div className="m-subtitle">{selectedDelve.biome} - {selectedDelve.zone}</div>
                             </div>
-                            <button className="m-close" onClick={() => setSelectedDelve(null)}>✕</button>
+                            <button className="m-close" onClick={handleCloseModal}>✕</button>
                         </div>
 
                         <div className="m-body">

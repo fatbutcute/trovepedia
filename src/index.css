@@ -635,3 +635,8 @@ footer {
   font-family: 'DM SANS';
   src: url('./fonts/DMSANS-VariableFont.ttf') format('truetype');
 }
+
+@font-face {
+  font-family: 'Comfortaa';
+  src: url('./fonts/Comfortaa-VariableFont_wght.ttf') format('truetype');
+}
