@@ -116,7 +116,7 @@ export default function RotationsPage() {
         {/* Fejléc */}
         <p className="section-label">Live Data</p>
         <h1 className="section-title-d15"><span className='d15'>D15</span> Rotations</h1>
-        <p className="section-desc">
+        <p className="section-desc-rot">
           The current and upcoming D15 biome rotations — automatically updated every 3 hours.
         </p>
 

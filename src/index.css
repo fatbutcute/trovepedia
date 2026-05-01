@@ -458,6 +458,7 @@ footer {
   font-size: 1.15rem;
   line-height: 1.6;
   max-width: 350px;
+  font-family: Quicksand;
 }
 .footer-col h4 {
   font-family: 'Comfortaa', serif;
@@ -490,6 +491,10 @@ footer {
   border-top: 1px solid var(--border);
   display: flex; justify-content: space-between; align-items: center;
   color: var(--muted); font-size: 1.15rem;
+}
+
+.footer-bottom {
+  font-family: Comfortaa;
 }
 
 /* ─── PAGE LAYOUT ─── */
