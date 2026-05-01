@@ -644,6 +644,8 @@
   width: 16px;
   height: 16px;
   object-fit: contain;
+  margin-right: 3px;
+  margin-top: 0px;
 }
 
 .m-subtitle { font-size: 17px; color: #4A5568; letter-spacing: 1px; font-weight: 600; font-family: 'Blinker', sans-serif; }

@@ -94,7 +94,7 @@ const DelvePage = () => {
                     <div className='Sqze'>
                         <StaffCard
                             discordId="724956641023492116"
-                            name="Sqze (Nepo)"
+                            name="Sqze"
                             role="Developer, Pyrodisc"
                         />
                     </div>                     

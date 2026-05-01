@@ -56,7 +56,7 @@
     display: flex;
     align-items: flex-start;
     gap: 20px;
-    background: var(--card-bg);
+    background: rgba(0, 0, 0, 0.9);
     border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: 12px;
     padding: 24px;
@@ -102,7 +102,7 @@
     width: 100%;
     height: 100%;
     /* Balról fekete, középtájt halványodik, a végén átlátszó */
-    background: linear-gradient(to right, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.7) 45%, transparent 100%);
+    background: linear-gradient(to right, rgba(0,0,0,0.93) 0%, rgba(0,0,0,0.9) 45%, transparent 100%);
     border-left: 4px solid var(--accent); /* A bal oldali lila csík */
     z-index: 1;
     transform: translateX(-100%); /* Alapból kint van a képernyő bal szélén */
