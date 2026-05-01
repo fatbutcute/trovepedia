@@ -380,7 +380,7 @@ const ClassesPage = () => {
             <header className="classes-header">
         <h1 className="slide-in-left">Trove Classes</h1>
         <p className="slide-in-right">
-          On this page you can explore all of Trove's classes, from the classic Knight to the latest Solarion. Click on any class card to dive into detailed information about their abilities, gems, and optimal equipment setups.
+          On this page you can explore all of Trove's classes, from the classic Knight to the latest Solarion. <br />Click on any class card to dive into detailed information about their abilities, gems, and optimal equipment setups.
         </p>
       </header>
 

@@ -103,9 +103,9 @@ export default function RotationsPage() {
   useReveal([slots])
 
   return (
-    <div className="page-wrapper">
+    <div className="page-wrapper rotations">
       <section>
-        <div className='d15rotnz'><p className="d15-system">D15 Rotation System by <span className='NZ'>NZ</span></p>
+        <div className='d15rotnz'><p className="d15-system">Rotation Systems by <span className='NZ'>NZ</span></p>
   <StaffCard 
     discordId="346016772664721418" 
     name="NZ" 
@@ -115,7 +115,7 @@ export default function RotationsPage() {
 
         {/* Fejléc */}
         <p className="section-label">Live Data</p>
-        <h1 className="section-title">D15 Rotations</h1>
+        <h1 className="section-title-d15"><span className='d15'>D15</span> Rotations</h1>
         <p className="section-desc">
           The current and upcoming D15 biome rotations — automatically updated every 3 hours.
         </p>

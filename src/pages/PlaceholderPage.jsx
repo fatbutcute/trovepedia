@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom'
  *   title  – oldal neve
  *   desc   – rövid leírás
  */
-export default function PlaceholderPage({ icon = '🚧', title = 'Hamarosan', desc = 'Ez az oldal fejlesztés alatt áll.' }) {
+export default function PlaceholderPage({ icon = '🚧', title = 'Soon!', desc = 'This page is under development.' }) {
   const navigate = useNavigate()
   useEffect(() => { window.scrollTo({ top: 0, behavior: 'instant' }) }, [])
 

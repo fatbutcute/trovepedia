@@ -9,7 +9,7 @@ export default function GuidesPage() {
   useReveal()
 
   return (
-    <div className="page-wrapper">
+    <div className="page-wrapper guides">
       <section>
         <button
           className="btn btn-ghost"
@@ -18,9 +18,9 @@ export default function GuidesPage() {
         >
           ← HOME
         </button>
-        <p className="section-label" style={{ fontFamily: 'Blinker', fontSize: '1.2em' }}>Community Content</p>
-        <h1 className="section-title" style={{ fontFamily: 'Blinker', fontSize: '2em' }}>Guides</h1>
-        <p className="section-desc" style={{ fontFamily: 'SFProDisplay', fontSize: '1.3em' }}>Community-written, up-to-date guides for all important Trove mechanics.
+        <p className="guide-label">Community Content</p>
+        <h1 className="guides-title">Guides</h1>
+        <p className="guide-desc">Community-written, up-to-date guides for all important Trove mechanics.
         </p>
         <GuidesList />
       </section>

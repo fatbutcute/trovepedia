@@ -7,22 +7,23 @@
     align-items: center;
     margin: auto; 
     box-sizing: border-box;
+    padding: 40px 60px;
 }
 
 .status-container {
     display: flex;
     gap: 20px;
-    background: var(--card-bg);
-    padding: 40px 60px;
+    background: linear-gradient(135deg, #00091c 0%, #00061a 50%, #03000f 85%);
     border-radius: 28px;
     border: 1px solid #252535;
     width: 95%;
     max-width: 900px;
     margin-left: auto;
     margin-right: auto;
-    box-shadow: 0 40px 100px rgba(0,0,0,0.6);
+    box-shadow: 0 20px 30px rgba(0,0,0,0.6);
     box-sizing: border-box;
     position: relative;
+    padding: 40px 60px;
 }
 
 .timer-card { 

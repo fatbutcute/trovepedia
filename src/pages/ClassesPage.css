@@ -1,8 +1,23 @@
 .classes-wrapper {
-    max-width: 1300px;
-    margin: 0 auto;
-    padding: 120px 20px 80px 20px;
-    overflow: hidden;
+  width: 100%;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 120px 20px 80px 20px;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #00091c 0%, #00061a 50%, #03000f 85%);
+}
+
+.classes-wrapper::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+}
+
+.classes-wrapper > * {
+    position: relative;
+    z-index: 2;
 }
 
 .icon-box-equipment {
@@ -26,7 +41,7 @@
 }
 
 .classes-header h1 {
-    font-family: 'sfprodisplay', sans-serif;
+    font-family: 'Gordita', sans-serif;
     font-size: 4.5rem;
     background: linear-gradient(to right, #ffd700, #ff8c00);
     background-clip: text;
@@ -49,6 +64,8 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 35px;
     justify-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .class-card {

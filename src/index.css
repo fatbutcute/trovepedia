@@ -226,6 +226,7 @@ position: relative;
   border: none;
   background: none;
   transition: all 0.3s ease-in-out;
+  display: none;
 }
 
 .btn:hover { 
@@ -247,6 +248,9 @@ position: relative;
   border: 1px solid var(--border);
   color: var(--text);
   background: rgba(0, 0, 0, 0.2);
+  align-self: flex-start;
+  animation: slideInLeft 0.6s ease-out forwards;
+  animation-delay: 0.1s;
 }
 
 .btn-ghost:hover {
@@ -266,10 +270,10 @@ position: relative;
 
 /* ─── SECTION ─── */
 section {
-  position: relative; z-index: 1;
-  padding: 96px 48px;
+  width: 100%;
   max-width: 1280px;
   margin: 0 auto;
+  padding: 80px 48px; /* Kellemes térköz alul-felül és oldalt */
 }
 
 .section-label {
@@ -280,22 +284,29 @@ section {
   font-weight: 700;
   margin-bottom: 12px;
   font-family: Blinker;
+  display: none;
 }
 
 .section-title {
-  font-family: 'Blinker', serif;
-  font-size: clamp(1.6rem, 3vw, 2.4rem);
-  font-weight: 400;
-  color: #fff;
-  margin-bottom: 12px;
+    font-family: Gordita, sans-serif;
+    font-size: 3.2rem;
+    font-weight: 400;
+    color: rgb(255, 255, 255);
+    letter-spacing: 0.05em;
+    opacity: 0;
+    animation: slideInLeft 0.6s ease-out forwards;
+    animation-delay: 0.3s;
+    text-align: center;
 }
 
 .section-desc {
   color: var(--muted);
   max-width: 1020px;
-  margin-bottom: 56px;
+  margin: 0 auto;
   font-size: 1.2rem;
   font-family: sfprodisplay, sans-serif;
+  text-align: center;
+  margin-bottom: 56px;
 }
 
 #guides {
@@ -310,7 +321,7 @@ section {
 }
 
 .card {
-  background: var(--card-bg);
+  background: linear-gradient(135deg, #00091c 0%, #00061a 50%, #03000f 85%);
   border: 1px solid var(--border);
   border-radius: 16px;
   padding: 36px 32px;
@@ -333,12 +344,12 @@ section {
 .card:hover { transform: translateY(-4px); border-color: rgba(100,120,255,0.3); box-shadow: 0 16px 48px rgba(0,0,0,0.4); }
 .card:hover::before { opacity: 1; }
 
-.card[data-accent="gold"]::before  { background: linear-gradient(90deg, var(--gold), #f5d27a); }
+.card[data-accent="gold"]::before  { background: linear-gradient(90deg, var(--gold), #fbff1a); }
 .card[data-accent="cyan"]::before  { background: linear-gradient(90deg, var(--cyan), #60eeff); }
-.card[data-accent="purple"]::before { background: linear-gradient(90deg, var(--purple), #b87cff); }
-.card[data-accent="green"]::before { background: linear-gradient(90deg, #3fdc7f, #80ffba); }
-.card[data-accent="red"]::before   { background: linear-gradient(90deg, #ff4f6a, #ff8a5c); }
-.card[data-accent="blue"]::before  { background: linear-gradient(90deg, #4a8fff, #60cfff); }
+.card[data-accent="purple"]::before { background: linear-gradient(90deg, #9500D1, #8500b9); }
+.card[data-accent="green"]::before { background: linear-gradient(90deg, #E5009E, #cc008b); }
+.card[data-accent="red"]::before   { background: linear-gradient(90deg, hsl(61, 100%, 75%), #fdff8d); }
+.card[data-accent="blue"]::before  { background: linear-gradient(90deg, #ff9d1c, #ff8800); }
 
 .card-icon { font-size: 2rem; line-height: 1; }
 .card-title {
@@ -361,6 +372,7 @@ section {
   letter-spacing: .1em;
   text-transform: uppercase;
   display: flex; align-items: center; gap: 6px;
+  display: none;
 }
 
 /* ─── STATS STRIP ─── */
@@ -448,7 +460,7 @@ footer {
   max-width: 350px;
 }
 .footer-col h4 {
-  font-family: 'GoogleSansFlex', serif;
+  font-family: 'Comfortaa', serif;
   font-size: 1rem;
   font-weight: 700;
   letter-spacing: .1em;
@@ -639,4 +651,14 @@ footer {
 @font-face {
   font-family: 'Comfortaa';
   src: url('./fonts/Comfortaa-VariableFont_wght.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Gordita';
+  src: url('./fonts/Gordita-Medium.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Goldman';
+  src: url('./fonts/Goldman-Bold.ttf') format('truetype');
 }

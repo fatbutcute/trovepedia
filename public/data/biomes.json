@@ -1,7 +1,7 @@
 [
   { "id": 1, "name": "Desert Frontier", "image": "biome_frontier.png", "color": "#f59e0b" },
   { "id": 2, "name": "Candoria", "image": "biome_candy.png", "color": "#ff6eb4" },
-  { "id": 3, "name": "Fae Forest", "image": "biome_fae.png", "color": "#22c55e" },
+  { "id": 3, "name": "Fae Forest", "image": "biome_fae.png", "color": "#009737" },
   { "id": 4, "name": "Dragonfire Peaks", "image": "biome_dragon.png", "color": "#ea580c" },
   { "id": 5, "name": "Sundered Uplands", "image": "biome_giantland.png", "color": "#a78bfa" },
   { "id": 6, "name": "Jurassic Jungle", "image": "biome_dinosaur.png", "color": "#16a34a" },
@@ -9,7 +9,7 @@
   { "id": 8, "name": "Forbidden Spires", "image": "biome_spires.png", "color": "#7c3aed" },
   { "id": 9, "name": "Cerise Sandsea", "image": "biome_sandsea.png", "color": "#f43f5e" },
   { "id": 10, "name": "The Lost Isles", "image": "biome_pirate.png", "color": "#0ea5e9" },
-  { "id": 11, "name": "Medieval Highlands", "image": "biome_forest.png", "color": "#dc2626" },
+  { "id": 11, "name": "Medieval Highlands", "image": "biome_forest.png", "color": "#5aff16" },
   { "id": 12, "name": "Cursed Vales", "image": "biome_cursed.png", "color": "#4b5563" },
   { "id": 13, "name": "Permafrost", "image": "biome_tundra.png", "color": "#bae6fd" },
   { "id": 14, "name": "Hollow Dunes", "image": "biome_dunes.png", "color": "#fde68a" },

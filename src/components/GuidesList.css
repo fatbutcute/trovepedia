@@ -7,6 +7,49 @@
     --font-main: 'Nunito', sans-serif;
 }
 
+.guides-title {
+    font-family: Gordita, sans-serif;
+    font-size: 3.2rem;
+    font-weight: 400;
+    color: rgb(255, 255, 255);
+    letter-spacing: 0.05em;
+    opacity: 0;
+    animation: slideInLeft 0.6s ease-out forwards;
+    animation-delay: 0.3s;
+    text-align: center;
+}
+
+.guide-desc {
+    font-family: Comfortaa;
+    margin-bottom: 50px;
+    font-size: 1em;
+    animation: slideInLeft 0.6s ease-out forwards;
+    animation-delay: 0.4s;
+    opacity: 0;
+}
+
+.guide-label {
+    display: none;
+}
+
+.guides {
+    margin: 0 auto;
+    width: 1500px;
+    padding: 120px 20px 80px 20px;
+}
+
+.guides-wrapper {
+    margin: 0 auto;
+    width: 1500px;
+}
+
+.guides section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;   /* vízszintes közép */
+    justify-content: center; /* függőleges (ha van magasság) */
+}
+
 ::selection {
     background-color: rgba(123, 66, 245, 0.9);
     color: #ffffff;
@@ -19,9 +62,7 @@
 }
 
 .guides-wrapper {
-    max-width: 1100px;
-    margin: 50px auto;
-    padding: 0 20px;
+    width: 100%;
     font-family: var(--font-main);
     color: var(--text-primary);
 }
@@ -45,7 +86,7 @@
 
 .guides-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(400px, 3fr));
     gap: 20px;
 }
 
@@ -67,6 +108,7 @@
     overflow: hidden;
     opacity: 0;
     animation: slideInFromLeft 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    height: 220px;
 }
 
 .guide-card:hover {
@@ -173,7 +215,6 @@
     width: fit-content;
     margin-bottom: 8px;
     letter-spacing: 0.5px;
-    display: inline-flex;
     align-items: center;
     justify-content: center; 
     padding: 6px 14px;
@@ -183,8 +224,8 @@
 
 .guide-card h3 {
     margin: 0 0 5px 0;
-    font-size: 1.35rem;
-    font-weight: 400;
+    font-size: 1.5rem;
+    font-weight: 500;
     color: #fff;
     font-family: Dosis, sans-serif;
     text-shadow: 0 2px 4px rgba(0,0,0,0.8); /* Olvashatóság extra biztosítása */
