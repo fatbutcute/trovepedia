@@ -9,11 +9,6 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-color: #04060d;
-  transition: background-image 0.7s ease-in-out;
 }
 
 /* Sötétítő átmenet a háttérképen: bal oldalt sötétebb az olvashatóságért */
@@ -210,7 +205,7 @@
   max-width: 100%;
   object-fit: contain;
   filter: drop-shadow(0 15px 35px rgba(0,0,0,0.9));
-  animation: cpSlideUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  animation: cpSlideUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 
 @keyframes cpSlideUp {
