@@ -443,11 +443,22 @@ export default function ClassesPage() {
   }, [selected.id])
 
   return (
-    <div className="cp-wrapper" style={{ backgroundImage: `url(${selected.bgImg})` }}>
-      {/* Sötétítő réteg a háttérképen, hogy a szöveg olvasható legyen */}
+<div className="cp-wrapper">
+      
+      {/* 2. ÚJ RÉSZ: HÁTTÉRKÉP RÉTEGEK */}
+      {/* Az összes kép bekerül a DOM-ba, de csak az aktív lesz látható */}
+      {classesData.map((cls) => (
+        <div
+          key={`bg-${cls.id}`}
+          className={`cp-bg-layer ${selected.id === cls.id ? 'active' : ''}`}
+          style={{ backgroundImage: `url(${cls.bgImg})` }}
+        />
+      ))}
+
+      {/* Sötétítő réteg a háttérképen */}
       <div className="cp-bg-overlay" />
 
-      {/* ─── KÖZÉPSŐ TARTALOM (Szövegek + Nagy Kép) ─── */}
+      {/* ─── KÖZÉPSŐ TARTALOM (Szövegek + Nagy Kép) INNEN MARAD MINDEN A RÉGI ─── */}
       <div className="cp-main" key={selected.id}>
         
         {/* BAL OLDAL - Szöveg és Tabok */}
