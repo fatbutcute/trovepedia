@@ -8,14 +8,27 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-size: cover;
-  background-position: center;
-  /* Finom átmenet, amikor a háttérkép cserélődik */
-  transition: background-image 0.6s ease-in-out;
   overflow: hidden;
 }
 
 /* Sötétítő átmenet a háttérképen: bal oldalt sötétebb az olvashatóságért */
+.cp-bg-layer {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+  opacity: 0;
+  visibility: hidden;
+  /* Az opacity-t a GPU számolja, így vajsima lesz az átmenet akadások nélkül! */
+  transition: opacity 0.6s ease-in-out, visibility 0.6s ease-in-out;
+}
+
+.cp-bg-layer.active {
+  opacity: 1;
+  visibility: visible;
+}
+
 .cp-bg-overlay {
   position: absolute;
   inset: 0;
