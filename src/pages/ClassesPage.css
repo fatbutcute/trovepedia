@@ -9,6 +9,11 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #04060d;
+  transition: background-image 0.7s ease-in-out;
 }
 
 /* Sötétítő átmenet a háttérképen: bal oldalt sötétebb az olvashatóságért */
