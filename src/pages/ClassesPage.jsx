@@ -442,32 +442,12 @@ export default function ClassesPage() {
     setActiveTab('Equipment')
   }, [selected.id])
 
-  useEffect(() => {
-    classesData.forEach((cls) => {
-      const bgImg = new Image()
-      bgImg.src = cls.bgImg
-      
-      const charImg = new Image()
-      charImg.src = cls.img
-    })
-  }, [])
-
   return (
-    <div className="cp-wrapper">
-      
-      {/* 2. ÚJ RÉSZ: HÁTTÉRKÉP RÉTEGEK */}
-      {classesData.map((cls) => (
-        <div
-          key={`bg-${cls.id}`}
-          className={`cp-bg-layer ${selected.id === cls.id ? 'active' : ''}`}
-          style={{ backgroundImage: `url(${cls.bgImg})` }}
-        />
-      ))}
-
-      {/* Sötétítő réteg a háttérképen */}
+    <div className="cp-wrapper" style={{ backgroundImage: `url(${selected.bgImg})` }}>
+      {/* Sötétítő réteg a háttérképen, hogy a szöveg olvasható legyen */}
       <div className="cp-bg-overlay" />
 
-      {/* ─── KÖZÉPSŐ TARTALOM (Szövegek + Nagy Kép) INNEN MARAD MINDEN A RÉGI ─── */}
+      {/* ─── KÖZÉPSŐ TARTALOM (Szövegek + Nagy Kép) ─── */}
       <div className="cp-main" key={selected.id}>
         
         {/* BAL OLDAL - Szöveg és Tabok */}
