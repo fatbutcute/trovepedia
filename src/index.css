@@ -269,11 +269,11 @@ position: relative;
 }
 
 /* ─── SECTION ─── */
-section {
+.guides-landing {
   width: 100%;
-  max-width: 1280px;
+  max-width: 1650px;
   margin: 0 auto;
-  padding: 80px 48px; /* Kellemes térköz alul-felül és oldalt */
+  padding: 80px 20px; /* Kellemes térköz alul-felül és oldalt */
 }
 
 .section-label {
@@ -316,7 +316,7 @@ section {
 /* ─── FEATURE CARDS ─── */
 .cards {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 24px;
 }
 
@@ -333,6 +333,7 @@ section {
   position: relative;
   overflow: hidden;
   cursor: pointer;
+  height: 280px;
 }
 .card::before {
   content: '';
@@ -353,16 +354,17 @@ section {
 
 .card-icon { font-size: 2rem; line-height: 1; }
 .card-title {
-  font-family: 'Blinker', serif;
-  font-size: 1.35rem;
+  font-family: 'Quicksand', serif;
+  font-size: 1.55rem;
   font-weight: 300;
   color: #fff;
 }
 .card-desc {
   color: #a5aac9;
-  font-size: 1.05rem;
+  font-size: 1.25rem;
   line-height: 1.3em;
-  font-family: Blinker, sans-serif; 
+  font-family: Blinker, sans-serif;
+  width: 450px; 
 }
 .card-arrow {
   margin-top: auto;
@@ -495,6 +497,7 @@ footer {
 
 .footer-bottom {
   font-family: Comfortaa;
+  font-size: 1em;
 }
 
 /* ─── PAGE LAYOUT ─── */

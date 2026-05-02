@@ -9,7 +9,7 @@ const FEATURES = [
     desc:  'Detailed, community-written guides for advancement, farming, and understanding game mechanics.',
   },
   {
-    icon: '/icons/human.png', 
+    icon: '/icons/sword.png', 
     accent: 'cyan', 
     path: '/classes',
     title: 'Classes',
@@ -40,7 +40,7 @@ const FEATURES = [
     icon: '/icons/calculator.png', 
     accent: 'blue', 
     path: '/calculator',
-    title: 'PR Calculators',
+    title: 'Calculators',
     desc:  'Precise formulas and calculation methods for determining and optimizing your true power.',
   },
 ]
@@ -49,7 +49,7 @@ export default function Features() {
   const navigate = useNavigate()
 
   return (
-    <section>
+    <section className='guides-landing'>
       <p className="section-label">Navigation</p>
       <h2 className="section-title">What do you find here?</h2>
       <p className="section-desc">
@@ -72,7 +72,7 @@ export default function Features() {
               <img 
                 src={icon} 
                 alt={title} 
-                style={{ width: '35px', height: '35px', objectFit: 'contain' }} 
+                style={{ width: '42px', height: '42px', objectFit: 'contain' }} 
               />
             </div>
             

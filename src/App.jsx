@@ -56,7 +56,7 @@ export default function App() {
             element={
               <PlaceholderPage
                 icon="💡"
-                title="PR Calculator"
+                title="Calculators"
                 desc="The PR calculator is under development."
               />
             }
