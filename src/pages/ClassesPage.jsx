@@ -6,7 +6,7 @@ const classesData = [
   {
     id: 1, name: 'Vanguardian',
     img: '/classes/Trove-Class-Vanguardian.webp',
-    bgImg: '/upscaled/Gemini_Generated_Image_5ipegp5ipegp5ipef.png',
+    bgImg: '/upscaled/Gemini_Generated_Image_5ipegp5ipegp5ipef.webp',
     type: 'Physical', color: '#60a5fa',
     details: {
       Equipment: [
@@ -25,7 +25,7 @@ const classesData = [
   {
     id: 2, name: 'Dino Tamer',
     img: '/classes/Trove-Class-Dino-Tamer.webp',
-    bgImg: '/upscaled/2016-10-01_160508.png',
+    bgImg: '/upscaled/2016-10-01_160508.webp',
     type: 'Magic', color: '#4ade80',
     details: {
       Equipment: [
@@ -44,7 +44,7 @@ const classesData = [
   {
     id: 3, name: 'Chloromancer',
     img: '/classes/Trove-Class-Chloromancer.webp',
-    bgImg: '/upscaled/trove-biome-1-medieval-highlands.png',
+    bgImg: '/upscaled/trove-biome-1-medieval-highlands.webp',
     type: 'Magic', color: '#86efac',
     details: {
       Equipment: [
@@ -63,7 +63,7 @@ const classesData = [
   {
     id: 4, name: 'Revenant',
     img: '/classes/Trove-Class-Revenant.webp',
-    bgImg: '/upscaled/Gemini_Generated_Image_a6f5ofa6f5ofa6f5.png',
+    bgImg: '/upscaled/Gemini_Generated_Image_a6f5ofa6f5ofa6f5.webp',
     type: 'Physical', color: '#c084fc',
     details: {
       Equipment: [
@@ -82,7 +82,7 @@ const classesData = [
   {
     id: 5, name: 'Lunar Lancer',
     img: '/classes/Trove-Class-Lunar-Lancer.webp',
-    bgImg: '/upscaled/yx9KNkl.png',
+    bgImg: '/upscaled/yx9KNkl.webp',
     type: 'Physical', color: '#a5b4fc',
     details: {
       Equipment: [
@@ -101,7 +101,7 @@ const classesData = [
   {
     id: 6, name: 'Tomb Raiser',
     img: '/classes/Trove-Class-Tomb-Raiser.webp',
-    bgImg: '/upscaled/trove-biome-3-cursed-vale.png',
+    bgImg: '/upscaled/trove-biome-3-cursed-vale.webp',
     type: 'Magic', color: '#94a3b8',
     details: {
       Equipment: [
@@ -120,7 +120,7 @@ const classesData = [
   {
     id: 7, name: 'Boomeranger',
     img: '/classes/Trove-Class-Boomeranger.webp',
-    bgImg: '/upscaled/Fgr9l24.png',
+    bgImg: '/upscaled/Fgr9l24.webp',
     type: 'Physical', color: '#fb923c',
     details: {
       Equipment: [
@@ -139,7 +139,7 @@ const classesData = [
   {
     id: 8, name: 'Ice Sage',
     img: '/classes/Trove-Class-Ice-Sage.webp',
-    bgImg: '/upscaled/Fsc7ngB.png',
+    bgImg: '/upscaled/Fsc7ngB.webp',
     type: 'Magic', color: '#bae6fd',
     details: {
       Equipment: [
@@ -158,7 +158,7 @@ const classesData = [
   {
     id: 9, name: 'Shadow Hunter',
     img: '/classes/Trove-Class-Shadow-Hunter.webp',
-    bgImg: '/upscaled/TqVhomw.png',
+    bgImg: '/upscaled/TqVhomw.webp',
     type: 'Physical', color: '#fbbf24',
     details: {
       Equipment: [
@@ -177,7 +177,7 @@ const classesData = [
   {
     id: 10, name: 'Candy Barbarian',
     img: '/classes/Trove-Class-Candy-Barbarian.webp',
-    bgImg: '/upscaled/Trove_Screenshot_2026.04.11_-_03.44.48.62.png',
+    bgImg: '/upscaled/Trove_Screenshot_2026.04.11_-_03.44.48.62.webp',
     type: 'Physical', color: '#f9a8d4',
     details: {
       Equipment: [
@@ -196,7 +196,7 @@ const classesData = [
   {
     id: 11, name: 'Dracolyte',
     img: '/classes/Trove-Class-Dracolyte.webp',
-    bgImg: '/upscaled/trove-biome-10-dragonfire-peaks.png',
+    bgImg: '/upscaled/trove-biome-10-dragonfire-peaks.webp',
     type: 'Magic', color: '#f87171',
     details: {
       Equipment: [
@@ -215,7 +215,7 @@ const classesData = [
   {
     id: 12, name: 'Neon Ninja',
     img: '/classes/Trove-Class-Neon-Ninja.webp',
-    bgImg: '/upscaled/Luminopolis.png',
+    bgImg: '/upscaled/Luminopolis.webp',
     type: 'Physical', color: '#22d3ee',
     details: {
       Equipment: [
@@ -234,7 +234,7 @@ const classesData = [
   {
     id: 13, name: 'Gunslinger',
     img: '/classes/Trove-Class-Gun-Slinger.webp',
-    bgImg: '/upscaled/WULhg74.png',
+    bgImg: '/upscaled/WULhg74.webp',
     type: 'Magic', color: '#fcd34d',
     details: {
       Equipment: [
@@ -253,7 +253,7 @@ const classesData = [
   {
     id: 14, name: 'Knight',
     img: '/classes/Trove-Class-Knight.webp',
-    bgImg: '/upscaled/Trove-wallpaper-1.jpg',
+    bgImg: '/upscaled/Trove-wallpaper-1.webp',
     type: 'Physical', color: '#e2e8f0',
     details: {
       Equipment: [
@@ -272,7 +272,7 @@ const classesData = [
   {
     id: 15, name: 'Fae Trickster',
     img: '/classes/Trove-Class-Fae-Trickster.webp',
-    bgImg: '/upscaled/faebiome.png',
+    bgImg: '/upscaled/faebiome.webp',
     type: 'Magic', color: '#d8b4fe',
     details: {
       Equipment: [
@@ -291,7 +291,7 @@ const classesData = [
   {
     id: 16, name: 'Pirate Captain',
     img: '/classes/Trove-Class-Pirate-Captain.webp',
-    bgImg: '/upscaled/NCSmFCd.png',
+    bgImg: '/upscaled/NCSmFCd.webp',
     type: 'Magic', color: '#fb923c',
     details: {
       Equipment: [
@@ -310,7 +310,7 @@ const classesData = [
   {
     id: 17, name: 'Bard',
     img: '/classes/Trove-Class-Bard.webp',
-    bgImg: '/upscaled/92J4wsh.png',
+    bgImg: '/upscaled/92J4wsh.webp',
     type: 'Magic', color: '#fde68a',
     details: {
       Equipment: [
@@ -329,7 +329,7 @@ const classesData = [
   {
     id: 18, name: 'Solarion',
     img: '/classes/Trove-Class-Solarion.webp',
-    bgImg: '/upscaled/trovepediabg.png',
+    bgImg: '/upscaled/trovepediabg.webp',
     type: 'Physical', color: '#fbbf24',
     details: {
       Equipment: [
@@ -456,7 +456,6 @@ export default function ClassesPage() {
     <div className="cp-wrapper">
       
       {/* 2. ÚJ RÉSZ: HÁTTÉRKÉP RÉTEGEK */}
-      {/* Az összes kép bekerül a DOM-ba, de csak az aktív lesz látható */}
       {classesData.map((cls) => (
         <div
           key={`bg-${cls.id}`}
