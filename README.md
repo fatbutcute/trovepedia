@@ -4,11 +4,6 @@
 * Email-cím: vargaarongabor@gmail.com
 * Teams név: vargaarongabor
 
-### Github Repo:
-https://github.com/fatbutcute/trovepedia/tree/main
-
-
-
 # Trovepedia
 
 A **Trovepedia** egy modern, nem hivatalos, közösségvezérelt webalkalmazás a Trove című játékhoz. A célja, hogy a kezdő és veterán játékosok számára egyaránt naprakész útmutatókat, karakterosztály-bázist, eseményrotációkat és kalkulátorokat biztosítson egyetlen, lenyűgöző felületen.
