@@ -4,7 +4,7 @@
 * Email-cím: vargaarongabor@gmail.com
 * Teams név: vargaarongabor
 
-
+# 
 
 # Trovepedia
 
