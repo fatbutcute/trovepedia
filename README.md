@@ -4,8 +4,8 @@
 * Email-cím: vargaarongabor@gmail.com
 * Teams név: vargaarongabor
 
-## Github Repo:
-### https://github.com/fatbutcute/trovepedia/tree/main
+### Github Repo:
+https://github.com/fatbutcute/trovepedia/tree/main
 
 
 
