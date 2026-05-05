@@ -67,7 +67,6 @@ export default function Features() {
             tabIndex={0}
             onKeyDown={(e) => e.key === 'Enter' && navigate(path)}
           >
-            {/* ITT VÁLTOZOTT: <img> taget használunk a sima szöveg helyett */}
             <div className="card-icon">
               <img 
                 src={icon} 

@@ -28,7 +28,6 @@ export default function Footer() {
   return (
     <footer>
       <div className="footer-inner">
-        {/* Brand */}
         <div className="footer-brand">
           
           <button
@@ -48,7 +47,6 @@ export default function Footer() {
           
         </div>
 
-        {/* Column links */}
         {Object.entries(FOOTER_LINKS).map(([title, links]) => (
           <div key={title} className="footer-col">
             <h4>{title}</h4>

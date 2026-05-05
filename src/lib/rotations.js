@@ -6,9 +6,8 @@
  */
 
 const SYSTEM_EPOCH    = 1718708400
-const SYSTEM_INTERVAL = 60 * 60 * 3   // 3 óra másodpercben
+const SYSTEM_INTERVAL = 60 * 60 * 3
 
-// ─── Biome slot-ok (eredeti rotációs listák) ─────────────────────────────────
 
 const biome1 = [
   'Sundered Uplands', 'Cerise Sandsea', 'The Deeper Forest', 'Alkali Flats',
@@ -29,7 +28,7 @@ const biome3 = [
   'The Lost Isles', 'Data Spires',
 ]
 
-// ─── Biome icon map (belső név → image kulcs) ────────────────────────────────
+
 
 const biomeIconMap = {
   'Geode Topside':        'biome_sandsea',
@@ -74,7 +73,6 @@ const biomeIconMap = {
   'Blazing Emberlands':   'biome_dragon',
 }
 
-// ─── Display nevek (al-biome → fő biome neve) ────────────────────────────────
 
 const displayNameMap = {
   'Abandoned Boneyard':   'Desert Frontier',
@@ -103,7 +101,7 @@ const displayNameMap = {
   'Blazing Emberlands':   'Dragonfire Peaks',
 }
 
-// ─── Biomes.json betöltése (egyszer, Promise) ────────────────────────────────
+
 
 let _biomesCache = null
 
@@ -114,7 +112,6 @@ async function getBiomes() {
   return _biomesCache
 }
 
-// ─── Segédfüggvények ─────────────────────────────────────────────────────────
 
 export async function getBiomeInfo(name) {
   const biomes      = await getBiomes()
@@ -135,7 +132,7 @@ export async function getBiomeInfo(name) {
 /**
  * getLongShadeRotation(future)
  *
- * @param {number} future – hány rotációval a jövőbe nézzünk (0 = jelenlegi)
+ * @param {number} future
  * @returns {Promise<{ start: number, end: number, biomes: BiomeInfo[] }>}
  */
 export async function getLongShadeRotation(future = 0) {
@@ -159,7 +156,7 @@ export async function getLongShadeRotation(future = 0) {
   }
 }
 
-/** Formázott visszaszámláló string az eltelt idő alapján */
+
 export function formatCountdown(endMs) {
   const diff = Math.max(0, endMs - Date.now())
   const h    = Math.floor(diff / 3_600_000)

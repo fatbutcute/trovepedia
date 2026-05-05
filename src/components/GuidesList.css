@@ -1,6 +1,6 @@
 :root {
     --bg-color: #05060f;
-    --card-bg: #000000; /* Alap fekete háttér, hogy a kép sötétítve jelenjen meg */
+    --card-bg: #000000;
     --accent: #7b42f5;
     --text-primary: #ffffff;
     --text-secondary: #9499c3;
@@ -45,8 +45,8 @@
 .guides section {
     display: flex;
     flex-direction: column;
-    align-items: center;   /* vízszintes közép */
-    justify-content: center; /* függőleges (ha van magasság) */
+    align-items: center;
+    justify-content: center;
     padding: 60px 60px;
 }
 
@@ -90,9 +90,6 @@
     gap: 20px;
 }
 
-/* ====================================================
-   KÁRTYA ALAP STÍLUSOK
-   ==================================================== */
 .guide-card {
     display: flex;
     align-items: flex-start;
@@ -117,9 +114,6 @@
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
 }
 
-/* ====================================================
-   1. RÉTEG: A HÁTTÉRKÉP (::after)
-   ==================================================== */
 .guide-card::after {
     content: '';
     position: absolute;
@@ -133,9 +127,6 @@
     pointer-events: none;
 }
 
-/* ====================================================
-   2. RÉTEG: BEÚSZÓ FEKETE FÁTYOL ÉS LILA CSÍK (::before)
-   ==================================================== */
 .guide-card::before {
     content: '';
     position: absolute;
@@ -145,32 +136,22 @@
     height: 100%;
     /* Balról fekete, középtájt halványodik, a végén átlátszó */
     background: linear-gradient(to right, rgba(0,0,0,0.93) 0%, rgba(0,0,0,0.9) 45%, transparent 100%);
-    border-left: 4px solid var(--accent); /* A bal oldali lila csík */
+    border-left: 4px solid var(--accent);
     z-index: 1;
-    transform: translateX(-100%); /* Alapból kint van a képernyő bal szélén */
+    transform: translateX(-100%);
     transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
     pointer-events: none;
 }
 
-/* ====================================================
-   HOVER (EGÉR RÁHÚZÁS) EFFEKTEK
-   ==================================================== */
-
-/* A háttérkép kivilágosodik és finoman bezoomol */
 .guide-card:hover::after {
     opacity: 0.9;
     transform: scale(1.1);
 }
 
-/* A fekete fátyol beúszik balról a szöveg mögé */
 .guide-card:hover::before {
     transform: translateX(0);
 }
 
-/* ====================================================
-   TARTALOM (Szöveg és Ikon)
-   Hogy mindig a képek és a fátyol felett maradjanak
-   ==================================================== */
 .guide-card .card-icon,
 .guide-card .card-body {
     position: relative;
@@ -189,7 +170,6 @@
     border-radius: 10px;
     font-size: 1.5rem;
     transition: 0.5s;
-    /* Háttér elmosás, hogy a fátyolon kívül is jól mutasson */
     backdrop-filter: blur(5px);
     margin-bottom: 10px; 
 }
@@ -229,7 +209,7 @@
     font-weight: 500;
     color: #fff;
     font-family: Dosis, sans-serif;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.8); /* Olvashatóság extra biztosítása */
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
 }
 
 .guide-card p {
@@ -247,26 +227,19 @@
     transition: transform 0.1s;
 }
 
-/* ====================================================
-   EGYEDI HÁTTÉRKÉPEK A SLUG-OK ALAPJÁN
-   ==================================================== */
-
 .guide-card::after {
     content: '';
     position: absolute;
     inset: 0;
     z-index: 0;
-    /* A 'cover' biztosítja, hogy a kép arányosan kitöltse a teljes kártyát */
     background-size: cover; 
     background-position: center;
     background-repeat: no-repeat;
-    /* Alapból sötétített, hogy a szöveg olvasható legyen */
     opacity: 0.35; 
     transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.6s ease;
     pointer-events: none;
 }
 
-/* 2. RÉTEG: BEÚSZÓ FEKETE FÁTYOL ÉS LILA CSÍK (::before) */
 .guide-card::before {
     content: '';
     position: absolute;
@@ -274,40 +247,29 @@
     left: 0;
     width: 100%;
     height: 100%;
-    /* Fekete átmenet balról jobbra */
     background: linear-gradient(to right, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.6) 55%, transparent 100%);
     border-left: 4px solid var(--accent);
     z-index: 1;
-    /* Alapból kint van bal oldalon a képernyőn kívül */
     transform: translateX(-100%); 
     transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
     pointer-events: none;
 }
 
-/* --- HOVER HATÁS (Amikor ráviszed az egeret) --- */
 
-/* A háttérkép kivilágosodik és bezoomol */
 .guide-card:hover::after {
-    opacity: 0.85; /* Eltűnik a sötétítés */
-    transform: scale(1.1); /* Bezoomol */
+    opacity: 0.85;
+    transform: scale(1.1);
 }
 
-/* A fekete fátyol beúszik balról a szöveg mögé */
 .guide-card:hover::before {
     transform: translateX(0);
 }
 
-/* Hogy a szöveg és az ikon mindig a képek és a fátyol felett maradjon */
 .guide-card .card-icon,
 .guide-card .card-body {
     position: relative;
     z-index: 2;
 }
-
-/* ====================================================
-   EGYEDI HÁTTÉRKÉPEK A SLUG-OK ALAPJÁN
-   (Figyelj a perjelre az elején: /guidebg/...)
-   ==================================================== */
 
 .crafting-paths {
     --accent: #f39c12;

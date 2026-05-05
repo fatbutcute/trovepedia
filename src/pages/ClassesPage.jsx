@@ -349,7 +349,6 @@ const classesData = [
 
 const TABS = ['Equipment', 'Abilities', 'Gems', 'How to use']
 
-// ─── TYPE BADGE COLORS ───────────────────────────────────────────────────────
 const typeColor = {
   Physical:  '#f97316',
   Summoner: '#a78bfa',
@@ -360,7 +359,6 @@ const typeColor = {
   Ranger:   '#fbbf24',
 }
 
-// ─── HOOKS ───────────────────────────────────────────────────────────────────
 function useTypewriter(text, active, speed = 5) {
   const [displayed, setDisplayed] = useState('')
 
@@ -379,7 +377,6 @@ function useTypewriter(text, active, speed = 5) {
   return displayed
 }
 
-// ─── EQUIPMENT GRID ──────────────────────────────────────────────────────────
 const EQUIP_ICONS = {
   Allies: '👥', Emblems: '🔰', Banner: '🏴', Flask: '⚗️', Subclass: '⚔️', Gems: '💎',
 }
@@ -402,7 +399,6 @@ function EquipmentGrid({ items, visible }) {
   )
 }
 
-// ─── TAB CONTENT ─────────────────────────────────────────────────────────────
 function TabContent({ cls, tab }) {
   const [visible, setVisible] = useState(false)
 
@@ -431,22 +427,18 @@ function TabContent({ cls, tab }) {
 }
 
 
-// ─── MAIN PAGE ────────────────────────────────────────────────────────────────
 export default function ClassesPage() {
-  // Alapból az első class van kiválasztva (hogy ne legyen üres az oldal)
+
   const [selected, setSelected] = useState(classesData[0])
   const [activeTab, setActiveTab] = useState('Equipment')
 
-  // Fül váltás nullázása, ha új classt választasz
   useEffect(() => {
     setActiveTab('Equipment')
   }, [selected.id])
 
   return (
 <div className="cp-wrapper">
-      
-      {/* 2. ÚJ RÉSZ: HÁTTÉRKÉP RÉTEGEK */}
-      {/* Az összes kép bekerül a DOM-ba, de csak az aktív lesz látható */}
+
       {classesData.map((cls) => (
         <div
           key={`bg-${cls.id}`}
@@ -455,10 +447,8 @@ export default function ClassesPage() {
         />
       ))}
 
-      {/* Sötétítő réteg a háttérképen */}
       <div className="cp-bg-overlay" />
 
-      {/* ─── KÖZÉPSŐ TARTALOM (Szövegek + Nagy Kép) INNEN MARAD MINDEN A RÉGI ─── */}
       <div className="cp-main" key={selected.id}>
         
         {/* BAL OLDAL - Szöveg és Tabok */}
@@ -493,13 +483,11 @@ export default function ClassesPage() {
           </div>
         </div>
 
-        {/* JOBB OLDAL - Nagy karakter kép */}
         <div className="cp-right">
           <img src={selected.img} alt={selected.name} className="cp-large-img" />
         </div>
       </div>
 
-      {/* ─── ALSÓ SZALAG (Ribbon) ─── */}
       <div className="cp-ribbon-container">
         <div className="cp-ribbon">
           {classesData.map(cls => (

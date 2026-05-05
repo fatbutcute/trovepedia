@@ -7,7 +7,6 @@ export default function Hero() {
   const [mouse, setMouse] = useState({ x: 0, y: 0 })
   const [loaded, setLoaded] = useState(false)
 
-  // 🎬 FADE IN ON LOAD
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoaded(true)
@@ -15,7 +14,6 @@ export default function Hero() {
     return () => clearTimeout(timer)
   }, [])
 
-  // 🖱️ MOUSE TRACK
   useEffect(() => {
     const handleMove = (e) => {
       const x = (e.clientX / window.innerWidth - 0.5) * 30
@@ -28,14 +26,11 @@ export default function Hero() {
   }, [])
 
   return (
-    // FŐ KONTÉNER: A hero osztály adja a méretet és a középre igazítást
     <div className="hero">
 
-      {/* 1. ABSZOLÚT HÁTTÉRKÉP (Csak a hero-n belül mozog!) */}
       <div
         style={{
           position: "absolute",
-          // Kicsit túllógatjuk a széleken, hogy parallax mozgásnál ne lógjon ki a fekete semmi
           top: "-5%", left: "-5%", right: "-5%", bottom: "-5%", 
           zIndex: 0,
           backgroundImage: "url('/images/background.png')",
@@ -50,7 +45,6 @@ export default function Hero() {
         }}
       />
 
-      {/* 2. OVERLAY (Sötétítő réteg a háttér és a szöveg között) */}
       <div
         style={{
           position: "absolute",
@@ -60,7 +54,6 @@ export default function Hero() {
         }}
       />
 
-      {/* 3. TARTALOM (z-index: 2, hogy biztosan az overlay felett legyen) */}
       <div style={{ position: "relative", zIndex: 2 }}>
         <h1>
           <span className="Trovepedia">Trovepedia</span>
@@ -91,7 +84,6 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* 🔥 BOTTOM FADE (Marad abszolút az alján, hogy átvezessen a következő szekcióba) */}
       <div
         style={{
           position: "absolute",

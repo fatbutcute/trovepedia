@@ -1,8 +1,3 @@
-/* ═══════════════════════════════════════════════════════════════
-   CLASSES PAGE  —  Trovepedia
-   Full-screen immersive layout with bottom ribbon selector
-   ═══════════════════════════════════════════════════════════════ */
-
 .cp-wrapper {
   position: relative;
   min-height: 100vh;
@@ -11,7 +6,6 @@
   overflow: hidden;
 }
 
-/* Sötétítő átmenet a háttérképen: bal oldalt sötétebb az olvashatóságért */
 .cp-bg-layer {
   position: absolute;
   inset: 0;
@@ -35,7 +29,6 @@
   z-index: 1;
 }
 
-/* ─── MAIN CONTENT AREA ─── */
 .cp-main {
   position: relative;
   z-index: 2;
@@ -43,7 +36,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 80px 8% 140px 10%; /* Alul helyet hagyunk a szalagnak */
+  padding: 80px 8% 140px 10%;
   animation: cpFadeIn 0.5s ease forwards;
 }
 
@@ -52,7 +45,6 @@
   to { opacity: 1; transform: translateX(0); }
 }
 
-/* --- LEFT SIDE: INFO & TABS --- */
 .cp-left {
   max-width: 550px;
   width: 100%;

@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import './GuidesList.css'; // Ne felejtsd el beimportálni a CSS-t!
+import './GuidesList.css';
 
 export const GUIDES_DATA = [
   { 

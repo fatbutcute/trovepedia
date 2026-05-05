@@ -100,7 +100,6 @@
     transition: width 0.5s ease;
 }
 
-/* Színkódolt kiemelések */
 .accent-blue i { color: var(--blue); text-shadow: 0 0 10px var(--glow-blue); }
 .accent-blue .progress-fill { 
     background: var(--blue); 

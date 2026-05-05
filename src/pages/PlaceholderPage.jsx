@@ -1,13 +1,6 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-/**
- * PlaceholderPage – ideiglenes oldal, amíg az adott szekció nincs implementálva.
- * Props:
- *   icon   – emoji ikon
- *   title  – oldal neve
- *   desc   – rövid leírás
- */
 export default function PlaceholderPage({ icon = '🚧', title = 'Soon!', desc = 'This page is under development.' }) {
   const navigate = useNavigate()
   useEffect(() => { window.scrollTo({ top: 0, behavior: 'instant' }) }, [])

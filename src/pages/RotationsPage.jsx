@@ -4,9 +4,8 @@ import { useReveal } from '../hooks/useReveal'
 import './RotationsPage.css'
 import StaffCard from '../components/StaffCard'
 
-const SLOTS_TO_SHOW = 4   // jelenlegi + 3 következő
+const SLOTS_TO_SHOW = 4
 
-// ─── BiomeCard ────────────────────────────────────────────────────────────────
 
 function BiomeCard({ biome, index }) {
   return (
@@ -28,7 +27,6 @@ function BiomeCard({ biome, index }) {
   )
 }
 
-// ─── RotationSlot ─────────────────────────────────────────────────────────────
 
 function RotationSlot({ slot, index, countdown }) {
   const isCurrent = index === 0
@@ -38,7 +36,6 @@ function RotationSlot({ slot, index, countdown }) {
 
   return (
     <div className={`rotation-slot reveal ${isCurrent ? 'slot-current' : 'slot-future'}`}>
-      {/* Fejléc */}
       <div className="slot-header">
         <div className="slot-label-wrapper">
           {isCurrent && <span className="slot-live-dot" />}
@@ -47,7 +44,6 @@ function RotationSlot({ slot, index, countdown }) {
         <span className="slot-time">{timeLabel}</span>
       </div>
 
-      {/* Biome kártyák */}
       <div className="biome-grid">
         {slot.biomes.map((b, i) => (
           <BiomeCard key={`${b.name}-${i}`} biome={b} index={i} />
@@ -57,7 +53,6 @@ function RotationSlot({ slot, index, countdown }) {
   )
 }
 
-// ─── RotationsPage ────────────────────────────────────────────────────────────
 
 export default function RotationsPage() {
   const [slots,     setSlots]     = useState([])
@@ -65,7 +60,6 @@ export default function RotationsPage() {
   const [error,     setError]     = useState(null)
   const [countdown, setCountdown] = useState('--:--:--')
 
-  // Rotációk betöltése
   const loadSlots = useCallback(async () => {
     try {
       const results = await Promise.all(
@@ -83,7 +77,6 @@ export default function RotationsPage() {
 
   useEffect(() => { loadSlots() }, [loadSlots])
 
-  // Visszaszámláló + automatikus frissítés rotáció-váltáskor
   useEffect(() => {
     if (!slots[0]) return
 
@@ -91,7 +84,6 @@ export default function RotationsPage() {
       const cd = formatCountdown(slots[0].end)
       setCountdown(cd)
 
-      // Ha lejárt, töltsük újra a rotációkat
       if (Date.now() >= slots[0].end) loadSlots()
     }
 
@@ -113,14 +105,12 @@ export default function RotationsPage() {
   />
 </div>
 
-        {/* Fejléc */}
         <p className="section-label">Live Data</p>
         <h1 className="section-title-d15"><span className='d15'>D15</span> Rotations</h1>
         <p className="section-desc-rot">
           The current and upcoming D15 biome rotations — automatically updated every 3 hours.
         </p>
 
-        {/* Tartalom */}
         {loading && (
           <div className="rotation-loading">
             <div className="rotation-spinner" />

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-// ⚠️ FONTOS: Állítsd be a pontos útvonalat a saját json fájlodhoz!
 import delveFallback from '../data/delve.json'; 
 import './DelvePage.css';
 import StaffCard from '../components/StaffCard';
@@ -10,11 +9,9 @@ const DelvePage = () => {
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedDelve, setSelectedDelve] = useState(null);
-    
-    // Állapot az eltűnő animáció kezeléséhez
+
     const [isClosing, setIsClosing] = useState(false);
 
-    // HIBRID FETCH RENDSZER BIZTONSÁGI HÁLÓVAL
     useEffect(() => {
         const fetchDelveData = async () => {
             const targetUrl = "https://www.pyrodisc.one/api/trove/delve/current.php";
@@ -44,7 +41,6 @@ const DelvePage = () => {
                 }
             }
 
-            // BIZTONSÁGI HÁLÓ
             if (!success) {
                 console.log("Élő adatok blokkolva. Helyi (offline) JSON betöltése!");
                 setDelves(delveFallback?.data?.depths || delveFallback?.depths || []);
@@ -56,12 +52,10 @@ const DelvePage = () => {
         fetchDelveData();
     }, []);
 
-    // 🚀 OKOS SZŰRÉSI LOGIKA
     const filteredDelves = (delves || []).filter(item => {
         if (!item) return false;
         const lowerSearch = searchTerm.toLowerCase().trim();
 
-        // 1. SPECIÁLIS SZŰRŐ: Ha KIFEJEZETTEN csak a Vault-okra keres (kiszűri a Volcanic Vaults-ot)
         if (lowerSearch === "is:vault" || lowerSearch === "vault only") {
             return item.isVaultFloor;
         }
@@ -72,7 +66,6 @@ const DelvePage = () => {
         const buffMatch = (item.boss?.b || []).some(buff => (buff || "").toLowerCase().includes(lowerSearch));
         const enemyMatch = (item.enemies || []).some(enemy => (enemy?.n || "").toLowerCase().includes(lowerSearch));
         
-        // 2. Normál keresés kiegészítve: Ha csak elkezdi beírni, hogy "vault", listázza a Vault szobákat is
         const vaultMatch = item.isVaultFloor && "vault".includes(lowerSearch);
 
         return biomeMatch || depthMatch || bossMatch || buffMatch || enemyMatch || vaultMatch;
@@ -129,7 +122,6 @@ const DelvePage = () => {
                         <input 
                             type="text" 
                             className="delve-search-input"
-                            // FRISSÍTETT PLACEHOLDER SZÖVEG
                             placeholder="Search boss, biome, enemy, buff, objective, difficulty or type 'is:vault' to list only vault floors..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
@@ -158,7 +150,6 @@ const DelvePage = () => {
                                 <div className="header">
                                     <div className="depth-badge">
                                         Depth {item.depth}
-                                        {/* KORONA IKON BEILLESZTÉSE A KÁRTYÁRA */}
                                         {item.isVaultFloor && (
                                             <img src="/icons/crown.png" alt="Crown" className="vault-crown" style={{ marginLeft: '6px', width: '16px', height: '16px', objectFit: 'contain', filter: 'drop-shadow(0 0 10px rgba(231, 255, 19, 0.8))' }} />
                                         )}
@@ -189,7 +180,6 @@ const DelvePage = () => {
                 )}
             </main>
 
-            {/* MODAL */}
             {selectedDelve && (
                 <div 
                     className={`m-wrap ${isClosing ? 'closing' : ''}`} 
@@ -206,7 +196,6 @@ const DelvePage = () => {
                                     <div className="m-depth-num">{selectedDelve.depth}</div>
                                     <div className="m-depth-tag">
                                         <span className="m-depth-label">DEPTH LEVEL</span>
-                                        {/* KORONA IKON BEILLESZTÉSE A MODAL VAULT JELVÉNYÉBE */}
                                         {selectedDelve.isVaultFloor && (
                                             <span className="m-floor-badge" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                                                 <img src="/icons/crown.png" alt="Crown" className="vault-crown" style={{ width: '16px', height: '16px', objectFit: 'contain' }} />
@@ -261,7 +250,6 @@ const DelvePage = () => {
                                 </div>
                             </div>
 
-                            {/* ROOM MAP SECTION */}
                             <div className="m-map">
                                 <div className="m-section-head">
                                     <span className="m-section-title">FLOOR BLUEPRINT</span>
@@ -299,7 +287,6 @@ const DelvePage = () => {
                             </div>
                         </div>
 
-                        {/* FOOTER STATS */}
                         <div className="m-footer">
                             <div className="m-footer-stat">
                                 <span className="m-footer-val">{(selectedDelve.roomDetails || []).filter(r => r.e !== undefined).length + 2}</span>

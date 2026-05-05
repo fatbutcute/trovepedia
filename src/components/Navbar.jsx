@@ -15,13 +15,11 @@ export default function Navbar() {
 
   return (
     <nav>
-      {/* Logo */}
       <button className="nav-logo" onClick={goHome} style={{ background: 'none', border: 'none' }}>
         <span className="diamond" />
         <span style={{ fontFamily: 'MontserratBlack' }}>TROVEPEDIA</span>
       </button>
 
-      {/* Links */}
       <ul className="nav-links">
         {NAV_ITEMS.map(({ label, path }) => (
           <li key={path}>

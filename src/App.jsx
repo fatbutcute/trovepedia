@@ -21,7 +21,6 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
 
-          {/* Útmutatók */}
           <Route path="/guides" element={<GuidesPage />} />
           <Route
             path="/guides/:slug"
@@ -36,7 +35,6 @@ export default function App() {
 
           <Route path="/classes" element={<ClassesPage />} />
 
-          {/* ITT TÖRÖLTEM A PLACEHOLDER-T ÉS CSAK AZ IGAZI OLDAL MARADT */}
           <Route path="/delve" element={<DelvePage />} />
 
           <Route path="/rotations" element={<RotationsPage />} />

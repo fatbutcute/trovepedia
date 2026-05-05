@@ -1,11 +1,9 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 *, *::before, *::after {
-    /* Stabilizálja a szöveg élsimítását animáció közben */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     
-    /* Megakadályozza a szubpixel-remegést */
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
 }
@@ -35,7 +33,6 @@ body {
   overflow-x: hidden;
 }
 
-/* ─── STARS BACKGROUND ─── */
 body::before {
   content: '';
   position: fixed;
@@ -47,7 +44,6 @@ body::before {
   background-repeat: no-repeat;
 }
 
-/* ─── NAVBAR ─── */
 nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
   display: flex; align-items: center; justify-content: space-between;
@@ -133,7 +129,6 @@ nav {
   opacity: .85;
 }
 
-/* ─── HERO ─── */
 .Trovepedia {
   font-family: MontserratBlack, sans-serif;
   font-size: clamp(2.4rem, 6vw, 5rem);
@@ -159,7 +154,7 @@ position: relative;
   justify-content: center;
   text-align: center;
   padding: 120px 24px 80px;
-  overflow: hidden; /* Ez nagyon fontos, ez vágja le a kilógó mozgó hátteret! */
+  overflow: hidden;
 }
 
 .hero-eyebrow {
@@ -210,7 +205,6 @@ position: relative;
   animation: slideUp 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) forwards 0.85s;
 }
 
-/* --- GOMBOK (VÁLTOZATLAN) --- */
 
 .btn {
   display: inline-flex; align-items: center; gap: 8px;
@@ -260,7 +254,6 @@ position: relative;
   scale: 1.1;
 }
 
-/* ─── DIVIDER ─── */
 .divider {
   position: relative; z-index: 1;
   height: 2px;
@@ -268,12 +261,11 @@ position: relative;
   margin: 0 48px;
 }
 
-/* ─── SECTION ─── */
 .guides-landing {
   width: 100%;
   max-width: 1650px;
   margin: 0 auto;
-  padding: 80px 20px; /* Kellemes térköz alul-felül és oldalt */
+  padding: 80px 20px;
 }
 
 .section-label {
@@ -313,7 +305,6 @@ position: relative;
   display: none;
 }
 
-/* ─── FEATURE CARDS ─── */
 .cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -377,7 +368,6 @@ position: relative;
   display: none;
 }
 
-/* ─── STATS STRIP ─── */
 .stats-strip {
   position: relative; z-index: 1;
   background: var(--bg3);
@@ -408,7 +398,6 @@ position: relative;
   margin-top: 4px;
 }
 
-/* ─── GUIDES LIST ─── */
 .guides-list {
   display: flex; flex-direction: column; gap: 12px;
 }
@@ -442,7 +431,6 @@ position: relative;
 .guide-name { font-weight: 400; font-size: 1.05rem; flex: 1; font-family: Quicksand;}
 .guide-date { font-size: .82rem; color: var(--muted); white-space: nowrap; }
 
-/* ─── FOOTER ─── */
 footer {
   position: relative; z-index: 1;
   background-image: linear-gradient(45deg, #04081C , #000312 100%);
@@ -500,7 +488,6 @@ footer {
   font-size: 1em;
 }
 
-/* ─── PAGE LAYOUT ─── */
 .page-wrapper {
   position: relative; z-index: 1;
   padding-top: 64px;
@@ -512,7 +499,6 @@ footer {
   margin: 0 auto;
 }
 
-/* ─── PLACEHOLDER PAGES ─── */
 .placeholder-page {
   min-height: 60vh;
   display: flex; flex-direction: column;
@@ -528,7 +514,6 @@ footer {
   font-size: 2rem;
 }
 
-/* ─── SCROLL REVEAL ─── */
 .reveal {
   opacity: 0;
   transform: translateY(24px);
@@ -550,7 +535,6 @@ footer {
   transform: translateY(-5px);
 }
 
-/* ─── RESPONSIVE ─── */
 @media (max-width: 900px) {
   nav { padding: 0 20px; }
   nav ul { display: none; }
@@ -576,8 +560,6 @@ footer {
   }
 }
 
-/* --- EGYEDI BETŰTÍPUSOK REGISZTRÁLÁSA --- */
-
 @font-face {
   font-family: 'Blinker';
   src: url('./fonts/Blinker-Regular.ttf') format('truetype');
@@ -588,7 +570,6 @@ footer {
 @font-face {
   font-family: 'Exo';
   src: url('./fonts/Exo-VariableFont_wght.ttf') format('truetype');
-  /* Mivel ez Variable font, nem kell külön weight-enként regisztrálni */
 }
 
 @font-face {

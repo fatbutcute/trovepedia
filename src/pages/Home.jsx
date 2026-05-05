@@ -7,10 +7,8 @@ import { useReveal } from '../hooks/useReveal'
 import Dashboard  from '../components/Dashboard'
 
 export default function Home() {
-  // Oldalra lépéskor görgessünk a tetejére
   useEffect(() => { window.scrollTo({ top: 0, behavior: 'instant' }) }, [])
 
-  // Scroll-reveal minden .reveal elemre
   useReveal()
 
   return (
