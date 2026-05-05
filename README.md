@@ -5,6 +5,7 @@
 * Teams név: vargaarongabor
 
 ## Github Repo:
+### https://github.com/fatbutcute/trovepedia/tree/main
 
 
 
