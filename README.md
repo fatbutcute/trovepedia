@@ -18,7 +18,7 @@ Jelenleg még fejlesztés alatt van, hiszen ez a legnagyobb projektem eddig, rá
 **Guides**: Itt találhatjuk meg az éppen aktív útmutatókat (*egyelőre itt is csak a design van megoldva, kattinthatóság, lényeges tartalom még nem elérhető ha bármelyik útmutatóra kattintunk (ha rákattintunk akkor csak szimplán bejön egy Placeholder oldal.)*)
 
 
-**Classes**: Itt találhatóak a játékban jelen lévő karakterek leírásai (*szintúgy, mint a Guides oldalon, lényeges tartalom itt sincs, de a design, kattinthatóság megy + a Placeholderek.*),
+**Classes**: Itt találhatóak a játékban jelen lévő karakterek leírásai (*szintúgy, mint a Guides oldalon, lényeges tartalom itt sincs, de a design, kattinthatóság stb. mennek.*),
 
 
 **Delve Index**: Ez felel a játékban található, Depths nevű biome-ban található szobák kilistázására, ami egy json-t használ (*Fetcheli az adatot egy másik weboldalról*),
