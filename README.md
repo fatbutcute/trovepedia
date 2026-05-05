@@ -1,6 +1,6 @@
 # Webalkalmazás Projekt - Trovepedia
 ## Név: Varga Áron Gábor
-### Neptun-kód: EWD5F3
+* Neptun-kód: EWD5F3
 * Email-cím: vargaarongabor@gmail.com
 * Teams név: vargaarongabor
 
