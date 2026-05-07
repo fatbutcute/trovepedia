@@ -95,7 +95,7 @@ export const GUIDES_DATA = [
   },
   { 
     tag: 'Towers and Ships', 
-    title: 'How does towers and ships work?', 
+    title: 'Learn about ships and towers!', 
     desc: 'Best strategies to farm them, wave management and more...', 
     icon: 'ri-signal-tower-line', 
     slug: 'towers-ships' 
