@@ -1,4 +1,4 @@
-const STATS = [
+ const STATS = [
   { value: '20+', label: 'Osztály' },
   { value: '15+', label: 'Útmutató' },
   { value: 'D25', label: 'Delve mélység' },

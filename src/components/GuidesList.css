@@ -276,7 +276,7 @@
 }
 
 .crafting-paths::after {
-    background-image: url('/guidebg/skillchart.png'); 
+    background-image: url('/guidebg/skillchart.webp'); 
 }
 
 .light-system {
@@ -284,7 +284,7 @@
 }
 
 .light-system::after {
-    background-image: url('/guidebg/cosmic.png');
+    background-image: url('/guidebg/cosmic.webp');
 }
 
 .leviathan-torch {
@@ -292,7 +292,7 @@
 }
 
 .leviathan-torch::after {
-    background-image: url('/guidebg/leviathans.png');
+    background-image: url('/guidebg/leviathans.webp');
 }
 
 .gardening {
@@ -300,7 +300,7 @@
 }
 
 .gardening::after {
-    background-image: url('/guidebg/gardening.png');
+    background-image: url('/guidebg/gardening.webp');
 }
 
 .gems {
@@ -308,7 +308,7 @@
 }
 
 .gems::after {
-    background-image: url('/guidebg/gems.png');
+    background-image: url('/guidebg/gems.webp');
 }
 
 .ring-abilities {
@@ -316,7 +316,7 @@
 }
 
 .ring-abilities::after {
-    background-image: url('/guidebg/ring.png');
+    background-image: url('/guidebg/ring.webp');
 }
 
 .all-ring-abilities {
@@ -324,7 +324,7 @@
 }
 
 .all-ring-abilities::after {
-    background-image: url('/guidebg/ring2.png');
+    background-image: url('/guidebg/ring2.webp');
 }
 
 .recommended-mods {
@@ -332,7 +332,7 @@
 }
 
 .recommended-mods::after {
-    background-image: url('/guidebg/mods.png');
+    background-image: url('/guidebg/mods.webp');
 }
 
 .leaderboard-rewards {
@@ -340,7 +340,7 @@
 }
 
 .leaderboard-rewards::after {
-    background-image: url('/guidebg/leaderboard.png');
+    background-image: url('/guidebg/leaderboard.webp');
 }
 
 .crystal-gear {
@@ -348,7 +348,7 @@
 }
 
 .crystal-gear::after {
-    background-image: url('/guidebg/crystalgear.png');
+    background-image: url('/guidebg/crystalgear.webp');
 }
 
 .mystic-gear {
@@ -356,7 +356,7 @@
 }
 
 .mystic-gear::after {
-    background-image: url('/guidebg/mysticgear.png');
+    background-image: url('/guidebg/mysticgear.webp');
 }
 
 .geode {
@@ -364,7 +364,7 @@
 }
 
 .geode::after {
-    background-image: url('/guidebg/geode.png');
+    background-image: url('/guidebg/geode.webp');
 }
 
 .delves {
@@ -372,7 +372,7 @@
 }
 
 .delves::after {
-    background-image: url('/guidebg/delves.png');
+    background-image: url('/guidebg/delves.webp');
 }
 
 .towers-ships {
@@ -380,7 +380,7 @@
 }
 
 .towers-ships::after {
-    background-image: url('/guidebg/towersships.png');
+    background-image: url('/guidebg/towersships.webp');
 }
 
 @media (max-width: 768px) {
