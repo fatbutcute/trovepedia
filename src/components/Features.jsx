@@ -53,7 +53,7 @@ export default function Features() {
       <p className="section-label">Navigation</p>
       <h2 className="section-title">What do you find here?</h2>
       <p className="section-desc">
-        Everything you need to advance in Trove — for beginners and veterans alike.
+        Everything you need to advance in Trove - for beginners and veterans alike.
       </p>
 
       <div className="cards">

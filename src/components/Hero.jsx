@@ -64,7 +64,7 @@ export default function Hero() {
         </p>
 
         <p className="hero-sub">
-          Guides, classes, delve index and more — all in one place.
+          Guides, classes, delve index and more - all in one place.
         </p>
 
         <div className="hero-buttons">
