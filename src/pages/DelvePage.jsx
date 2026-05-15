@@ -26,7 +26,7 @@ const DelvePage = () => {
             for (const proxy of proxies) {
                 try {
                     const response = await fetch(proxy, { headers: { "Accept": "application/json" } });
-                    if (!response.ok) throw new Error("Proxy hiba");
+                    if (!response.ok) throw new Error("Proxy error!");
                     
                     const data = await response.json();
                     
@@ -36,13 +36,13 @@ const DelvePage = () => {
                         success = true;
                         break; 
                     }
-                } catch (err) {
-                    console.warn("Proxy próbálkozás sikertelen, ugrás a következőre...");
+                } catch {
+                    console.warn("Proxy attempt failed, skipping to the next...");
                 }
             }
 
             if (!success) {
-                console.log("Élő adatok blokkolva. Helyi (offline) JSON betöltése!");
+                console.log("Live data blocked from Pyrodisc. Loading local JSON!");
                 setDelves(delveFallback?.data?.depths || delveFallback?.depths || []);
                 setWeekNumber(delveFallback?.data?.weekNumber || delveFallback?.weekNumber || "N/A");
             }
@@ -71,7 +71,6 @@ const DelvePage = () => {
         return biomeMatch || depthMatch || bossMatch || buffMatch || enemyMatch || vaultMatch;
     });
 
-    // Késleltetett bezárás az animáció miatt
     const handleCloseModal = () => {
         setIsClosing(true);
         setTimeout(() => {
@@ -226,7 +225,6 @@ const DelvePage = () => {
                                 </div>
                             </div>
 
-                            {/* ENEMIES SECTION */}
                             <div>
                                 <div className="m-section-head">
                                     <span className="m-section-title">HOSTILE ENTITIES</span>

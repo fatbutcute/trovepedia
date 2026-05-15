@@ -1,0 +1,532 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Oxanium:wght@300;400;500;600;700;800&family=Mulish:ital,wght@0,300;0,400;0,500;1,300&display=swap');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── ALAPVETŐ DASHBOARD ELRENDEZÉS ── */
+.journal-dashboard {
+  display: flex;
+  height: calc(100vh - 80px); /* Állítsd be a Navbarod magasságához! (pl. ha a navbar 80px) */
+  background: #03030c;
+  font-family: 'Oxanium', sans-serif;
+  color: #c8d4e4;
+  overflow: hidden; /* A scroll a main-ben lesz, nem az egész oldalon! */
+}
+
+/* ── SIDEBAR (BAL OLDALI PANEL) ── */
+.journal-sidebar {
+  width: 320px;
+  background: rgba(8, 8, 20, 0.95);
+  border-right: 1px solid rgba(166, 58, 255, 0.2);
+  padding: 30px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  z-index: 10;
+  backdrop-filter: blur(15px);
+  flex-shrink: 0;
+  box-shadow: 5px 0 20px rgba(0,0,0,0.5);
+}
+
+.sidebar-header h2 { 
+  font-size: 1.2rem; 
+  color: #fff; 
+  letter-spacing: 2px; 
+  text-transform: uppercase; 
+  font-weight: 400;
+  font-family: NunitoSans;
+}
+
+.sidebar-header p { 
+  font-size: 0.85rem; 
+  color: #6c778a; 
+  margin-top: 5px;
+}
+
+.sidebar-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(166, 58, 255, 0.4), transparent);
+}
+
+.sidebar-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sidebar-section label { 
+  font-size: 0.75rem; 
+  color: #a63aff; 
+  text-transform: uppercase; 
+  letter-spacing: 1.5px; 
+  font-weight: 600;
+}
+
+/* ── KERESŐ (DELVE STÍLUSÚ PILL) ── */
+.search-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: rgba(22, 22, 36, 0.7);
+  border: 1px solid rgba(160, 32, 240, 0.3);
+  border-radius: 50px;
+  padding: 0 16px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.search-input-wrapper:focus-within {
+  border-color: #a63aff;
+  box-shadow: 0 0 15px rgba(166, 58, 255, 0.4);
+  transform: scale(1.02);
+}
+
+.search-icon {
+  width: 16px;
+  height: 16px;
+  color: #a63aff;
+  margin-right: 10px;
+  opacity: 0.8;
+}
+
+.delve-search-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-family: 'Oxanium', sans-serif;
+  font-size: 0.9rem;
+  padding: 12px 0;
+}
+
+.delve-search-input::placeholder { color: #5a6a82; }
+
+/* ── SELECT SZŰRŐ ── */
+.select-wrapper {
+  position: relative;
+}
+
+.filter-select {
+  width: 100%;
+  background: rgba(3, 3, 10, 0.6);
+  color: #e8edf4;
+  border: 1px solid rgba(160, 32, 240, 0.3);
+  padding: 12px 14px;
+  border-radius: 8px;
+  font-family: 'Oxanium', sans-serif;
+  font-size: 0.9rem;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.3s;
+  appearance: none;
+}
+
+.filter-select:hover, .filter-select:focus { 
+  border-color: #a63aff; 
+  box-shadow: 0 0 10px rgba(166, 58, 255, 0.2);
+}
+
+.sidebar-footer {
+  margin-top: auto; /* Lenyomja az aljára */
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.results-count {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1rem;
+  color: #5a6a82;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.count-dot {
+  width: 8px;
+  height: 8px;
+  background: #a63aff;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #a63aff;
+  margin-top: -1px;
+}
+
+.custom-select-container {
+  position: relative;
+  width: 100%;
+}
+
+.custom-select-trigger {
+  width: 100%;
+  background: rgba(22, 22, 36, 0.6);
+  border: 1px solid rgba(160, 32, 240, 0.3);
+  color: #fff;
+  padding: 12px 16px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  font-family: 'Oxanium', sans-serif;
+  font-size: 0.9rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+}
+
+.custom-select-trigger:hover, .custom-select-trigger.open {
+  border-color: #a63aff;
+  box-shadow: 0 0 15px rgba(166, 58, 255, 0.3);
+  background: rgba(30, 30, 50, 0.8);
+}
+
+.chevron-icon {
+  width: 16px;
+  height: 16px;
+  color: #a63aff;
+  transition: transform 0.3s ease;
+}
+
+.custom-select-trigger.open .chevron-icon {
+  transform: rotate(180deg);
+}
+
+/* A lenyíló lista */
+.custom-select-options {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  background: rgba(8, 8, 20, 0.98);
+  border: 1px solid #a63aff;
+  border-radius: 12px;
+  z-index: 1000;
+  padding: 6px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(20px);
+  /* Animáció a beúszáshoz */
+  animation: dropdownFade 0.2s ease-out forwards;
+}
+
+@keyframes dropdownFade {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.custom-option {
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #c8d4e4;
+}
+
+.custom-option:hover {
+  background: rgba(166, 58, 255, 0.15);
+  color: var(--opt-color, #fff); /* Ha raritás, megkapja annak a színét */
+  padding-left: 18px; /* Kis eltolás hoverre */
+}
+
+.custom-option.selected {
+  background: rgba(166, 58, 255, 0.25);
+  color: #fff;
+  font-weight: 700;
+}
+
+.option-check {
+  color: #a63aff;
+  font-size: 1rem;
+  text-shadow: 0 0 8px #a63aff;
+}
+
+/* ── FŐ VÁSZON (MAIN CANVAS) ── */
+.journal-main {
+  flex: 1;
+  position: relative;
+  overflow-y: auto; /* Itt lehet görgetni a kártyákat! */
+  padding: 150px 60px;
+}
+
+.item-icon-box {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(166, 58, 255, 0.1);
+  border: 1px solid rgba(166, 58, 255, 0.3);
+  border-radius: 8px;
+  overflow: hidden; /* Ha a kép nagyobb lenne, vágja le */
+}
+
+.item-real-icon {
+  width: 40px; /* Kicsit kisebb, mint a box, hogy legyen kerete */
+  height: 40px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 5px rgba(166, 58, 255, 0.5));
+  transition: transform 0.3s ease;
+}
+
+.item-voxel-card:hover .item-real-icon {
+  transform: scale(1.1) rotate(5deg); /* Egy kis játékosság hoverre */
+}
+
+.item-fallback-icon {
+  color: #a63aff;
+  font-size: 1.2rem;
+  text-shadow: 0 0 10px rgba(166, 58, 255, 0.5);
+}
+
+/* ── EGYEDI NEON SCROLLBAR ── */
+/* Maga a sáv vastagsága */
+.journal-main::-webkit-scrollbar { width: 8px; }
+.journal-main::-webkit-scrollbar-thumb {
+  background: rgb(24, 228, 255);
+  border-radius: 10px;
+}
+.journal-main::-webkit-scrollbar-thumb:hover { background: #a63aff; }
+
+/* Háttér Díszítések */
+.bg-grid {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image: linear-gradient(rgba(166, 58, 255, 0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(166, 58, 255, 0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+.bg-vignette {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background: radial-gradient(circle at center, transparent 0%, rgba(3, 3, 12, 0.9) 100%);
+}
+
+.canvas-header {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 40px;
+}
+
+.journal-title { 
+  font-family: 'Comfortaa', serif; 
+  font-size: 3rem; 
+  font-weight: 400; 
+  color: #fff; 
+  line-height: 1.1;
+}
+
+.journal-description {
+  font-family: Quicksand;
+  font-size: 1em;
+}
+
+.journal-description {
+  font-family: Comfortaa;
+  font-size: 1rem;
+  margin-top: 10px;
+}
+
+.neon-text { 
+  color: #3affd4; 
+  text-shadow: 0 0 20px rgba(166, 58, 255, 0.6); 
+}
+
+.journal-subtitle {
+  font-family: 'Comfortaa', sans-serif;
+  color: #6c778a;
+  margin-top: 10px;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.header-line { 
+  width: 920px; 
+  height: 3px; 
+  background: #a63aff; 
+  border-radius: 2px; 
+  margin-top: 20px; 
+  box-shadow: 0 0 10px #a63aff;
+}
+
+/* ── GRID ÉS VOXEL KÁRTYÁK ── */
+.materials-grid {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(285px, 1fr));
+  gap: 20px;
+}
+
+/* ── JAVÍTOTT ENDGAME BORDER GLOW (Voxel-card szinten) ── */
+.item-voxel-card {
+  position: relative;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 2px; /* Kicsi hely a neon keretnek */
+}
+
+.endgame-glow {
+  position: absolute;
+  /* A kártya legszélére igazítjuk */
+  inset: -2px; 
+  border-radius: 14px; 
+  background: linear-gradient(45deg, #f549ec, #ff0000, #6c00aa, #bd0074, #f549ec);
+  background-size: 300% 300%;
+  /* Élesebb keret, hogy ne follyon be a kártya közepébe */
+  filter: blur(10px); 
+  opacity: 0;
+  z-index: 0; /* Legalul, a card-inner mögött */
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  pointer-events: none;
+}
+
+/* Hover interakció: Csak a szegély körül ragyog */
+.item-voxel-card:hover .endgame-glow {
+  opacity: 1; /* Erősebb fény a széleken */
+  transform: scale(1.02); /* Minimális tágulás a neon lüktetéshez */
+  animation: staff-rainbow 7s linear infinite;
+}
+
+/* A card-inner-t kötelezően magasabb z-index-re rakjuk, és SÖTÉTEBB háttér kell, hogy ne látszódjon át a fény */
+.item-voxel-card:hover .card-inner {
+  position: relative;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.85); /* Sötétebb, kevésbé áttetsző háttér hovernél */
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+
+@keyframes staff-rainbow {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Ha az item kategóriája Endgame, adjunk neki egy kis alap neon színt a névnek */
+.item-voxel-card:has(.endgame-glow) .item-name {
+    text-shadow: 0 0 8px rgba(245, 73, 236, 0.5);
+}
+
+.card-inner {
+  background: rgba(22, 22, 22, 0.3);
+  border: 1px solid rgba(166, 58, 255, 0.2);
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  backdrop-filter: blur(8px);
+  cursor: pointer;
+  transition: all 0.3s;
+  min-height: 100px;
+}
+
+.item-voxel-card:hover { transform: translateY(-5px); z-index: 50; }
+
+.item-icon { 
+  width: 44px; 
+  height: 44px; 
+  border-radius: 8px; 
+  border: 1px solid;
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  font-size: 1.3rem; 
+  flex-shrink: 0;
+}
+
+.item-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.item-name {
+  font-family: Comfortaa;
+  font-size: 0.95rem; 
+  font-weight: 700; 
+  line-height: 1.2;
+}
+
+.item-rarity-tag {
+  font-family: Quicksand; 
+  font-size: 0.65rem; 
+  padding: 2px 8px; 
+  border-radius: 4px; 
+  border: 1px solid;
+  text-transform: uppercase; 
+  letter-spacing: 1px;
+  font-weight: 600;
+  align-items: center;
+}
+
+/* ── TOOLTIP FADE-UP ── */
+.item-tooltip {
+  position: absolute;
+  bottom: 115%; left: 50%;
+  transform: translate(-50%, 15px);
+  width: 370px;
+  background: rgba(8, 8, 16, 0.98);
+  border: 1px solid;
+  border-radius: 12px;
+  padding: 16px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 100;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9);
+  pointer-events: none; /* Ne zavarja a hovert */
+}
+
+.item-voxel-card:hover .item-tooltip { 
+  opacity: 1; 
+  visibility: visible; 
+  transform: translate(-50%, 0); 
+}
+
+.tooltip-title {
+  font-family: 'Comfortaa', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding-bottom: 8px;
+}
+
+.tooltip-desc {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 0.95rem;
+  color: #c8d4e4;
+  line-height: 1.5;
+}
+
+/* ── ÜRES TALÁLAT ── */
+.no-results {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 0;
+  color: #5a6a82;
+  border: 2px dashed rgba(166, 58, 255, 0.2);
+  border-radius: 20px;
+  background: rgba(0,0,0,0.3);
+}
+
+.no-results-icon {
+  font-size: 3rem;
+  color: #a63aff;
+  opacity: 0.5;
+  margin-bottom: 15px;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .journal-dashboard { flex-direction: column; overflow-y: auto; height: auto; min-height: 100vh;}
+  .journal-sidebar { width: 100%; border-right: none; border-bottom: 1px solid rgba(166, 58, 255, 0.2); padding: 20px; box-shadow: none; }
+  .journal-main { overflow-y: visible; padding: 30px 20px; }
+  .item-tooltip { display: none; /* Mobilon zavaró lehet a lebegő tooltip */ }
+}

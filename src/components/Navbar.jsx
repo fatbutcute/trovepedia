@@ -5,6 +5,7 @@ const NAV_ITEMS = [
   { label: 'Classes',  path: '/classes' },
   { label: 'Delve Index',path: '/delve' },
   { label: 'Rotations',   path: '/rotations' },
+  { label: 'Archive',     path: '/journal' },
 ]
 
 export default function Navbar() {
