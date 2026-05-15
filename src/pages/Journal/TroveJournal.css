@@ -372,7 +372,7 @@
   /* A kártya legszélére igazítjuk */
   inset: -2px; 
   border-radius: 14px; 
-  background: linear-gradient(45deg, #f549ec, #ff0000, #6c00aa, #bd0074, #f549ec);
+  background: linear-gradient(45deg, #6a00c0, #510069, #6c00aa, #bd0074, #f549ec);
   background-size: 300% 300%;
   /* Élesebb keret, hogy ne follyon be a kártya közepébe */
   filter: blur(10px); 

@@ -2,10 +2,6 @@ import React, { useState, useMemo, useRef, useEffect } from "react";
 import materialsData from "./materials_exact.json";
 import "./TroveJournal.css";
 
-// ═══════════════════════════════════════════════════════════════════════════
-//   MANUÁLIS ENDGAME BEÁLLÍTÁS
-//   Ide írd be azoknak az itemeknek a PONTOS nevét, amik endgame-nek számítanak!
-// ═══════════════════════════════════════════════════════════════════════════
 const MANUAL_ENDGAME_ITEMS = [
   "Depths Core",
   "Soul of the Depths",
@@ -13,14 +9,12 @@ const MANUAL_ENDGAME_ITEMS = [
 ];
 
 const PROCESSED_ITEMS = materialsData.map((item, index) => {
-  // Megnézzük, hogy a manuális listánkban szerepel-e az item
   const isEndgame = MANUAL_ENDGAME_ITEMS.includes(item.name);
   
   let category = "Standard";
   if (isEndgame) {
     category = "Endgame";
   } else {
-    // Ha nem endgame, akkor az identifier alapján dől el a kategória
     const parts = item.identifier.split('/');
     if (parts.length > 3) {
       category = parts[2].charAt(0).toUpperCase() + parts[2].slice(1);
@@ -46,7 +40,6 @@ export default function TroveJournal() {
   const [isSelectOpen, setIsSelectOpen] = useState(false);
   const selectRef = useRef(null);
 
-  // Kategóriák kigyűjtése (Endgame mindig ott lesz, ha van benne item)
   const categories = useMemo(() => {
     return ["All", ...new Set(PROCESSED_ITEMS.map(i => i.category))].sort();
   }, []);
@@ -65,7 +58,6 @@ export default function TroveJournal() {
       const matchSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase());
       return matchCat && matchSearch;
     }).sort((a, b) => {
-      // Az Endgame itemeket mindig az elejére rakjuk a listában
       if (a.category === "Endgame" && b.category !== "Endgame") return 1;
       if (a.category !== "Endgame" && b.category === "Endgame") return -1;
       return a.name.localeCompare(b.name);
@@ -141,14 +133,13 @@ export default function TroveJournal() {
         
         <div className="canvas-header">
           <h1 className="journal-title">Materials <span className="neon-text">Archive</span></h1>
-          <p className="journal-description">This page provides up-to-date, detailed informations about the standard materials til the endgame materials.</p>
+          <p className="journal-description">This page provides up-to-date, detailed informations from the standard materials til the endgame materials.</p>
           <div className="header-line" />
         </div>
 
         <div className="materials-grid">
           {filteredItems.map((item) => (
             <div key={item.id} className="item-voxel-card">
-              {/* CSAK ENDGAME ITEMEKNÉL JELENIK MEG A SZIVÁRVÁNY FÉNY */}
               {item.category === "Endgame" && <div className="endgame-glow" />}
               
               <div className="card-inner glass-effect">
