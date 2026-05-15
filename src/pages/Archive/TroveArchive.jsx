@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useRef, useEffect } from "react";
 import materialsData from "./materials_exact.json";
-import "./TroveJournal.css";
+import "./TroveArchive.css";
 
 const MANUAL_ENDGAME_ITEMS = [
   "Depths Core",
@@ -34,7 +34,7 @@ const PROCESSED_ITEMS = materialsData.map((item, index) => {
   };
 });
 
-export default function TroveJournal() {
+export default function TroveArchive() {
   const [filterCategory, setFilterCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
   const [isSelectOpen, setIsSelectOpen] = useState(false);
