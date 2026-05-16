@@ -14,7 +14,6 @@ const PROCESSED_ITEMS = [];
 if (materialsData && materialsData.Resources) {
   Object.entries(materialsData.Resources).forEach(([categoryName, contentObj]) => {
     
-    // Belső feldolgozó függvény
     const processItems = (itemsObj, catName, subCatName = null) => {
       Object.entries(itemsObj).forEach(([itemName, itemData]) => {
         const isEndgame = MANUAL_ENDGAME_ITEMS.includes(itemName);
@@ -39,13 +38,10 @@ if (materialsData && materialsData.Resources) {
       });
     };
 
-    // Megnézzük, hogy ez a kategória közvetlenül itemeket tartalmaz-e, vagy alkategóriákat
     const firstKey = Object.keys(contentObj)[0];
     if (firstKey && contentObj[firstKey] && typeof contentObj[firstKey] === 'object' && contentObj[firstKey].identifier) {
-       // Közvetlen itemek (pl. Materials, Ores)
        processItems(contentObj, categoryName);
     } else {
-       // Alkategóriák (pl. Geode -> Materials, Geode -> Ores)
        Object.entries(contentObj).forEach(([subCategoryName, itemsObj]) => {
            processItems(itemsObj, categoryName, subCategoryName);
        });
@@ -69,7 +65,6 @@ export default function TroveArchive() {
     setExpandedCategories(prev => ({ ...prev, [cat]: !prev[cat] }));
   };
 
-  // Kategóriák és számosságok kigyűjtése
   const categoryTree = useMemo(() => {
     const tree = {};
     PROCESSED_ITEMS.forEach(item => {
@@ -91,7 +86,6 @@ export default function TroveArchive() {
     return tree;
   }, []);
 
-  // Kategóriák sorrendbe rakása (Endgame legyen az első)
   const sortedCategories = useMemo(() => {
     return Object.keys(categoryTree).sort((a, b) => {
       if (a === "Endgame") return -1;
@@ -160,12 +154,10 @@ export default function TroveArchive() {
           </div>
         </div>
 
-        {/* ÚJ DINAMIKUS FILTER LISTA */}
-        <div className="sidebar-section filter-section">
+        <div className="sidebar-section">
           <label>Filter by Source</label>
           <div className="sidebar-filter-list">
             
-            {/* Minden Elem */}
             <div className="filter-group" style={{ animationDelay: '0.1s' }}>
               <div 
                 className={`filter-item ${filterCategory === "All" && !filterSubCategory ? 'active' : ''}`}
@@ -176,7 +168,6 @@ export default function TroveArchive() {
               </div>
             </div>
 
-            {/* Generált Kategóriák és Alkategóriák */}
             {sortedCategories.map((cat, index) => {
               const hasSub = Object.keys(categoryTree[cat].subCategories).length > 0;
               const isExpanded = expandedCategories[cat];
@@ -184,7 +175,7 @@ export default function TroveArchive() {
               return (
                 <div key={cat} className="filter-group" style={{ animationDelay: `${0.15 + index * 0.05}s` }}>
                   <div 
-                    className={`filter-item ${filterCategory === cat && !filterSubCategory ? 'active' : ''}`}
+                    className={`filter-item ${filterCategory === "All" && !filterSubCategory ? '' : (filterCategory === cat && !filterSubCategory ? 'active' : '')}`}
                     onClick={() => {
                       setFilterCategory(cat);
                       setFilterSubCategory(null);
@@ -200,26 +191,24 @@ export default function TroveArchive() {
                     <span className="item-count">({categoryTree[cat].count})</span>
                   </div>
                   
-                  {/* Lenyíló Alkategóriák (pl. Geode Ores, Materials) */}
-                    {/* Lenyíló Alkategóriák (pl. Geode Ores, Materials) */}
-                    {hasSub && (
-                      <div className={`filter-subcategories ${isExpanded ? 'open' : ''}`}>
-                        {Object.keys(categoryTree[cat].subCategories).sort().map(subCat => (
-                          <div
-                            key={subCat}
-                            className={`filter-sub-item ${filterCategory === cat && filterSubCategory === subCat ? 'active' : ''}`}
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setFilterCategory(cat);
-                              setFilterSubCategory(subCat);
-                            }}
-                          >
-                            <span>{subCat}</span>
-                            <span className="item-count">({categoryTree[cat].subCategories[subCat]})</span>
-                          </div>
-                        ))}
-                      </div>
-                    )}
+                  {hasSub && (
+                    <div className={`filter-subcategories ${isExpanded ? 'open' : ''}`}>
+                      {Object.keys(categoryTree[cat].subCategories).sort().map(subCat => (
+                        <div
+                          key={subCat}
+                          className={`filter-sub-item ${filterCategory === cat && filterSubCategory === subCat ? 'active' : ''}`}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setFilterCategory(cat);
+                            setFilterSubCategory(subCat);
+                          }}
+                        >
+                          <span>{subCat}</span>
+                          <span className="item-count">({categoryTree[cat].subCategories[subCat]})</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
               );
             })}
@@ -248,7 +237,11 @@ export default function TroveArchive() {
         <div key={animationKey} className={`materials-grid ${isAnimating ? 'animating-out' : ''}`}>
           {displayItems.map((item, index) => {
             const baseDelay = initialLoad ? 0.7 : 0;
-            const staggerDelay = Math.min(index * 0.04, 1.5);
+            
+            // ── JAVÍTOTT NÉGYZETGYÖKÖS STAGGER ──
+            // Szigorúan követi a sorrendet, így gyönyörű, tiszta hullámot alkot összevisszaság nélkül.
+            // A szorzó (0.055) tökéletes egyensúlyt ad a sebesség és a látvány között.
+            const staggerDelay = Math.sqrt(index) * 0.055;
             
             return (
               <div 
