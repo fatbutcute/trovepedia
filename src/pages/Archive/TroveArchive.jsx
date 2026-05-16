@@ -10,7 +10,6 @@ const MANUAL_ENDGAME_ITEMS = [
 
 const PROCESSED_ITEMS = [];
 
-// ÚJ ADATFELDOLGOZÓ LOGIKA (Subkategóriák dinamikus kezelésével)
 if (materialsData && materialsData.Resources) {
   Object.entries(materialsData.Resources).forEach(([categoryName, contentObj]) => {
     
@@ -54,7 +53,6 @@ export default function TroveArchive() {
   const [filterSubCategory, setFilterSubCategory] = useState(null);
   const [expandedCategories, setExpandedCategories] = useState({});
 
-  // Animációs állapotok
   const [displayItems, setDisplayItems] = useState([]);
   const [isAnimating, setIsAnimating] = useState(false);
   const [animationKey, setAnimationKey] = useState(0);
@@ -237,10 +235,6 @@ export default function TroveArchive() {
         <div key={animationKey} className={`materials-grid ${isAnimating ? 'animating-out' : ''}`}>
           {displayItems.map((item, index) => {
             const baseDelay = initialLoad ? 0.7 : 0;
-            
-            // ── JAVÍTOTT NÉGYZETGYÖKÖS STAGGER ──
-            // Szigorúan követi a sorrendet, így gyönyörű, tiszta hullámot alkot összevisszaság nélkül.
-            // A szorzó (0.055) tökéletes egyensúlyt ad a sebesség és a látvány között.
             const staggerDelay = Math.sqrt(index) * 0.055;
             
             return (

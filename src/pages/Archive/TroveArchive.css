@@ -9,7 +9,6 @@
 
 .fi.fi-sr-angle-small-left { position: relative; top: 2px; }
 
-/* ── ANIMÁCIÓS KULCSKOCKÁK (KEYFRAMES) ── */
 @keyframes slideInLeft {
   0% { opacity: 0; transform: translateX(-50px); }
   100% { opacity: 1; transform: translateX(0); }
@@ -44,7 +43,6 @@
   overflow: hidden;
 }
 
-/* ── SIDEBAR ── */
 .journal-sidebar {
   width: 320px;
   background: rgba(8, 8, 20, 0.95);
@@ -98,7 +96,6 @@
 .delve-search-input::placeholder { color: #5a6a82; }
 
 
-/* ── ÚJ LISTÁS FILTEREK ── */
 .sidebar-filter-list {
   display: flex;
   flex-direction: column;
@@ -164,7 +161,6 @@
   opacity: 0.8;
 }
 
-/* Lenyíló alkategóriák */
 .filter-subcategories {
   display: flex;
   flex-direction: column;
@@ -188,7 +184,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 14px 10px 32px; /* Beljebb húzva */
+  padding: 10px 14px 10px 32px;
   border-radius: 8px;
   cursor: pointer;
   color: #c8d4e4;
@@ -216,7 +212,6 @@
 .results-count { display: flex; align-items: center; gap: 10px; font-size: 1rem; color: #5a6a82; font-family: 'Quicksand', sans-serif; }
 .count-dot { width: 8px; height: 8px; background: #a63aff; border-radius: 50%; box-shadow: 0 0 10px #a63aff; margin-top: -1px; }
 
-/* ── FŐ VÁSZON ── */
 .journal-main {
   margin-top: 100px;
   flex: 1;
@@ -312,7 +307,6 @@
   z-index: 0;
   transition: opacity 0.4s ease, transform 0.4s ease;
   pointer-events: none;
-  /* IDE KERÜLT ÁT AZ ANIMÁCIÓ: Folyamatosan fut láthatatlanul is, így nincs ugrás! */
   animation: staff-rainbow 7s linear infinite;
 }
 
