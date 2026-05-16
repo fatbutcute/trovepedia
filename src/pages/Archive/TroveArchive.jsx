@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useRef, useEffect } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import materialsData from "./materials_exact.json";
 import "./TroveArchive.css";
 
@@ -10,76 +10,110 @@ const MANUAL_ENDGAME_ITEMS = [
 
 const PROCESSED_ITEMS = [];
 
-// ÚJ ADATFELDOLGOZÓ LOGIKA AZ ÚJ JSON STRUKTÚRÁHOZ
+// ÚJ ADATFELDOLGOZÓ LOGIKA (Subkategóriák dinamikus kezelésével)
 if (materialsData && materialsData.Resources) {
-  // Végigmegyünk a kategóriákon (Materials, Harvestables, Ores, stb.)
-  Object.entries(materialsData.Resources).forEach(([categoryName, itemsObj]) => {
-    // Végigmegyünk a kategórián belüli itemeken (Blank Scroll, Bleached Bone, stb.)
-    Object.entries(itemsObj).forEach(([itemName, itemData]) => {
-      
-      const isEndgame = MANUAL_ENDGAME_ITEMS.includes(itemName);
-      
-      // Ha manuálisan Endgame-re állítottuk, felülírjuk a kategóriát
-      let finalCategory = categoryName;
-      if (isEndgame) {
-        finalCategory = "Endgame";
-      }
+  Object.entries(materialsData.Resources).forEach(([categoryName, contentObj]) => {
+    
+    // Belső feldolgozó függvény
+    const processItems = (itemsObj, catName, subCatName = null) => {
+      Object.entries(itemsObj).forEach(([itemName, itemData]) => {
+        const isEndgame = MANUAL_ENDGAME_ITEMS.includes(itemName);
+        
+        let finalCategory = catName;
+        if (isEndgame) {
+          finalCategory = "Endgame";
+        }
 
-      // Kép generálása a blueprint alapján
-      const iconUrl = itemData.blueprint 
-        ? `https://trovesaurus.com/data/catalog/${itemData.blueprint.toLowerCase()}.png`
-        : null;
+        const iconUrl = itemData.blueprint 
+          ? `https://trovesaurus.com/data/catalog/${itemData.blueprint.toLowerCase()}.png`
+          : null;
 
-      PROCESSED_ITEMS.push({
-        id: itemData.identifier || itemName,
-        name: itemName,
-        description: itemData.description?.replace(/\\\\n/g, ' ')?.replace(/\\n/g, ' ') || "Crafting material used in various recipes.",
-        category: finalCategory,
-        iconUrl: iconUrl
+        PROCESSED_ITEMS.push({
+          id: itemData.identifier || itemName,
+          name: itemName,
+          description: itemData.description?.replace(/\\\\n/g, ' ')?.replace(/\\n/g, ' ') || "Crafting material used in various recipes.",
+          category: finalCategory,
+          subCategory: isEndgame ? null : subCatName, 
+          iconUrl: iconUrl
+        });
       });
-    });
+    };
+
+    // Megnézzük, hogy ez a kategória közvetlenül itemeket tartalmaz-e, vagy alkategóriákat
+    const firstKey = Object.keys(contentObj)[0];
+    if (firstKey && contentObj[firstKey] && typeof contentObj[firstKey] === 'object' && contentObj[firstKey].identifier) {
+       // Közvetlen itemek (pl. Materials, Ores)
+       processItems(contentObj, categoryName);
+    } else {
+       // Alkategóriák (pl. Geode -> Materials, Geode -> Ores)
+       Object.entries(contentObj).forEach(([subCategoryName, itemsObj]) => {
+           processItems(itemsObj, categoryName, subCategoryName);
+       });
+    }
   });
 }
 
 export default function TroveArchive() {
   const [filterCategory, setFilterCategory] = useState("All");
-  const [searchQuery, setSearchQuery] = useState("");
-  const [isSelectOpen, setIsSelectOpen] = useState(false);
-  const selectRef = useRef(null);
+  const [filterSubCategory, setFilterSubCategory] = useState(null);
+  const [expandedCategories, setExpandedCategories] = useState({});
 
   // Animációs állapotok
   const [displayItems, setDisplayItems] = useState([]);
   const [isAnimating, setIsAnimating] = useState(false);
   const [animationKey, setAnimationKey] = useState(0);
   const [initialLoad, setInitialLoad] = useState(true);
-  const isFirstRender = useRef(true);
+  const [searchQuery, setSearchQuery] = useState("");
 
-  // A filter menü kategóriáinak automatikus generálása
-  const categories = useMemo(() => {
-    return ["All", ...new Set(PROCESSED_ITEMS.map(i => i.category))].sort();
+  const toggleCategory = (cat) => {
+    setExpandedCategories(prev => ({ ...prev, [cat]: !prev[cat] }));
+  };
+
+  // Kategóriák és számosságok kigyűjtése
+  const categoryTree = useMemo(() => {
+    const tree = {};
+    PROCESSED_ITEMS.forEach(item => {
+      const cat = item.category;
+      const subCat = item.subCategory;
+      
+      if (!tree[cat]) {
+        tree[cat] = { count: 0, subCategories: {} };
+      }
+      tree[cat].count++;
+      
+      if (subCat && cat !== "Endgame") {
+        if (!tree[cat].subCategories[subCat]) {
+          tree[cat].subCategories[subCat] = 0;
+        }
+        tree[cat].subCategories[subCat]++;
+      }
+    });
+    return tree;
   }, []);
 
-  // Első betöltéskori csúsztatás (késleltetés) kikapcsolása 1.5mp után
+  // Kategóriák sorrendbe rakása (Endgame legyen az első)
+  const sortedCategories = useMemo(() => {
+    return Object.keys(categoryTree).sort((a, b) => {
+      if (a === "Endgame") return -1;
+      if (b === "Endgame") return 1;
+      return a.localeCompare(b);
+    });
+  }, [categoryTree]);
+
+  // Első betöltés késleltetés kikapcsolása
   useEffect(() => {
     const timer = setTimeout(() => setInitialLoad(false), 1500);
     return () => clearTimeout(timer);
   }, []);
 
-  useEffect(() => {
-    function handleClick(e) {
-      if (selectRef.current && !selectRef.current.contains(e.target)) setIsSelectOpen(false);
-    }
-    document.addEventListener("mousedown", handleClick);
-    return () => document.removeEventListener("mousedown", handleClick);
-  }, []);
-
-  // Keresés és szűrés frissítése animációval egybekötve
+  // Keresés és szűrés
   useEffect(() => {
     const runFilter = () => {
       return PROCESSED_ITEMS.filter(item => {
         const matchCat = filterCategory === "All" || item.category === filterCategory;
+        const matchSubCat = !filterSubCategory || item.subCategory === filterSubCategory;
         const matchSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase());
-        return matchCat && matchSearch;
+        return matchCat && matchSubCat && matchSearch;
       }).sort((a, b) => {
         if (a.category === "Endgame" && b.category !== "Endgame") return -1;
         if (a.category !== "Endgame" && b.category === "Endgame") return 1;
@@ -87,24 +121,20 @@ export default function TroveArchive() {
       });
     };
 
-    if (isFirstRender.current) {
+    if (initialLoad && displayItems.length === 0) {
       setDisplayItems(runFilter());
-      isFirstRender.current = false;
       return;
     }
 
-    // Szűrés változásakor: Elindítjuk a kimenő animációt
     setIsAnimating(true);
-    
-    // Várunk amíg a kártyák "kimennek", majd frissítjük az adatokat
     const timeout = setTimeout(() => {
       setDisplayItems(runFilter());
-      setAnimationKey(prev => prev + 1); // A kulcs váltása újraindítja a belépő animációkat
+      setAnimationKey(prev => prev + 1);
       setIsAnimating(false);
     }, 350); 
 
     return () => clearTimeout(timeout);
-  }, [filterCategory, searchQuery]);
+  }, [filterCategory, filterSubCategory, searchQuery]);
 
   return (
     <div className="journal-dashboard">
@@ -130,33 +160,69 @@ export default function TroveArchive() {
           </div>
         </div>
 
-        <div className="sidebar-section">
+        {/* ÚJ DINAMIKUS FILTER LISTA */}
+        <div className="sidebar-section filter-section">
           <label>Filter by Source</label>
-          <div className="custom-select-container" ref={selectRef}>
-            <button 
-              className={`custom-select-trigger ${isSelectOpen ? 'open' : ''}`}
-              onClick={() => setIsSelectOpen(!isSelectOpen)}
-            >
-              <span>{filterCategory === "All" ? "All Sources" : filterCategory}</span>
-              <svg className="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <polyline points="6 9 12 15 18 9"></polyline>
-              </svg>
-            </button>
+          <div className="sidebar-filter-list">
             
-            {isSelectOpen && (
-              <div className="custom-select-options">
-                {categories.map(cat => (
-                  <div 
-                    key={cat} 
-                    className={`custom-option ${filterCategory === cat ? 'selected' : ''}`}
-                    onClick={() => { setFilterCategory(cat); setIsSelectOpen(false); }}
-                  >
-                    {cat === "All" ? "All Sources" : cat}
-                    {filterCategory === cat && <span className="option-check">✦</span>}
-                  </div>
-                ))}
+            {/* Minden Elem */}
+            <div className="filter-group" style={{ animationDelay: '0.1s' }}>
+              <div 
+                className={`filter-item ${filterCategory === "All" && !filterSubCategory ? 'active' : ''}`}
+                onClick={() => { setFilterCategory("All"); setFilterSubCategory(null); }}
+              >
+                <div className="filter-item-name"><span>All Items</span></div>
+                <span className="item-count">({PROCESSED_ITEMS.length})</span>
               </div>
-            )}
+            </div>
+
+            {/* Generált Kategóriák és Alkategóriák */}
+            {sortedCategories.map((cat, index) => {
+              const hasSub = Object.keys(categoryTree[cat].subCategories).length > 0;
+              const isExpanded = expandedCategories[cat];
+              
+              return (
+                <div key={cat} className="filter-group" style={{ animationDelay: `${0.15 + index * 0.05}s` }}>
+                  <div 
+                    className={`filter-item ${filterCategory === cat && !filterSubCategory ? 'active' : ''}`}
+                    onClick={() => {
+                      setFilterCategory(cat);
+                      setFilterSubCategory(null);
+                      if (hasSub) toggleCategory(cat);
+                    }}
+                  >
+                    <div className="filter-item-name">
+                      {hasSub && (
+                        <i className={`fi fi-sr-angle-small-${isExpanded ? 'down' : 'right'} expand-icon`}></i>
+                      )}
+                      <span>{cat}</span>
+                    </div>
+                    <span className="item-count">({categoryTree[cat].count})</span>
+                  </div>
+                  
+                  {/* Lenyíló Alkategóriák (pl. Geode Ores, Materials) */}
+                    {/* Lenyíló Alkategóriák (pl. Geode Ores, Materials) */}
+                    {hasSub && (
+                      <div className={`filter-subcategories ${isExpanded ? 'open' : ''}`}>
+                        {Object.keys(categoryTree[cat].subCategories).sort().map(subCat => (
+                          <div
+                            key={subCat}
+                            className={`filter-sub-item ${filterCategory === cat && filterSubCategory === subCat ? 'active' : ''}`}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setFilterCategory(cat);
+                              setFilterSubCategory(subCat);
+                            }}
+                          >
+                            <span>{subCat}</span>
+                            <span className="item-count">({categoryTree[cat].subCategories[subCat]})</span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                </div>
+              );
+            })}
           </div>
         </div>
 
@@ -202,7 +268,7 @@ export default function TroveArchive() {
                   </div>
                   <div className="item-details">
                     <span className="item-name">{item.name}</span>
-                    <span className="item-category-tag">{item.category}</span>
+                    <span className="item-category-tag">{item.category} {item.subCategory ? ` / ${item.subCategory}` : ''}</span>
                   </div>
                 </div>
                 <div className="item-tooltip">
