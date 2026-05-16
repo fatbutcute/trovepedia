@@ -8,31 +8,38 @@ const MANUAL_ENDGAME_ITEMS = [
   "Deepstone",
 ];
 
-const PROCESSED_ITEMS = materialsData.map((item, index) => {
-  const isEndgame = MANUAL_ENDGAME_ITEMS.includes(item.name);
-  
-  let category = "Standard";
-  if (isEndgame) {
-    category = "Endgame";
-  } else {
-    const parts = item.identifier.split('/');
-    if (parts.length > 3) {
-      category = parts[2].charAt(0).toUpperCase() + parts[2].slice(1);
-    }
-  }
+const PROCESSED_ITEMS = [];
 
-  const iconUrl = item.blueprint 
-    ? `https://trovesaurus.com/data/catalog/${item.blueprint.toLowerCase()}.png`
-    : null;
+// ÚJ ADATFELDOLGOZÓ LOGIKA AZ ÚJ JSON STRUKTÚRÁHOZ
+if (materialsData && materialsData.Resources) {
+  // Végigmegyünk a kategóriákon (Materials, Harvestables, Ores, stb.)
+  Object.entries(materialsData.Resources).forEach(([categoryName, itemsObj]) => {
+    // Végigmegyünk a kategórián belüli itemeken (Blank Scroll, Bleached Bone, stb.)
+    Object.entries(itemsObj).forEach(([itemName, itemData]) => {
+      
+      const isEndgame = MANUAL_ENDGAME_ITEMS.includes(itemName);
+      
+      // Ha manuálisan Endgame-re állítottuk, felülírjuk a kategóriát
+      let finalCategory = categoryName;
+      if (isEndgame) {
+        finalCategory = "Endgame";
+      }
 
-  return {
-    id: item.identifier || index,
-    name: item.name,
-    description: item.description?.replace(/\\\\n/g, ' ') || "Crafting material used in various recipes.",
-    category: category,
-    iconUrl: iconUrl
-  };
-});
+      // Kép generálása a blueprint alapján
+      const iconUrl = itemData.blueprint 
+        ? `https://trovesaurus.com/data/catalog/${itemData.blueprint.toLowerCase()}.png`
+        : null;
+
+      PROCESSED_ITEMS.push({
+        id: itemData.identifier || itemName,
+        name: itemName,
+        description: itemData.description?.replace(/\\\\n/g, ' ')?.replace(/\\n/g, ' ') || "Crafting material used in various recipes.",
+        category: finalCategory,
+        iconUrl: iconUrl
+      });
+    });
+  });
+}
 
 export default function TroveArchive() {
   const [filterCategory, setFilterCategory] = useState("All");
@@ -40,8 +47,22 @@ export default function TroveArchive() {
   const [isSelectOpen, setIsSelectOpen] = useState(false);
   const selectRef = useRef(null);
 
+  // Animációs állapotok
+  const [displayItems, setDisplayItems] = useState([]);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [animationKey, setAnimationKey] = useState(0);
+  const [initialLoad, setInitialLoad] = useState(true);
+  const isFirstRender = useRef(true);
+
+  // A filter menü kategóriáinak automatikus generálása
   const categories = useMemo(() => {
     return ["All", ...new Set(PROCESSED_ITEMS.map(i => i.category))].sort();
+  }, []);
+
+  // Első betöltéskori csúsztatás (késleltetés) kikapcsolása 1.5mp után
+  useEffect(() => {
+    const timer = setTimeout(() => setInitialLoad(false), 1500);
+    return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
@@ -52,16 +73,37 @@ export default function TroveArchive() {
     return () => document.removeEventListener("mousedown", handleClick);
   }, []);
 
-  const filteredItems = useMemo(() => {
-    return PROCESSED_ITEMS.filter(item => {
-      const matchCat = filterCategory === "All" || item.category === filterCategory;
-      const matchSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase());
-      return matchCat && matchSearch;
-    }).sort((a, b) => {
-      if (a.category === "Endgame" && b.category !== "Endgame") return 1;
-      if (a.category !== "Endgame" && b.category === "Endgame") return -1;
-      return a.name.localeCompare(b.name);
-    });
+  // Keresés és szűrés frissítése animációval egybekötve
+  useEffect(() => {
+    const runFilter = () => {
+      return PROCESSED_ITEMS.filter(item => {
+        const matchCat = filterCategory === "All" || item.category === filterCategory;
+        const matchSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase());
+        return matchCat && matchSearch;
+      }).sort((a, b) => {
+        if (a.category === "Endgame" && b.category !== "Endgame") return -1;
+        if (a.category !== "Endgame" && b.category === "Endgame") return 1;
+        return a.name.localeCompare(b.name);
+      });
+    };
+
+    if (isFirstRender.current) {
+      setDisplayItems(runFilter());
+      isFirstRender.current = false;
+      return;
+    }
+
+    // Szűrés változásakor: Elindítjuk a kimenő animációt
+    setIsAnimating(true);
+    
+    // Várunk amíg a kártyák "kimennek", majd frissítjük az adatokat
+    const timeout = setTimeout(() => {
+      setDisplayItems(runFilter());
+      setAnimationKey(prev => prev + 1); // A kulcs váltása újraindítja a belépő animációkat
+      setIsAnimating(false);
+    }, 350); 
+
+    return () => clearTimeout(timeout);
   }, [filterCategory, searchQuery]);
 
   return (
@@ -121,7 +163,7 @@ export default function TroveArchive() {
         <div className="sidebar-footer">
           <div className="results-count">
             <span className="count-dot" />
-            {filteredItems.length} records found
+            {displayItems.length} records found
           </div>
         </div>
       </aside>
@@ -133,34 +175,43 @@ export default function TroveArchive() {
         
         <div className="canvas-header">
           <h1 className="journal-title">Materials <span className="neon-text">Archive</span></h1>
-          <p className="journal-description">This page provides up-to-date, detailed informations from the standard materials til the endgame materials.</p>
+          <p className="journal-description">This page provides up-to-date, detailed informations from the standard materials until the endgame materials.</p>
           <div className="header-line" />
         </div>
 
-        <div className="materials-grid">
-          {filteredItems.map((item) => (
-            <div key={item.id} className="item-voxel-card">
-              {item.category === "Endgame" && <div className="endgame-glow" />}
-              
-              <div className="card-inner glass-effect">
-                <div className="item-icon-box">
-                  {item.iconUrl ? (
-                    <img src={item.iconUrl} alt={item.name} className="item-real-icon" />
-                  ) : (
-                    <div className="item-fallback-icon">⬢</div>
-                  )}
+        <div key={animationKey} className={`materials-grid ${isAnimating ? 'animating-out' : ''}`}>
+          {displayItems.map((item, index) => {
+            const baseDelay = initialLoad ? 0.7 : 0;
+            const staggerDelay = Math.min(index * 0.04, 1.5);
+            
+            return (
+              <div 
+                key={item.id} 
+                className="item-voxel-card"
+                style={{ animationDelay: `${baseDelay + staggerDelay}s` }}
+              >
+                {item.category === "Endgame" && <div className="endgame-glow" />}
+                
+                <div className="card-inner glass-effect">
+                  <div className="item-icon-box">
+                    {item.iconUrl ? (
+                      <img src={item.iconUrl} alt={item.name} className="item-real-icon" />
+                    ) : (
+                      <div className="item-fallback-icon">⬢</div>
+                    )}
+                  </div>
+                  <div className="item-details">
+                    <span className="item-name">{item.name}</span>
+                    <span className="item-category-tag">{item.category}</span>
+                  </div>
                 </div>
-                <div className="item-details">
-                  <span className="item-name">{item.name}</span>
-                  <span className="item-category-tag">{item.category}</span>
+                <div className="item-tooltip">
+                  <div className="tooltip-title">{item.name}</div>
+                  <p className="tooltip-desc">{item.description}</p>
                 </div>
               </div>
-              <div className="item-tooltip">
-                <div className="tooltip-title">{item.name}</div>
-                <p className="tooltip-desc">{item.description}</p>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </main>
     </div>

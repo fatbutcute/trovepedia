@@ -71,7 +71,7 @@ export default function Footer() {
       </div>
 
       <div className="footer-bottom">
-        <span>© 2026 Trovepedia — Unofficial site, not affiliated with Gamigo AG!</span>
+        <span>© 2026 Trovepedia - Unofficial site, not affiliated with Gamigo AG!</span>
       </div>
     </footer>
   )

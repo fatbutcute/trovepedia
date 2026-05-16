@@ -1,1523 +1,1215 @@
-[
-  {
-    "identifier": "item/crafting/blankscroll",
-    "name": "Blank Scroll",
-    "description": "Crafting Material. Obtained by Loot Collecting scrolls from Recipe Dungeons.",
-    "blueprint": "item_crafting_blankscroll",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/bones",
-    "name": "Bleached Bone",
-    "description": "Crafting Material. These bones are commonly found littering the ground in Dragonfire Peaks.",
-    "blueprint": "item_crafting_bleachedbone",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/bottle",
-    "name": "Bottle",
-    "description": "Crafting Material. Bottles are found growing wildly throughout the world or can be grown through Gardening.",
-    "blueprint": "item_crafting_bottle",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/buggoo",
-    "name": "Sticky Ichor",
-    "description": "Crafting Material. Found by defeating bugs.",
-    "blueprint": "item_crafting_buggoo",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/bulb_sun",
-    "name": "Sunlight Bulb",
-    "description": "Crafting Material. Found in the Giant Sunflowers that pepper the Peaceful Hills.",
-    "blueprint": "entity_harvesting_bulb_sun",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/chestnut",
-    "name": "Chestnut",
-    "description": "Crafting Material. Harvested from Chestnut Seeds, which are craftable at the Gardening Bench.",
-    "blueprint": "item_crafting_chestnut",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/cupcake",
-    "name": "Wild Cupcake",
-    "description": "Crafting Material. Found growing from the ground in Candoria, or grown through Gardening.",
-    "blueprint": "item_crafting_cupcake",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/darksoul",
-    "name": "Somber Soul",
-    "description": "Crafting Material. Found in ore veins in the Cursed Vale biome.",
-    "blueprint": "item_crafting_darksoul",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/diamond",
-    "name": "Diamond",
-    "description": "Crafting Material. Created at the Ringcrafting Bench.",
-    "blueprint": "item_crafting_gem",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/diamondshadow",
-    "name": "Shadow Diamond",
-    "description": "Crafting Material. Created at the Ringcrafting Bench.",
-    "blueprint": "item_crafting_gem_shadow",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/dragonflame",
-    "name": "Purifying Dragon Flame",
-    "description": "Crafting Material used to forge Radiant equipment. Craftable at the Dragon Crucible.",
-    "blueprint": "item_crafting_dragonflame",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/enchwood",
-    "name": "Enchanted Wood",
-    "description": "Crafting Material. Usually found growing in the Fae Forest, Medieval Highlands, or Cursed Vale biomes, but also obtainable through Gardening.",
-    "blueprint": "item_crafting_enchantedwood",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/eye",
-    "name": "Eye of Q'bthulhu",
-    "description": "Forging Material. Found rarely as a drop from invaders and by Loot Collecting rare equipment.",
-    "blueprint": "item_crafting_eye",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/faeriedust",
-    "name": "Faerie Dust",
-    "description": "Crafting Material. Drops from Fae enemies, most commonly found in the Fae Wilds.",
-    "blueprint": "item_crafting_faeriedust",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/fertilizer_plasma",
-    "name": "Plasmic Solution",
-    "description": "Crafting Material. Harvested from Plasma Condensers, which are craftable at the Gardening Bench.",
-    "blueprint": "item_crafting_fertilizer_plasma",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/fertilizer_water",
-    "name": "Rich Fertilizer",
-    "description": "Crafting Material. Harvested from Unripe Fertilizer Heaps, which are craftable at the Gardening Bench.",
-    "blueprint": "item_crafting_mulch",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/flux",
-    "name": "Flux",
-    "description": "Crafting Material. Gain Flux from using the Loot Collector on equipment or selling items on the marketplace.",
-    "blueprint": "item_crafting_spark",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/forge_shadow_02",
-    "name": "Twice-Forged Shadow Soul",
-    "description": "Rare Crafting Material. Obtained from Loot Collecting Shadow Level 2 equipment.",
-    "blueprint": "item_crafting_shadowsoul_forge_02",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/forge_shadow_03",
-    "name": "Thrice-Forged Shadow Soul",
-    "description": "Rare Crafting Material. Obtained from Loot Collecting Shadow Level 3 equipment. Can also be crafted at the Shadowy Market with Twice-Forged Shadow Souls.",
-    "blueprint": "item_crafting_shadowsoul_forge_03",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/forge_shadow_04",
-    "name": "Quad-Forged Shadow Soul",
-    "description": "Rare Crafting Material. Obtained from Loot Collecting Shadow Level 4 equipment. Can also be crafted at the Shadowy Market with Thrice-Forged Shadow Souls.",
-    "blueprint": "item_crafting_shadowsoul_forge_04",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/forge_shadow_05",
-    "name": "Penta-Forged Shadow Soul",
-    "description": "Rare Crafting Material. Obtained from Loot Collecting Shadow Level 5 equipment. Can also be crafted at the Shadowy Market with Quad-Forged Shadow Souls.",
-    "blueprint": "item_crafting_shadowsoul_forge_05",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/goldensoul",
-    "name": "Golden Soul",
-    "description": "Crafting Material. Found rarely within ore nodes in most biomes.",
-    "blueprint": "item_crafting_golden_soul",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/mountfood",
-    "name": "Steed Feed",
-    "description": "Crafting Material that is used to craft mounts. Harvested from Steed Feed Seed, which can be crafted at the Gardening Bench.",
-    "blueprint": "item_crafting_mountfood",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/mulch",
-    "name": "Rich Mulch",
-    "description": "A rich medium for growing plants. Used to craft plant seeds.",
-    "blueprint": "item_crafting_mulch",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/mushroomparts",
-    "name": "Mushroom Chunk",
-    "description": "Crafting Material. Gained through Gardening and from mushrooms found in the world.",
-    "blueprint": "item_crafting_mushroompart",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/ore_common",
-    "name": "Shapestone Ore",
-    "description": "Crafting Material. A common, purple ore found in most biomes.",
-    "blueprint": "item_crafting_ore_00",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/ore_fire",
-    "name": "Primordial Flame",
-    "description": "Crafting Material. An uncommon ore found within Shapestone, Formicite, and Infinium veins.",
-    "blueprint": "item_crafting_fire",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/ore_ice",
-    "name": "Glacial Shard",
-    "description": "Crafting Material. An uncommon ore found only within Permafrost zones.",
-    "blueprint": "item_crafting_ice",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/ore_rare",
-    "name": "Infinium Ore",
-    "description": "Crafting Material. A rare, golden ore found in most biomes.",
-    "blueprint": "item_crafting_ore_02",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/ore_sky",
-    "name": "Crystallized Cloud",
-    "description": "Crafting Material. A unique ore found only in the Sky Realms.",
-    "blueprint": "item_crafting_ore_sky",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/ore_uncommon",
-    "name": "Formicite Ore",
-    "description": "Crafting Material. An uncommon, turquoise ore found in most biomes.",
-    "blueprint": "item_crafting_ore_01",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/pearl",
-    "name": "Pearl of Wisdom",
-    "description": "Forging Material. Used to add new stats and stat boosts to equipment. Found rarely when defeating enemies and Loot Collecting equipment.",
-    "blueprint": "item_crafting_pearl",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/prism",
-    "name": "Perfect Prism",
-    "description": "Open it to obtain 1000 flux.",
-    "blueprint": "item_crafting_rainbow",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/pumpkin",
-    "name": "Pumpkin",
-    "description": "Crafting Material. Harvested from Pumpkin Seeds, which can be crafted at the Gardening Bench.",
-    "blueprint": "deco_halloween_pumpkin",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/radiantshard",
-    "name": "Radiant Shard",
-    "description": "Crafting Material. Earned by completing the Dark Heart dungeons found in the Sky Realms.",
-    "blueprint": "item_crafting_ore_radiant",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/robotparts",
-    "name": "Robotic Salvage",
-    "description": "Crafting Material. Found by defeating robotic enemies in Neon City and Neon City, Luminopolis.",
-    "blueprint": "item_crafting_robotparts",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/scale",
-    "name": "Ancient Scale",
-    "description": "Crafting Material. Obtained by Loot Collecting rare fish.",
-    "blueprint": "item_crafting_fishscale",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/scale_ench",
-    "name": "Enchanted Scale",
-    "description": "Crafting Material. Obtained by Loot Collecting Enchanted fish.",
-    "blueprint": "item_crafting_enchscale",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/seashell",
-    "name": "Golden Seashell",
-    "description": "Crafting Material. Found most often in the Treasure Isles.",
-    "blueprint": "item_crafting_seashell",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/shadowseve_candycorn",
-    "name": "Candy Corn",
-    "description": "Crafting Material. Used to craft items at the Shadowy Station in Crafter's Corner of the Trove Hub. Found by defeating Pumpkin dungeons in any biome or world. Candy Corn will vanish shortly after Shadow's Eve 2019.",
-    "blueprint": "item_candy_corn",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/shadowshard",
-    "name": "Shadow Shard",
-    "description": "Crafting Material. Used to craft mounts and items on the Shadowy Market such as Shadow Caches. Can be found in Delves.",
-    "blueprint": "item_crafting_shadowshard",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/shadowsoul",
-    "name": "Heart of Darkness",
-    "description": "Rare Crafting Material. Found in Shadow Caches, which can be bought for Shadow Shards in the Shadowy Market.",
-    "blueprint": "item_crafting_heartofdarkness",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/springbloom",
-    "name": "Spring Bloom",
-    "description": "Crafting Material. Harvested from Spring Bloom Seeds which can be crafted at the Gardening Bench.",
-    "blueprint": "item_crafting_springbloom",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/tentacle",
-    "name": "Tentacle of Q'bthulhu",
-    "description": "Forging Material. Found by defeating invaders and by Loot Collecting rare equipment.",
-    "blueprint": "item_crafting_tentacle",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/warpseed",
-    "name": "Glim",
-    "description": "Trading Material. Exchange for items from the pirates of Treasure Isles. Obtained by Loot Collecting fish and breaking plants in the world.",
-    "blueprint": "item_crafting_warpseed_03",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/waterdrop",
-    "name": "Water Drop",
-    "description": "A drop of crystalline water. Used to craft seeds.",
-    "blueprint": "item_waterdrop",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/battlespirit",
-    "name": "Arena Coin",
-    "description": "Spend with the Battle Broker to unlock arena rewards. The Battle Broker can be found in the Battle Station in the Trove Hub. Earned by competing in non-Bomber Royale PVP.",
-    "blueprint": "item_currency_pvp",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/fluxcanister",
-    "name": "Megaflux Tank",
-    "description": "Crafted material used to efficiently store large quantities of Flux. Craftable at the Adventurer's Crafting Bench or rarely found in Titan's Treasure Chests.",
-    "blueprint": "item_crafting_fluxcannister",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/forge_radiant_01",
-    "name": "Forged Radiant Soul",
-    "description": "Rare crafting material. Obtained from Loot Collecting Radiant equipment. Can also be crafted at the Shadowy Market with Penta-Forged Shadow Souls.",
-    "blueprint": "item_forge_radiant_01",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/ore_meteor",
-    "name": "Meteorite Chunk",
-    "description": "Crafting Material. An extratrovestrial mineral found in Jurassic Jungle zones.",
-    "blueprint": "item_crafting_ore_meteor",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/meteor_fragment",
-    "name": "Meteorite Fragment",
-    "description": "Crafting Material. Found only in the Primal Preserve tree canopy of the Jurassic Jungle.",
-    "blueprint": "item_crafting_ore_meteor",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/talisman_griffon",
-    "name": "Griffon Talisman",
-    "description": "Crafting Material. Use at the Mount Crafting Bench to craft a griffon mount. Found very rarely in Cursed Skylands worlds.",
-    "blueprint": "item_crafting_talisman_griffon",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/talisman_cat",
-    "name": "Meownt Talisman",
-    "description": "Crafting Material. Use at the Mount Crafting Bench to craft a meownt mount. Found very rarely in Moonless Dark (10) and lower adventure worlds.",
-    "blueprint": "item_crafting_talisman_cat",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/talisman_centaur",
-    "name": "Centaur Talisman",
-    "description": "Crafting Material. Use at the Mount Crafting Bench to craft a centaur mount. Found very rarely in Uber Twilight (12) and higher adventure worlds.",
-    "blueprint": "item_crafting_talisman_centaur",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/talisman_corgi",
-    "name": "Corgi Talisman",
-    "description": "Crafting Material. Use at the Mount Crafting Bench to craft a corgi mount. Found very rarely in Moonless Dark (10) and lower adventure worlds.",
-    "blueprint": "item_crafting_talisman_corgi",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/talisman_llama",
-    "name": "Llama Talisman",
-    "description": "Crafting Material. Use at the Mount Crafting Bench to craft a llama mount. Found very rarely in all adventure worlds.",
-    "blueprint": "item_crafting_talisman_llama",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/talisman_shmeep",
-    "name": "Shmeep Talisman",
-    "description": "Crafting Material. Use at the Mount Crafting Bench to craft a shmeep mount. Found very rarely in Pure Midnight (11) and higher adventure worlds.",
-    "blueprint": "item_crafting_talisman_shmeep",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/talisman_rat",
-    "name": "Rat Talisman",
-    "description": "Crafting Material. Use at the Mount Crafting Bench to craft a rat mount. Found very rarely in Pure Midnight (11) and higher adventure worlds.",
-    "blueprint": "item_crafting_talisman_rat",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/diamond_celestial",
-    "name": "Celestial Diamond",
-    "description": "Crafting material. Created at the Ringcrafting bench.",
-    "blueprint": "item_crafting_diamond_celestial",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/forge_stellar_01",
-    "name": "Forged Stellar Soul",
-    "description": "Rare crafting material. Obtained from Loot Collecting Stellar equipment. Can also be crafted at the Shadowy Market with Forged Radiant Souls.",
-    "blueprint": "item_forge_stellar_01",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/ore_cinnabar",
-    "name": "Cinnabar",
-    "description": "Crafting material. A mysterious reddish ore native to the Forbidden Spires.",
-    "blueprint": "item_crafting_ore_cinnabar",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/talisman_panda",
-    "name": "Panda Talisman",
-    "description": "Crafting Material. Use at the Mount Crafting Bench to craft a panda mount. Found very rarely in Pure Midnight (11) and higher adventure worlds.",
-    "blueprint": "item_crafting_talisman_panda",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/bitcoin_corgi",
-    "name": "PembloCoin",
-    "description": "A form of cryptocurrency favoured by lovers of canines. Found very rarely in Neon City, Luminopolis ore veins.",
-    "blueprint": "item_crafting_bitcoin_corgi",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/bitcoin_ganda",
-    "name": "SkygoldCoin",
-    "description": "A form of cryptocurrency favoured by sky-high rollers. Found very rarely in Neon City, Luminopolis ore veins.",
-    "blueprint": "item_crafting_bitcoin_ganda",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/bitcoin_nottrove",
-    "name": "NotTroveCoin",
-    "description": "A form of cryptocurrency favoured by anarchists and those who rage against the established order. Found very rarely in Neon City, Luminopolis ore veins.",
-    "blueprint": "item_crafting_bitcoin_nottrove",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/bitcoin_obswirl",
-    "name": "CurrentCoin",
-    "description": "A form of cryptocurrency favoured by those who like to clean-sweep the exchanges. Found very rarely in Neon City, Luminopolis ore veins.",
-    "blueprint": "item_crafting_bitcoin_obswirl",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/charged_circuit",
-    "name": "Charged Circuit",
-    "description": "Uncommon Crafting Material. Used to craft things at the Resistor Workbench in Neon City, Luminopolis. Can be crafted at the Resistor Workbench or found in Lesser Neon Caches.",
-    "blueprint": "item_crafting_chargedcircuit",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/logic_loop",
-    "name": "Logic Loop",
-    "description": "Uncommon Crafting Material. Used to craft things at the Resistor Workbench in Neon City, Luminopolis. Can be crafted at the Resistor Workbench or found in Lesser Neon Caches.",
-    "blueprint": "item_crafting_logicloop",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/memory_matrix",
-    "name": "Memory Matrix",
-    "description": "Uncommon Crafting Material. Used to craft things at the Resistor Workbench in Neon City, Luminopolis. Can be crafted at the Resistor Workbench or found in Lesser Neon Caches.",
-    "blueprint": "item_crafting_memorymatrix",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/plain_metal_ring",
-    "name": "Plain Metal Ring",
-    "description": "Simple band of Formicite. Crafted at the Ringcrafting Bench.",
-    "blueprint": "item_crafting_plainmetalring",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/plasmium",
-    "name": "Plasmium",
-    "description": "Crafting Material. Used to craft things at the Resistor Workbench in Neon City, Luminopolis. Found by defeating robotic enemies in Neon City and Neon City, Luminopolis.",
-    "blueprint": "item_crafting_plasmium",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/acrobatbark",
-    "name": "Acrobat Bark",
-    "description": "Geode Cave Crafting Material. Hangs down from the ceilings in Tiers 2-4 of Moonglow Grotto.",
-    "blueprint": "item_crafting_acrobatbark",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/ancientgears",
-    "name": "Ancient Gears",
-    "description": "Geode Cave Crafting Material. Scavenged from the deepest corners of Tier 5 of the Geode caves.",
-    "blueprint": "item_crafting_ancientgears",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/blazine",
-    "name": "Blazine",
-    "description": "Geode Cave Crafting Material. Heat emanates from this ore found only in Tiers 1-3 of Sunken Sunvault.",
-    "blueprint": "item_crafting_blazine",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/bond_crystalizer",
-    "name": "Bond Crystalizer",
-    "description": "A manifestation of the experiences you and your companion have shared. Used to level up companions. Craftable on the Crystallogy Workbench.",
-    "blueprint": "item_crafting_geode_companion_component",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/builderite",
-    "name": "Builderite",
-    "description": "Geode Cave Crafting Material. One of the Builder's favorite ores, found deep throughout Tiers 3-5 of the Geode caves.",
-    "blueprint": "item_crafting_builderite",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/buildersblossom",
-    "name": "Builder's Blossom",
-    "description": "Geode Cave Crafting Material. Blooms deep within Tiers 4-5 of Verdant Veins.",
-    "blueprint": "item_crafting_buildersblossom",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/cavebirds_red",
-    "name": "Cave Birds",
-    "description": "Geode Cave Crafting Material. Flowers in Tiers 2-4 of Sunken Sunvault.",
-    "blueprint": "item_crafting_cavebirds_red",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/cavekelp_green",
-    "name": "Cave Kelp",
-    "description": "Geode Cave Crafting Material. Grows wild in Tiers 1-3 of Verdant Veins.",
-    "blueprint": "item_crafting_cavekelp_green",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/chronozine",
-    "name": "Chronozine",
-    "description": "Geode Cave Crafting Material. The Ancients favored this ore that grows deep within Tiers 3-5 of Verdant Veins.",
-    "blueprint": "item_crafting_chronozine",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/cogwine",
-    "name": "Cogwine",
-    "description": "Geode Cave Crafting Material. Extracted from rare blooms in Tiers 2-4 of Verdant Veins.",
-    "blueprint": "item_crafting_cogwine",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/daydrop",
-    "name": "Day Drop",
-    "description": "Geode Cave Crafting Material. Grows throughout Tiers 1-3 of the Geode caves.",
-    "blueprint": "item_crafting_daydrop",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/dreamdew",
-    "name": "Dream Dew",
-    "description": "Geode Cave Crafting Material. Nectar pulled from flowers in Tiers 1-3 of Moonglow Grotto.",
-    "blueprint": "item_crafting_dreamdew",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/everlight",
-    "name": "Everlight",
-    "description": "Geode Cave Crafting Material. Travelers must delve far into Tier 5 of Sunken Sunvault to mine these fiery sunstones.",
-    "blueprint": "item_crafting_everlight",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/fireheartflower",
-    "name": "Fireheart Flower",
-    "description": "Geode Cave Crafting Material. Bold blooms rarely found in Tiers 4-5 of Sunken Sunvault.",
-    "blueprint": "item_crafting_fireheartflower",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/geminite",
-    "name": "Geminite",
-    "description": "Geode Cave Crafting Material. Two bold colors adorn the sides of this ore found in Tiers 1-3 of Verdant Veins.",
-    "blueprint": "item_crafting_geminite",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/gleamstone",
-    "name": "Gleamstone",
-    "description": "Geode Cave Crafting Material. An all-purpose ore, scattered throughout Tiers 1-3 of the Geode caves.",
-    "blueprint": "item_crafting_gleamstone",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/lunarium",
-    "name": "Lunarium",
-    "description": "Geode Cave Crafting Material. Crescents adorn this ore found in the deepest parts of Tier 5 of Moonglow Grotto.",
-    "blueprint": "item_crafting_lunarium",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/mightstone",
-    "name": "Mightstone",
-    "description": "Geode Cave Crafting Material. This fabled ore can only be found in the deepest parts of Tier 5 of Verdant Veins.",
-    "blueprint": "item_crafting_mightstone",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/moonlitmoss",
-    "name": "Moonlit Moss",
-    "description": "Geode Cave Crafting Material. Clinging plants found throughout Tiers 2-4 of the Geode caves.",
-    "blueprint": "item_crafting_moonlitmoss",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/moonstone",
-    "name": "Moonstone",
-    "description": "Geode Cave Crafting Material. Delicate, shimmery ore harvested only in Tiers 1-3 of Moonglow Grotto.",
-    "blueprint": "item_crafting_moonstone",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/queentrumpets",
-    "name": "Queen Trumpets",
-    "description": "Geode Cave Crafting Material. Majestic plants rarely found in Tiers 4-5 of Moonglow Grotto.",
-    "blueprint": "item_crafting_queentrumpets",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/quirkstone",
-    "name": "Quirkstone",
-    "description": "Geode Cave Crafting Material. Confetti-covered ore found deep in Tiers 3-5 of Moonglow Grotto.",
-    "blueprint": "item_crafting_quirkstone",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/sparkzite",
-    "name": "Sparkzite",
-    "description": "Geode Cave Crafting Material. Sparks sometimes fly from this ore that grows deep in Tiers 3-5 of Sunken Sunvault.",
-    "blueprint": "item_crafting_sparkzite",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/sunsap",
-    "name": "Sun Sap",
-    "description": "Geode Cave Crafting Material. Liquid extracted from flowering pods in Tiers 1-3 of Sunken Sunvault.",
-    "blueprint": "item_crafting_sunsap",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/wallflowers",
-    "name": "Wallflowers",
-    "description": "Geode Cave Crafting Material. Shy climbing plants that grow throughout Tiers 4-5 of the Geode caves.",
-    "blueprint": "item_crafting_wallflowers",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/forge_fragment",
-    "name": "Forge Fragment",
-    "description": "A small piece of the forge used by the Shaper. Obtained by Loot Collecting Crystaline Gear.",
-    "blueprint": "item_crafting_forgefragment",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/nitro_glitterine",
-    "name": "Nitro-Glitterine",
-    "description": "Crafting Material. A sparkling, highly volatile ore. This ore is found uncommonly on the Geode Topside.",
-    "blueprint": "item_crafting_nitroglitterine",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/veridium",
-    "name": "Veridium",
-    "description": "Crafting Material. A crystalline green and blue ore that hardens reality against extra-dimensional invasions. This ore is found commonly on the Geode Topside.",
-    "blueprint": "item_crafting_veridium",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/gardening/moonlight_temper",
-    "name": "Moonlight Temper",
-    "description": "Allows more power from Moonlight Bulbs to be extracted by plants. Can be found inside Quality Compost Heap and Superior Compost Heap, craftable at a Harvesting Station.",
-    "blueprint": "item_crafting_gardening_moonlight_temper",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/gardening/vegetable_cabbage",
-    "name": "Qubbage",
-    "description": "Crafting Material. Harvested from Qubbage Seeds, which are craftable at the Gardening Bench.",
-    "blueprint": "item_crafting_gardening_vegetable_cabbage",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/gardening/vegetable_carrot",
-    "name": "Bunfeed",
-    "description": "Crafting Material. Harvested from Bunfeed Seeds, which are craftable at the Gardening Bench.",
-    "blueprint": "item_crafting_gardening_vegetable_carrot",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/gardening/vegetable_corn",
-    "name": "Corn on the Cube",
-    "description": "Crafting Material. Harvested from Corn on the Cube Seeds, which are craftable at the Gardening Bench.",
-    "blueprint": "item_crafting_gardening_vegetable_corn",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/gardening/vegetable_eggplant",
-    "name": "Uggplant",
-    "description": "Crafting Material. Harvested from Uggplant Seeds, which are craftable at the Gardening Bench.",
-    "blueprint": "item_crafting_gardening_vegetable_eggplant",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/gardening/vegetable_grape",
-    "name": "Purp'lil",
-    "description": "Crafting Material. Harvested from Purp'lil Seeds, which are craftable at the Gardening Bench.",
-    "blueprint": "item_crafting_gardening_vegetable_grape",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/gardening/vegetable_leek",
-    "name": "Onionito",
-    "description": "Crafting Material. Harvested from Onionito Seeds, which are craftable at the Gardening Bench.",
-    "blueprint": "item_crafting_gardening_vegetable_leek",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/gardening/vegetable_potato",
-    "name": "Totter Tate",
-    "description": "Crafting Material. Harvested from Totter Tate Seeds, which are craftable at the Gardening Bench.",
-    "blueprint": "item_crafting_gardening_vegetable_potato",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/gardening/vegetable_rainbowchard",
-    "name": "Unicorn Chard",
-    "description": "Crafting Material. Harvested from Unicorn Chard Seeds, which are craftable at the Gardening Bench.",
-    "blueprint": "item_crafting_gardening_vegetable_rainbowchard",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/gardening/vegetable_tomato",
-    "name": "Qumato",
-    "description": "Crafting Material. Harvested from Qumato Seeds, which are craftable at the Gardening Bench.",
-    "blueprint": "item_crafting_gardening_vegetable_tomato",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/gardening/vegetable_watermelon",
-    "name": "Cinnamellon",
-    "description": "Crafting Material. Harvested from Cinnamellon Seeds, which are craftable at the Gardening Bench.",
-    "blueprint": "item_crafting_gardening_vegetable_watermelon",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/talisman_carpet",
-    "name": "Carpet Talisman",
-    "description": "Found very rarely in The Understacks in Delves of Depth 120 and deeper.",
-    "blueprint": "2020/mounts/carpet_talisman/item_crafting_talisman_carpet",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/neowiz_coin",
-    "name": "Neonium Coin",
-    "description": "Earned only when playing from valid locations",
-    "blueprint": "2021/neowiz/item_coin_neonium",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/bardium",
-    "name": "Bardium",
-    "description": "Crafting Material. A pulsing gold and blue ore that when touched fills ones head with musical inspiration. This ore is found rarely in Tier 5 of the Geode caves.",
-    "blueprint": "2021/items/item_crafting_bardiumshard",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/prestige_collection",
-    "name": "Paragon's Mark",
-    "description": "Very rarely obtained from Primal Paragon Pinatas. Used to craft items at the PARAGON WORKBENCH, in the PARAGON'S PALACE beneath the CLUB HOUSE in the Hub.",
-    "blueprint": "2021/items/crafting/prestige_collection",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/gl_irradiantsoul",
-    "name": "Irradiant Soul",
-    "description": "Crafting Material. Obtained by composting the trophy of an Irradiant creature from the Sundered Uplands.",
-    "blueprint": "2022/items/item_crafting_giantlands_irradiantsoul",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/ore_gl_upper",
-    "name": "Irradium Ore",
-    "description": "Crafting Material. A common, energy-laden ore found in the Cloud Layer of the Sundered Uplands.",
-    "blueprint": "item_crafting_ore_gl_upper",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/gl_ashen_device",
-    "name": "Unnatural Device",
-    "description": "Crafting Material. Its eerie, irregular clicks and hums give no clue to its purpose or origin. Found rarely in the Ashen Wastes layer of the Sundered Uplands.",
-    "blueprint": "2022/items/item_crafting_giantlands_device",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/ore_gl_lower",
-    "name": "Emberslag Ore",
-    "description": "Crafting Material. A common, dense ore found in the Ashen Wastes layer of the Sundered Uplands.",
-    "blueprint": "item_crafting_ore_gl_lower",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/gl_ashen_fern",
-    "name": "Ashfern Sporeling",
-    "description": "Crafting Material. Depending on the magnification factor of your eyes, these lil' friendlies can be surprisingly cute! Found in the Ashen Wastes layer of the Sundered Uplands, and valued by the Fungi Scrollpeddlers and Thingshapers that frequent the region.",
-    "blueprint": "2022/items/item_crafting_giantlands_sporeling",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/gl_ashensoul",
-    "name": "Ashen Soul",
-    "description": "Crafting Material. Obtained by composting the trophy of an Ashen creature from the Sundered Uplands.",
-    "blueprint": "2022/items/item_crafting_giantlands_ashensoul",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/gl_irradiant_powercell",
-    "name": "Irradiant Powercell",
-    "description": "Crafting Material. Bristling with energy, this powerful resource can be used at the Sundered Uplands Workbench. Found in the Cloud Layer of the Sundered Uplands.",
-    "blueprint": "2022/items/item_crafting_giantlands_powercell",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/fish_paste_common",
-    "name": "Basic Canned Fish",
-    "description": "Canned common fish. Used to cook food at the Angler's Grill.",
-    "blueprint": "2022/items/item_crafting_fish_paste_common",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/fish_paste_rare",
-    "name": "Premium Canned Fish",
-    "description": "Canned rare fish. Used to cook food at the Angler's Grill.",
-    "blueprint": "2022/items/item_crafting_fish_paste_rare",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/scale_depths",
-    "name": "Scale of the Depths",
-    "description": "Crafting Material. Obtained by Loot Collecting rare fish from the Depths.",
-    "blueprint": "2022/items/item_crafting_progressionscale",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/turtle_shell",
-    "name": "Turtle Shell",
-    "description": "Crafting Material. Obtained by Loot Collecting Turtles caught with the Turtle Trawler.",
-    "blueprint": "2022/items/item_crafting_turtleshell",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/fish_paste_uncommon",
-    "name": "Select Canned Fish",
-    "description": "Canned uncommon fish. Used to cook food at the Angler's Grill.",
-    "blueprint": "2022/items/item_crafting_fish_paste_uncommon",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/ore_deep",
-    "name": "Deepstone",
-    "description": "Found rarely in Long Shade difficulty (15) worlds. Used to craft items and upgrading Mystic Gears.",
-    "blueprint": "2024/items/ore_deep",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/deep_core",
-    "name": "Depths Core",
-    "description": "Found commonly in Long Shade difficulty (15) worlds, when opening fivestar dungeon vaults with basic keys or sparkling keys.",
-    "blueprint": "2024/items/deepcore",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/kraken_shell_fragment",
-    "name": "Kraken Shell Fragment",
-    "description": "Found commonly in Long Shade difficulty (15) worlds, after killing a specified mob which spawns after looting the chests.",
-    "blueprint": "2024/items/kraken_shell",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },  
-  {
-    "identifier": "item/crafting/depths_soul",
-    "name": "Soul of the Depths",
-    "description": "Found commonly in Long Shade difficulty (15) worlds, when opening fivestar dungeon vaults with basic keys or sparkling keys on Monday. Besides this, Soul of the Depths can be found in the Depths.",
-    "blueprint": "2024/items/depths_soul",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/ore_lichen",
-    "name": "Lichenstone",
-    "description": "Found in Long Shade difficulty (15) worlds.",
-    "blueprint": "2024/items/ore_lichen",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/runecrafting/water/rune_endurance",
-    "name": "Endurance Rune",
-    "description": "Breaks sometimes when you take damage. Taking Damage can also trigger an Endurance effect, reducing damage taken, increasing Maximum Health, and granting Stability. Runes create Rune Fragments when they break. Rune Fragments are used for the Runecrafting Profession and Progression tree.",
-    "blueprint": "2024/items/runecrafting/rune_endurance",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/runecrafting/water/rune_restoration",
-    "name": "Restoration Rune",
-    "description": "Breaks after defeating an enemy, restoring a charge of your equipped flask. Runes create Rune Fragments when they break. Rune Fragments are used for the Runecrafting Profession and Progression tree.",
-    "blueprint": "2024/items/runecrafting/rune_restoration",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/runecrafting/water/rune_replenishment",
-    "name": "Replenishment Rune",
-    "description": "Breaks when you're hit by an attack that would kill you, reducing your cooldowns by 33%. Runes create Rune Fragments when they break. Rune Fragments are used for the Runecrafting Profession and Progression tree.",
-    "blueprint": "2024/items/runecrafting/rune_replenishment",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/runecrafting/water/rune_rally",
-    "name": "Rally Rune",
-    "description": "Breaks when an enemy is defeated, healing you for 50% of your health. Runes create Rune Fragments when they break. Rune Fragments are used for the Runecrafting Profession and Progression tree.",
-    "blueprint": "2024/items/runecrafting/rune_rally",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/runecrafting/water/rune_abyssal",
-    "name": "Abyssal Rune",
-    "description": "Breaks when you would take damage from lava or Jellous's flames but grants immunity to the damage from lava and Jellous's flames. Runes create Rune Fragments when they break. Rune Fragments are used for the Runecrafting Profession and Progression tree.",
-    "blueprint": "2024/items/runecrafting/rune_abyssal",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/runecrafting/air/rune_swift",
-    "name": "Swift Rune",
-    "description": "Breaks when you dash, increasing attack speed by 30% and movement speed by 10 for 60 seconds. Runes create Rune Fragments when they break. Rune Fragments are used for the Runecrafting Profession and Progression tree.",
-    "blueprint": "2024/items/runecrafting/rune_swift",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/runecrafting/air/rune_abundance",
-    "name": "Abundance Rune",
-    "description": "Breaks upon completing a dungeon, spawning a bonus chest. Runes create Rune Fragments when they break. Rune Fragments are used for the Runecrafting Profession and Progression tree.",
-    "blueprint": "2024/items/runecrafting/rune_abundance",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/runecrafting/air/rune_zephyr",
-    "name": "Zephyr Rune",
-    "description": "Breaks when you take damage from acid, making you immune for 10 seconds. Runes create Rune Fragments when they break. Rune Fragments are used for the Runecrafting Profession and Progression tree.",
-    "blueprint": "2024/items/runecrafting/rune_zephyr",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/runecrafting/air/rune_repel",
-    "name": "Repel Rune",
-    "description": "Breaks when you're hit by an attack that would kill you, triggering an explosion that knock backs enemies and roots them. Runes create Rune Fragments when they break. Rune Fragments are used for the Runecrafting Profession and Progression tree.",
-    "blueprint": "2024/items/runecrafting/rune_repel",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/runecrafting/air/rune_harvest",
-    "name": "Harvest Rune",
-    "description": "Breaks upon completing a dungeon, granting a buff that gives a chance to obtain Encrusted Runic Trunk when harvesting resources unique to Long Shade difficulty (15). Runes create Rune Fragments when they break. Rune Fragments are used for the Runecrafting Profession and Progression tree.",
-    "blueprint": "2024/items/runecrafting/rune_harvest",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/runecrafting/fire/rune_recursion",
-    "name": "Recursion Rune",
-    "description": "Breaks when you land a critical attack, granting 35% Critical Damage for 60 seconds. Runes create Rune Fragments when they break. Rune Fragments are used for the Runecrafting Profession and Progression tree.",
-    "blueprint": "2024/items/runecrafting/rune_recursion",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/runecrafting/fire/rune_condemn",
-    "name": "Condemn Rune",
-    "description": "Breaks when you're hit by an attack that would kill you, triggering a rage that increases your damage by 20%. Runes create Rune Fragments when they break. Rune Fragments are used for the Runecrafting Profession and Progression tree.",
-    "blueprint": "2024/items/runecrafting/rune_condemn",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/runecrafting/fire/rune_fury",
-    "name": "Fury Rune",
-    "description": "Breaks sometimes when you deal damage. In addition hitting can trigger one of three Fury Rune buffs, increasing Critical Hit Chance, Critical Hit Damage, and overall Damage. Runes create Rune Fragments when they break. Rune Fragments are used for the Runecrafting Profession and Progression tree.",
-    "blueprint": "2024/items/runecrafting/rune_fury",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/runecrafting/fire/rune_pyric",
-    "name": "Pyric Rune",
-    "description": "Breaks when you use your ultimate ability, creating a large fire around you burning your enemies for 10 seconds. Runes create Rune Fragments when they break. Rune Fragments are used for the Runecrafting Profession and Progression tree.",
-    "blueprint": "2024/items/runecrafting/rune_pyric",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/runecrafting/fire/rune_focus",
-    "name": "Focus Rune",
-    "description": "Breaks when you spend all of your energy, replenishing your energy to full. Runes create Rune Fragments when they break. Rune Fragments are used for the Runecrafting Profession and Progression tree.",
-    "blueprint": "2024/items/runecrafting/rune_focus",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/runecrafting/stone/rune_blank_t2",
-    "name": "Empty Rune",
-    "description": "Breaks when you complete a Dungeon, granting some Rune Fragments. Runes create Rune Fragments when they break. Rune Fragments are used for the Runecrafting Profession and Progression tree.",
-    "blueprint": "2024/items/runecrafting/rune_blank_t2",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/runecrafting/stone/rune_glowing",
-    "name": "Shining Rune",
-    "description": "Breaks when your magic find triggers, granting a Gearcrafter's Vault.",
-    "blueprint": "2024/items/runecrafting/rune_glowing",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/runecrafting/stone/rune_glass",
-    "name": "Ore Rune",
-    "description": "Breaks as a result of mining resources, granting a bonus chance at a Miner's Trove when mining resources. Runes create Rune Fragments when they break. Rune Fragments are used for the Runecrafting Profession and Progression tree.",
-    "blueprint": "2024/items/runecrafting/rune_glass",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/runecrafting/stone/rune_texture",
-    "name": "Rippling Rune",
-    "description": "Breaks when catching a fish from a pool, granting a buff that can award Marks of the Angler when completing dungeons.",
-    "blueprint": "2024/items/runecrafting/rune_texture",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/runecrafting/stone/rune_blank",
-    "name": "Blank Rune",
-    "description": "Breaks when you complete a Dungeon, granting a few Rune Fragments. Runes create Rune Fragments when they break. Rune Fragments are used for the Runecrafting Profession and Progression tree.",
-    "blueprint": "2024/items/runecrafting/rune_blank",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/runecrafting/stone/rune_metal",
-    "name": "Metallic Rune",
-    "description": "Breaks on damage taken, granting a protecting shield that reduces damage by 20% for 10 seconds and increases Stability. Runes create Rune Fragments when they break. Rune Fragments are used for the Runecrafting Profession and Progression tree.",
-    "blueprint": "2024/items/runecrafting/rune_metal",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/runecrafting/stone/rune_blank_t3",
-    "name": "Depths Rune",
-    "description": "Breaks when you complete a Dungeon, granting many Rune Fragments. Runes create Rune Fragments when they break. Rune Fragments are used for the Runecrafting Profession and Progression tree.",
-    "blueprint": "2024/items/runecrafting/rune_blank_t3",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/runecrafting/leaflets/leaflet_ore_rune",
-    "name": "Runic Ore",
-    "description": "Found occasionally in Long Shade difficulty (15) worlds. Mainly used for crafting items.",
-    "blueprint": "2024/items/runecrafting/leaflet_ore_rune",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/runecrafting/leaflets/leaflet_coralwater",
-    "name": "Abyssal Coral",
-    "description": "Found in the Hollowed Dunes biome in Long Shade difficulty (15) worlds. Used to craft items, spawn bosses from the obelisks. ",
-    "blueprint": "2024/items/runecrafting/leaflet_coralwater",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/runecrafting/leaflets/leaflet_coralair",
-    "name": "Zephyr Coral",
-    "description": "Found in the Weather Wastelands biome in Long Shade difficulty (15) worlds. Used to craft items, spawn bosses from the obelisks. ",
-    "blueprint": "2024/items/runecrafting/leaflet_coralair",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/runecrafting/leaflets/leaflet_chocolatealgae",
-    "name": "Chocolate Algae",
-    "description": "Produces 10 Chocolate Algae when fully charged. Standard Leaflets can be charged without cooldown, but are consumed when fully charged. Charges in Dungeons, Geode Caves, and Delves.",
-    "blueprint": "2024/items/runecrafting/leaflet_chocolatealgae",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/runecrafting/leaflets/leaflet_pyriccore",
-    "name": "Pyric Core",
-    "description": "Found in the Dragonfire Peaks biome in Long Shade difficulty (15) worlds. Used to craft items and spawn bosses from the obelisks.",
-    "blueprint": "2024/items/runecrafting/leaflet_pyriccore",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/runecrafting/leaflets/leaflet_coralcursed",
-    "name": "Cursed Coral",
-    "description": "Produces 10 Cursed Coral when fully charged. Standard Leaflets can be charged without cooldown, but are consumed when fully charged. Charges in Dungeons, Geode Caves, and Delves.",
-    "blueprint": "2024/items/runecrafting/leaflet_coralcursed",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/runecrafting/leaflets/leaflet_deepcoolant",
-    "name": "Depths Coolant",
-    "description": "Produces 10 Depths Coolant when fully charged. Standard Leaflets can be charged without cooldown, but are consumed when fully charged. Charges in Dungeons, Geode Caves, and Delves.",
-    "blueprint": "2024/items/runecrafting/leaflet_deepcoolant",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/runecrafting/leaflets/leaflet_coralfire",
-    "name": "Pyric Coral",
-    "description": "Found in the Cerise Sandsea biome in Long Shade difficulty (15) worlds. Used to craft items, spawn bosses from the obelisks.",
-    "blueprint": "2024/items/runecrafting/leaflet_coralfire",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/runecrafting/leaflets/leaflet_ore_lichen",
-    "name": "Lichenstone",
-    "description": "Produces 10 Lichenstone when fully charged. Standard Leaflets can be charged without cooldown, but are consumed when fully charged. Charges in Dungeons, Geode Caves, and Delves.",
-    "blueprint": "2024/items/runecrafting/leaflet_ore_lichen",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/runecrafting/leaflets/leaflet_pyriteseashell",
-    "name": "Pyrite Seashell",
-    "description": "Produces 10 Pyrite Seashell when fully charged. Standard Leaflets can be charged without cooldown, but are consumed when fully charged. Charges in Dungeons, Geode Caves, and Delves.",
-    "blueprint": "2024/items/runecrafting/leaflet_pyriteseashell",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/runecrafting/leaflets/leaflet_driedseaweed",
-    "name": "Surface Dried Seaweed",
-    "description": "Produces 10 Surface Dried Seaweed when fully charged. Standard Leaflets can be charged without cooldown, but are consumed when fully charged. Charges in Dungeons, Geode Caves, and Delves.",
-    "blueprint": "2024/items/runecrafting/leaflet_driedseaweed",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/runecrafting/leaflets/leaflet_cinnabark",
-    "name": "Cinnabark",
-    "description": "Produces 10 Cinnabark when fully charged. Standard Leaflets can be charged without cooldown, but are consumed when fully charged. Charges in Dungeons, Geode Caves, and Delves.",
-    "blueprint": "2024/items/runecrafting/leaflet_cinnabark",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/runecrafting/leaflets/leaflet_deepmana",
-    "name": "Depths Mana",
-    "description": "Produces 10 Depths Mana when fully charged. Standard Leaflets can be charged without cooldown, but are consumed when fully charged. Charges in Dungeons, Geode Caves, and Delves.",
-    "blueprint": "2024/items/runecrafting/leaflet_deepmana",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/runecrafting/leaflets/leaflet_deepmold",
-    "name": "Depths Mold",
-    "description": "Produces 10 Depths Mold when fully charged. Standard Leaflets can be charged without cooldown, but are consumed when fully charged. Charges in Dungeons, Geode Caves, and Delves.",
-    "blueprint": "2024/items/runecrafting/leaflet_deepmold",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/runecrafting/leaflets/leaflet_irradiantrunefrag",
-    "name": "Irradiated Rune Fragment",
-    "description": "Found in the Sundered Uplands biome in Long Shade difficulty (15) worlds. Can be used to spawn obelisk boss and crafting items.",
-    "blueprint": "2024/items/runecrafting/leaflet_irradiantrunefrag",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
-  },
-  {
-    "identifier": "item/crafting/ore_rune",
-    "name": "Chunk of Runic Ore",
-    "description": "Found occasionally in Long Shade difficulty (15) worlds.",
-    "blueprint": "2024/items/ore_rune",
-    "notrade": "0",
-    "noobtain": "0",
-    "type": "crafting"
+{
+  "Resources": {
+    "Materials": {
+      "Blank Scroll": {
+        "identifier": "item/crafting/blankscroll",
+        "description": "Crafting Material. Obtained by Loot Collecting scrolls from Recipe Dungeons.",
+        "blueprint": "item_crafting_blankscroll",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Bleached Bone": {
+        "identifier": "item/crafting/bones",
+        "description": "Crafting Material. These bones are commonly found littering the ground in Dragonfire Peaks.",
+        "blueprint": "item_crafting_bleachedbone",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Sticky Ichor": {
+        "identifier": "item/crafting/buggoo",
+        "description": "Crafting Material. Found by defeating bugs.",
+        "blueprint": "item_crafting_buggoo",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Faerie Dust": {
+        "identifier": "item/crafting/faeriedust",
+        "description": "Crafting Material. Drops from Fae enemies, most commonly found in the Fae Wilds.",
+        "blueprint": "item_crafting_faeriedust",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Radiant Shard": {
+        "identifier": "item/crafting/radiantshard",
+        "description": "Crafting Material. Earned by completing the Dark Heart dungeons found in the Sky Realms.",
+        "blueprint": "item_crafting_ore_radiant",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Robotic Salvage": {
+        "identifier": "item/crafting/robotparts",
+        "description": "Crafting Material. Found by defeating robotic enemies in Neon City and Neon City, Luminopolis.",
+        "blueprint": "item_crafting_robotparts",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Golden Seashell": {
+        "identifier": "item/crafting/seashell",
+        "description": "Crafting Material. Found most often in the Treasure Isles.",
+        "blueprint": "item_crafting_seashell",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Shadow Shard": {
+        "identifier": "item/crafting/shadowshard",
+        "description": "Crafting Material. Used to craft mounts and items on the Shadowy Market such as Shadow Caches. Can be found in Delves.",
+        "blueprint": "item_crafting_shadowshard",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Water Drop": {
+        "identifier": "item/crafting/waterdrop",
+        "description": "A drop of crystalline water. Used to craft seeds.",
+        "blueprint": "item_waterdrop",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Meteorite Fragment": {
+        "identifier": "item/crafting/meteor_fragment",
+        "description": "Crafting Material. Found only in the Primal Preserve tree canopy of the Jurassic Jungle.",
+        "blueprint": "item_crafting_ore_meteor",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Plasmium": {
+        "identifier": "item/crafting/plasmium",
+        "description": "Crafting Material. Used to craft things at the Resistor Workbench in Neon City, Luminopolis. Found by defeating robotic enemies in Neon City and Neon City, Luminopolis.",
+        "blueprint": "item_crafting_plasmium",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Forge Fragment": {
+        "identifier": "item/crafting/forge_fragment",
+        "description": "A small piece of the forge used by the Shaper. Obtained by Loot Collecting Crystaline Gear.",
+        "blueprint": "item_crafting_forgefragment",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Irradiant Soul": {
+        "identifier": "item/crafting/gl_irradiantsoul",
+        "description": "Crafting Material. Obtained by composting the trophy of an Irradiant creature from the Sundered Uplands.",
+        "blueprint": "2022/items/item_crafting_giantlands_irradiantsoul",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Unnatural Device": {
+        "identifier": "item/crafting/gl_ashen_device",
+        "description": "Crafting Material. Its eerie, irregular clicks and hums give no clue to its purpose or origin. Found rarely in the Ashen Wastes layer of the Sundered Uplands.",
+        "blueprint": "2022/items/item_crafting_giantlands_device",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Ashfern Sporeling": {
+        "identifier": "item/crafting/gl_ashen_fern",
+        "description": "Crafting Material. Depending on the magnification factor of your eyes, these lil' friendlies can be surprisingly cute! Found in the Ashen Wastes layer of the Sundered Uplands, and valued by the Fungi Scrollpeddlers and Thingshapers that frequent the region.",
+        "blueprint": "2022/items/item_crafting_giantlands_sporeling",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Ashen Soul": {
+        "identifier": "item/crafting/gl_ashensoul",
+        "description": "Crafting Material. Obtained by composting the trophy of an Ashen creature from the Sundered Uplands.",
+        "blueprint": "2022/items/item_crafting_giantlands_ashensoul",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Irradiant Powercell": {
+        "identifier": "item/crafting/gl_irradiant_powercell",
+        "description": "Crafting Material. Bristling with energy, this powerful resource can be used at the Sundered Uplands Workbench. Found in the Cloud Layer of the Sundered Uplands.",
+        "blueprint": "2022/items/item_crafting_giantlands_powercell",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Depths Core": {
+        "identifier": "item/crafting/deep_core",
+        "description": "Found commonly in Long Shade difficulty (15) worlds, when opening fivestar dungeon vaults with basic keys or sparkling keys.",
+        "blueprint": "2024/items/deepcore",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Kraken Shell Fragment": {
+        "identifier": "item/crafting/kraken_shell_fragment",
+        "description": "Found commonly in Long Shade difficulty (15) worlds, after killing a specified mob which spawns after looting the chests.",
+        "blueprint": "2024/items/item_crafting_kraken_shell_fragment",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Sundercharge Crystal": {
+        "identifier": "item/crafting/gl_sundercharge_crystal",
+        "description": "Crafting Material. Usually claimed weekly after finishing the 72th wave (or above) in 5-star Dungeons in the Sundered Uplands, can also be found within Unstable Sunder-Ark Caches and Sundered Uplands Caches.",
+        "blueprint": "2022/items/item_crafting_giantlands_sundercharge_crystal",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Soul of the Depths": {
+        "identifier": "item/crafting/depths_soul",
+        "description": "Found commonly in Long Shade difficulty (15) worlds, when opening fivestar dungeon vaults with basic keys or sparkling keys on Monday. Besides this, Soul of the Depths can be found in the Depths.",
+        "blueprint": "2024/items/depths_soul",
+        "notrade": "0",
+        "noobtain": "0"
+      }
+    },
+    "Harvestables": {
+      "Bottle": {
+        "identifier": "item/crafting/bottle",
+        "description": "Crafting Material. Bottles are found growing wildly throughout the world or can be grown through Gardening.",
+        "blueprint": "item_crafting_bottle",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Sunlight Bulb": {
+        "identifier": "item/crafting/bulb_sun",
+        "description": "Crafting Material. Found in the Giant Sunflowers that pepper the Peaceful Hills.",
+        "blueprint": "entity_harvesting_bulb_sun",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Wild Cupcake": {
+        "identifier": "item/crafting/cupcake",
+        "description": "Crafting Material. Found growing from the ground in Candoria, or grown through Gardening.",
+        "blueprint": "item_crafting_cupcake",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Enchanted Wood": {
+        "identifier": "item/crafting/enchwood",
+        "description": "Crafting Material. Usually found growing in the Fae Forest, Medieval Highlands, or Cursed Vale biomes, but also obtainable through Gardening.",
+        "blueprint": "item_crafting_enchantedwood",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Mushroom Chunk": {
+        "identifier": "item/crafting/mushroomparts",
+        "description": "Crafting Material. Gained through Gardening and from mushrooms found in the world.",
+        "blueprint": "item_crafting_mushroompart",
+        "notrade": "0",
+        "noobtain": "0"
+      }
+    },
+    "Gardening": {
+      "Chestnut": {
+        "identifier": "item/crafting/chestnut",
+        "description": "Crafting Material. Harvested from Chestnut Seeds, which are craftable at the Gardening Bench.",
+        "blueprint": "item_crafting_chestnut",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Plasmic Solution": {
+        "identifier": "item/crafting/fertilizer_plasma",
+        "description": "Crafting Material. Harvested from Plasma Condensers, which are craftable at the Gardening Bench.",
+        "blueprint": "item_crafting_fertilizer_plasma",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Rich Fertilizer": {
+        "identifier": "item/crafting/fertilizer_water",
+        "description": "Crafting Material. Harvested from Unripe Fertilizer Heaps, which are craftable at the Gardening Bench.",
+        "blueprint": "item_crafting_mulch",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Steed Feed": {
+        "identifier": "item/crafting/mountfood",
+        "description": "Crafting Material that is used to craft mounts. Harvested from Steed Feed Seed, which can be crafted at the Gardening Bench.",
+        "blueprint": "item_crafting_mountfood",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Rich Mulch": {
+        "identifier": "item/crafting/mulch",
+        "description": "A rich medium for growing plants. Used to craft plant seeds.",
+        "blueprint": "item_crafting_mulch",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Pumpkin": {
+        "identifier": "item/crafting/pumpkin",
+        "description": "Crafting Material. Harvested from Pumpkin Seeds, which can be crafted at the Gardening Bench.",
+        "blueprint": "deco_halloween_pumpkin",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Spring Bloom": {
+        "identifier": "item/crafting/springbloom",
+        "description": "Crafting Material. Harvested from Spring Bloom Seeds which can be crafted at the Gardening Bench.",
+        "blueprint": "item_crafting_springbloom",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Moonlight Temper": {
+        "identifier": "item/crafting/gardening/moonlight_temper",
+        "description": "Allows more power from Moonlight Bulbs to be extracted by plants. Can be found inside Quality Compost Heap and Superior Compost Heap, craftable at a Harvesting Station.",
+        "blueprint": "item_crafting_gardening_moonlight_temper",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Qubbage": {
+        "identifier": "item/crafting/gardening/vegetable_cabbage",
+        "description": "Crafting Material. Harvested from Qubbage Seeds, which are craftable at the Gardening Bench.",
+        "blueprint": "item_crafting_gardening_vegetable_cabbage",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Bunfeed": {
+        "identifier": "item/crafting/gardening/vegetable_carrot",
+        "description": "Crafting Material. Harvested from Bunfeed Seeds, which are craftable at the Gardening Bench.",
+        "blueprint": "item_crafting_gardening_vegetable_carrot",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Corn on the Cube": {
+        "identifier": "item/crafting/gardening/vegetable_corn",
+        "description": "Crafting Material. Harvested from Corn on the Cube Seeds, which are craftable at the Gardening Bench.",
+        "blueprint": "item_crafting_gardening_vegetable_corn",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Uggplant": {
+        "identifier": "item/crafting/gardening/vegetable_eggplant",
+        "description": "Crafting Material. Harvested from Uggplant Seeds, which are craftable at the Gardening Bench.",
+        "blueprint": "item_crafting_gardening_vegetable_eggplant",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Purp'lil": {
+        "identifier": "item/crafting/gardening/vegetable_grape",
+        "description": "Crafting Material. Harvested from Purp'lil Seeds, which are craftable at the Gardening Bench.",
+        "blueprint": "item_crafting_gardening_vegetable_grape",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Onionito": {
+        "identifier": "item/crafting/gardening/vegetable_leek",
+        "description": "Crafting Material. Harvested from Onionito Seeds, which are craftable at the Gardening Bench.",
+        "blueprint": "item_crafting_gardening_vegetable_leek",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Totter Tate": {
+        "identifier": "item/crafting/gardening/vegetable_potato",
+        "description": "Crafting Material. Harvested from Totter Tate Seeds, which are craftable at the Gardening Bench.",
+        "blueprint": "item_crafting_gardening_vegetable_potato",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Unicorn Chard": {
+        "identifier": "item/crafting/gardening/vegetable_rainbowchard",
+        "description": "Crafting Material. Harvested from Unicorn Chard Seeds, which are craftable at the Gardening Bench.",
+        "blueprint": "item_crafting_gardening_vegetable_rainbowchard",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Qumato": {
+        "identifier": "item/crafting/gardening/vegetable_tomato",
+        "description": "Crafting Material. Harvested from Qumato Seeds, which are craftable at the Gardening Bench.",
+        "blueprint": "item_crafting_gardening_vegetable_tomato",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Cinnamellon": {
+        "identifier": "item/crafting/gardening/vegetable_watermelon",
+        "description": "Crafting Material. Harvested from Cinnamellon Seeds, which are craftable at the Gardening Bench.",
+        "blueprint": "item_crafting_gardening_vegetable_watermelon",
+        "notrade": "0",
+        "noobtain": "0"
+      }
+    },
+    "Ores": {
+      "Somber Soul": {
+        "identifier": "item/crafting/darksoul",
+        "description": "Crafting Material. Found in ore veins in the Cursed Vale biome.",
+        "blueprint": "item_crafting_darksoul",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Golden Soul": {
+        "identifier": "item/crafting/goldensoul",
+        "description": "Crafting Material. Found rarely within ore nodes in most biomes.",
+        "blueprint": "item_crafting_golden_soul",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Shapestone Ore": {
+        "identifier": "item/crafting/ore_common",
+        "description": "Crafting Material. A common, purple ore found in most biomes.",
+        "blueprint": "item_crafting_ore_00",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Primordial Flame": {
+        "identifier": "item/crafting/ore_fire",
+        "description": "Crafting Material. An uncommon ore found within Shapestone, Formicite, and Infinium veins.",
+        "blueprint": "item_crafting_fire",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Glacial Shard": {
+        "identifier": "item/crafting/ore_ice",
+        "description": "Crafting Material. An uncommon ore found only within Permafrost zones.",
+        "blueprint": "item_crafting_ice",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Infinium Ore": {
+        "identifier": "item/crafting/ore_rare",
+        "description": "Crafting Material. A rare, golden ore found in most biomes.",
+        "blueprint": "item_crafting_ore_02",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Crystallized Cloud": {
+        "identifier": "item/crafting/ore_sky",
+        "description": "Crafting Material. A unique ore found only in the Sky Realms.",
+        "blueprint": "item_crafting_ore_sky",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Formicite Ore": {
+        "identifier": "item/crafting/ore_uncommon",
+        "description": "Crafting Material. An uncommon, turquoise ore found in most biomes.",
+        "blueprint": "item_crafting_ore_01",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Meteorite Chunk": {
+        "identifier": "item/crafting/ore_meteor",
+        "description": "Crafting Material. An extratrovestrial mineral found in Jurassic Jungle zones.",
+        "blueprint": "item_crafting_ore_meteor",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Cinnabar": {
+        "identifier": "item/crafting/ore_cinnabar",
+        "description": "Crafting material. A mysterious reddish ore native to the Forbidden Spires.",
+        "blueprint": "item_crafting_ore_cinnabar",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Nitro-Glitterine": {
+        "identifier": "item/crafting/nitro_glitterine",
+        "description": "Crafting Material. A sparkling, highly volatile ore. This ore is found uncommonly on the Geode Topside.",
+        "blueprint": "item_crafting_nitroglitterine",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Veridium": {
+        "identifier": "item/crafting/veridium",
+        "description": "Crafting Material. A crystalline green and blue ore that hardens reality against extra-dimensional invasions. This ore is found commonly on the Geode Topside.",
+        "blueprint": "item_crafting_veridium",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Bardium": {
+        "identifier": "item/crafting/bardium",
+        "description": "Crafting Material. A pulsing gold and blue ore that when touched fills ones head with musical inspiration. This ore is found rarely in Tier 5 of the Geode caves.",
+        "blueprint": "2021/items/item_crafting_bardiumshard",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Irradium Ore": {
+        "identifier": "item/crafting/ore_gl_upper",
+        "description": "Crafting Material. A common, energy-laden ore found in the Cloud Layer of the Sundered Uplands.",
+        "blueprint": "item_crafting_ore_gl_upper",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Emberslag Ore": {
+        "identifier": "item/crafting/ore_gl_lower",
+        "description": "Crafting Material. A common, dense ore found in the Ashen Wastes layer of the Sundered Uplands.",
+        "blueprint": "item_crafting_ore_gl_lower",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Deepstone": {
+        "identifier": "item/crafting/ore_deep",
+        "description": "Found rarely in Long Shade difficulty (15) worlds. Used to craft items and upgrading Mystic Gears.",
+        "blueprint": "2024/items/ore_deep",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Lichenstone": {
+        "identifier": "item/crafting/runecrafting/leaflets/leaflet_ore_lichen",
+        "description": "Produces 10 Lichenstone when fully charged. Standard Leaflets can be charged without cooldown, but are consumed when fully charged. Charges in Dungeons, Geode Caves, and Delves.",
+        "blueprint": "2024/items/runecrafting/leaflet_ore_lichen",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Chunk of Runic Ore": {
+        "identifier": "item/crafting/ore_rune",
+        "description": "Found occasionally in Long Shade difficulty (15) worlds.",
+        "blueprint": "2024/items/ore_rune",
+        "notrade": "0",
+        "noobtain": "0"
+      }
+    },
+    "Ringcrafting": {
+      "Diamond": {
+        "identifier": "item/crafting/diamond",
+        "description": "Crafting Material. Created at the Ringcrafting Bench.",
+        "blueprint": "item_crafting_gem",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Shadow Diamond": {
+        "identifier": "item/crafting/diamondshadow",
+        "description": "Crafting Material. Created at the Ringcrafting Bench.",
+        "blueprint": "item_crafting_gem_shadow",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Celestial Diamond": {
+        "identifier": "item/crafting/diamond_celestial",
+        "description": "Crafting material. Created at the Ringcrafting bench.",
+        "blueprint": "item_crafting_diamond_celestial",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Plain Metal Ring": {
+        "identifier": "item/crafting/plain_metal_ring",
+        "description": "Simple band of Formicite. Crafted at the Ringcrafting Bench.",
+        "blueprint": "item_crafting_plainmetalring",
+        "notrade": "0",
+        "noobtain": "0"
+      }
+    },
+    "Miscellaneous": {
+      "Purifying Dragon Flame": {
+        "identifier": "item/crafting/dragonflame",
+        "description": "Crafting Material used to forge Radiant equipment. Craftable at the Dragon Crucible.",
+        "blueprint": "item_crafting_dragonflame",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Eye of Q'bthulhu": {
+        "identifier": "item/crafting/eye",
+        "description": "Forging Material. Found rarely as a drop from invaders and by Loot Collecting rare equipment.",
+        "blueprint": "item_crafting_eye",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Twice-Forged Shadow Soul": {
+        "identifier": "item/crafting/forge_shadow_02",
+        "description": "Rare Crafting Material. Obtained from Loot Collecting Shadow Level 2 equipment.",
+        "blueprint": "item_crafting_shadowsoul_forge_02",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Thrice-Forged Shadow Soul": {
+        "identifier": "item/crafting/forge_shadow_03",
+        "description": "Rare Crafting Material. Obtained from Loot Collecting Shadow Level 3 equipment. Can also be crafted at the Shadowy Market with Twice-Forged Shadow Souls.",
+        "blueprint": "item_crafting_shadowsoul_forge_03",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Quad-Forged Shadow Soul": {
+        "identifier": "item/crafting/forge_shadow_04",
+        "description": "Rare Crafting Material. Obtained from Loot Collecting Shadow Level 4 equipment. Can also be crafted at the Shadowy Market with Thrice-Forged Shadow Souls.",
+        "blueprint": "item_crafting_shadowsoul_forge_04",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Penta-Forged Shadow Soul": {
+        "identifier": "item/crafting/forge_shadow_05",
+        "description": "Rare Crafting Material. Obtained from Loot Collecting Shadow Level 5 equipment. Can also be crafted at the Shadowy Market with Quad-Forged Shadow Souls.",
+        "blueprint": "item_crafting_shadowsoul_forge_05",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Pearl of Wisdom": {
+        "identifier": "item/crafting/pearl",
+        "description": "Forging Material. Used to add new stats and stat boosts to equipment. Found rarely when defeating enemies and Loot Collecting equipment.",
+        "blueprint": "item_crafting_pearl",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Perfect Prism": {
+        "identifier": "item/crafting/prism",
+        "description": "Open it to obtain 1000 flux.",
+        "blueprint": "item_crafting_rainbow",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Candy Corn": {
+        "identifier": "item/crafting/shadowseve_candycorn",
+        "description": "Crafting Material. Used to craft items at the Shadowy Station in Crafter's Corner of the Trove Hub. Found by defeating Pumpkin dungeons in any biome or world. Candy Corn will vanish shortly after Shadow's Eve 2019.",
+        "blueprint": "item_candy_corn",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Heart of Darkness": {
+        "identifier": "item/crafting/shadowsoul",
+        "description": "Rare Crafting Material. Found in Shadow Caches, which can be bought for Shadow Shards in the Shadowy Market.",
+        "blueprint": "item_crafting_heartofdarkness",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Tentacle of Q'bthulhu": {
+        "identifier": "item/crafting/tentacle",
+        "description": "Forging Material. Found by defeating invaders and by Loot Collecting rare equipment.",
+        "blueprint": "item_crafting_tentacle",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Arena Coin": {
+        "identifier": "item/crafting/battlespirit",
+        "description": "Spend with the Battle Broker to unlock arena rewards. The Battle Broker can be found in the Battle Station in the Trove Hub. Earned by competing in non-Bomber Royale PVP.",
+        "blueprint": "item_currency_pvp",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Forged Radiant Soul": {
+        "identifier": "item/crafting/forge_radiant_01",
+        "description": "Rare crafting material. Obtained from Loot Collecting Radiant equipment. Can also be crafted at the Shadowy Market with Penta-Forged Shadow Souls.",
+        "blueprint": "item_forge_radiant_01",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Forged Stellar Soul": {
+        "identifier": "item/crafting/forge_stellar_01",
+        "description": "Rare crafting material. Obtained from Loot Collecting Stellar equipment. Can also be crafted at the Shadowy Market with Forged Radiant Souls.",
+        "blueprint": "item_forge_stellar_01",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "PembloCoin": {
+        "identifier": "item/crafting/bitcoin_corgi",
+        "description": "A form of cryptocurrency favoured by lovers of canines. Found very rarely in Neon City, Luminopolis ore veins.",
+        "blueprint": "item_crafting_bitcoin_corgi",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "SkygoldCoin": {
+        "identifier": "item/crafting/bitcoin_ganda",
+        "description": "A form of cryptocurrency favoured by sky-high rollers. Found very rarely in Neon City, Luminopolis ore veins.",
+        "blueprint": "item_crafting_bitcoin_ganda",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "NotTroveCoin": {
+        "identifier": "item/crafting/bitcoin_nottrove",
+        "description": "A form of cryptocurrency favoured by anarchists and those who rage against the established order. Found very rarely in Neon City, Luminopolis ore veins.",
+        "blueprint": "item_crafting_bitcoin_nottrove",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "CurrentCoin": {
+        "identifier": "item/crafting/bitcoin_obswirl",
+        "description": "A form of cryptocurrency favoured by those who like to clean-sweep the exchanges. Found very rarely in Neon City, Luminopolis ore veins.",
+        "blueprint": "item_crafting_bitcoin_obswirl",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Charged Circuit": {
+        "identifier": "item/crafting/charged_circuit",
+        "description": "Uncommon Crafting Material. Used to craft things at the Resistor Workbench in Neon City, Luminopolis. Can be crafted at the Resistor Workbench or found in Lesser Neon Caches.",
+        "blueprint": "item_crafting_chargedcircuit",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Logic Loop": {
+        "identifier": "item/crafting/logic_loop",
+        "description": "Uncommon Crafting Material. Used to craft things at the Resistor Workbench in Neon City, Luminopolis. Can be crafted at the Resistor Workbench or found in Lesser Neon Caches.",
+        "blueprint": "item_crafting_logicloop",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Memory Matrix": {
+        "identifier": "item/crafting/memory_matrix",
+        "description": "Uncommon Crafting Material. Used to craft things at the Resistor Workbench in Neon City, Luminopolis. Can be crafted at the Resistor Workbench or found in Lesser Neon Caches.",
+        "blueprint": "item_crafting_memorymatrix",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Neonium Coin": {
+        "identifier": "item/crafting/neowiz_coin",
+        "description": "Earned only when playing from valid locations",
+        "blueprint": "2021/neowiz/item_coin_neonium",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Paragon's Mark": {
+        "identifier": "item/crafting/prestige_collection",
+        "description": "Very rarely obtained from Primal Paragon Pinatas. Used to craft items at the PARAGON WORKBENCH, in the PARAGON'S PALACE beneath the CLUB HOUSE in the Hub.",
+        "blueprint": "2021/items/crafting/prestige_collection",
+        "notrade": "0",
+        "noobtain": "0"
+      }
+    },
+    "Currency": {
+      "Flux": {
+        "identifier": "item/crafting/flux",
+        "description": "Crafting Material. Gain Flux from using the Loot Collector on equipment or selling items on the marketplace.",
+        "blueprint": "item_crafting_spark",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Glim": {
+        "identifier": "item/crafting/warpseed",
+        "description": "Trading Material. Exchange for items from the pirates of Treasure Isles. Obtained by Loot Collecting fish and breaking plants in the world.",
+        "blueprint": "item_crafting_warpseed_03",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Megaflux Tank": {
+        "identifier": "item/crafting/fluxcanister",
+        "description": "Crafted material used to efficiently store large quantities of Flux. Craftable at the Adventurer's Crafting Bench or rarely found in Titan's Treasure Chests.",
+        "blueprint": "item_crafting_fluxcannister",
+        "notrade": "0",
+        "noobtain": "0"
+      }
+    },
+    "Fishing": {
+      "Ancient Scale": {
+        "identifier": "item/crafting/scale",
+        "description": "Crafting Material. Obtained by Loot Collecting rare fish.",
+        "blueprint": "item_crafting_fishscale",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Enchanted Scale": {
+        "identifier": "item/crafting/scale_ench",
+        "description": "Crafting Material. Obtained by Loot Collecting Enchanted fish.",
+        "blueprint": "item_crafting_enchscale",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Basic Canned Fish": {
+        "identifier": "item/crafting/fish_paste_common",
+        "description": "Canned common fish. Used to cook food at the Angler's Grill.",
+        "blueprint": "2022/items/item_crafting_fish_paste_common",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Premium Canned Fish": {
+        "identifier": "item/crafting/fish_paste_rare",
+        "description": "Canned rare fish. Used to cook food at the Angler's Grill.",
+        "blueprint": "2022/items/item_crafting_fish_paste_rare",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Scale of the Depths": {
+        "identifier": "item/crafting/scale_depths",
+        "description": "Crafting Material. Obtained by Loot Collecting rare fish from the Depths.",
+        "blueprint": "2022/items/item_crafting_progressionscale",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Turtle Shell": {
+        "identifier": "item/crafting/turtle_shell",
+        "description": "Crafting Material. Obtained by Loot Collecting Turtles caught with the Turtle Trawler.",
+        "blueprint": "2022/items/item_crafting_turtleshell",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Select Canned Fish": {
+        "identifier": "item/crafting/fish_paste_uncommon",
+        "description": "Canned uncommon fish. Used to cook food at the Angler's Grill.",
+        "blueprint": "2022/items/item_crafting_fish_paste_uncommon",
+        "notrade": "0",
+        "noobtain": "0"
+      }
+    },
+    "Talismans": {
+      "Griffon Talisman": {
+        "identifier": "item/crafting/talisman_griffon",
+        "description": "Crafting Material. Use at the Mount Crafting Bench to craft a griffon mount. Found very rarely in Cursed Skylands worlds.",
+        "blueprint": "item_crafting_talisman_griffon",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Meownt Talisman": {
+        "identifier": "item/crafting/talisman_cat",
+        "description": "Crafting Material. Use at the Mount Crafting Bench to craft a meownt mount. Found very rarely in Moonless Dark (10) and lower adventure worlds.",
+        "blueprint": "item_crafting_talisman_cat",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Centaur Talisman": {
+        "identifier": "item/crafting/talisman_centaur",
+        "description": "Crafting Material. Use at the Mount Crafting Bench to craft a centaur mount. Found very rarely in Uber Twilight (12) and higher adventure worlds.",
+        "blueprint": "item_crafting_talisman_centaur",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Corgi Talisman": {
+        "identifier": "item/crafting/talisman_corgi",
+        "description": "Crafting Material. Use at the Mount Crafting Bench to craft a corgi mount. Found very rarely in Moonless Dark (10) and lower adventure worlds.",
+        "blueprint": "item_crafting_talisman_corgi",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Llama Talisman": {
+        "identifier": "item/crafting/talisman_llama",
+        "description": "Crafting Material. Use at the Mount Crafting Bench to craft a llama mount. Found very rarely in all adventure worlds.",
+        "blueprint": "item_crafting_talisman_llama",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Shmeep Talisman": {
+        "identifier": "item/crafting/talisman_shmeep",
+        "description": "Crafting Material. Use at the Mount Crafting Bench to craft a shmeep mount. Found very rarely in Pure Midnight (11) and higher adventure worlds.",
+        "blueprint": "item_crafting_talisman_shmeep",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Rat Talisman": {
+        "identifier": "item/crafting/talisman_rat",
+        "description": "Crafting Material. Use at the Mount Crafting Bench to craft a rat mount. Found very rarely in Pure Midnight (11) and higher adventure worlds.",
+        "blueprint": "item_crafting_talisman_rat",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Panda Talisman": {
+        "identifier": "item/crafting/talisman_panda",
+        "description": "Crafting Material. Use at the Mount Crafting Bench to craft a panda mount. Found very rarely in Pure Midnight (11) and higher adventure worlds.",
+        "blueprint": "item_crafting_talisman_panda",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Carpet Talisman": {
+        "identifier": "item/crafting/talisman_carpet",
+        "description": "Found very rarely in The Understacks in Delves of Depth 120 and deeper.",
+        "blueprint": "2020/mounts/carpet_talisman/item_crafting_talisman_carpet",
+        "notrade": "0",
+        "noobtain": "0"
+      }
+    },
+    "Geode": {
+      "Materials": {
+        "Acrobat Bark": {
+          "identifier": "item/crafting/acrobatbark",
+          "description": "Geode Cave Crafting Material. Hangs down from the ceilings in Tiers 2-4 of Moonglow Grotto.",
+          "blueprint": "item_crafting_acrobatbark",
+          "notrade": "0",
+          "noobtain": "0"
+        },
+        "Bond Crystalizer": {
+          "identifier": "item/crafting/bond_crystalizer",
+          "description": "A manifestation of the experiences you and your companion have shared. Used to level up companions. Craftable on the Crystallogy Workbench.",
+          "blueprint": "item_crafting_geode_companion_component",
+          "notrade": "0",
+          "noobtain": "0"
+        },
+        "Builder's Blossom": {
+          "identifier": "item/crafting/buildersblossom",
+          "description": "Geode Cave Crafting Material. Blooms deep within Tiers 4-5 of Verdant Veins.",
+          "blueprint": "item_crafting_buildersblossom",
+          "notrade": "0",
+          "noobtain": "0"
+        },
+        "Cave Birds": {
+          "identifier": "item/crafting/cavebirds_red",
+          "description": "Geode Cave Crafting Material. Flowers in Tiers 2-4 of Sunken Sunvault.",
+          "blueprint": "item_crafting_cavebirds_red",
+          "notrade": "0",
+          "noobtain": "0"
+        },
+        "Cave Kelp": {
+          "identifier": "item/crafting/cavekelp_green",
+          "description": "Geode Cave Crafting Material. Grows wild in Tiers 1-3 of Verdant Veins.",
+          "blueprint": "item_crafting_cavekelp_green",
+          "notrade": "0",
+          "noobtain": "0"
+        },
+        "Cogwine": {
+          "identifier": "item/crafting/cogwine",
+          "description": "Geode Cave Crafting Material. Extracted from rare blooms in Tiers 2-4 of Verdant Veins.",
+          "blueprint": "item_crafting_cogwine",
+          "notrade": "0",
+          "noobtain": "0"
+        },
+        "Day Drop": {
+          "identifier": "item/crafting/daydrop",
+          "description": "Geode Cave Crafting Material. Grows throughout Tiers 1-3 of the Geode caves.",
+          "blueprint": "item_crafting_daydrop",
+          "notrade": "0",
+          "noobtain": "0"
+        },
+        "Dream Dew": {
+          "identifier": "item/crafting/dreamdew",
+          "description": "Geode Cave Crafting Material. Nectar pulled from flowers in Tiers 1-3 of Moonglow Grotto.",
+          "blueprint": "item_crafting_dreamdew",
+          "notrade": "0",
+          "noobtain": "0"
+        },
+        "Fireheart Flower": {
+          "identifier": "item/crafting/fireheartflower",
+          "description": "Geode Cave Crafting Material. Bold blooms rarely found in Tiers 4-5 of Sunken Sunvault.",
+          "blueprint": "item_crafting_fireheartflower",
+          "notrade": "0",
+          "noobtain": "0"
+        },
+        "Geminite": {
+          "identifier": "item/crafting/geminite",
+          "description": "Geode Cave Crafting Material. Two bold colors adorn the sides of this ore found in Tiers 1-3 of Verdant Veins.",
+          "blueprint": "item_crafting_geminite",
+          "notrade": "0",
+          "noobtain": "0"
+        },
+        "Moonlit Moss": {
+          "identifier": "item/crafting/moonlitmoss",
+          "description": "Geode Cave Crafting Material. Clinging plants found throughout Tiers 2-4 of the Geode caves.",
+          "blueprint": "item_crafting_moonlitmoss",
+          "notrade": "0",
+          "noobtain": "0"
+        },
+        "Queen Trumpets": {
+          "identifier": "item/crafting/queentrumpets",
+          "description": "Geode Cave Crafting Material. Majestic plants rarely found in Tiers 4-5 of Moonglow Grotto.",
+          "blueprint": "item_crafting_queentrumpets",
+          "notrade": "0",
+          "noobtain": "0"
+        },
+        "Sun Sap": {
+          "identifier": "item/crafting/sunsap",
+          "description": "Geode Cave Crafting Material. Liquid extracted from flowering pods in Tiers 1-3 of Sunken Sunvault.",
+          "blueprint": "item_crafting_sunsap",
+          "notrade": "0",
+          "noobtain": "0"
+        },
+        "Wallflowers": {
+          "identifier": "item/crafting/wallflowers",
+          "description": "Geode Cave Crafting Material. Shy climbing plants that grow throughout Tiers 4-5 of the Geode caves.",
+          "blueprint": "item_crafting_wallflowers",
+          "notrade": "0",
+          "noobtain": "0"
+        }
+      },
+      "Ores": {
+        "Ancient Gears": {
+          "identifier": "item/crafting/ancientgears",
+          "description": "Geode Cave Crafting Material. Scavenged from the deepest corners of Tier 5 of the Geode caves.",
+          "blueprint": "item_crafting_ancientgears",
+          "notrade": "0",
+          "noobtain": "0"
+        },
+        "Blazine": {
+          "identifier": "item/crafting/blazine",
+          "description": "Geode Cave Crafting Material. Heat emanates from this ore found only in Tiers 1-3 of Sunken Sunvault.",
+          "blueprint": "item_crafting_blazine",
+          "notrade": "0",
+          "noobtain": "0"
+        },
+        "Builderite": {
+          "identifier": "item/crafting/builderite",
+          "description": "Geode Cave Crafting Material. One of the Builder's favorite ores, found deep throughout Tiers 3-5 of the Geode caves.",
+          "blueprint": "item_crafting_builderite",
+          "notrade": "0",
+          "noobtain": "0"
+        },
+        "Chronozine": {
+          "identifier": "item/crafting/chronozine",
+          "description": "Geode Cave Crafting Material. The Ancients favored this ore that grows deep within Tiers 3-5 of Verdant Veins.",
+          "blueprint": "item_crafting_chronozine",
+          "notrade": "0",
+          "noobtain": "0"
+        },
+        "Everlight": {
+          "identifier": "item/crafting/everlight",
+          "description": "Geode Cave Crafting Material. Travelers must delve far into Tier 5 of Sunken Sunvault to mine these fiery sunstones.",
+          "blueprint": "item_crafting_everlight",
+          "notrade": "0",
+          "noobtain": "0"
+        },
+        "Gleamstone": {
+          "identifier": "item/crafting/gleamstone",
+          "description": "Geode Cave Crafting Material. An all-purpose ore, scattered throughout Tiers 1-3 of the Geode caves.",
+          "blueprint": "item_crafting_gleamstone",
+          "notrade": "0",
+          "noobtain": "0"
+        },
+        "Lunarium": {
+          "identifier": "item/crafting/lunarium",
+          "description": "Geode Cave Crafting Material. Crescents adorn this ore found in the deepest parts of Tier 5 of Moonglow Grotto.",
+          "blueprint": "item_crafting_lunarium",
+          "notrade": "0",
+          "noobtain": "0"
+        },
+        "Mightstone": {
+          "identifier": "item/crafting/mightstone",
+          "description": "Geode Cave Crafting Material. This fabled ore can only be found in the deepest parts of Tier 5 of Verdant Veins.",
+          "blueprint": "item_crafting_mightstone",
+          "notrade": "0",
+          "noobtain": "0"
+        },
+        "Moonstone": {
+          "identifier": "item/crafting/moonstone",
+          "description": "Geode Cave Crafting Material. Delicate, shimmery ore harvested only in Tiers 1-3 of Moonglow Grotto.",
+          "blueprint": "item_crafting_moonstone",
+          "notrade": "0",
+          "noobtain": "0"
+        },
+        "Quirkstone": {
+          "identifier": "item/crafting/quirkstone",
+          "description": "Geode Cave Crafting Material. Confetti-covered ore found deep in Tiers 3-5 of Moonglow Grotto.",
+          "blueprint": "item_crafting_quirkstone",
+          "notrade": "0",
+          "noobtain": "0"
+        },
+        "Sparkzite": {
+          "identifier": "item/crafting/sparkzite",
+          "description": "Geode Cave Crafting Material. Sparks sometimes fly from this ore that grows deep in Tiers 3-5 of Sunken Sunvault.",
+          "blueprint": "item_crafting_sparkzite",
+          "notrade": "0",
+          "noobtain": "0"
+        }
+      }
+    },
+    "Runecrafting": {
+      "Endurance Rune": {
+        "identifier": "item/crafting/runecrafting/water/rune_endurance",
+        "description": "Breaks sometimes when you take damage. Taking Damage can also trigger an Endurance effect, reducing damage taken, increasing Maximum Health, and granting Stability. Runes create Rune Fragments when they break. Rune Fragments are used for the Runecrafting Profession and Progression tree.",
+        "blueprint": "2024/items/runecrafting/rune_endurance",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Restoration Rune": {
+        "identifier": "item/crafting/runecrafting/water/rune_restoration",
+        "description": "Breaks after defeating an enemy, restoring a charge of your equipped flask. Runes create Rune Fragments when they break. Rune Fragments are used for the Runecrafting Profession and Progression tree.",
+        "blueprint": "2024/items/runecrafting/rune_restoration",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Replenishment Rune": {
+        "identifier": "item/crafting/runecrafting/water/rune_replenishment",
+        "description": "Breaks when you're hit by an attack that would kill you, reducing your cooldowns by 33%. Runes create Rune Fragments when they break. Rune Fragments are used for the Runecrafting Profession and Progression tree.",
+        "blueprint": "2024/items/runecrafting/rune_replenishment",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Rally Rune": {
+        "identifier": "item/crafting/runecrafting/water/rune_rally",
+        "description": "Breaks when an enemy is defeated, healing you for 50% of your health. Runes create Rune Fragments when they break. Rune Fragments are used for the Runecrafting Profession and Progression tree.",
+        "blueprint": "2024/items/runecrafting/rune_rally",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Abyssal Rune": {
+        "identifier": "item/crafting/runecrafting/water/rune_abyssal",
+        "description": "Breaks when you would take damage from lava or Jellous's flames but grants immunity to the damage from lava and Jellous's flames. Runes create Rune Fragments when they break. Rune Fragments are used for the Runecrafting Profession and Progression tree.",
+        "blueprint": "2024/items/runecrafting/rune_abyssal",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Swift Rune": {
+        "identifier": "item/crafting/runecrafting/air/rune_swift",
+        "description": "Breaks when you dash, increasing attack speed by 30% and movement speed by 10 for 60 seconds. Runes create Rune Fragments when they break. Rune Fragments are used for the Runecrafting Profession and Progression tree.",
+        "blueprint": "2024/items/runecrafting/rune_swift",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Abundance Rune": {
+        "identifier": "item/crafting/runecrafting/air/rune_abundance",
+        "description": "Breaks upon completing a dungeon, spawning a bonus chest. Runes create Rune Fragments when they break. Rune Fragments are used for the Runecrafting Profession and Progression tree.",
+        "blueprint": "2024/items/runecrafting/rune_abundance",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Zephyr Rune": {
+        "identifier": "item/crafting/runecrafting/air/rune_zephyr",
+        "description": "Breaks when you take damage from acid, making you immune for 10 seconds. Runes create Rune Fragments when they break. Rune Fragments are used for the Runecrafting Profession and Progression tree.",
+        "blueprint": "2024/items/runecrafting/rune_zephyr",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Repel Rune": {
+        "identifier": "item/crafting/runecrafting/air/rune_repel",
+        "description": "Breaks when you're hit by an attack that would kill you, triggering an explosion that knock backs enemies and roots them. Runes create Rune Fragments when they break. Rune Fragments are used for the Runecrafting Profession and Progression tree.",
+        "blueprint": "2024/items/runecrafting/rune_repel",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Harvest Rune": {
+        "identifier": "item/crafting/runecrafting/air/rune_harvest",
+        "description": "Breaks upon completing a dungeon, granting a buff that gives a chance to obtain Encrusted Runic Trunk when harvesting resources unique to Long Shade difficulty (15). Runes create Rune Fragments when they break. Rune Fragments are used for the Runecrafting Profession and Progression tree.",
+        "blueprint": "2024/items/runecrafting/rune_harvest",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Recursion Rune": {
+        "identifier": "item/crafting/runecrafting/fire/rune_recursion",
+        "description": "Breaks when you land a critical attack, granting 35% Critical Damage for 60 seconds. Runes create Rune Fragments when they break. Rune Fragments are used for the Runecrafting Profession and Progression tree.",
+        "blueprint": "2024/items/runecrafting/rune_recursion",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Condemn Rune": {
+        "identifier": "item/crafting/runecrafting/fire/rune_condemn",
+        "description": "Breaks when you're hit by an attack that would kill you, triggering a rage that increases your damage by 20%. Runes create Rune Fragments when they break. Rune Fragments are used for the Runecrafting Profession and Progression tree.",
+        "blueprint": "2024/items/runecrafting/rune_condemn",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Fury Rune": {
+        "identifier": "item/crafting/runecrafting/fire/rune_fury",
+        "description": "Breaks sometimes when you deal damage. In addition hitting can trigger one of three Fury Rune buffs, increasing Critical Hit Chance, Critical Hit Damage, and overall Damage. Runes create Rune Fragments when they break. Rune Fragments are used for the Runecrafting Profession and Progression tree.",
+        "blueprint": "2024/items/runecrafting/rune_fury",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Pyric Rune": {
+        "identifier": "item/crafting/runecrafting/fire/rune_pyric",
+        "description": "Breaks when you use your ultimate ability, creating a large fire around you burning your enemies for 10 seconds. Runes create Rune Fragments when they break. Rune Fragments are used for the Runecrafting Profession and Progression tree.",
+        "blueprint": "2024/items/runecrafting/rune_pyric",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Focus Rune": {
+        "identifier": "item/crafting/runecrafting/fire/rune_focus",
+        "description": "Breaks when you spend all of your energy, replenishing your energy to full. Runes create Rune Fragments when they break. Rune Fragments are used for the Runecrafting Profession and Progression tree.",
+        "blueprint": "2024/items/runecrafting/rune_focus",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Empty Rune": {
+        "identifier": "item/crafting/runecrafting/stone/rune_blank_t2",
+        "description": "Breaks when you complete a Dungeon, granting some Rune Fragments. Runes create Rune Fragments when they break. Rune Fragments are used for the Runecrafting Profession and Progression tree.",
+        "blueprint": "2024/items/runecrafting/rune_blank_t2",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Shining Rune": {
+        "identifier": "item/crafting/runecrafting/stone/rune_glowing",
+        "description": "Breaks when your magic find triggers, granting a Gearcrafter's Vault.",
+        "blueprint": "2024/items/runecrafting/rune_glowing",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Ore Rune": {
+        "identifier": "item/crafting/runecrafting/stone/rune_glass",
+        "description": "Breaks as a result of mining resources, granting a bonus chance at a Miner's Trove when mining resources. Runes create Rune Fragments when they break. Rune Fragments are used for the Runecrafting Profession and Progression tree.",
+        "blueprint": "2024/items/runecrafting/rune_glass",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Rippling Rune": {
+        "identifier": "item/crafting/runecrafting/stone/rune_texture",
+        "description": "Breaks when catching a fish from a pool, granting a buff that can award Marks of the Angler when completing dungeons.",
+        "blueprint": "2024/items/runecrafting/rune_texture",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Blank Rune": {
+        "identifier": "item/crafting/runecrafting/stone/rune_blank",
+        "description": "Breaks when you complete a Dungeon, granting a few Rune Fragments. Runes create Rune Fragments when they break. Rune Fragments are used for the Runecrafting Profession and Progression tree.",
+        "blueprint": "2024/items/runecrafting/rune_blank",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Metallic Rune": {
+        "identifier": "item/crafting/runecrafting/stone/rune_metal",
+        "description": "Breaks on damage taken, granting a protecting shield that reduces damage by 20% for 10 seconds and increases Stability. Runes create Rune Fragments when they break. Rune Fragments are used for the Runecrafting Profession and Progression tree.",
+        "blueprint": "2024/items/runecrafting/rune_metal",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Depths Rune": {
+        "identifier": "item/crafting/runecrafting/stone/rune_blank_t3",
+        "description": "Breaks when you complete a Dungeon, granting many Rune Fragments. Runes create Rune Fragments when they break. Rune Fragments are used for the Runecrafting Profession and Progression tree.",
+        "blueprint": "2024/items/runecrafting/rune_blank_t3",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Runic Ore": {
+        "identifier": "item/crafting/runecrafting/leaflets/leaflet_ore_rune",
+        "description": "Found occasionally in Long Shade difficulty (15) worlds. Mainly used for crafting items.",
+        "blueprint": "2024/items/runecrafting/leaflet_ore_rune",
+        "notrade": "0",
+        "noobtain": "0"
+      }
+    },
+    "Longshade": {
+      "Abyssal Coral": {
+        "identifier": "item/crafting/runecrafting/leaflets/leaflet_coralwater",
+        "description": "Found in the Hollowed Dunes biome in Long Shade difficulty (15) worlds. Used to craft items, spawn bosses from the obelisks. ",
+        "blueprint": "2024/items/runecrafting/leaflet_coralwater",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Zephyr Coral": {
+        "identifier": "item/crafting/runecrafting/leaflets/leaflet_coralair",
+        "description": "Found in the Weather Wastelands biome in Long Shade difficulty (15) worlds. Used to craft items, spawn bosses from the obelisks. ",
+        "blueprint": "2024/items/runecrafting/leaflet_coralair",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Chocolate Algae": {
+        "identifier": "item/crafting/runecrafting/leaflets/leaflet_chocolatealgae",
+        "description": "Produces 10 Chocolate Algae when fully charged. Standard Leaflets can be charged without cooldown, but are consumed when fully charged. Charges in Dungeons, Geode Caves, and Delves.",
+        "blueprint": "2024/items/runecrafting/leaflet_chocolatealgae",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Pyric Core": {
+        "identifier": "item/crafting/runecrafting/leaflets/leaflet_pyriccore",
+        "description": "Found in the Dragonfire Peaks biome in Long Shade difficulty (15) worlds. Used to craft items and spawn bosses from the obelisks.",
+        "blueprint": "2024/items/runecrafting/leaflet_pyriccore",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Cursed Coral": {
+        "identifier": "item/crafting/runecrafting/leaflets/leaflet_coralcursed",
+        "description": "Produces 10 Cursed Coral when fully charged. Standard Leaflets can be charged without cooldown, but are consumed when fully charged. Charges in Dungeons, Geode Caves, and Delves.",
+        "blueprint": "2024/items/runecrafting/leaflet_coralcursed",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Depths Coolant": {
+        "identifier": "item/crafting/runecrafting/leaflets/leaflet_deepcoolant",
+        "description": "Produces 10 Depths Coolant when fully charged. Standard Leaflets can be charged without cooldown, but are consumed when fully charged. Charges in Dungeons, Geode Caves, and Delves.",
+        "blueprint": "2024/items/runecrafting/leaflet_deepcoolant",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Pyric Coral": {
+        "identifier": "item/crafting/runecrafting/leaflets/leaflet_coralfire",
+        "description": "Found in the Cerise Sandsea biome in Long Shade difficulty (15) worlds. Used to craft items, spawn bosses from the obelisks.",
+        "blueprint": "2024/items/runecrafting/leaflet_coralfire",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Pyrite Seashell": {
+        "identifier": "item/crafting/runecrafting/leaflets/leaflet_pyriteseashell",
+        "description": "Produces 10 Pyrite Seashell when fully charged. Standard Leaflets can be charged without cooldown, but are consumed when fully charged. Charges in Dungeons, Geode Caves, and Delves.",
+        "blueprint": "2024/items/runecrafting/leaflet_pyriteseashell",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Surface Dried Seaweed": {
+        "identifier": "item/crafting/runecrafting/leaflets/leaflet_driedseaweed",
+        "description": "Produces 10 Surface Dried Seaweed when fully charged. Standard Leaflets can be charged without cooldown, but are consumed when fully charged. Charges in Dungeons, Geode Caves, and Delves.",
+        "blueprint": "2024/items/runecrafting/leaflet_driedseaweed",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Cinnabark": {
+        "identifier": "item/crafting/runecrafting/leaflets/leaflet_cinnabark",
+        "description": "Produces 10 Cinnabark when fully charged. Standard Leaflets can be charged without cooldown, but are consumed when fully charged. Charges in Dungeons, Geode Caves, and Delves.",
+        "blueprint": "2024/items/runecrafting/leaflet_cinnabark",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Depths Mana": {
+        "identifier": "item/crafting/runecrafting/leaflets/leaflet_deepmana",
+        "description": "Produces 10 Depths Mana when fully charged. Standard Leaflets can be charged without cooldown, but are consumed when fully charged. Charges in Dungeons, Geode Caves, and Delves.",
+        "blueprint": "2024/items/runecrafting/leaflet_deepmana",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Depths Mold": {
+        "identifier": "item/crafting/runecrafting/leaflets/leaflet_deepmold",
+        "description": "Produces 10 Depths Mold when fully charged. Standard Leaflets can be charged without cooldown, but are consumed when fully charged. Charges in Dungeons, Geode Caves, and Delves.",
+        "blueprint": "2024/items/runecrafting/leaflet_deepmold",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Irradiated Rune Fragment": {
+        "identifier": "item/crafting/runecrafting/leaflets/leaflet_irradiantrunefrag",
+        "description": "Found in the Sundered Uplands biome in Long Shade difficulty (15) worlds. Can be used to spawn obelisk boss and crafting items.",
+        "blueprint": "2024/items/runecrafting/leaflet_irradiantrunefrag",
+        "notrade": "0",
+        "noobtain": "0"
+      }
+    }
   }
-]
+}
