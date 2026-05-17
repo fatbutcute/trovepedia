@@ -204,14 +204,13 @@ export default function TroveArchive() {
         <div className="bg-aurora" />
         <div className="bg-grid" />
         <div className="bg-vignette" />
-        
-        <div className="canvas-header">
           <div className="Wolf">
               <StaffCard
               discordId="394067844305780737"
               name="XxWolf_AlexX"
               role="Contributor"
-                /></div>
+          /></div>
+        <div className="canvas-header">
           <h1 className="journal-title">Materials <span className="neon-text">Archive</span></h1>
           <p className="journal-description">This page provides up-to-date, detailed informations from the standard materials until the endgame materials.</p>
           <div className="header-line" />

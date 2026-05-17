@@ -68,7 +68,7 @@
   background: linear-gradient(90deg, rgba(166, 58, 255, 0.4), transparent);
 }
 
-.sidebar-section { display: flex; flex-direction: column; gap: 10px; margin-top: }
+.sidebar-section { display: flex; flex-direction: column; gap: 10px;}
 .sidebar-section label { font-size: 0.75rem; color: #a63aff; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; display:none;}
 
 .filter-section {
