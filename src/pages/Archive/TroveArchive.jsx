@@ -5,6 +5,7 @@ import StaffCard from '../../components/StaffCard';
 
 const PROCESSED_ITEMS = [];
 
+// ADATFELDOLGOZÓ LOGIKA
 if (materialsData && materialsData.Resources) {
   Object.entries(materialsData.Resources).forEach(([categoryName, contentObj]) => {
     
@@ -111,9 +112,7 @@ export default function TroveArchive() {
     <div className="journal-dashboard">
       <aside className="journal-sidebar">
         <div className="sidebar-header">
-          <h2>Archive Settings</h2>
         </div>
-        <div className="sidebar-divider" />
 
         <div className="sidebar-section">
           <label>Search Repository</label>
@@ -131,7 +130,8 @@ export default function TroveArchive() {
           </div>
         </div>
 
-        <div className="sidebar-section">
+        {/* ── ITT VOLT A HIBA: Hozzáadva a "filter-section" osztály, ami aktiválja a magasság-korlátozást ── */}
+        <div className="sidebar-section filter-section">
           <label>Filter by Source</label>
           <div className="sidebar-filter-list">
             
@@ -152,7 +152,7 @@ export default function TroveArchive() {
               return (
                 <div key={cat} className="filter-group" style={{ animationDelay: `${0.15 + index * 0.05}s` }}>
                   <div 
-                    className={`filter-item ${filterCategory === cat && !filterSubCategory ? 'active' : ''}`}
+                    className={`filter-item ${filterCategory === "All" && !filterSubCategory ? '' : (filterCategory === cat && !filterSubCategory ? 'active' : '')}`}
                     onClick={() => {
                       setFilterCategory(cat);
                       setFilterSubCategory(null);
@@ -168,7 +168,6 @@ export default function TroveArchive() {
                     <span className="item-count">({categoryTree[cat].count})</span>
                   </div>
                   
-                  {/* JAVÍTOTT RÉSZ: Mindig renderelünk, az osztály végzi a smooth nyitást/csukást */}
                   {hasSub && (
                     <div className={`filter-subcategories ${isExpanded ? 'open' : ''}`}>
                       {Object.keys(categoryTree[cat].subCategories).sort().map(subCat => (
@@ -202,7 +201,7 @@ export default function TroveArchive() {
       </aside>
 
       <main className="journal-main">
-        <div className="ScaryZ">
+                <div className="ScaryZ">
               <StaffCard
               discordId="371018267768389633"
               name="ScaryZ"
@@ -217,12 +216,9 @@ export default function TroveArchive() {
         <div className="bg-aurora" />
         <div className="bg-grid" />
         <div className="bg-vignette" />
-
+        
         <div className="canvas-header">
-          
           <h1 className="journal-title">Materials <span className="neon-text">Archive</span></h1>
-            
-            
           <p className="journal-description">This page provides up-to-date, detailed informations from the standard materials until the endgame materials.</p>
           <div className="header-line" />
         </div>
