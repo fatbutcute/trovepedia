@@ -1,12 +1,7 @@
 import React, { useState, useMemo, useEffect } from "react";
 import materialsData from "./materials_exact.json";
 import "./TroveArchive.css";
-
-const MANUAL_ENDGAME_ITEMS = [
-  "Depths Core",
-  "Soul of the Depths",
-  "Deepstone",
-];
+import StaffCard from '../../components/StaffCard';
 
 const PROCESSED_ITEMS = [];
 
@@ -15,13 +10,7 @@ if (materialsData && materialsData.Resources) {
     
     const processItems = (itemsObj, catName, subCatName = null) => {
       Object.entries(itemsObj).forEach(([itemName, itemData]) => {
-        const isEndgame = MANUAL_ENDGAME_ITEMS.includes(itemName);
         
-        let finalCategory = catName;
-        if (isEndgame) {
-          finalCategory = "Endgame";
-        }
-
         const iconUrl = itemData.blueprint 
           ? `https://trovesaurus.com/data/catalog/${itemData.blueprint.toLowerCase()}.png`
           : null;
@@ -30,8 +19,8 @@ if (materialsData && materialsData.Resources) {
           id: itemData.identifier || itemName,
           name: itemName,
           description: itemData.description?.replace(/\\\\n/g, ' ')?.replace(/\\n/g, ' ') || "Crafting material used in various recipes.",
-          category: finalCategory,
-          subCategory: isEndgame ? null : subCatName, 
+          category: catName,
+          subCategory: subCatName,
           iconUrl: iconUrl
         });
       });
@@ -74,7 +63,7 @@ export default function TroveArchive() {
       }
       tree[cat].count++;
       
-      if (subCat && cat !== "Endgame") {
+      if (subCat) {
         if (!tree[cat].subCategories[subCat]) {
           tree[cat].subCategories[subCat] = 0;
         }
@@ -85,20 +74,14 @@ export default function TroveArchive() {
   }, []);
 
   const sortedCategories = useMemo(() => {
-    return Object.keys(categoryTree).sort((a, b) => {
-      if (a === "Endgame") return -1;
-      if (b === "Endgame") return 1;
-      return a.localeCompare(b);
-    });
+    return Object.keys(categoryTree).sort((a, b) => a.localeCompare(b));
   }, [categoryTree]);
 
-  // Első betöltés késleltetés kikapcsolása
   useEffect(() => {
     const timer = setTimeout(() => setInitialLoad(false), 1500);
     return () => clearTimeout(timer);
   }, []);
 
-  // Keresés és szűrés
   useEffect(() => {
     const runFilter = () => {
       return PROCESSED_ITEMS.filter(item => {
@@ -106,11 +89,7 @@ export default function TroveArchive() {
         const matchSubCat = !filterSubCategory || item.subCategory === filterSubCategory;
         const matchSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase());
         return matchCat && matchSubCat && matchSearch;
-      }).sort((a, b) => {
-        if (a.category === "Endgame" && b.category !== "Endgame") return -1;
-        if (a.category !== "Endgame" && b.category === "Endgame") return 1;
-        return a.name.localeCompare(b.name);
-      });
+      }).sort((a, b) => a.name.localeCompare(b.name));
     };
 
     if (initialLoad && displayItems.length === 0) {
@@ -173,7 +152,7 @@ export default function TroveArchive() {
               return (
                 <div key={cat} className="filter-group" style={{ animationDelay: `${0.15 + index * 0.05}s` }}>
                   <div 
-                    className={`filter-item ${filterCategory === "All" && !filterSubCategory ? '' : (filterCategory === cat && !filterSubCategory ? 'active' : '')}`}
+                    className={`filter-item ${filterCategory === cat && !filterSubCategory ? 'active' : ''}`}
                     onClick={() => {
                       setFilterCategory(cat);
                       setFilterSubCategory(null);
@@ -189,6 +168,7 @@ export default function TroveArchive() {
                     <span className="item-count">({categoryTree[cat].count})</span>
                   </div>
                   
+                  {/* JAVÍTOTT RÉSZ: Mindig renderelünk, az osztály végzi a smooth nyitást/csukást */}
                   {hasSub && (
                     <div className={`filter-subcategories ${isExpanded ? 'open' : ''}`}>
                       {Object.keys(categoryTree[cat].subCategories).sort().map(subCat => (
@@ -222,12 +202,27 @@ export default function TroveArchive() {
       </aside>
 
       <main className="journal-main">
+        <div className="ScaryZ">
+              <StaffCard
+              discordId="371018267768389633"
+              name="ScaryZ"
+              role="Developer"
+                /></div>
+        <div className="Wolf">
+              <StaffCard
+              discordId="394067844305780737"
+              name="XxWolf_AlexX"
+              role="Contributor"
+                /></div>
         <div className="bg-aurora" />
         <div className="bg-grid" />
         <div className="bg-vignette" />
-        
+
         <div className="canvas-header">
+          
           <h1 className="journal-title">Materials <span className="neon-text">Archive</span></h1>
+            
+            
           <p className="journal-description">This page provides up-to-date, detailed informations from the standard materials until the endgame materials.</p>
           <div className="header-line" />
         </div>
@@ -243,8 +238,6 @@ export default function TroveArchive() {
                 className="item-voxel-card"
                 style={{ animationDelay: `${baseDelay + staggerDelay}s` }}
               >
-                {item.category === "Endgame" && <div className="endgame-glow" />}
-                
                 <div className="card-inner glass-effect">
                   <div className="item-icon-box">
                     {item.iconUrl ? (

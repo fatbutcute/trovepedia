@@ -78,13 +78,6 @@
         "notrade": "0",
         "noobtain": "0"
       },
-      "Forge Fragment": {
-        "identifier": "item/crafting/forge_fragment",
-        "description": "A small piece of the forge used by the Shaper. Obtained by Loot Collecting Crystaline Gear.",
-        "blueprint": "item_crafting_forgefragment",
-        "notrade": "0",
-        "noobtain": "0"
-      },
       "Irradiant Soul": {
         "identifier": "item/crafting/gl_irradiantsoul",
         "description": "Crafting Material. Obtained by composting the trophy of an Irradiant creature from the Sundered Uplands.",
@@ -134,17 +127,59 @@
         "notrade": "0",
         "noobtain": "0"
       },
-      "Sundercharge Crystal": {
-        "identifier": "item/crafting/gl_sundercharge_crystal",
-        "description": "Crafting Material. Usually claimed weekly after finishing the 72th wave (or above) in 5-star Dungeons in the Sundered Uplands, can also be found within Unstable Sunder-Ark Caches and Sundered Uplands Caches.",
-        "blueprint": "2022/items/item_crafting_giantlands_sundercharge_crystal",
-        "notrade": "0",
-        "noobtain": "0"
-      },
       "Soul of the Depths": {
         "identifier": "item/crafting/depths_soul",
         "description": "Found commonly in Long Shade difficulty (15) worlds, when opening fivestar dungeon vaults with basic keys or sparkling keys on Monday. Besides this, Soul of the Depths can be found in the Depths.",
         "blueprint": "2024/items/depths_soul",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Runic Key Fragment": {
+        "identifier": "item/crafting/rune_key_fragment",
+        "description": "Found by defeating dungeons in the highest difficulty worlds.",
+        "blueprint": "2024/items/runekeyfragment",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Fish Bone": {
+        "identifier": "item/crafting/fishbone",
+        "description": "Found commonly in Long Shade difficulty (15) worlds, when defeating enemies and completing dungeons.",
+        "blueprint": "2024/items/fishbone",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Ink Bladder": {
+        "identifier": "item/crafting/inkbladder",
+        "description": "Found commonly in Long Shade difficulty (15) worlds, when defeating enemies and completing dungeons.",
+        "blueprint": "2024/items/inkbladder",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Depths Sand": {
+        "identifier": "item/crafting/depths_sand",
+        "description": "Found commonly in Long Shade difficulty (15) worlds, when defeating enemies and completing dungeons.",
+        "blueprint": "2024/items/deepsand",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Phoenix Mote": {
+        "identifier": "item/crafting/phoenix_mote",
+        "description": "Found very rarely in the Sundered Uplands from bosses, invaders and dungeons. Phoenix Mote is one of the most time consuming materials to get. One of the best ways to get Phoenix Mote in short time is joining hosts when players are gathering in 8 people teams and farming Towers in Sundered Uplands biomes.",
+        "blueprint": "2022/crafting/item_crafting_phoenixsoul_blue",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Sundercharge Crystal": {
+        "identifier": "item/crafting/gl_sundercharge_crystal",
+        "description": "Crafting Material. Usually claimed weekly after finishing the 72th wave (or above) in fivestar Dungeons in the Sundered Uplands, can also be found within Unstable Sunder-Ark Caches and Sundered Uplands Caches.",
+        "blueprint": "2022/items/item_crafting_giantlands_sundercharge_crystal",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Delve Shadowkey Fragments": {
+        "identifier": "item/crafting/delve_shadowkey_fragment",
+        "description": "Crafting Material. Use to craft a Delve Shadowkey at the Adventurer's Crafting Bench. Delve Shadowkeys can open Shadowy Soul Vaults, found after defeating (every 3rd) Delve bosses. Found by completing dungeons in Fae Forest (Uber (4)) or higher Worlds.",
+        "blueprint": "item_crafting_delvekey_01_fragment",
         "notrade": "0",
         "noobtain": "0"
       }
@@ -312,6 +347,48 @@
         "blueprint": "item_crafting_gardening_vegetable_watermelon",
         "notrade": "0",
         "noobtain": "0"
+      },
+      "Concentrated Compost": {
+        "identifier": "item/crafting/fertilizer_compost_3",
+        "description": "Crafting Material. Obtained commonly from Compost Heaps, which can be crafted at the Harvesting Station.",
+        "blueprint": "item_crafting_gardening_concentrated_compost_01",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Superior Organic Refuse": {
+        "identifier": "item/crafting/gardening/compost_material_03",
+        "description": "Crafting Material. Obtained from harvesting valuable Alchemy Plants. Organic Refuse be crafted into Compost Heaps at the Harvesting Station.",
+        "blueprint": "item_crafting_gardening_compost_material_03",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Quality Organic Refuse": {
+        "identifier": "item/crafting/fertilizer_compost_1",
+        "description": "Crafting Material. Obtained from composting vegetables at the Compost Bin or harvesting certain Alchemy Plants. Organic Refuse be crafted into Compost Heaps at the Harvesting Station.",
+        "blueprint": "item_crafting_gardening_compost_material_02",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Organic Refuse": {
+        "identifier": "item/crafting/fertilizer_compost_0",
+        "description": "Crafting Material. Obtained from composting harvestable materials at the Compost Bin or harvesting plants. Organic Refuse be crafted into Compost Heaps at the Harvesting Station.",
+        "blueprint": "item_crafting_gardening_compost_material_01",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Fertile Ash": {
+        "identifier": "item/crafting/fertilizer_lava",
+        "description": "Crafting Material.\\n\\nHarvested from Ash Piles, which are craftable at the Gardening Bench.",
+        "blueprint": "item_crafting_fertilizer_lava",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Cookie Musk": {
+        "identifier": "item/crafting/mountfood_cookie",
+        "description": "Can be found inside Superior Compost Heaps, craftable at a Harvesting Station.",
+        "blueprint": "item_crafting_gardening_cookie_musk",
+        "notrade": "0",
+        "noobtain": "0"
       }
     },
     "Ores": {
@@ -371,38 +448,10 @@
         "notrade": "0",
         "noobtain": "0"
       },
-      "Meteorite Chunk": {
-        "identifier": "item/crafting/ore_meteor",
-        "description": "Crafting Material. An extratrovestrial mineral found in Jurassic Jungle zones.",
-        "blueprint": "item_crafting_ore_meteor",
-        "notrade": "0",
-        "noobtain": "0"
-      },
       "Cinnabar": {
         "identifier": "item/crafting/ore_cinnabar",
         "description": "Crafting material. A mysterious reddish ore native to the Forbidden Spires.",
         "blueprint": "item_crafting_ore_cinnabar",
-        "notrade": "0",
-        "noobtain": "0"
-      },
-      "Nitro-Glitterine": {
-        "identifier": "item/crafting/nitro_glitterine",
-        "description": "Crafting Material. A sparkling, highly volatile ore. This ore is found uncommonly on the Geode Topside.",
-        "blueprint": "item_crafting_nitroglitterine",
-        "notrade": "0",
-        "noobtain": "0"
-      },
-      "Veridium": {
-        "identifier": "item/crafting/veridium",
-        "description": "Crafting Material. A crystalline green and blue ore that hardens reality against extra-dimensional invasions. This ore is found commonly on the Geode Topside.",
-        "blueprint": "item_crafting_veridium",
-        "notrade": "0",
-        "noobtain": "0"
-      },
-      "Bardium": {
-        "identifier": "item/crafting/bardium",
-        "description": "Crafting Material. A pulsing gold and blue ore that when touched fills ones head with musical inspiration. This ore is found rarely in Tier 5 of the Geode caves.",
-        "blueprint": "2021/items/item_crafting_bardiumshard",
         "notrade": "0",
         "noobtain": "0"
       },
@@ -470,6 +519,41 @@
         "blueprint": "item_crafting_plainmetalring",
         "notrade": "0",
         "noobtain": "0"
+      },
+      "Primal Loop": {
+        "identifier": "item/crafting/ring_primal",
+        "description": "Primal Loops can be obtained by reaching paragon levels. They are basic materials to craft Crystal Rings for each class.",
+        "blueprint": "2021/items/currency/prestige/adventurer",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Mystic Loop": {
+        "identifier": "item/crafting/ring_mystic",
+        "description": "Mystic Loops can be obtained by reaching paragon levels in Long Shade difficulty (15) worlds. They are basic materials to craft Mystic Rings for each class.",
+        "blueprint": "2026/items/item_currency_prestige_adventurer_mystic",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Ringcrafter's Ticket": {
+        "identifier": "item/crafting/ring_ticket",
+        "description": "Used to craft Crystal 2 ringboxes at a Ringcrafting Bench Obtained by Loot Collecting Crystal 1 or Crystal 2 rings.",
+        "blueprint": "2021/items/currency/ringcrafting/ticket",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Gilded Ringcrafter's Ticket": {
+        "identifier": "item/crafting/ring_ticket_gilded",
+        "description": "Used to craft Crystal 3+ ringboxes at a Ringcrafting Bench Obtained by Loot Collecting Crystal 3, Crystal 4, or Crystal 5 rings.",
+        "blueprint": "2021/items/currency/ringcrafting/ticket_golden",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Trovian Loop": {
+        "identifier": "item/crafting/ring_trovian",
+        "description": "Awarded for each PARAGON level earned.",
+        "blueprint": "2021/items/currency/prestige/basic",
+        "notrade": "0",
+        "noobtain": "0"
       }
     },
     "Miscellaneous": {
@@ -531,7 +615,7 @@
       },
       "Candy Corn": {
         "identifier": "item/crafting/shadowseve_candycorn",
-        "description": "Crafting Material. Used to craft items at the Shadowy Station in Crafter's Corner of the Trove Hub. Found by defeating Pumpkin dungeons in any biome or world. Candy Corn will vanish shortly after Shadow's Eve 2019.",
+        "description": "Crafting Material. Used to craft items at the Shadowy Station in Crafter's Corner of the Trove Hub. Found by defeating Pumpkin dungeons in any biome or world.",
         "blueprint": "item_candy_corn",
         "notrade": "0",
         "noobtain": "0"
@@ -633,6 +717,139 @@
         "blueprint": "2021/items/crafting/prestige_collection",
         "notrade": "0",
         "noobtain": "0"
+      },
+      "Sentience Shard": {
+        "identifier": "item/crafting/geode_sentience",
+        "description": "are Crafting Material. Used to craft things at the Resistor Workbench in Neon City, Luminopolis. Mostly btained from completing hourly Rampage Challenges (once per day with daily bonues), Legendary Tomes and Greater Neon Caches.",
+        "blueprint": "item_crafting_sentienceshard",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Infinity Frame": {
+        "identifier": "item/crafting/infiniumbottle",
+        "description": "Crafting Material that is used to create terraformers.\\n\\nCraftable at the World Spring Bench.",
+        "blueprint": "item_tf_infinium_vessel",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Shaper's Star": {
+        "identifier": "item/crafting/shapers_star",
+        "description": "Obtained by using a Shaper's Star Key on chests in the Shores of the Everdark. Shaper's Star Keys can be crafted at the Shadowy Market.",
+        "blueprint": "item_crafting_starcore",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Tempered Block Element": {
+        "identifier": "item/crafting/block_element_tempered",
+        "description": "Used by Gearcrafters to create gear of the Highest Quality. Found rarely in Gearcrafter's Vaults.",
+        "blueprint": "2024/items/item_crafting_gearcrafting_tempered_block_element",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Block Element": {
+        "identifier": "item/crafting/block_element",
+        "description": "Used by Gearcrafters to craft equippable Hats, Faces, and Weapons. Obtained by Loot Collecting equipment.",
+        "blueprint": "2024/items/item_crafting_gearcrafting_block_element",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Negative Karma": {
+        "identifier": "item/crafting/karma_negative",
+        "description": "Obtained by delivering WAYWARD SOUL TANGLES at the KARMAIC SHRINE. When you standing in the hub and looking at the Angel Statue, turn right and you will see some npcs, among them you can find a bench where you can convert various materials into Negative Karma.",
+        "blueprint": "2023/items/item_currency_martialarts_karma_negative",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Positive Karma": {
+        "identifier": "item/crafting/karma_positive",
+        "description": "Obtained by performing acts of service. Find and speak with a MARTIAL ARTS envoy in the HUB to learn more. To gain positive Karma, head to the martial arts area located to the right of the Angel Statue in the Hub. You'll find an NPC there that offers quests rewarding Positive Karma.",
+        "blueprint": "2023/items/item_currency_martialarts_karma_positive",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Beginner's Incense": {
+        "identifier": "item/crafting/incense_beginner",
+        "description": "Used by the MARTIAL ARTS and sold by the Neon Punch Club in the hub!",
+        "blueprint": "2023/items/item_currency_martialarts_incense_1",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Quality Incense": {
+        "identifier": "item/crafting/incense_quality",
+        "description": "Used at the RELIC of PRESERVATION to convert MANTRAS into WEEK-LONG effects! One of the most important items for the late game, because you need these to craft the weekly light buff, which is mandatory for the endgame.",
+        "blueprint": "2023/items/item_currency_martialarts_incense_2",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Crystallized Zephyr Of Mana": {
+        "identifier": "item/crafting/delve_mana_air",
+        "description": "Obtanied from Cursed Skylands adventure worlds by defeating enemies. Used by Mysticists.",
+        "blueprint": "2023/items/item_currency_mysticism_trovian_mana_air",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Crystallized Mana Ember": {
+        "identifier": "item/crafting/delve_mana_fire",
+        "description": "Obtanied from Igneous Islands adventure worlds by defeating enemies. Used by Mysticists.",
+        "blueprint": "2023/items/item_currency_mysticism_trovian_mana_fire",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Crystallized Globs Of Meta-Mana": {
+        "identifier": "item/crafting/delve_mana_earth",
+        "description": "Obtanied from Geode Topside adventure worlds by defeating enemies. Used by Mysticists.",
+        "blueprint": "2023/items/item_currency_mysticism_trovian_mana_opal",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Crystallized Aquatic Mana": {
+        "identifier": "item/crafting/delve_mana_water",
+        "description": "Obtanied from Drowned adventure worlds by defeating enemies. Used by Mysticists.",
+        "blueprint": "2023/items/item_currency_mysticism_trovian_mana_water",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Constellation Key": {
+        "identifier": "item/crafting/constellation_key",
+        "description": "Constellation Keys can be used in the Star Chart to unlock branches or reset all used Celestial Spheres.",
+        "blueprint": "2022/items/item_currency_progression_key",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Astral Echoes": {
+        "identifier": "item/crafting/astral_echoes",
+        "description": "Astral Echoes can be found all over the world of Trove. Can be used to purchase items from The Celestial in the Hub. Also can be used to progress in the Star Chart.",
+        "blueprint": "2022/items/item_currency_progression_echo",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Uncommon Condensed Memory": {
+        "identifier": "item/crafting/condensed_memory_uncommon",
+        "description": "Acquired by Loot Collecting an Uncommon Mementos from a Delve. Used to craft various Delve portals.",
+        "blueprint": "2020/item_crafting_mementoshard_green",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Rare Condensed Memory": {
+        "identifier": "item/crafting/condensed_memory_rare",
+        "description": "Acquired by Loot Collecting an Rare Mementos from a Delve. Used to craft various Delve portals.",
+        "blueprint": "2020/item_crafting_mementoshard_blue",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Epic Condensed Memory": {
+        "identifier": "item/crafting/condensed_memory_epic",
+        "description": "Acquired by Loot Collecting an Epic Mementos from a Delve. Used to craft various Delve portals.",
+        "blueprint": "2020/item_crafting_mementoshard_purple",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Diamond Dragonite": {
+        "identifier": "item/crafting/diamond_dragonite",
+        "description": "Crafting Material. A primordial shard used to craft items, including Primordial Dragons at the Dragon Crucible in the Hub. Obtained daily from filling the Star Bar and from opening Diamond Dragonite Pouches. \n \n Good to know: If you have Patron and you fill the bar on Double Cubit Bar week, you get 3x times of the daily dragonites.",
+        "blueprint": "item_crafting_eggpiece_dragon_gemcolorless",
+        "notrade": "0",
+        "noobtain": "0"
       }
     },
     "Currency": {
@@ -654,6 +871,90 @@
         "identifier": "item/crafting/fluxcanister",
         "description": "Crafted material used to efficiently store large quantities of Flux. Craftable at the Adventurer's Crafting Bench or rarely found in Titan's Treasure Chests.",
         "blueprint": "item_crafting_fluxcannister",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Inert Geode": {
+        "identifier": "item/currency/delve_basic",
+        "description": "Inert Geode is a basic material in the Delves that can be used to craft items, it stands as a currency and also used to expand your Innert Geode storage.",
+        "blueprint": "2019/delves/item_coin_inertgeode",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Adventurine": {
+        "identifier": "item/currency/adventurine",
+        "description": "Earned by completing daily Adventures, this valuable gemstone can be exchanged in Clubs and in the Hub for unusual and exotic goods.",
+        "blueprint": "item_currency_adventurine_01",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Radiant Sovereign": {
+        "identifier": "item/currency/radiant",
+        "description": "You get rewarded with Radiant Sovereigns after buying specified credit/limited packs in the Store.",
+        "blueprint": "item_coin_radiant",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Chaos Core": {
+        "identifier": "item/crafting/chaoscore",
+        "description": "Used to craft rare chaotic collectibles at the Chaos Core Crafter. Acquire from Chaos Chests and by Loot Collecting Chaos Chests rewards. Also used as currency at Corruxion Shop.",
+        "blueprint": "item_crafting_chaoscore",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Cat's Eye Gemerald": {
+        "identifier": "item/crafting/gemerald_chaos",
+        "description": "Used to acquire various goods and services within Castle Catastra, where it can also be acquired.",
+        "blueprint": "2023/items/item_currency_crystal_delve_catastrophe_small",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+        "Crystal": {
+        "identifier": "item/crafting/crystal",
+        "description": "Found in Geode caves and large amount in some cave deadends.",
+        "blueprint": "item_currency_crystal_large",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Dragon Coin": {
+        "identifier": "item/crafting/dragoncoin",
+        "description": "Used to hatch Dragons at the Dragon Crucible in the Hub. Acquire by doing hourly challenges (Rampage doesn't count), crafting in the Bomber Royale Bench, completing Dragon Coin Digest and Dragon Hoard Deposition tomes or you can buy from the Dragon tab in the store.",
+        "blueprint": "item_coin_dragon",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Fragment of Wonder": {
+        "identifier": "item/wondershard",
+        "description": "This figment of fancy can be traded in to a Merchant of Marvels for a variety of wonderful goodies.",
+        "blueprint": "item_wondershard",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Bomber Royale Coin: Burnt Coin": {
+        "identifier": "item/crafting/battlespirit_burnt",
+        "description": "Obtained by trading Season 1, Season 2, or Blast Coins at the Bomber Bench or by tomes. Used to craft past season's rewards",
+        "blueprint": "2022/items/item_currency_pvp_legacy",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Bomber Royale Coin: Blast Coin": {
+        "identifier": "item/crafting/battlespirit_blast",
+        "description": "Obtained by successfully ranking in a Bomber Royale match or by the tome.",
+        "blueprint": "2022/items/item_currency_pvp_skull",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Heirloom Gemerald": {
+        "identifier": "item/crafting/gemerald_delve",
+        "description": "Acquired rarely from within the halls of the Castle Catastra Delve biome.",
+        "blueprint": "2023/items/item_crafting_delve_castle_catastrophe_heirloom_gemerald",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Lunar Soul": {
+        "identifier": "item/crafting/moonsoul",
+        "description": "Rare Crafting Material. Obtained from the first six Shadowy Soul Vaults opened in Delves each week. \n\nHint: Shadowy Vaults are spawning every 3rd boss in any type of Delves.",
+        "blueprint": "item_crafting_moonsoul",
         "notrade": "0",
         "noobtain": "0"
       }
@@ -705,6 +1006,13 @@
         "identifier": "item/crafting/fish_paste_uncommon",
         "description": "Canned uncommon fish. Used to cook food at the Angler's Grill.",
         "blueprint": "2022/items/item_crafting_fish_paste_uncommon",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Mark Of The Angler": {
+        "identifier": "item/crafting/fish_mark",
+        "description": "Obtained by fishing while under the effects of the Aura of the Angler. Mark of the Anglers also used to craft items and dragons (Aquarus, the Aquarius Lord and Capricorn, Risen from the Depths).\n\nSuggestion: Do Freshwater Fran fish quests to get significant amount of Mark of the Angler. You must do these on Tuesday, because you get more anglers due to Gathering Day Daily Bonus.",
+        "blueprint": "2022/items/item_currency_progression_fishing_coin",
         "notrade": "0",
         "noobtain": "0"
       }
@@ -873,6 +1181,48 @@
           "blueprint": "item_crafting_wallflowers",
           "notrade": "0",
           "noobtain": "0"
+        },
+        "Forge Fragment": {
+          "identifier": "item/crafting/forge_fragment",
+          "description": "A small piece of the forge used by the Shaper. Obtained by Loot Collecting Crystaline Gear.",
+          "blueprint": "item_crafting_forgefragment",
+          "notrade": "0",
+          "noobtain": "0"
+        },
+        "Crystalline Core": {
+          "identifier": "item/crafting/geode_crystal",
+          "description": "Obtained daily by completing 5 Star Dungeons within the time limit and from opening Geodian Topside Caches.",
+          "blueprint": "item_crafting_crystallinecore",
+          "notrade": "0",
+          "noobtain": "0"
+        },
+        "Crystal": {
+          "identifier": "item/crafting/geode_crystal_gem",
+          "description": "Geode Cave Crafting Material. Used as currency and crafting various items.",
+          "blueprint": "item_currency_crystal_large",
+          "notrade": "0",
+          "noobtain": "0"
+        },
+        "Accelerite": {
+          "identifier": "item/crafting/geode_accelerite",
+          "description": "Reduces Reliquary and Companion Egg opening time by 2 hours.",
+          "blueprint": "item_hastener",
+          "notrade": "0",
+          "noobtain": "0"
+        },
+        "Metamatter": {
+          "identifier": "item/crafting/geode_metamatter",
+          "description": "Geode Crafting Material. Obtained from opening Reliquaries. Also used for upgrading Geode Modules.",
+          "blueprint": "item_crafting_metamatter",
+          "notrade": "0",
+          "noobtain": "0"
+        },
+        "Drillbit": {
+          "identifier": "item/crafting/geode_drillbit",
+          "description": "Geode Crafting Material. Obtained very rarely from Lesser Crystal Caches. \n \nSuggestion: Get Lesser Crystal Caches as much as possible by helping critters in Geode caves, so you can open caches to get Drillbit.",
+          "blueprint": "item_crafting_drillbit",
+          "notrade": "0",
+          "noobtain": "0"
         }
       },
       "Ores": {
@@ -950,6 +1300,48 @@
           "identifier": "item/crafting/sparkzite",
           "description": "Geode Cave Crafting Material. Sparks sometimes fly from this ore that grows deep in Tiers 3-5 of Sunken Sunvault.",
           "blueprint": "item_crafting_sparkzite",
+          "notrade": "0",
+          "noobtain": "0"
+        },
+        "Nitro-Glitterine": {
+          "identifier": "item/crafting/nitro_glitterine",
+          "description": "Crafting Material. A sparkling, highly volatile ore. This ore is found uncommonly on the Geode Topside.",
+          "blueprint": "item_crafting_nitroglitterine",
+          "notrade": "0",
+          "noobtain": "0"
+        },
+        "Veridium": {
+          "identifier": "item/crafting/veridium",
+          "description": "Crafting Material. A crystalline green and blue ore that hardens reality against extra-dimensional invasions. This ore is found commonly on the Geode Topside.",
+          "blueprint": "item_crafting_veridium",
+          "notrade": "0",
+          "noobtain": "0"
+        },
+        "Bardium": {
+          "identifier": "item/crafting/bardium",
+          "description": "Crafting Material. A pulsing gold and blue ore that when touched fills ones head with musical inspiration. This ore is found rarely in Tier 5 of the Geode caves.",
+          "blueprint": "2021/items/item_crafting_bardiumshard",
+          "notrade": "0",
+          "noobtain": "0"
+        },
+        "Builder's Box": {
+          "identifier": "item/crafting/geode_builderbox_1",
+          "description": "Hidden deep within Geode, this box contains minor treasure (mostly Tier 1-2 materials).",
+          "blueprint": "item_lootbox_builder_01",
+          "notrade": "0",
+          "noobtain": "0"
+        },
+        "Builder's Chest": {
+          "identifier": "item/crafting/geode_builderbox_2",
+          "description": "Hidden deep within Geode, this box contains moderate treasure (mostly Tier 2-3 materials).",
+          "blueprint": "item_lootbox_builder_02",
+          "notrade": "0",
+          "noobtain": "0"
+        },
+        "Builder's Vault": {
+          "identifier": "item/crafting/geode_builderbox_3",
+          "description": "Hidden deep within Geode, this box contains great treasure (mostly Tier 4-5 materials).",
+          "blueprint": "item_lootbox_builder_03",
           "notrade": "0",
           "noobtain": "0"
         }
@@ -1116,6 +1508,48 @@
         "blueprint": "2024/items/runecrafting/leaflet_ore_rune",
         "notrade": "0",
         "noobtain": "0"
+      },
+      "Runic Essence": {
+        "identifier": "item/crafting/rune_stone",
+        "description": "Obtained by converting various LONG SHADE difficulty harvests at Saltwater Sam's Depths Workbench. Long Shade difficulty can be accessed via the Atlas.",
+        "blueprint": "2024/items/rune_stone",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Abyssal Essence": {
+        "identifier": "item/crafting/rune_water",
+        "description": "Obtained by converting various LONG SHADE difficulty harvests at Saltwater Sam's Depths Workbench. Can be also obtained from Long Shade difficulty (15) worlds, by defeating enemies and opening vaults, after reaching a specific upgrade in the Rune Anvil.",
+        "blueprint": "2024/items/rune_water",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Zephyr Essence": {
+        "identifier": "item/crafting/rune_air",
+        "description": "Obtained by converting various LONG SHADE difficulty harvests at Saltwater Sam's Depths Workbench. Can be also obtained from Long Shade difficulty (15) worlds, by defeating enemies and opening vaults, after reaching a specific upgrade in the Rune Anvil.",
+        "blueprint": "2024/items/rune_air",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Pyric Essence": {
+        "identifier": "item/crafting/rune_fire",
+        "description": "Obtained by converting various LONG SHADE difficulty harvests at Saltwater Sam's Depths Workbench. Can be also obtained from Long Shade difficulty (15) worlds, by defeating enemies and opening vaults, after reaching a specific upgrade in the Rune Anvil.",
+        "blueprint": "2024/items/rune_fire",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Rune Fragment": {
+        "identifier": "item/crafting/rune_fragment",
+        "description": "Used by Runecrafters to craft basic Runes, as well as materials for more advanced Runes. You can increases the Rune Fragment drops by unlocking various upgrades in the Rune Anvil.",
+        "blueprint": "2024/items/runefragment",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Rune Slate": {
+        "identifier": "item/crafting/rune_slate",
+        "description": "Used to craft various Runes in the RuneCrafting Bench.",
+        "blueprint": "2024/items/rune_block",
+        "notrade": "0",
+        "noobtain": "0"
       }
     },
     "Longshade": {
@@ -1207,6 +1641,197 @@
         "identifier": "item/crafting/runecrafting/leaflets/leaflet_irradiantrunefrag",
         "description": "Found in the Sundered Uplands biome in Long Shade difficulty (15) worlds. Can be used to spawn obelisk boss and crafting items.",
         "blueprint": "2024/items/runecrafting/leaflet_irradiantrunefrag",
+        "notrade": "0",
+        "noobtain": "0"
+      }
+    },
+    "Gems": {
+      "Water Gem Dust": {
+        "identifier": "item/crafting/gemdust_blue",
+        "description": "Crafting Material. Used to Level Up Water Gems and crafting Air Gem Sparks. Gained from Loot Collecting Water Gems.",
+        "blueprint": "item_crafting_gemdust_blue",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Air Gem Dust": {
+        "identifier": "item/crafting/gemdust_green",
+        "description": "Crafting Material. Used to Level Up Air Gems and crafting Air Gem Sparks.",
+        "blueprint": "item_crafting_gemdust_yellow",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Fire Gem Dust": {
+        "identifier": "item/crafting/gemdust_red",
+        "description": "Crafting Material. Used to Level Up Fire Gems and crafting Fire Gem Sparks. Gained from Loot Collecting Fire Gems.",
+        "blueprint": "item_crafting_gemdust_red",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Cosmic Gem Dust": {
+        "identifier": "item/crafting/gemdust_purple",
+        "description": "Crafting Material. Used to Level Up Cosmic Gems and crafting Cosmic Gem Sparks. Gained from Loot Collecting Cosmic Gems.",
+        "blueprint": "item_crafting_gemdust_opal",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Primal Gem Shard": {
+        "identifier": "item/crafting/gemshard_primal",
+        "description": "Crafting Material. Used to Level Up Crystal Gems and craft rare items. Crafted at the Sundered Uplands bench. Also you can craft these for a total of 12 Gem Spark (4 Gem Spark of each Gem type).",
+        "blueprint": "2022/crafting/item_crafting_primalgemspark",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Mystic Gem Shard": {
+        "identifier": "item/crafting/gemshard_mystic",
+        "description": "Crafting Material. Used to Level Up Mystic Gems and craft rare items. Found rarely in Long Shade difficulty (15) or Depths Delves. Also you can craft these for a total of 80 Gem Spark (20 Gem Spark of each Gem type).",
+        "blueprint": "2025/items/item_crafting_mysticgemspark",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Water Gem Spark": {
+        "identifier": "item/crafting/gemspark_blue",
+        "description": "Crafting Material. Used to Level Up Crystal Water Gems. Gained from Loot Collecting Crystal Water Gems.",
+        "blueprint": "2022/crafting/item_crafting_gemspark_blue",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Air Gem Spark": {
+        "identifier": "item/crafting/gemspark_green",
+        "description": "Crafting Material. Used to Level Up Crystal Air Gems and crafting Air Gem Dusts.",
+        "blueprint": "2022/crafting/item_crafting_gemspark_yellow",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Fire Gem Spark": {
+        "identifier": "item/crafting/gemspark_red",
+        "description": "Crafting Material. Used to Level Up Crystal Fire Gems and crafting Fire Gem Dusts. Gained from Loot Collecting Crystal Fire Gems.",
+        "blueprint": "2022/crafting/item_crafting_gemspark_red",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Cosmic Gem Spark": {
+        "identifier": "item/crafting/gemamber_opal",
+        "description": "Crafting Material. Used to Level Up Crystal Cosmic Gems and crafting Cosmic Gem Dusts. Gained from Loot Collecting Crystal Cosmic Gems.",
+        "blueprint": "2022/crafting/item_crafting_gemspark_opal",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Crystal Gem Converter": {
+        "identifier": "item/crafting/gemconverter_crystal",
+        "description": "Used to convert Stellar gems into Crystal Gems. Cab be crafted at the Sundered Uplands bench. \n \n Suggestion: It's more worth to buy it in the Store for 10.000 cubits, because it requires large amount of Sundercharge Crystal to craft, which are pretty rare materials, which can be used to craft Sundered Upland items. Must use on 3 star Empowered Gems. Lesser Gems are more easy to get in Crystal rarity.",
+        "blueprint": "2022/crafting/item_crafting_crystalconverter",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Mystic Gem Converter": {
+        "identifier": "item/crafting/gemconverter_mystic",
+        "description": "Used to convert Crystal gems into Mystic Gems. Crafted at Adventure's Crafting Bench in the Gems tab.\n\nSuggestion: If you are approaching endgame, you should consider the fact that you will only craft Mystic Gem Converters instead of buying them in the Store for Cubits. When you are in the endgame, you can easily get souls on Monday by completing fivestar dungeons and opening vaults with basic or sparkling keys.",
+        "blueprint": "2025/items/item_gem_booster_booster7",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Class Gem Key": {
+        "identifier": "item/key/classgemkey_01",
+        "description": "Use this key on an Everdark Vault. Everdark Vaults appear in the Shores of the Everdark after completing a colosseum dungeon. This key grants an Empowered Gem for the active class at the time of use.",
+        "blueprint": "item_key_gem",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Class Gem Key Fragment": {
+        "identifier": "item/crafting/classgemkey_shard",
+        "description": "Crafting Material. Combine three fragments at the Adventurer's Crafting Bench to get a full Class Gem Key. Found in Empowered Gem Boxes or crafted at the Adventurer's Crafting Bench.",
+        "blueprint": "item_key_gem_fragment",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Bound Brilliance": {
+        "identifier": "item/crafting/gembooster_brilliance",
+        "description": "Crafting Material. Used at the Adventurer's Crafting Bench to craft Gems Augments and upgrade gem stats. Obtained from the Weekly Class XP / Highest (atleast 25) Paragon Levels and Highest (Specified Weekly Class) (25) Paragon Levels and from Events.",
+        "blueprint": "item_crafting_gempower_01",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Binding Darkness": {
+        "identifier": "item/crafting/gembooster_darkness",
+        "description": "Crafting Material. Tendrils of deepest shadow, forged into inextricable fetters. Used at the Adventurer's Crafting Bench to craft Gems Augments. Obtained in Gem Booster Boxes and rarely from World Bosses.",
+        "blueprint": "item_crafting_darkbond",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Glittering Horseshoe": {
+        "identifier": "item/crafting/gembooster_horseshoe",
+        "description": "Gem Level Up Booster. Increases Level Up chance by 50%!",
+        "blueprint": "item_gem_booster_01",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Lapis Luckbug": {
+        "identifier": "item/crafting/gembooster_luckbug",
+        "description": "Gem Level Up Booster. Increases Level Up chance by 300% and Double Level Up chance by 500%!",
+        "blueprint": "item_gem_booster_04",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Ninth Life": {
+        "identifier": "item/crafting/gembooster_ninthlife",
+        "description": "Gem Level Up Booster. Increases Level Up chance by 4000% and Double Level Up chance by 1000%!",
+        "blueprint": "item_gem_booster_05",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Tenth Life": {
+        "identifier": "item/crafting/gembooster_tenthlife",
+        "description": "Mystic Gem Level Up Booster. Increases Level Up chance by 4000% and Double Level Up chance by 1000%!",
+        "blueprint": "2025/items/item_gem_booster_05_mystic",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Golden Gem Key": {
+        "identifier": "item/crafting/gemkey_golden",
+        "description": "Use to get the rarest tier of rewards from a lesser gem box. Obtained uncommonly from Gem Booster Boxes or granted as a bonus when purchasing multiple Gem Booster Boxes in the Store.",
+        "blueprint": "item_key_gem_gold",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Builder's Rough Focus": {
+        "identifier": "item/gem/booster/augment1",
+        "description": "Gem Augment. This item gives a small boost to one stat on a gem, and that gem's Power Rank. Used at the Gem Forge. Crafted at the Adventurer's Crafting Bench.",
+        "blueprint": "item_gem_booster_augment_01",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Builder's Precise Focus": {
+        "identifier": "item/gem/booster/augment2",
+        "description": "Gem Augment. Gives a moderate boost to one stat on a gem, and that gem's Power Rank. Used at the Gem Forge. Crafted at the Adventurer's Crafting Bench.",
+        "blueprint": "item_gem_booster_augment_02",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Builder's Superior Focus": {
+        "identifier": "item/gem/booster/augment3",
+        "description": "Gem Augment. This item gives a large boost to one stat on a gem, and that gem's Power Rank. Used at the Gem Forge. Crafted at the Adventurer's Crafting Bench.",
+        "blueprint": "item_gem_booster_augment_03",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Contained Chaos Spark": {
+        "identifier": "item/crafting/gembooster_chaos_spark",
+        "description": "Gem Augment. A spark of primal chaos, bound in a containment field and awaiting a gem to interact with. Used to reselect stats on gems at the Gem Forge. Crafted at the Adventurer's Crafting Bench.",
+        "blueprint": "item_gem_booster_chaosspark",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Contained Chaos Flare": {
+        "identifier": "item/crafting/gembooster_chaos_flare",
+        "description": "Gem Augment. A flare of primal chaos, bound in a containment field and awaiting a gem to interact with. Used to move a stat boost on gems at the Gem Forge. Crafted at the Adventurer's Crafting Bench.",
+        "blueprint": "item_gem_booster_chaosflare",
+        "notrade": "0",
+        "noobtain": "0"
+      },
+      "Empowered Gem Fragment": {
+        "identifier": "item/crafting/gemfragment_empowered",
+        "description": "Crafting Material. Used to craft Stellar Empowered Gem Boxes or Class Gem Key Fragments at the Adventurer's Crafting Bench. Gained from Loot Collecting Empowered Gems or Prism of Light (if you've already got every aura from Prism of Light).",
+        "blueprint": "item_gem_empowered_shard",
         "notrade": "0",
         "noobtain": "0"
       }
