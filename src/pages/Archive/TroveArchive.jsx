@@ -201,26 +201,21 @@ export default function TroveArchive() {
       </aside>
 
       <main className="journal-main">
-                <div className="ScaryZ">
-              <StaffCard
-              discordId="371018267768389633"
-              name="ScaryZ"
-              role="Developer"
-                /></div>
-        <div className="Wolf">
-              <StaffCard
-              discordId="394067844305780737"
-              name="XxWolf_AlexX"
-              role="Contributor"
-                /></div>
         <div className="bg-aurora" />
         <div className="bg-grid" />
         <div className="bg-vignette" />
         
         <div className="canvas-header">
+          <div className="Wolf">
+              <StaffCard
+              discordId="394067844305780737"
+              name="XxWolf_AlexX"
+              role="Contributor"
+                /></div>
           <h1 className="journal-title">Materials <span className="neon-text">Archive</span></h1>
           <p className="journal-description">This page provides up-to-date, detailed informations from the standard materials until the endgame materials.</p>
           <div className="header-line" />
+            
         </div>
 
         <div key={animationKey} className={`materials-grid ${isAnimating ? 'animating-out' : ''}`}>
