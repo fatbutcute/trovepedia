@@ -211,6 +211,7 @@ export default function TroveArchive() {
               role="Contributor"
           /></div>
         <div className="canvas-header">
+
           <h1 className="journal-title">Materials <span className="neon-text">Archive</span></h1>
           <p className="journal-description">This page provides up-to-date, detailed informations from the standard materials until the endgame materials.</p>
           <div className="header-line" />
