@@ -400,70 +400,98 @@ function EquipmentGrid({ items, visible }) {
 }
 
 function TabContent({ cls, tab }) {
-  const [visible, setVisible] = useState(false)
-
-  useEffect(() => {
-    setVisible(false)
-    const t = setTimeout(() => setVisible(true), 40)
-    return () => clearTimeout(t)
-  }, [tab, cls.id])
-
-  const textContent = typeof cls.details?.[tab] === 'string' ? cls.details[tab] : ''
-  const typed = useTypewriter(textContent, visible && tab !== 'Equipment')
-
   if (tab === 'Equipment') {
     return (
-      <div className={`cp-tab-body ${visible ? 'cp-tab-visible' : ''}`}>
-        <EquipmentGrid items={cls.details.Equipment} visible={visible} />
+      <div className="cp-equip-list">
+        {cls.details.Equipment.map((eq, index) => (
+          <div 
+            key={eq.slot} 
+            className="cp-equip-item cp-rubrika-box"
+            style={{ animationDelay: `${index * 0.05}s` }}
+          >
+            <span className="cp-equip-slot">{eq.slot}</span>
+            <span className="cp-equip-text">{eq.text}</span>
+          </div>
+        ))}
       </div>
     )
   }
 
+  const contentMap = {
+    Abilities:    cls.details.Abilities,
+    Gems:         cls.details.Gems,
+    'How to use': cls.details['How to use'],
+  }
+
   return (
-    <div className={`cp-tab-body ${visible ? 'cp-tab-visible' : ''}`}>
-      <p className="cp-typewriter-text">{typed}<span className="cp-cursor">|</span></p>
+    <div className="cp-text-content-wrap">
+      <p>{contentMap[tab] || ''}</p>
     </div>
   )
 }
 
-
 export default function ClassesPage() {
-
   const [selected, setSelected] = useState(classesData[0])
-  const [activeTab, setActiveTab] = useState('Equipment')
-
-  useEffect(() => {
-    setActiveTab('Equipment')
-  }, [selected.id])
+  const [activeTab, setActiveTab] = useState(TABS[0])
 
   return (
-<div className="cp-wrapper">
-
-      {classesData.map((cls) => (
-        <div
+    <div className="cp-wrapper">
+      {/* Háttérképek rétegei (zökkenőmentes áttűnéssel) */}
+      {classesData.map(cls => (
+        <div 
           key={`bg-${cls.id}`}
           className={`cp-bg-layer ${selected.id === cls.id ? 'active' : ''}`}
           style={{ backgroundImage: `url(${cls.bgImg})` }}
         />
       ))}
-
       <div className="cp-bg-overlay" />
 
-      <div className="cp-main" key={selected.id}>
+      {/* FŐ ELRENDEZÉS: Nincs rajta változó key, így maga a struktúra és a bal oldal fix marad! */}
+      <div className="cp-main-layout">
         
-        {/* BAL OLDAL - Szöveg és Tabok */}
-        <div className="cp-left">
-          <span 
-            className="cp-type-badge" 
-            style={{ 
-              color: typeColor[selected.type], 
-              borderColor: typeColor[selected.type],
-              backgroundColor: `${typeColor[selected.type]}15`
-            }}
-          >
-            {selected.type}
-          </span>
-          <h1 className="cp-main-title">{selected.name}</h1>
+        {/* 1. BAL OLDAL: KARAKTERVÁLASZTÓ (Fixen a helyén marad, sosem animálódik be újra) */}
+        <div className="cp-left-selection">
+          <p className="cp-selection-label">Select Character</p>
+          <div className="cp-grid-selection">
+            {classesData.map(cls => (
+              <div 
+                key={cls.id}
+                className={`cp-grid-card ${selected.id === cls.id ? 'active' : ''}`}
+                onClick={() => setSelected(cls)}
+                style={{ '--cls-color': cls.color }}
+              >
+                <img src={cls.img} alt={cls.name} className="cp-grid-avatar" />
+                <div className="cp-grid-card-border" />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* 2. KÖZÉP: A HŐS KÉPE (Egyedi key miatt karakterváltáskor ez újraanimálódik!) */}
+        <div className="cp-center-hero" key={`hero-container-${selected.id}`}>
+          <img 
+            src={selected.img} 
+            alt={selected.name} 
+            className="cp-large-img" 
+          />
+          <div className="cp-hero-shadow" style={{ '--cls-color': selected.color }} />
+        </div>
+
+        {/* 3. JOBB OLDAL: INFÓK ÉS LEÍRÁS (Ez is megkapja az animációt váltáskor a key miatt) */}
+        <div className="cp-right-info" key={`info-container-${selected.id}`}>
+          <div className="cp-info-header">
+            <span 
+              className="cp-type-badge" 
+              style={{ 
+                color: typeColor[selected.type], 
+                borderColor: typeColor[selected.type],
+                backgroundColor: `${typeColor[selected.type]}15`
+              }}
+            >
+              {selected.type}
+            </span>
+            <h1 className="cp-main-title">{selected.name}</h1>
+          </div>
           
           <div className="cp-tabs">
             {TABS.map((tab) => (
@@ -471,39 +499,23 @@ export default function ClassesPage() {
                 key={tab}
                 className={`cp-tab-btn ${activeTab === tab ? 'cp-tab-btn--active' : ''}`}
                 style={{ '--class-color': selected.color }}
-                onClick={() => setActiveTab(tab)}
+                onClick={(e) => {
+                  e.stopPropagation(); // Meggátolja a buborékolást
+                  setActiveTab(tab);
+                }}
               >
                 {tab}
               </button>
             ))}
           </div>
 
-          <div className="cp-tab-wrap">
+          {/* Tab tartalom doboz extra kulccsal a fülek közötti úszáshoz */}
+          <div className="cp-tab-wrap" key={`tab-content-${selected.id}-${activeTab}`}>
             <TabContent cls={selected} tab={activeTab} />
           </div>
         </div>
 
-        <div className="cp-right">
-          <img src={selected.img} alt={selected.name} className="cp-large-img" />
-        </div>
       </div>
-
-      <div className="cp-ribbon-container">
-        <div className="cp-ribbon">
-          {classesData.map(cls => (
-            <div 
-              key={cls.id}
-              className={`cp-ribbon-card ${selected.id === cls.id ? 'active' : ''}`}
-              onClick={() => setSelected(cls)}
-              style={{ '--cls-color': cls.color }}
-            >
-              <img src={cls.img} alt={cls.name} />
-              <span className="cp-ribbon-name">{cls.name}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
     </div>
   )
 }
