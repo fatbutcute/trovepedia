@@ -55,7 +55,7 @@
   height: auto;
   opacity: 0; 
   animation: navFadeInLeft 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  animation-delay: 3s;
+  animation-delay: 2s;
 }
 
 @keyframes navFadeInLeft {
@@ -240,15 +240,15 @@
 
 .rot-credits {
   position: fixed;
-  top: 150px;              /* Teljesen fent az oldal tetején */
-  left: 100px;             /* Teljesen a bal szélén */
+  top: 120px;
+  left: 100px;
   z-index: 2000;
   margin-top: 0;
   padding: 16px 20px;
   display: flex;
-  flex-direction: row; /* Egymás mellé rakja a szövegdobozt és a StaffCard-ot */
-  align-items: center; /* Függőlegesen hajszálpontosan egy vonal középpontjára hozza őket */
-  gap: 30px;           /* Távolság a szöveg és a kártya között */
+  flex-direction: row;
+  align-items: center;
+  gap: 30px;
   opacity: 0; 
   animation: creditsFadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   animation-delay: 2s;
@@ -265,7 +265,7 @@
 .rot-credits [class*="StaffCard"],
 .rot-credits .staff-card-content {
   display: flex !important;
-  align-items: center !important; /* A belső nevet és az avatart is egy vízszintes vonalba rendezi */
+  align-items: center !important;
   margin: 0 !important;
   padding: 0;
 }
@@ -726,3 +726,311 @@ font-family: 'Blinker', monospace;
 
 .rot-bg-orb--a { width: 500px; height: 500px; background: var(--rot-cyan); top: -100px; right: -100px; }
 .rot-bg-orb--b { width: 600px; height: 600px; background: #6366f1; bottom: -200px; left: -200px; opacity: 0.2; }
+
+/* ── TRIALS DASHBOARD STYLES ── */
+.trials-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.trials-toggle {
+  position: relative;
+  display: flex;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 4px; 
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  align-items: center;
+  justify-content: flex-start; 
+  width: 408px;
+}
+
+.toggle-active-bg {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 200px;
+  height: calc(100% - 8px);
+  background: #b7003d;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(183, 0, 61, 0.35);
+  pointer-events: none;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.trials-toggle button {
+  position: relative;
+  z-index: 2;
+  background: transparent !important;
+  border: none;
+  color: #94a3b8;
+  padding: 8px 0;
+  width: 200px;
+  text-align: center;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 400;
+  transition: color 0.3s ease;
+  font-size: 1rem;
+}
+
+.trials-toggle button:hover {
+  color: #fff;
+}
+
+.trials-toggle button.active {
+  color: white !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Calendar Grid */
+.trials-calendar-container {
+  background: rgba(12, 12, 30, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 24px;
+  backdrop-filter: blur(10px);
+}
+
+.calendar-controls {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.calendar-controls select {
+  background: rgba(0,0,0,0.3);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 8px 12px;
+  border-radius: 8px;
+  outline: none;
+  font-family: 'Outfit', sans-serif;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+
+.calendar-day-label {
+  text-align: center;
+  color: #64748b;
+  font-weight: 700;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  padding-bottom: 10px;
+}
+
+.calendar-day {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  min-height: 80px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.calendar-day.empty { background: transparent; border: none; }
+.calendar-day.today { border-color: #b7003d; background: rgba(183, 0, 61, 0.05); border-width: 2px; }
+.calendar-day.has-event { border-color: rgba(183, 0, 61, 0.4); }
+
+.day-number { font-weight: 400; color: #94a3b8; font-size: 1.2rem; font-family: 'Comfortaa', serif; }
+.calendar-day.today .day-number { color: #b7003d; }
+
+.day-interval {
+  background: rgba(183, 0, 61, 0.2);
+  color: #ff4d8d;
+  font-size: 1.05rem;
+  padding: 2px 4px;
+  border-radius: 4px;
+  text-align: center;
+  font-family: 'Quicksand', sans-serif;
+}
+
+/* Calculator */
+.venturine-calc-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  background: rgba(12, 12, 30, 0.6);
+  padding: 40px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-family: 'Comfortaa', sans-serif;
+  font-size: 1.2rem;
+}
+
+.input-group input.calc-input-field {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.4) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  padding: 14px 16px !important;
+  border-radius: 12px !important;
+  color: white !important;
+  font-size: 1.2rem !important;
+  font-family: 'Comfortaa', sans-serif !important;
+  outline: none !important;
+  transition:
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  transform: scale(1);
+  margin-bottom: 20px !important;
+}
+
+.calc-input-field:hover {
+  border-color: rgba(183, 0, 61, 0.5) !important;
+  background: rgba(183, 0, 61, 0.02) !important;
+}
+
+.calc-input-field:focus {
+  border-color: #b7003d !important;
+  background: rgba(183, 0, 61, 0.04) !important;
+  box-shadow:
+    0 0 15px rgba(183, 0, 61, 0.25),
+    inset 0 0 10px rgba(183, 0, 61, 0.1) !important;
+  transform: scale(1.02) !important;
+}
+
+/* ── JAVÍTVA: A gyári böngészős nyilak (spinners) teljes eltávolítása ── */
+/* Chrome, Safari, Edge, Opera */
+.calc-input-field::-webkit-outer-spin-button,
+.calc-input-field::-webkit-inner-spin-button {
+  -webkit-appearance: none !important;
+  margin: 0 !important;
+}
+
+/* Firefox */
+.calc-input-field[type=number] {
+  -moz-appearance: textfield !important;
+}
+
+.calc-result {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgba(183, 0, 61, 0.05);
+  border-radius: 15px;
+  border: 1px dashed rgba(183, 0, 61, 0.3);
+}
+
+.calc-result h3 { color: #94a3b8; font-size: 1.3rem; margin-bottom: 10px; }
+.result-value {
+  font-size: 4rem;
+  font-weight: 900;
+  color: #b7003d;
+  text-shadow: 0 0 20px rgba(183, 0, 61, 0.4);
+  font-family: 'Outfit', monospace;
+}
+
+.custom-dropdown-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 200px;
+}
+
+.dropdown-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: #64748b;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  margin-left: 4px;
+}
+
+.custom-dropdown {
+  position: relative;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  color: white;
+  font-family: 'Outfit', sans-serif;
+}
+
+.custom-dropdown:hover {
+  border-color: var(--nav-tab-color);
+  box-shadow: 0 0 15px var(--nav-tab-color-dim, rgba(183, 0, 61, 0.2));
+}
+
+.selected-value {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 500;
+}
+
+.arrow {
+  font-size: 0.8rem;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  color: var(--nav-tab-color);
+}
+
+.arrow.up { transform: rotate(180deg); }
+
+/* ── ANIMÁLT OPCIÓK LISTÁJA ── */
+.dropdown-options {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  width: 100%;
+  background: rgba(12, 12, 30, 0.95);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+  z-index: 100;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.dropdown-option {
+  padding: 12px 16px;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+}
+
+.dropdown-option:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--nav-tab-color);
+  padding-left: 20px; /* Kis "tolás" effekt hoverre */
+}
+
+.dropdown-option.active {
+  background: var(--nav-tab-color);
+  color: white;
+}
+
+/* ── BECSÚSZÓ ANIMÁCIÓ ── */
+.fade-in-down {
+  animation: dropdownSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes dropdownSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
