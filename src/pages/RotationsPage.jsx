@@ -493,8 +493,8 @@ function D15Rotations() {
       <header className="rot-hero">
                     <div className="rot-credits">
             <div className="rot-credits-titles">
-                <span className="rot-d15"><span className="d15"></span> Rotation Systems by</span>
-              <span className="rot-credits-text">D15 Rotation System built by</span>
+                <span className="rot-d15">Rotation Systems by</span>
+              <span className="rot-credits-text">D15 Rotation Systems built by</span>
             </div>
             <StaffCard discordId="346016772664721418" name="NZ" role="Developer, Soruden" />
           </div>
