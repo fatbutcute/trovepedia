@@ -939,6 +939,7 @@ font-family: 'Blinker', monospace;
 
 /* Firefox */
 .calc-input-field[type=number] {
+  appearance: textfield !important;
   -moz-appearance: textfield !important;
 }
 
