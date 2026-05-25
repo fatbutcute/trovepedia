@@ -788,6 +788,28 @@ font-family: 'Blinker', monospace;
 }
 
 /* Calendar Grid */
+
+.trials-credits {
+  font-size: 0.9rem;
+  color: #899ab1;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  margin-left: 4px;
+  font-family: 'Comfortaa', sans-serif;
+}
+
+.trials-credit-names {
+  display: flex;
+  gap: 20px;
+  font-size: 1.5rem;
+  color: #99adc9;
+  font-family: 'Rajdhani', serif;
+  font-weight: 600;
+}
+
 .trials-calendar-container {
   background: rgba(12, 12, 30, 0.6);
   border: 1px solid rgba(255, 255, 255, 0.08);

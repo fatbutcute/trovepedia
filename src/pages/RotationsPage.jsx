@@ -253,7 +253,7 @@ function TrialsTracker() {
           <button className={view === 'calculator' ? 'active' : ''} onClick={() => setView('calculator')}>Venturine Calculator</button>
         </div>
       </div>
-
+      <p className="trials-credits">Original creators of the trials calendar: <span className="trials-credit-names">Ginnne, __reisalin__, MewsCat, とても残念だ</span></p>
       {view === 'calendar' ? (
         <div key="calendar-view" className="trials-calendar-container fade-in-up">
           <div className="calendar-controls">
