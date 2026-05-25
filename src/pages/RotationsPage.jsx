@@ -195,50 +195,62 @@ function TrialsTracker() {
       const geoDiffStr = (tzDate.getTime() - timestamp);
       return Math.round(geoDiffStr / (1000 * 60 * 60));
     } catch (e) {
-      // Fallback értékek ha a böngésző nem támogatná az Intl-t
       const standardOffsets = { 'cet': 1, 'est': -5, 'pst': -8 };
       return standardOffsets[tz] || 0;
     }
   };
 
-  const getIntervals = (day) => {
+const getIntervals = (day) => {
     const intervals = [];
     
-    // Létrehozzuk az adott nap alap dátumát (Helyi idő szerint 00:00)
+    // 1. Kiválasztott nap éjfél (Helyi idő szerint 00:00)
     const targetDate = new Date(selectedYear, selectedMonth, day);
     targetDate.setHours(0, 0, 0, 0);
     
-    // Megnézzük a célspecifikus időzóna eltolását erre a napra vonatkozóan
+    // 2. Aktuális időzóna eltolás lekérése
     const currentOffset = getTimezoneOffsetHours(timezone, targetDate.getTime());
     
-    // Kiszámítjuk a nap kezdetét és végét UTC-ben kifejezve
-    const startOfDayUTC = targetDate.getTime() - (currentOffset * 60 * 60 * 1000);
-    const endOfDayUTC = startOfDayUTC + (24 * 60 * 60 * 1000);
+    // 3. A nap kezdetének és végének meghatározása UTC ezredmásodpercben
+    const startOfDayMS = targetDate.getTime() - (currentOffset * 60 * 60 * 1000);
+    const endOfDayMS = startOfDayMS + (24 * 60 * 60 * 1000);
     
-    // Megkeressük a ciklusindex tartományát az adott napra vonatkozóan
-    const hoursSinceBase = (startOfDayUTC - baseTime.getTime()) / (1000 * 60 * 60);
-    let startCycleIndex = Math.floor(hoursSinceBase / cycleLength) - 1;
+    // 4. Cikluskeresési tartomány kiszélesítése (-2-től indulunk, hogy az előző napról átlógókat is elkapjuk)
+    const hoursSinceBase = (startOfDayMS - baseTime.getTime()) / (1000 * 60 * 60);
+    let startCycleIndex = Math.floor(hoursSinceBase / cycleLength) - 2;
 
-    for (let i = 0; i <= 3; i++) {
+    for (let i = 0; i <= 4; i++) {
       const currentCycle = startCycleIndex + i;
-      const startTimeUTC = baseTime.getTime() + currentCycle * cycleLength * 60 * 60 * 1000;
-      const endTimeUTC = startTimeUTC + (3 * 60 * 60 * 1000);
+      const startTimeMS = baseTime.getTime() + currentCycle * cycleLength * 60 * 60 * 1000;
+      const endTimeMS = startTimeMS + (3 * 60 * 60 * 1000);
       
-      // Ellenőrizzük, hogy az esemény beleesik-e a kiválasztott időzóna szerinti nap 24 órájába
-      if (endTimeUTC > startOfDayUTC && startTimeUTC < endOfDayUTC) {
+      // Ellenőrizzük, hogy az esemény bármilyen formában átfedésben van-e ezzel a naptári nappal
+      if (endTimeMS > startOfDayMS && startTimeMS < endOfDayMS) {
         
-        // Kiszámoljuk az órákat a választott időzóna eltolása alapján
-        const displayStartHour = (new Date(startTimeUTC + (currentOffset * 60 * 60 * 1000)).getUTCHours());
-        const displayEndHour = (new Date(endTimeUTC + (currentOffset * 60 * 60 * 1000)).getUTCHours());
+        // HOZZÁVÁGÁS (Clipping): Ha az esemény hamarabb kezdődött vagy tovább tart, lefejezzük a nap határánál
+        const clippedStartMS = Math.max(startTimeMS, startOfDayMS);
+        const clippedEndMS = Math.min(endTimeMS, endOfDayMS);
+        
+        // Órák kiszámítása az időzónának megfelelően
+        const displayStartHour = new Date(clippedStartMS + (currentOffset * 60 * 60 * 1000)).getUTCHours();
+        const displayEndHour = new Date(clippedEndMS + (currentOffset * 60 * 60 * 1000)).getUTCHours();
+        const displayEndMin = new Date(clippedEndMS + (currentOffset * 60 * 60 * 1000)).getUTCMinutes();
 
-        const formatStr = (h) => h.toString().padStart(2, '0') + ':00';
-        intervals.push(`${formatStr(displayStartHour)} - ${formatStr(displayEndHour)}`);
+        const startStr = displayStartHour.toString().padStart(2, '0') + ':00';
+        let endStr = displayEndHour.toString().padStart(2, '0') + ':00';
+        
+        // Prémium UI finomítás: Ha az esemény pont éjfélkor ér véget a nap határán, 00:00 helyett elegánsabb a 24:00 kiírás
+        if (displayEndHour === 0 && displayEndMin === 0 && clippedEndMS === endOfDayMS) {
+          endStr = '24:00';
+        }
+
+        intervals.push(`${startStr} - ${endStr}`);
       }
     }
     return intervals;
   };
 
   return (
+    
     <div className="rot-tab-content fade-in-up">
       <div className="trials-header">
         <h1 className="rot-title tracker-main-title tracker-title-trials">
@@ -444,6 +456,13 @@ function D15Rotations() {
   return (
     <div className="rot-tab-content fade-in-up">
       <header className="rot-hero">
+                    <div className="rot-credits">
+            <div className="rot-credits-titles">
+                <span className="rot-d15"><span className="d15">D15</span> Rotation System by</span>
+              <span className="rot-credits-text">D15 Rotation System built by</span>
+            </div>
+            <StaffCard discordId="346016772664721418" name="NZ" role="Developer, Soruden" />
+          </div>
         <div className="rot-hero-left">
           <h1 className="rot-title">
             <span className="rot-title-accent"> D15</span>
@@ -652,13 +671,6 @@ export default function RotationsPage() {
             {activeTab === 'fluxion' && <FluxionTracker name="Fluxion" anchorUTC={FLUXION_ANCHOR} accentColor="#fbff00" description="Fluxion visits the Hub to offer community-voted rewards in exchange for Flux." />}
             {activeTab === 'Trials' && <TrialsTracker name="Trials" anchorUTC={TRIALS_ANCHOR} accentColor="#b7003d" description="Track speed police schedule and calculate materials." />}
           </main>
-            <div className="rot-credits">
-            <div className="rot-credits-titles">
-                <span className="rot-d15"><span className="d15">D15</span> Rotation System by</span>
-              <span className="rot-credits-text">D15 Rotation System built by</span>
-            </div>
-            <StaffCard discordId="346016772664721418" name="NZ" role="Developer, Soruden" />
-          </div>
         </div>
       </div>
     </>

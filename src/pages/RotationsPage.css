@@ -240,8 +240,8 @@
 
 .rot-credits {
   position: fixed;
-  top: 120px;
-  left: 100px;
+  top: -100px;
+  left: 310px;
   z-index: 2000;
   margin-top: 0;
   padding: 16px 20px;
@@ -346,6 +346,7 @@
   align-items: center;
   margin-bottom: 50px;
   justify-content: center;
+  width: 100%;
 }
 
 .rot-title {
