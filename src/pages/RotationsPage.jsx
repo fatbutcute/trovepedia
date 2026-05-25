@@ -203,47 +203,38 @@ function TrialsTracker() {
 const getIntervals = (day) => {
     const intervals = [];
     
-    // 1. Kiválasztott nap éjfél (Helyi idő szerint 00:00)
+    // 1. Létrehozzuk a vizsgált napot (Helyi idő szerint 00:00)
     const targetDate = new Date(selectedYear, selectedMonth, day);
     targetDate.setHours(0, 0, 0, 0);
     
-    // 2. Aktuális időzóna eltolás lekérése
+    // 2. Lekérjük az időzóna eltolást erre a konkrét napra
     const currentOffset = getTimezoneOffsetHours(timezone, targetDate.getTime());
     
-    // 3. A nap kezdetének és végének meghatározása UTC ezredmásodpercben
-    const startOfDayMS = targetDate.getTime() - (currentOffset * 60 * 60 * 1000);
-    const endOfDayMS = startOfDayMS + (24 * 60 * 60 * 1000);
+    // 3. Kiszámoljuk a nap kezdetét és végét UTC-ben
+    const startOfDayUTC = targetDate.getTime() - (currentOffset * 60 * 60 * 1000);
+    const endOfDayUTC = startOfDayUTC + (24 * 60 * 60 * 1000);
     
-    // 4. Cikluskeresési tartomány kiszélesítése (-2-től indulunk, hogy az előző napról átlógókat is elkapjuk)
-    const hoursSinceBase = (startOfDayMS - baseTime.getTime()) / (1000 * 60 * 60);
-    let startCycleIndex = Math.floor(hoursSinceBase / cycleLength) - 2;
+    // 4. Beállítjuk a ciklus indexet a bázisidőhöz képest
+    const hoursSinceBase = (startOfDayUTC - baseTime.getTime()) / (1000 * 60 * 60);
+    let startCycleIndex = Math.floor(hoursSinceBase / cycleLength) - 1;
 
-    for (let i = 0; i <= 4; i++) {
+    for (let i = 0; i <= 3; i++) {
       const currentCycle = startCycleIndex + i;
-      const startTimeMS = baseTime.getTime() + currentCycle * cycleLength * 60 * 60 * 1000;
-      const endTimeMS = startTimeMS + (3 * 60 * 60 * 1000);
+      const startTimeUTC = baseTime.getTime() + currentCycle * cycleLength * 60 * 60 * 1000;
+      const endTimeUTC = startTimeUTC + (3 * 60 * 60 * 1000);
       
-      // Ellenőrizzük, hogy az esemény bármilyen formában átfedésben van-e ezzel a naptári nappal
-      if (endTimeMS > startOfDayMS && startTimeMS < endOfDayMS) {
+      // JAVÍTVA: Szigorúan csak akkor jelenítjük meg az eseményt az adott napnál, 
+      // ha az INDULÁSI IDŐPONTJA (startTimeUTC) a nap 24 órája közé esik!
+      if (startTimeUTC >= startOfDayUTC && startTimeUTC < endOfDayUTC) {
         
-        // HOZZÁVÁGÁS (Clipping): Ha az esemény hamarabb kezdődött vagy tovább tart, lefejezzük a nap határánál
-        const clippedStartMS = Math.max(startTimeMS, startOfDayMS);
-        const clippedEndMS = Math.min(endTimeMS, endOfDayMS);
-        
-        // Órák kiszámítása az időzónának megfelelően
-        const displayStartHour = new Date(clippedStartMS + (currentOffset * 60 * 60 * 1000)).getUTCHours();
-        const displayEndHour = new Date(clippedEndMS + (currentOffset * 60 * 60 * 1000)).getUTCHours();
-        const displayEndMin = new Date(clippedEndMS + (currentOffset * 60 * 60 * 1000)).getUTCMinutes();
+        // Kiszámítjuk a pontos kezdő és végórát a kiválasztott időzóna eltolása alapján
+        const displayStartHour = new Date(startTimeUTC + (currentOffset * 60 * 60 * 1000)).getUTCHours();
+        const displayEndHour = new Date(endTimeUTC + (currentOffset * 60 * 60 * 1000)).getUTCHours();
 
-        const startStr = displayStartHour.toString().padStart(2, '0') + ':00';
-        let endStr = displayEndHour.toString().padStart(2, '0') + ':00';
+        const formatStr = (h) => h.toString().padStart(2, '0') + ':00';
         
-        // Prémium UI finomítás: Ha az esemény pont éjfélkor ér véget a nap határán, 00:00 helyett elegánsabb a 24:00 kiírás
-        if (displayEndHour === 0 && displayEndMin === 0 && clippedEndMS === endOfDayMS) {
-          endStr = '24:00';
-        }
-
-        intervals.push(`${startStr} - ${endStr}`);
+        // Bedobjuk a teljes idősávot (pl. "22:00 - 01:00") arra a napra, ahol elindult
+        intervals.push(`${formatStr(displayStartHour)} - ${formatStr(displayEndHour)}`);
       }
     }
     return intervals;
