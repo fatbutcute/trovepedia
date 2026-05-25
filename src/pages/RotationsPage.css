@@ -893,7 +893,7 @@ font-family: 'Blinker', monospace;
   flex-direction: column;
   gap: 10px;
   font-family: 'Comfortaa', sans-serif;
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 
 .input-group input.calc-input-field {
