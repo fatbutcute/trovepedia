@@ -9,8 +9,8 @@ import Home            from './pages/Home'
 import GuidesPage      from './pages/GuidesPage'
 import PlaceholderPage from './pages/PlaceholderPage'
 import RotationsPage   from './pages/RotationsPage'
-import DelvePage       from './pages/DelvePage' //
-import ClassesPage     from './pages/ClassesPage' //
+import DelvePage       from './pages/DelvePage'
+import ClassesPage     from './pages/ClassesPage'
 
 export default function App() {
   return (
