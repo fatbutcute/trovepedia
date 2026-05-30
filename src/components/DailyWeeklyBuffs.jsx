@@ -95,7 +95,7 @@ export default function DailyWeeklyBuffs() {
           
           {/* Patron Switcher */}
           <div className="buff-patron-toggle">
-            <span className="buff-patron-text" style={{ color: isPatron ? '#facc15' : '#64748b' }}>
+            <span className="buff-patron-text" style={{ color: isPatron ? '#fbff00' : '#64748b' }}>
               {isPatron ? 'PATRON' : 'NORMAL'}
             </span>
             <label className="buff-switch-label">
@@ -105,10 +105,16 @@ export default function DailyWeeklyBuffs() {
           </div>
         </div>
         
-        <div className="neon-buff-body">
-          <p>{isPatron ? patronDesc[currentBonusDay] : dailyDesc[currentBonusDay]}</p>
+            <div className="neon-buff-body">
+            <p style={{ 
+                // Itt a logika: ha isPatron igaz, akkor a szín #facc15 (sárga), különben marad a default kék/fehér
+                color: isPatron ? '#fbff00' : '#dceaff',
+                transition: 'color 0.3s ease' // Ez teszi lágyabbá a színváltást
+            }}>
+                {isPatron ? patronDesc[currentBonusDay] : dailyDesc[currentBonusDay]}
+            </p>
+            </div>
         </div>
-      </div>
 
       {/* 3. WEEKLY EVENT CARD */}
       <div className="neon-buff-card" style={{ '--buff-glow-color': weeklyData.bonus.glow }}>
