@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Dashboard.css';
+import DailyWeeklyBuffs from './DailyWeeklyBuffs';
 
 export default function Dashboard() {
   const [now, setNow] = useState(new Date());
@@ -91,8 +92,10 @@ export default function Dashboard() {
             </div>
           </div>
         </div>
-
       </div>
+      <DailyWeeklyBuffs />
+      
     </section>
+    
   );
 }

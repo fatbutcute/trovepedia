@@ -1,0 +1,206 @@
+/* Három-oszlopos rács, ami pontosan igazodik a felette lévő Dashboard kártyákhoz */
+.buffs-grid-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  width: 900px;
+  margin-top: 100px; /* Távolság a felső Dashboard blokktól */
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+}
+
+/* Első oszlop üresen hagyása */
+.buffs-spacer {
+  pointer-events: none;
+}
+
+/* Szuper modern Glassmorphism Neon Kártya stílus */
+.neon-buff-card {
+  background: rgba(12, 12, 30, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 20px;
+  padding: 24px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  min-height: 250px;
+  will-change: transform; 
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+
+.date-row {
+  display: inline-flex;
+  align-items: center; /* Ez fogja függőlegesen tökéletesen egyvonalba hozni őket */
+  gap: 8px; /* Az ikon és a szöveg közötti távolság */
+}
+
+/* Az ikon stílusa */
+.ri-calendar-event-line {
+  font-size: 1.2rem;
+  color: var(--buff-glow-color);
+  text-shadow: 0 0 10px var(--buff-glow-color);
+  display: flex; /* Flex, hogy az ikon is megfelelően pozicionálható legyen */
+  align-items: center;
+}
+
+/* A szöveg stílusa */
+.date-row span {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #64748b;
+  font-family: 'Comfortaa', monospace;
+}
+
+/* Dinamikus neon szegély-fény */
+.neon-buff-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  padding: 1.5px;
+  background: linear-gradient(135deg, var(--buff-glow-color), transparent 60%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+/* Háttér hangulatfény a kártya sarkában */
+.neon-card-internal-glow {
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 150px;
+  height: 150px;
+  background: var(--buff-glow-color);
+  filter: blur(65px);
+  opacity: 0.18;
+  pointer-events: none;
+  border-radius: 50%;
+}
+
+/* Hover effekt: finom felemelkedés és felizzás */
+.neon-buff-card:hover {
+  transform: scale(1.02);
+  -webkit-font-smoothing: antialiased;
+}
+
+.neon-buff-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding-bottom: 14px;
+  margin-bottom: 16px;
+}
+
+.neon-buff-subtitle {
+  display: block;
+  color: var(--buff-glow-color);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 3px;
+  font-family: 'Blinker', sans-serif;}
+
+.neon-buff-main-title {
+  font-family: 'Comfortaa', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  text-shadow: 0 0 15px var(--buff-glow-color);
+  margin: 0;
+}
+
+.neon-buff-body p {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1rem;
+  color: #dceaff;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.neon-buff-date {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 18px;
+  color: #64748b;
+  font-family: 'Comfortaa', monospace;
+  font-size: 1rem;
+  background: rgba(0, 0, 0, 0.25);
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  font-weight: 600;
+}
+
+/* ── PRÉMIUM PATRON SWITCH DIZÁJN ── */
+.buff-patron-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.buff-patron-text {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  transition: color 0.5s ease;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.buff-switch-label {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 22px;
+}
+
+.buff-switch-label input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.buff-switch-slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 22px;
+  transition: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.buff-switch-slider:before {
+  position: absolute;
+  content: "";
+  height: 14px;
+  width: 14px;
+  left: 3px;
+  bottom: 3px;
+  background-color: #94a3b8;
+  border-radius: 50%;
+  transition: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.buff-switch-label input:checked + .buff-switch-slider {
+  background-color: rgba(250, 204, 21, 0.15);
+  border-color: rgba(250, 204, 21, 0.4);
+}
+
+.buff-switch-label input:checked + .buff-switch-slider:before {
+  transform: translateX(22px);
+  background-color: #facc15;
+  box-shadow: 0 0 10px #facc15;
+}

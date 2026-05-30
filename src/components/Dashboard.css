@@ -2,7 +2,8 @@
 
 .status-outer-wrapper {
     width: 100%;
-    display: flex;
+    flex-direction: column !important; /* Ez kényszeríti a belső elemeket, hogy egymás ALÁ tagozódjanak */
+    gap: 24px !important; /* Távolság a fenti timerek és az alsó bónuszrács között */
     justify-content: center;
     align-items: center;
     margin: auto; 
@@ -111,6 +112,139 @@
     background: var(--yellow); 
     box-shadow: 0 0 12px var(--yellow); 
 }
+
+/* VISSZAÁLLÍTVA: A felső sor marad az eredeti flex elrendezésben, ahogy kérted */
+.status-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.timer-card {
+  flex: 1; /* Biztosítja, hogy a 3 felső kártya teljesen egyforma széles legyen */
+}
+
+/* ── ÚJ: Az alsó sor rácsszerkezete ── */
+.buffs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr; /* Hajszálpontosan 3 oszlopra osztja az alsó sort is, mint fent */
+  gap: 24px; /* Pontosan megegyezik a felső status-container gap méretével */
+  margin-top: 24px; /* Távolság a felső timerek ALATT */
+  width: 100%;
+}
+
+/* Az üres helykitöltő az első oszlopban, hogy eltolja a bónuszokat a 2. és 3. oszlopba */
+.grid-spacer {
+  pointer-events: none;
+}
+
+/* A bónuszkártyák prémium üveghatású és neon dizájnja */
+.buff-card {
+  background: rgba(12, 12, 30, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 24px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  width: 100%;
+}
+
+/* Neon izzás a széleken */
+.buff-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  padding: 1.5px;
+  background: linear-gradient(135deg, var(--neon-color), transparent 60%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.buff-card-glow {
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 160px;
+  height: 160px;
+  background: var(--neon-color);
+  filter: blur(70px);
+  opacity: 0.2;
+  pointer-events: none;
+  border-radius: 50%;
+}
+
+.buff-card:hover {
+  box-shadow: 0 15px 40px rgba(0,0,0,0.4), 0 0 25px var(--neon-color);
+  transform: translateY(-4px);
+}
+
+.buff-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  padding-bottom: 12px;
+}
+
+.buff-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 0 15px var(--neon-color);
+  margin: 0;
+}
+
+.buff-subtitle {
+  color: var(--neon-color);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.buff-desc {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.05rem;
+  color: #dceaff;
+  line-height: 1.5;
+}
+
+.weekly-date-range {
+  margin-top: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #64748b;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.85rem;
+  background: rgba(0,0,0,0.2);
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.03);
+}
+
+/* --- PATRON SWITCH (Marad az elegáns dizájn) --- */
+.patron-toggle-container { display: flex; align-items: center; gap: 10px; }
+.patron-label { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; }
+.patron-switch { position: relative; display: inline-block; width: 48px; height: 24px; }
+.patron-switch input { opacity: 0; width: 0; height: 0; }
+.patron-slider { position: absolute; cursor: pointer; inset: 0; background-color: rgba(255,255,255,0.05); transition: 0.4s; border-radius: 24px; border: 1px solid rgba(255,255,255,0.1); }
+.patron-slider:before { position: absolute; content: ""; height: 16px; width: 16px; left: 3px; bottom: 3px; background-color: #94a3b8; transition: 0.4s; border-radius: 50%; }
+.patron-switch input:checked + .patron-slider { background-color: rgba(250, 204, 21, 0.2); border-color: rgba(250, 204, 21, 0.4); }
+.patron-switch input:checked + .patron-slider:before { transform: translateX(24px); background-color: #facc15; box-shadow: 0 0 10px #facc15; }
 
 @media (max-width: 768px) {
     .status-container { 
