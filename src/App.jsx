@@ -11,6 +11,7 @@ import PlaceholderPage from './pages/PlaceholderPage'
 import RotationsPage   from './pages/RotationsPage'
 import DelvePage       from './pages/DelvePage'
 import ClassesPage     from './pages/ClassesPage'
+import StarChart   from './components/StarChart'
 
 export default function App() {
   return (
@@ -41,7 +42,8 @@ export default function App() {
           <Route path="/rotations" element={<RotationsPage />} />
 
           <Route path="/archive" element={<TroveArchive />} />
-          
+
+          <Route path="/starchart" element={<StarChart />} />
           <Route
             path="/fishing"
             element={
