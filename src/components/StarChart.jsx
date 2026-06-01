@@ -367,7 +367,7 @@ function DescPanel({ open, onToggle }) {
             </div>
             <div className="sc-desc-lore-item">
               <span className="sc-desc-lore-title" style={{ color: GOLD }}>Celestial Sphere</span>
-              <span className="sc-desc-lore-text">Unlocks one specific node. Only 40 Spheres available for 120 slots — plan carefully.</span>
+              <span className="sc-desc-lore-text">Unlocks one specific node. Only 40 Spheres available for 120 slots — plan carefully in the game.</span>
             </div>
             <div className="sc-desc-lore-item">
               <span className="sc-desc-lore-title" style={{ color: GOLD }}>Astral Echoes</span>
