@@ -160,44 +160,123 @@ function mix(a, b, w = 0.5) {
 /* ═══════════════════════════════════════════════════════════════════
    PARTICLE BACKGROUND HOOK
    ═══════════════════════════════════════════════════════════════════ */
-const PC = ["rgba(45,10,80,", "rgba(60,20,100,", "rgba(28,6,58,", "rgba(72,45,110,", "rgba(6,44,40,"];
+const PC = [
+  "rgba(45,10,80,",
+  "rgba(60,20,100,",
+  "rgba(28,6,58,",
+  "rgba(72,45,110,",
+  "rgba(6,44,40,"
+];
+
 function useParticles(ref) {
   useEffect(() => {
-    const cv = ref.current; if (!cv) return;
-    const ctx = cv.getContext("2d");
-    let raf, W, H, mx = 0, my = 0, pts = [];
+    const cv = ref.current;
+    if (!cv) return;
 
-    const resize = () => { W = cv.width = window.innerWidth; H = cv.height = window.innerHeight; };
-    resize(); window.addEventListener("resize", resize);
+    const ctx = cv.getContext("2d");
+    let raf,
+      W,
+      H,
+      mx = 0,
+      my = 0,
+      pts = [];
+
+    const resize = () => {
+      W = cv.width = window.innerWidth;
+      H = cv.height = window.innerHeight;
+    };
+
+    resize();
+    window.addEventListener("resize", resize);
 
     function Pt() {
       this.reset = () => {
-        this.x = Math.random() * W; this.y = Math.random() * H; this.r = Math.random() * 1.7 + 0.4;
-        this.al = Math.random() * 0.44 + 0.07; this.vx = (Math.random() - 0.5) * 0.3; this.vy = -Math.random() * 0.37 - 0.12;
-        this.life = 0; this.max = Math.random() * 220 + 110; this.col = PC[Math.floor(Math.random() * PC.length)];
+        this.x = Math.random() * W;
+        this.y = Math.random() * H;
+
+        // Nagyobb particle méret
+        this.r = Math.random() * 1 + 1.5;
+
+        // Magasabb opacity
+        this.al = Math.random() * 0.5 + 0.3;
+
+        this.vx = (Math.random() - 0.05) * 0.13;
+        this.vy = -Math.random() * 0.15 - 0.12;
+
+        this.life = 0;
+        this.max = Math.random() * 220 + 110;
+
+        this.col = PC[Math.floor(Math.random() * PC.length)];
+
         this.glow = Math.random() > 0.87;
       };
-      this.reset(); this.y = Math.random() * H;
+
+      this.reset();
+      this.y = Math.random() * H;
     }
-    for (let i = 0; i < 80; i++) pts.push(new Pt());
-    const mm = e => { mx = e.clientX; my = e.clientY; }; window.addEventListener("mousemove", mm);
+
+    // Több particle
+    for (let i = 0; i < 250; i++) {
+      pts.push(new Pt());
+    }
+
+    const mm = (e) => {
+      mx = e.clientX;
+      my = e.clientY;
+    };
+
+    window.addEventListener("mousemove", mm);
 
     function draw() {
       ctx.clearRect(0, 0, W, H);
+
       for (const p of pts) {
-        p.life++; p.x += p.vx; p.y += p.vy;
-        const dx = mx - p.x, dy = my - p.y;
-        if (dx * dx + dy * dy < 22500) { p.vx += dx * 0.000042; p.vy += dy * 0.000042; }
+        p.life++;
+        p.x += p.vx;
+        p.y += p.vy;
+
+        const dx = mx - p.x;
+        const dy = my - p.y;
+
+        if (dx * dx + dy * dy < 22500) {
+          p.vx += dx * 0.000042;
+          p.vy += dy * 0.000042;
+        }
+
         const a = p.al * Math.sin((p.life / p.max) * Math.PI);
-        if (p.glow) { ctx.shadowBlur = 11; ctx.shadowColor = p.col + "0.62)"; }
-        ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fillStyle = p.col + a + ")"; ctx.fill();
+
+        if (p.glow) {
+          ctx.shadowBlur = 11;
+          ctx.shadowColor = p.col + "0.62)";
+        }
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = p.col + a + ")";
+        ctx.fill();
+
         ctx.shadowBlur = 0;
-        if (p.life >= p.max || p.y < -10 || p.x < -10 || p.x > W + 10) p.reset();
+
+        if (
+          p.life >= p.max ||
+          p.y < -10 ||
+          p.x < -10 ||
+          p.x > W + 10
+        ) {
+          p.reset();
+        }
       }
+
       raf = requestAnimationFrame(draw);
     }
+
     draw();
-    return () => { cancelAnimationFrame(raf); window.removeEventListener("resize", resize); window.removeEventListener("mousemove", mm); };
+
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("resize", resize);
+      window.removeEventListener("mousemove", mm);
+    };
   }, []);
 }
 
