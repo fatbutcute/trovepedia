@@ -23,6 +23,10 @@ Jelenleg még fejlesztés alatt van, hiszen ez a legnagyobb projektem eddig, rá
 
 **Delve Index**: Ez felel a játékban található, Depths nevű biome-ban található szobák kilistázására, ami egy json-t használ az adatok lekérésére.
 
+**Archive**: Ez egy előre megírt JSON fáljból tölti be a játékban megtalálható, néhány alapanyagot, amelyekhez hover esetén találunk egy kisebb leírást.
+
+**Star Chart**: Egy szimulációs oldal, amelyben a játékos szabadon próbálhat ki fejlesztési útvonalakat, anélkül, hogy azt a játékban kellene megtennie. Ezzel előre megtudja nézni, hogy mi a legoptimálisabb fejlesztési útvonal.
+
 ## Főbb Funkciók
 
 *   **Továbbfejlesztett Főoldal:** Letisztult, szekciókra bontott kezdőlap egyedi kártyás navigációval (Features) és beépített scroll-reveal animációkkal.
