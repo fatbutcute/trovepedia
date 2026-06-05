@@ -13,7 +13,7 @@ import "./StarChart.css";
    ═══════════════════════════════════════════════════════════════════ */
 const CX = 500, CY = 500; // Center coordinate
 const MAX_NODES = 40;
-const VB0 = { x: -10, y: -15, w: 1020, h: 820 };
+const VB0 = { x: -300, y: 0, w: 1580, h: 1150 };
 const ASPECT = VB0.w / VB0.h;
 const MIN_W = 260, MAX_W = 1700;
 const GOLD = "#d8ab45";
@@ -460,15 +460,51 @@ function DescPanel({ open, onToggle }) {
   );
 }
 
-function SummaryPanel({ count, stats, abilities, obtainables, onClear, sections, onToggleSection }) {
+function SummaryPanel({ count, stats, abilities, obtainables, onClear, sections, onToggleSection, sel, onLoadCode }) {
   const pct = Math.round((count / MAX_NODES) * 100);
   const full = count >= MAX_NODES;
+  const [copyText, setCopyText] = useState("Copy Build Code");
+  const [codeIn, setCodeIn] = useState("");
+
+  const handleCopy = () => {
+    if (sel.size === 0) return;
+    // Base64 alapú kód generálása a kiválasztott elemekből
+    const code = 'SC:' + btoa(unescape(encodeURIComponent(JSON.stringify([...sel].sort()))));
+    navigator.clipboard.writeText(code).catch(() => {});
+    setCopyText("✓ Copied");
+    setTimeout(() => setCopyText("Copy Build Code"), 1600);
+  };
+
+  const handleLoad = () => {
+    if (!codeIn.trim()) return;
+    onLoadCode(codeIn.trim());
+    setCodeIn("");
+  };
+
   return (
     <aside className="sc-summary">
       <div className="sc-sum-header">
         <span className="sc-sum-title">Build Summary</span>
         <button className="sc-clear-btn" onClick={onClear} disabled={count === 0}>Clear All</button>
       </div>
+
+      {/* --- BUILD IMPORT / EXPORT SZERKESZTŐ --- */}
+      <div className="sc-code-box">
+        <div className="sc-code-header">Each time you do a custom build path, your build code will be automatically generated which can be sent to other players. Whenever you or other players wants to use your build, they can paste the code here.</div>
+        <div className="sc-code-actions">
+          <input 
+            type="text" 
+            className="sc-code-input" 
+            placeholder="Paste build code here..." 
+            value={codeIn}
+            onChange={(e) => setCodeIn(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && handleLoad()}
+          />
+          <button className="sc-code-btn" onClick={handleLoad}>Load</button>
+        </div>
+        <button className="sc-code-copy-btn" onClick={handleCopy} disabled={count === 0}>{copyText}</button>
+      </div>
+
       <div className="sc-counter">
         <div className="sc-counter-label"><span>{count} <span style={{ opacity: 0.55 }}>/ {MAX_NODES}</span> Nodes</span>{full && <span className="sc-counter-full">Full</span>}</div>
         <div className="sc-counter-track"><div className="sc-counter-fill" style={{ width: `${pct}%`, background: full ? "#E64A19" : GOLD }} /></div>
@@ -498,7 +534,27 @@ function SumSection({ icon, label, open, onToggle, children }) {
 /* ═══════════════════════════════════════════════════════════════════
    MAIN EXPORT COMPONENT
    ═══════════════════════════════════════════════════════════════════ */
+
+
 export default function StarChart() {
+const RECOMMENDED_BUILDS = [
+  {
+    label: "Physical Damage / Light",
+    code: "SC:WyJjb21iYXQuYSIsImNvbWJhdC5hLjEiLCJjb21iYXQuYS4xLmEiLCJjb21iYXQuYS4xLmEuMCIsImNvbWJhdC5hLjEuYS4wLmIiLCJjb21iYXQuYS4xLmEuMC5iLjEiLCJjb21iYXQuYS4xLmEuMC5iLjEuYiIsImdhdGhlcmluZy5iIiwiZ2F0aGVyaW5nLmIuMCIsImdhdGhlcmluZy5iLjAuYiIsImdhdGhlcmluZy5iLjAuYi4wIiwiZ2F0aGVyaW5nLmIuMC5iLjAuYSIsImdhdGhlcmluZy5iLjAuYi4wLmIiLCJnYXRoZXJpbmcuYi4wLmIuMC5iLjAiLCJnYXRoZXJpbmcuYi4wLmIuMC5iLjAuYiIsImdhdGhlcmluZy5iLjAuYi4wLmIuMC5iLjAiLCJnYXRoZXJpbmcuYi4wLmIuMC5iLjAuYi4wLmEiLCJnYXRoZXJpbmcuYi4wLmIuMC5iLjAuYi4wLmIiLCJnYXRoZXJpbmcuYi4wLmIuMC5jIiwicHZlLmEiLCJwdmUuYS4wIiwicHZlLmEuMC5iIiwicHZlLmEuMC5iLjAiLCJwdmUuYiIsInB2ZS5iLjAiLCJwdmUuYi4wLmEiLCJwdmUuYi4wLmEuMCIsInB2ZS5iLjAuYS4wLmEiLCJwdmUuYi4wLmEuMC5hLjAiLCJwdmUuYi4wLmEuMSIsInB2ZS5iLjAuYS4xLmEiLCJwdmUuYi4wLmEuMS5hLjAiLCJwdmUuYi4wLmEuMS5hLjEiLCJwdmUuYi4wLmIiLCJwdmUuYi4wLmIuMCIsInB2ZS5iLjAuYi4wLmEiLCJwdmUuYi4wLmIuMC5hLjAiLCJwdmUuYi4wLmIuMSIsInB2ZS5iLjAuYi4xLmEiLCJwdmUuYi4wLmIuMS5hLjEiXQ=="
+  },
+  {
+    label: "Magic Damage / Light",
+    code: "SC:WyJjb21iYXQuYiIsImNvbWJhdC5iLjAiLCJjb21iYXQuYi4wLmEiLCJjb21iYXQuYi4wLmEuMSIsImNvbWJhdC5iLjAuYS4xLmIiLCJjb21iYXQuYi4wLmEuMS5iLjEiLCJjb21iYXQuYi4wLmEuMS5iLjEuYiIsImNvbWJhdC5iLjAuYS4xLmIuMS5iLjEiLCJnYXRoZXJpbmcuYiIsImdhdGhlcmluZy5iLjAiLCJnYXRoZXJpbmcuYi4wLmIiLCJnYXRoZXJpbmcuYi4wLmIuMCIsImdhdGhlcmluZy5iLjAuYi4wLmEiLCJnYXRoZXJpbmcuYi4wLmIuMC5iIiwiZ2F0aGVyaW5nLmIuMC5iLjAuYi4wIiwiZ2F0aGVyaW5nLmIuMC5iLjAuYi4wLmIiLCJnYXRoZXJpbmcuYi4wLmIuMC5iLjAuYi4wIiwiZ2F0aGVyaW5nLmIuMC5iLjAuYi4wLmIuMC5hIiwicHZlLmEiLCJwdmUuYS4wIiwicHZlLmEuMC5hIiwicHZlLmEuMC5iIiwicHZlLmEuMC5iLjAiLCJwdmUuYiIsInB2ZS5iLjAiLCJwdmUuYi4wLmEiLCJwdmUuYi4wLmEuMCIsInB2ZS5iLjAuYS4wLmEiLCJwdmUuYi4wLmEuMC5hLjAiLCJwdmUuYi4wLmEuMSIsInB2ZS5iLjAuYS4xLmEiLCJwdmUuYi4wLmEuMS5hLjAiLCJwdmUuYi4wLmEuMS5hLjEiLCJwdmUuYi4wLmIiLCJwdmUuYi4wLmIuMCIsInB2ZS5iLjAuYi4wLmEiLCJwdmUuYi4wLmIuMC5hLjAiLCJwdmUuYi4wLmIuMSIsInB2ZS5iLjAuYi4xLmEiLCJwdmUuYi4wLmIuMS5hLjEiXQ=="
+  },
+  {
+    label: "Magic Damage / Movement Speed / Light",
+    code: "SC:WyJjb21iYXQuYiIsImNvbWJhdC5iLjAiLCJjb21iYXQuYi4wLmEiLCJjb21iYXQuYi4wLmEuMSIsImNvbWJhdC5iLjAuYS4xLmIiLCJjb21iYXQuYi4wLmEuMS5iLjAiLCJjb21iYXQuYi4wLmEuMS5iLjAuYSIsImNvbWJhdC5iLjAuYS4xLmIuMSIsImNvbWJhdC5iLjAuYS4xLmIuMS5iIiwiY29tYmF0LmIuMC5hLjEuYi4xLmIuMSIsImdhdGhlcmluZy5iIiwiZ2F0aGVyaW5nLmIuMCIsImdhdGhlcmluZy5iLjAuYiIsImdhdGhlcmluZy5iLjAuYi4wIiwiZ2F0aGVyaW5nLmIuMC5iLjAuYSIsImdhdGhlcmluZy5iLjAuYi4wLmIiLCJnYXRoZXJpbmcuYi4wLmIuMC5iLjAiLCJnYXRoZXJpbmcuYi4wLmIuMC5iLjAuYiIsImdhdGhlcmluZy5iLjAuYi4wLmIuMC5iLjAiLCJnYXRoZXJpbmcuYi4wLmIuMC5iLjAuYi4wLmEiLCJwdmUuYSIsInB2ZS5hLjAiLCJwdmUuYS4wLmEiLCJwdmUuYS4wLmEuMSIsInB2ZS5hLjAuYS4xLmEiLCJwdmUuYS4wLmEuMS5hLjAiLCJwdmUuYS4wLmEuMS5hLjAuYSIsInB2ZS5iIiwicHZlLmIuMCIsInB2ZS5iLjAuYSIsInB2ZS5iLjAuYS4xIiwicHZlLmIuMC5hLjEuYSIsInB2ZS5iLjAuYS4xLmEuMSIsInB2ZS5iLjAuYiIsInB2ZS5iLjAuYi4wIiwicHZlLmIuMC5iLjAuYSIsInB2ZS5iLjAuYi4wLmEuMCIsInB2ZS5iLjAuYi4xIiwicHZlLmIuMC5iLjEuYSIsInB2ZS5iLjAuYi4xLmEuMSJd"
+  },
+  {
+    label: "Physical Damage / Movement Speed / Light",
+    code: "SC:WyJjb21iYXQuYSIsImNvbWJhdC5hLjEiLCJjb21iYXQuYS4xLmEiLCJjb21iYXQuYS4xLmEuMCIsImNvbWJhdC5hLjEuYS4wLmIiLCJjb21iYXQuYS4xLmEuMC5iLjEiLCJjb21iYXQuYS4xLmEuMC5iLjEuYiIsImNvbWJhdC5iIiwiY29tYmF0LmIuMCIsImNvbWJhdC5iLjAuYSIsImNvbWJhdC5iLjAuYS4xIiwiY29tYmF0LmIuMC5hLjEuYiIsImNvbWJhdC5iLjAuYS4xLmIuMCIsImNvbWJhdC5iLjAuYS4xLmIuMC5hIiwicHZlLmEiLCJwdmUuYS4wIiwicHZlLmEuMC5hIiwicHZlLmEuMC5hLjEiLCJwdmUuYS4wLmEuMS5hIiwicHZlLmEuMC5hLjEuYS4wIiwicHZlLmEuMC5hLjEuYS4wLmEiLCJwdmUuYS4wLmIiLCJwdmUuYS4wLmIuMCIsInB2ZS5iIiwicHZlLmIuMCIsInB2ZS5iLjAuYSIsInB2ZS5iLjAuYS4wIiwicHZlLmIuMC5hLjAuYSIsInB2ZS5iLjAuYS4wLmEuMCIsInB2ZS5iLjAuYS4xIiwicHZlLmIuMC5hLjEuYSIsInB2ZS5iLjAuYS4xLmEuMCIsInB2ZS5iLjAuYS4xLmEuMSIsInB2ZS5iLjAuYiIsInB2ZS5iLjAuYi4wIiwicHZlLmIuMC5iLjAuYSIsInB2ZS5iLjAuYi4wLmEuMCIsInB2ZS5iLjAuYi4xIiwicHZlLmIuMC5iLjEuYSIsInB2ZS5iLjAuYi4xLmEuMSJd",
+  }
+];
   const canvasRef = useRef(null), svgRef = useRef(null), vbRef = useRef({ ...VB0 }), panRef = useRef(null);
   useParticles(canvasRef);
   const [sel, setSel] = useState(new Set());
@@ -506,6 +562,21 @@ export default function StarChart() {
   const [tt, setTt] = useState({ show: false, node: null, x: 0, y: 0 });
   const [descOpen, setDescOpen] = useState(true);
   const [sections, setSections] = useState({ stats: true, abilities: true, obtainables: true });
+
+  const loadCode = useCallback((code) => {
+    try {
+      const b64 = code.startsWith('SC:') ? code.slice(3) : code;
+      const paths = JSON.parse(decodeURIComponent(escape(atob(b64))));
+      if (!Array.isArray(paths)) return;
+      const next = new Set();
+      paths.forEach(p => { 
+        if (CHART.nm[p] && CHART.nm[p].Type !== "Root") next.add(p); 
+      });
+      setSel(next);
+    } catch (e) {
+      console.error("Invalid build code");
+    }
+  }, []);
 
   useEffect(() => { vbRef.current = vb; }, [vb]);
 
@@ -591,6 +662,23 @@ export default function StarChart() {
         <DescPanel open={descOpen} onToggle={() => setDescOpen(v => !v)} />
         <div className="sc-main">
           <div className="sc-chart-wrap">
+            <a href="https://github.com/AallynReed/BetterTroveTools" target="_blank" rel="noopener noreferrer" className="sc-credits-link">Credits: BetterTroveTools · AallynReed</a>
+            <div className="sc-recommended-dropdown">
+              <button className="sc-dropdown-trigger">
+                <i className="ri-sparkling-2-line"></i> Recommended Builds ▾
+              </button>
+              <div className="sc-dropdown-menu">
+                {RECOMMENDED_BUILDS.map((build, index) => (
+                  <button 
+                    key={index} 
+                    className="sc-dropdown-item"
+                    onClick={() => loadCode(build.code)}
+                  >
+                    {build.label}
+                  </button>
+                ))}
+              </div>
+            </div>
             <svg ref={svgRef} className="sc-svg" viewBox={`${vb.x} ${vb.y} ${vb.w} ${vb.h}`} onMouseDown={handleMouseDown} onMouseMove={moveTt}>
               <SvgDefs />
               <circle cx={CX} cy={CY} r={280} fill="url(#chart-bg)" />
@@ -611,7 +699,9 @@ export default function StarChart() {
               <button onClick={resetView} title="Reset view">⊞</button>
             </div>
           </div>
-          <SummaryPanel count={sel.size} stats={summaryStats} abilities={summaryAbilities} obtainables={summaryObtainables} onClear={clearAll} sections={sections} onToggleSection={k => setSections(prev => ({ ...prev, [k]: !prev[k] }))} />
+          <SummaryPanel 
+            count={sel.size} stats={summaryStats} abilities={summaryAbilities} obtainables={summaryObtainables} onClear={clearAll} sections={sections} onToggleSection={k => setSections(prev => ({ ...prev, [k]: !prev[k] }))} sel={sel} onLoadCode={loadCode}
+          />
         </div>
       </div>
     </div>
