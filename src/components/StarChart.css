@@ -657,37 +657,42 @@ body {
 /* A tényleges menü panel, ami alaphelyzetben rejtve van */
 .sc-dropdown-menu {
   position: absolute;
-  top: 100%;
+  top: calc(100% + 2px);
   right: 0;
   width: 320px;
+
   background: rgba(8, 6, 22, 0.94);
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 10px;
   padding: 6px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(155, 118, 208, 0.05);
+
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
+
   opacity: 0;
-  transform: translateY(-8px) scale(0.97);
+  transform: translateY(-6px);
   pointer-events: none;
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
-  margin-top: 6px;
+
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+
+  margin-top: 0;
 }
 
 .sc-dropdown-menu::before {
   content: '';
   position: absolute;
-  top: -15px;
+  top: -12px;
   left: 0;
-  width: 100%;
-  height: 15px;
-  background: transparent;
+  right: 0;
+  height: 12px;
 }
 
-/* Megjelenítés, ha a doboz fölé megy az egér */
-.sc-recommended-dropdown:hover .sc-dropdown-menu {
+.sc-recommended-dropdown:hover .sc-dropdown-menu,
+.sc-dropdown-menu:hover {
   opacity: 1;
-  transform: translateY(0) scale(1);
+  transform: translateY(0);
   pointer-events: auto;
 }
 
