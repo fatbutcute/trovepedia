@@ -86,7 +86,6 @@ body {
   padding: 9px 22px;
   background: none;
   border: none;
-  cursor: pointer;
   color: var(--gold);
   font-family: var(--font-display);
   font-size: 13px;
@@ -94,7 +93,6 @@ body {
   letter-spacing: 0.1em;
   transition: background 0.18s;
 }
-.sc-desc-toggle:hover { background: var(--gold-faint); }
 
 .sc-desc-title { display: flex; align-items: center; gap: 6px; font-size: 2em; font-family: 'Comfortaa', var(--font-display); color: var(--gold); }
 .sc-desc-chevron { font-size: 10px; opacity: 0.65; }
