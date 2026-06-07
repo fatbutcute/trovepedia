@@ -394,7 +394,6 @@ function DescPanel({ open, onToggle }) {
     <div className={`sc-desc ${open ? "sc-desc--open" : ""}`}>
       <button className="sc-desc-toggle" onClick={onToggle} aria-expanded={open}>
         <span className="sc-desc-title">✦ &nbsp;Celestial Star Chart Simulator</span>
-        <span className="sc-desc-chevron">{open ? "▲" : "▼"}</span>
       </button>
       {open && (
         <div className="sc-desc-body">

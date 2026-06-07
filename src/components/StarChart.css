@@ -95,7 +95,6 @@ body {
 }
 
 .sc-desc-title { display: flex; align-items: center; gap: 6px; font-size: 2em; font-family: 'Comfortaa', var(--font-display); color: var(--gold); }
-.sc-desc-chevron { font-size: 10px; opacity: 0.65; }
 
 .sc-desc-body {
   padding: 0 22px 16px;
