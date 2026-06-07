@@ -53,16 +53,16 @@ body {
 
 /* Particle canvas — fixed full-page background */
 .sc-canvas {
-  position: fixed;
+  position: absolute;
   inset: 0;
   pointer-events: none;
-  z-index: 0;
+  z-index: 1; /* Alacsony érték, de az alapértelmezett felett */
 }
 
 /* All real content sits above the canvas */
 .sc-content {
   position: relative;
-  z-index: 1;
+  z-index: 10;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -192,6 +192,7 @@ body {
   flex: 1;
   min-width: 0;
   overflow: hidden;
+  z-index: 5;
   background: radial-gradient(ellipse at 50% 52%, rgba(12,10,32,0.72) 0%, rgba(3,4,12,0) 72%);
 }
 
@@ -202,7 +203,9 @@ body {
   user-select: none;
   -webkit-user-select: none;
   cursor: default;
-}
+  position: relative;
+  z-index: 20;
+}hove
 .sc-svg.is-panning { cursor: grabbing !important; }
 
 /* ── SVG Node Interactions ──────────────────────────────────────── */
@@ -213,6 +216,9 @@ body {
 .sc-node:hover polygon {
   filter: brightness(1.22) saturate(1.2);
 }
+
+
+
 .sc-major:hover circle { filter: brightness(1.18) drop-shadow(0 0 6px currentColor); }
 .sc-center {
   cursor: pointer;

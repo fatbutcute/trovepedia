@@ -206,7 +206,7 @@ function useParticles(ref) {
         this.x = (Math.random() - 0.5) * W;
         this.y = (Math.random() - 0.5) * H;
         this.z = W; // Kezdő távolság (mélység)
-        this.color = Math.random() > 0.5 ? "#00e5ff" : "#9b76d0"; // Trove-kék vagy kozmikus lila
+        this.color = Math.random() > 0.5 ? "#00aeff" : "#9b76d0"; // Trove-kék vagy kozmikus lila
       };
       this.reset();
     }
