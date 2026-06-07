@@ -102,6 +102,7 @@ body {
 .sc-desc-body {
   padding: 0 22px 16px;
   animation: slideDown 0.22s ease;
+  display: none;
 }
 
 .sc-desc-intro {
@@ -568,8 +569,8 @@ body {
    ═══════════════════════════════════════════════════════════════════ */
 .sc-credits-link {
   position: absolute;
-  top: 15px;
-  left: 20px;
+  top: 50px;
+  left: 50px;
   z-index: 100;
   color: rgba(255, 255, 255, 0.425);
   font-family: 'Comfortaa', sans-serif;
@@ -717,6 +718,78 @@ body {
   background: rgba(155, 118, 208, 0.12); /* Finom lila háttér, mint a Qubesly ág */
   color: #c23dff; /* Trove-kék kiemelés a szövegnek */
   padding-left: 16px; /* Kis játékos eltolás hoverkor */
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   LORE ITEMS (Jobb oldali információs ikonok hover tooltippel)
+   ═══════════════════════════════════════════════════════════════════ */
+.sc-lore-container {
+  position: absolute;
+  top: 100px; /* A Recommended Builds dropdown alatt */
+  right: 20px;
+  z-index: 90;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sc-lore-item {
+  background: rgba(12, 10, 32, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+  transition: all 0.25s ease;
+  position: relative;
+  margin-left: auto;
+}
+
+.sc-lore-item i {
+  font-size: 16px;
+}
+
+.sc-lore-item:hover {
+  background: rgba(24, 20, 55, 0.85);
+  border-color: rgba(216, 171, 69, 0.4);
+  box-shadow: 0 0 12px rgba(216, 171, 69, 0.15);
+}
+
+.sc-lore-tt {
+  position: absolute;
+  right: calc(100% + 14px);
+  top: 50%;
+  transform: translateY(-50%) translateX(10px);
+  width: 400px;
+  background: rgba(8, 6, 22, 0.94);
+  border: 1px solid rgba(216, 171, 69, 0.3);
+  border-radius: 8px;
+  padding: 12px 14px;
+  color: rgba(220, 225, 245, 0.85);
+  font-family: Comfortaa, sans-serif;
+  font-size: 0.9em;
+  line-height: 1.45;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sc-lore-tt strong {
+  color: #d8ab45;
+  display: block;
+  margin-bottom: 4px;
+  font-family: Blinker, sans-serif;
+  font-size: 1.75em;
+  font-weight: 400;
+}
+
+.sc-lore-item:hover .sc-lore-tt {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
 }
 
 /* ═══════════════════════════════════════════════════════════════════

@@ -1,9 +1,3 @@
-/**
- * StarChart.jsx — Celestial Skill Simulator
- * Drop this next to star_chart.json and StarChart.css in your React project.
- * Usage: import StarChart from "./StarChart";
- */
-
 import { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import starChartData from "./star_chart.json";
 import "./StarChart.css";
@@ -13,7 +7,7 @@ import "./StarChart.css";
    ═══════════════════════════════════════════════════════════════════ */
 const CX = 500, CY = 500; // Center coordinate
 const MAX_NODES = 40;
-const VB0 = { x: -300, y: 0, w: 1580, h: 1150 };
+const VB0 = { x: -140, y: -50, w: 1180, h: 1200 }; // Alapból középen és kijebb zoomolva!
 const ASPECT = VB0.w / VB0.h;
 const MIN_W = 260, MAX_W = 1700;
 const GOLD = "#d8ab45";
@@ -30,6 +24,25 @@ const CONST_LABEL = {
   Gathering: 'Constellation of Gathering',
   Pve: 'Constellation of Cubesly',
 };
+
+const RECOMMENDED_BUILDS = [
+  {
+    label: "Physical Damage / Light",
+    code: "SC:WyJjb21iYXQuYSIsImNvbWJhdC5hLjEiLCJjb21iYXQuYS4xLmEiLCJjb21iYXQuYS4xLmEuMCIsImNvbWJhdC5hLjEuYS4wLmIiLCJjb21iYXQuYS4xLmEuMC5iLjEiLCJjb21iYXQuYS4xLmEuMC5iLjEuYiIsImdhdGhlcmluZy5iIiwiZ2F0aGVyaW5nLmIuMCIsImdhdGhlcmluZy5iLjAuYiIsImdhdGhlcmluZy5iLjAuYi4wIiwiZ2F0aGVyaW5nLmIuMC5iLjAuYSIsImdhdGhlcmluZy5iLjAuYi4wLmIiLCJnYXRoZXJpbmcuYi4wLmIuMC5iLjAiLCJnYXRoZXJpbmcuYi4wLmIuMC5iLjAuYiIsImdhdGhlcmluZy5iLjAuYi4wLmIuMC5iLjAiLCJnYXRoZXJpbmcuYi4wLmIuMC5iLjAuYi4wLmEiLCJnYXRoZXJpbmcuYi4wLmIuMC5iLjAuYi4wLmIiLCJnYXRoZXJpbmcuYi4wLmIuMC5jIiwicHZlLmEiLCJwdmUuYS4wIiwicHZlLmEuMC5iIiwicHZlLmEuMC5iLjAiLCJwdmUuYiIsInB2ZS5iLjAiLCJwdmUuYi4wLmEiLCJwdmUuYi4wLmEuMCIsInB2ZS5iLjAuYS4wLmEiLCJwdmUuYi4wLmEuMC5hLjAiLCJwdmUuYi4wLmEuMSIsInB2ZS5iLjAuYS4xLmEiLCJwdmUuYi4wLmEuMS5hLjAiLCJwdmUuYi4wLmEuMS5hLjEiLCJwdmUuYi4wLmIiLCJwdmUuYi4wLmIuMCIsInB2ZS5iLjAuYi4wLmEiLCJwdmUuYi4wLmIuMC5hLjAiLCJwdmUuYi4wLmIuMSIsInB2ZS5iLjAuYi4xLmEiLCJwdmUuYi4wLmIuMS5hLjEiXQ=="
+  },
+  {
+    label: "Magic Damage / Light",
+    code: "SC:WyJjb21iYXQuYiIsImNvbWJhdC5iLjAiLCJjb21iYXQuYi4wLmEiLCJjb21iYXQuYi4wLmEuMSIsImNvbWJhdC5iLjAuYS4xLmIiLCJjb21iYXQuYi4wLmEuMS5iLjEiLCJjb21iYXQuYi4wLmEuMS5iLjEuYiIsImNvbWJhdC5iLjAuYS4xLmIuMS5iLjEiLCJnYXRoZXJpbmcuYiIsImdhdGhlcmluZy5iLjAiLCJnYXRoZXJpbmcuYi4wLmIiLCJnYXRoZXJpbmcuYi4wLmIuMCIsImdhdGhlcmluZy5iLjAuYi4wLmEiLCJnYXRoZXJpbmcuYi4wLmIuMC5iIiwiZ2F0aGVyaW5nLmIuMC5iLjAuYi4wIiwiZ2F0aGVyaW5nLmIuMC5iLjAuYi4wLmIiLCJnYXRoZXJpbmcuYi4wLmIuMC5iLjAuYi4wIiwiZ2F0aGVyaW5nLmIuMC5iLjAuYi4wLmIuMC5hIiwicHZlLmEiLCJwdmUuYS4wIiwicHZlLmEuMC5hIiwicHZlLmEuMC5iIiwicHZlLmEuMC5iLjAiLCJwdmUuYiIsInB2ZS5iLjAiLCJwdmUuYi4wLmEiLCJwdmUuYi4wLmEuMCIsInB2ZS5iLjAuYS4wLmEiLCJwdmUuYi4wLmEuMC5hLjAiLCJwdmUuYi4wLmEuMSIsInB2ZS5iLjAuYS4xLmEiLCJwdmUuYi4wLmEuMS5hLjAiLCJwdmUuYi4wLmEuMS5hLjEiLCJwdmUuYi4wLmIiLCJwdmUuYi4wLmIuMCIsInB2ZS5iLjAuYi4wLmEiLCJwdmUuYi4wLmIuMC5hLjAiLCJwdmUuYi4wLmIuMSIsInB2ZS5iLjAuYi4xLmEiLCJwdmUuYi4wLmIuMS5hLjEiXQ=="
+  },
+  {
+    label: "Magic Damage / Movement Speed / Light",
+    code: "SC:WyJjb21iYXQuYiIsImNvbWJhdC5iLjAiLCJjb21iYXQuYi4wLmEiLCJjb21iYXQuYi4wLmEuMSIsImNvbWJhdC5iLjAuYS4xLmIiLCJjb21iYXQuYi4wLmEuMS5iLjAiLCJjb21iYXQuYi4wLmEuMS5iLjAuYSIsImNvbWJhdC5iLjAuYS4xLmIuMSIsImNvbWJhdC5iLjAuYS4xLmIuMS5iIiwiY29tYmF0LmIuMC5hLjEuYi4xLmIuMSIsImdhdGhlcmluZy5iIiwiZ2F0aGVyaW5nLmIuMCIsImdhdGhlcmluZy5iLjAuYiIsImdhdGhlcmluZy5iLjAuYi4wIiwiZ2F0aGVyaW5nLmIuMC5iLjAuYSIsImdhdGhlcmluZy5iLjAuYi4wLmIiLCJnYXRoZXJpbmcuYi4wLmIuMC5iLjAiLCJnYXRoZXJpbmcuYi4wLmIuMC5iLjAuYiIsImdhdGhlcmluZy5iLjAuYi4wLmIuMC5iLjAiLCJnYXRoZXJpbmcuYi4wLmIuMC5iLjAuYi4wLmEiLCJwdmUuYSIsInB2ZS5hLjAiLCJwdmUuYS4wLmEiLCJwdmUuYS4wLmEuMSIsInB2ZS5hLjAuYS4xLmEiLCJwdmUuYS4wLmEuMS5hLjAiLCJwdmUuYS4wLmEuMS5hLjAuYSIsInB2ZS5iIiwicHZlLmIuMCIsInB2ZS5iLjAuYSIsInB2ZS5iLjAuYS4xIiwicHZlLmIuMC5hLjEuYSIsInB2ZS5iLjAuYS4xLmEuMSIsInB2ZS5iLjAuYiIsInB2ZS5iLjAuYi4wIiwicHZlLmIuMC5iLjAuYSIsInB2ZS5iLjAuYi4wLmEuMCIsInB2ZS5iLjAuYi4xIiwicHZlLmIuMC5iLjEuYSIsInB2ZS5iLjAuYi4xLmEuMSJd"
+  },
+  {
+    label: "Physical Damage / Movement Speed / Light",
+    code: "SC:WyJjb21iYXQuYSIsImNvbWJhdC5hLjEiLCJjb21iYXQuYS4xLmEiLCJjb21iYXQuYS4xLmEuMCIsImNvbWJhdC5hLjEuYS4wLmIiLCJjb21iYXQuYS4xLmEuMC5iLjEiLCJjb21iYXQuYS4xLmEuMC5iLjEuYiIsImNvbWJhdC5iIiwiY29tYmF0LmIuMCIsImNvbWJhdC5iLjAuYSIsImNvbWJhdC5iLjAuYS4xIiwiY29tYmF0LmIuMC5hLjEuYiIsImNvbWJhdC5iLjAuYS4xLmIuMCIsImNvbWJhdC5iLjAuYS4xLmIuMC5hIiwicHZlLmEiLCJwdmUuYS4wIiwicHZlLmEuMC5hIiwicHZlLmEuMC5hLjEiLCJwdmUuYS4wLmEuMS5hIiwicHZlLmEuMC5hLjEuYS4wIiwicHZlLmEuMC5hLjEuYS4wLmEiLCJwdmUuYS4wLmIiLCJwdmUuYS4wLmIuMCIsInB2ZS5iIiwicHZlLmIuMCIsInB2ZS5iLjAuYSIsInB2ZS5iLjAuYS4wIiwicHZlLmIuMC5hLjAuYSIsInB2ZS5iLjAuYS4wLmEuMCIsInB2ZS5iLjAuYS4xIiwicHZlLmIuMC5hLjEuYSIsInB2ZS5iLjAuYS4xLmEuMCIsInB2ZS5iLjAuYS4xLmEuMSIsInB2ZS5iLjAuYiIsInB2ZS5iLjAuYi4wIiwicHZlLmIuMC5iLjAuYSIsInB2ZS5iLjAuYi4wLmEuMCIsInB2ZS5iLjAuYi4xIiwicHZlLmIuMC5iLjEuYSIsInB2ZS5iLjAuYi4xLmEuMSJd"
+  }
+];
 
 /* ═══════════════════════════════════════════════════════════════════
    LAYOUT ALGORITHM — THE EXACT TROVE MATH
@@ -81,10 +94,25 @@ const CHART = (() => {
     const br = 120 * i * Math.PI / 180; // 120 degrees apart
     const pos = [500, 425]; // Distance from center
 
+    // Beállítjuk a root node-ok alapértelmezett értékeit a Tooltip számára
+    root.Constellation = k;
+    root.ck = k;
+    root.Type = "Root";
+    if (k === 'Gathering') {
+      root.Name = "Constellation of Gathering";
+      root.Description = "Increased gains in harvesting and experience.";
+    } else if (k === 'Combat') {
+      root.Name = "Constellation of Combat";
+      root.Description = "Physical & Magical damage, critical hit improvements.";
+    } else if (k === 'Pve') {
+      root.Name = "Constellation of Cubesly";
+      root.Description = "Improved flasks and dungeon/delve power.";
+    }
+
     root.Coords = rotatePt([CX, CY], pos, br);
     buildBranch(backs[i], pos, 55, root.Stars || []);
     rotBranch(root, [CX, CY], br);
-  });
+  }); // Helyretett lezárás!
 
   // Flatting the tree and creating the node maps
   function walk(n, par) {
@@ -160,123 +188,71 @@ function mix(a, b, w = 0.5) {
 /* ═══════════════════════════════════════════════════════════════════
    PARTICLE BACKGROUND HOOK
    ═══════════════════════════════════════════════════════════════════ */
-const PC = [
-  "rgba(45,10,80,",
-  "rgba(60,20,100,",
-  "rgba(28,6,58,",
-  "rgba(72,45,110,",
-  "rgba(6,44,40,"
-];
-
+/* ═══════════════════════════════════════════════════════════════════
+   KOZMIKUS WARP DRIVE HOOK — JAVÍTOTT, GYORSAN ELTŰNŐ CSÍKOKKAL
+   ═══════════════════════════════════════════════════════════════════ */
 function useParticles(ref) {
   useEffect(() => {
-    const cv = ref.current;
-    if (!cv) return;
-
+    const cv = ref.current; if (!cv) return;
     const ctx = cv.getContext("2d");
-    let raf,
-      W,
-      H,
-      mx = 0,
-      my = 0,
-      pts = [];
+    let raf, W, H, stars = [];
 
-    const resize = () => {
-      W = cv.width = window.innerWidth;
-      H = cv.height = window.innerHeight;
-    };
+    const resize = () => { W = cv.width = window.innerWidth; H = cv.height = window.innerHeight; };
+    resize(); window.addEventListener("resize", resize);
 
-    resize();
-    window.addEventListener("resize", resize);
-
-    function Pt() {
+    function Star() {
       this.reset = () => {
-        this.x = Math.random() * W;
-        this.y = Math.random() * H;
-
-        // Nagyobb particle méret
-        this.r = Math.random() * 1 + 1.5;
-
-        // Magasabb opacity
-        this.al = Math.random() * 0.5 + 0.3;
-
-        this.vx = (Math.random() - 0.05) * 0.13;
-        this.vy = -Math.random() * 0.15 - 0.12;
-
-        this.life = 0;
-        this.max = Math.random() * 220 + 110;
-
-        this.col = PC[Math.floor(Math.random() * PC.length)];
-
-        this.glow = Math.random() > 0.87;
+        // Véletlenszerű elhelyezkedés a középponthoz képest
+        this.x = (Math.random() - 0.5) * W;
+        this.y = (Math.random() - 0.5) * H;
+        this.z = W; // Kezdő távolság (mélység)
+        this.color = Math.random() > 0.5 ? "#00e5ff" : "#9b76d0"; // Trove-kék vagy kozmikus lila
       };
-
       this.reset();
-      this.y = Math.random() * H;
     }
 
-    // Több particle
-    for (let i = 0; i < 250; i++) {
-      pts.push(new Pt());
-    }
-
-    const mm = (e) => {
-      mx = e.clientX;
-      my = e.clientY;
-    };
-
-    window.addEventListener("mousemove", mm);
+    // 120 darab csillag bőven elég, így nem terheli túl a képernyőt
+    for (let i = 0; i < 120; i++) stars.push(new Star());
 
     function draw() {
-      ctx.clearRect(0, 0, W, H);
+      // JAVÍTVA: Az alpha értéket 0.25-ről felemeltük 0.48-ra!
+      // Ezáltal a csillagok mögötti fénycsík sokkal rövidebb ideig él, és azonnal eltűnik, nem ég be a kijelzőbe.
+      ctx.fillStyle = "rgba(3, 4, 12, 0.7)"; 
+      ctx.fillRect(0, 0, W, H);
 
-      for (const p of pts) {
-        p.life++;
-        p.x += p.vx;
-        p.y += p.vy;
+      const cx = W / 2, cy = H / 2;
 
-        const dx = mx - p.x;
-        const dy = my - p.y;
-
-        if (dx * dx + dy * dy < 22500) {
-          p.vx += dx * 0.000042;
-          p.vy += dy * 0.000042;
+      for (let s of stars) {
+        s.z -= 2; // Hipersebesség (mennyire gyorsan lőjenek ki feléd)
+        
+        // Ha a csillag elérte a képernyő síkját, azonnal indítsuk újra a középpontból
+        if (s.z <= 0) {
+          s.reset();
+          continue;
         }
 
-        const a = p.al * Math.sin((p.life / p.max) * Math.PI);
+        // 3D-s vetítési matematika síkképernyőre
+        let px = (s.x / s.z) * W + cx;
+        let py = (s.y / s.z) * H + cy;
+        let radius = (1 - s.z / W) * 2.8; // Ahogy közeledik, finoman vastagodik
 
-        if (p.glow) {
-          ctx.shadowBlur = 11;
-          ctx.shadowColor = p.col + "0.62)";
+        // JAVÍTVA: Ha a csillag kiszaladt a látható képernyőből, azonnal lőjük le és indítsuk újra,
+        // így a széleken nem fognak felhalmozódni a beragadt csíkok!
+        if (px < 0 || px > W || py < 0 || py > H) {
+          s.reset();
+          continue;
         }
 
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = p.col + a + ")";
+        ctx.arc(px, py, Math.max(0.1, radius), 0, Math.PI * 2);
+        ctx.fillStyle = s.color;
         ctx.fill();
-
-        ctx.shadowBlur = 0;
-
-        if (
-          p.life >= p.max ||
-          p.y < -10 ||
-          p.x < -10 ||
-          p.x > W + 10
-        ) {
-          p.reset();
-        }
       }
 
       raf = requestAnimationFrame(draw);
     }
-
     draw();
-
-    return () => {
-      cancelAnimationFrame(raf);
-      window.removeEventListener("resize", resize);
-      window.removeEventListener("mousemove", mm);
-    };
+    return () => { cancelAnimationFrame(raf); window.removeEventListener("resize", resize); };
   }, []);
 }
 
@@ -322,15 +298,20 @@ function CenterStar({ onClear }) {
   );
 }
 
-function RootNode({ node, onRootClick }) {
-  const color = COL[node.Constellation] || '#888';
+function RootNode({ node, onRootClick, onEnter, onLeave }) {
+  const ck = node.ck || node.Constellation;
+  const color = COL[ck] || '#888';
   const { _cx: cx, _cy: cy } = node;
   const S = 14;
   return (
-    <g onClick={e => onRootClick(node, e)} className="sc-node sc-root">
+    <g onClick={e => onRootClick(node, e)} onMouseEnter={onEnter} onMouseLeave={onLeave} className="sc-node sc-root" style={{cursor: 'pointer'}}>
       <circle cx={cx} cy={cy} r={S * 1.75} fill="transparent" stroke={color} strokeWidth="1" strokeDasharray="2.5,3" opacity="0.38" />
       <polygon points={`${cx},${cy-S} ${cx+S},${cy} ${cx},${cy+S} ${cx-S},${cy}`} fill="rgba(3,5,16,0.88)" stroke={color} strokeWidth="2" />
-      <circle cx={cx} cy={cy} r={4.5} fill={color} opacity="0.88" />
+      
+      {/* Egyedi ikonok a Root Node-ok közepén */}
+      {ck === 'Combat' && <path d={`M${cx-4.5},${cy-4.5} L${cx+4.5},${cy+4.5} M${cx+4.5},${cy-4.5} L${cx-4.5},${cy+4.5}`} stroke={color} strokeWidth="2.5" strokeLinecap="round" />}
+      {ck === 'Gathering' && <path d={`M${cx},${cy+4} C${cx-7},${cy+4} ${cx-5},${cy-3} ${cx},${cy-5} C${cx+5},${cy-3} ${cx+7},${cy+4} ${cx},${cy+4} Z`} fill={color} opacity="0.9" />}
+      {ck === 'Pve' && <path d={`M${cx-2.5},${cy-4} L${cx+2.5},${cy-4} L${cx+2.5},${cy-1} L${cx+5},${cy+4} L${cx+5},${cy+5.5} L${cx-5},${cy+5.5} L${cx-5},${cy+4} L${cx-2.5},${cy-1} Z`} fill={color} opacity="0.9" />}
     </g>
   );
 }
@@ -417,43 +398,11 @@ function DescPanel({ open, onToggle }) {
       </button>
       {open && (
         <div className="sc-desc-body">
-          
           <p className="sc-desc-intro">
             Three constellations of stars await. <strong>Click any node</strong> to select it - ancestors are selected automatically.
             <strong> Double-click a root diamond</strong> to select its entire constellation.
             You may unlock <strong style={{ color: GOLD }}>up to {MAX_NODES} nodes</strong> per build.
           </p>
-          
-          <div className="sc-desc-branches">
-            <div className="sc-desc-branch" style={{ borderColor: COL.Gathering + "88" }}>
-              <span className="sc-desc-bname" style={{ color: COL.Gathering }}>{CONST_LABEL.Gathering}</span>
-              <span className="sc-desc-btext">Increased gains in harvesting and experience.</span>
-            </div>
-            <div className="sc-desc-branch" style={{ borderColor: COL.Combat + "88" }}>
-              <span className="sc-desc-bname" style={{ color: COL.Combat }}>{CONST_LABEL.Combat}</span>
-              <span className="sc-desc-btext">Physical & Magical damage, critical hit improvements.</span>
-            </div>
-            <div className="sc-desc-branch" style={{ borderColor: COL.Pve + "88" }}>
-              <span className="sc-desc-bname" style={{ color: COL.Pve }}>{CONST_LABEL.Pve}</span>
-              <span className="sc-desc-btext">Improved flasks and dungeon/delve power.</span>
-            </div>
-          </div>
-
-          <div className="sc-desc-lore">
-            <div className="sc-desc-lore-item">
-              <span className="sc-desc-lore-title" style={{ color: GOLD }}>Constellation Key</span>
-              <span className="sc-desc-lore-text">Unlocks or resets branches. First 3: 250 Flux at The Celestial. Additional: 130 Credits / 1300 Cubits.</span>
-            </div>
-            <div className="sc-desc-lore-item">
-              <span className="sc-desc-lore-title" style={{ color: GOLD }}>Celestial Sphere</span>
-              <span className="sc-desc-lore-text">Unlocks one specific node. Only 40 Spheres available for 120 slots — plan carefully in the game.</span>
-            </div>
-            <div className="sc-desc-lore-item">
-              <span className="sc-desc-lore-title" style={{ color: GOLD }}>Astral Echoes</span>
-              <span className="sc-desc-lore-text">Currency for Spheres. Earned in dungeons/delves (20–50/run), weekly Astral Echoes Almanac tome (5000/week), Turtle Shells ×4/week, Despoiled Divinity vendor ×5/day.</span>
-            </div>
-          </div>
-
         </div>
       )}
     </div>
@@ -468,7 +417,6 @@ function SummaryPanel({ count, stats, abilities, obtainables, onClear, sections,
 
   const handleCopy = () => {
     if (sel.size === 0) return;
-    // Base64 alapú kód generálása a kiválasztott elemekből
     const code = 'SC:' + btoa(unescape(encodeURIComponent(JSON.stringify([...sel].sort()))));
     navigator.clipboard.writeText(code).catch(() => {});
     setCopyText("✓ Copied");
@@ -488,9 +436,7 @@ function SummaryPanel({ count, stats, abilities, obtainables, onClear, sections,
         <button className="sc-clear-btn" onClick={onClear} disabled={count === 0}>Clear All</button>
       </div>
 
-      {/* --- BUILD IMPORT / EXPORT SZERKESZTŐ --- */}
       <div className="sc-code-box">
-        <div className="sc-code-header">Each time you do a custom build path, your build code will be automatically generated which can be sent to other players. Whenever you or other players wants to use your build, they can paste the code here.</div>
         <div className="sc-code-actions">
           <input 
             type="text" 
@@ -534,27 +480,7 @@ function SumSection({ icon, label, open, onToggle, children }) {
 /* ═══════════════════════════════════════════════════════════════════
    MAIN EXPORT COMPONENT
    ═══════════════════════════════════════════════════════════════════ */
-
-
 export default function StarChart() {
-const RECOMMENDED_BUILDS = [
-  {
-    label: "Physical Damage / Light",
-    code: "SC:WyJjb21iYXQuYSIsImNvbWJhdC5hLjEiLCJjb21iYXQuYS4xLmEiLCJjb21iYXQuYS4xLmEuMCIsImNvbWJhdC5hLjEuYS4wLmIiLCJjb21iYXQuYS4xLmEuMC5iLjEiLCJjb21iYXQuYS4xLmEuMC5iLjEuYiIsImdhdGhlcmluZy5iIiwiZ2F0aGVyaW5nLmIuMCIsImdhdGhlcmluZy5iLjAuYiIsImdhdGhlcmluZy5iLjAuYi4wIiwiZ2F0aGVyaW5nLmIuMC5iLjAuYSIsImdhdGhlcmluZy5iLjAuYi4wLmIiLCJnYXRoZXJpbmcuYi4wLmIuMC5iLjAiLCJnYXRoZXJpbmcuYi4wLmIuMC5iLjAuYiIsImdhdGhlcmluZy5iLjAuYi4wLmIuMC5iLjAiLCJnYXRoZXJpbmcuYi4wLmIuMC5iLjAuYi4wLmEiLCJnYXRoZXJpbmcuYi4wLmIuMC5iLjAuYi4wLmIiLCJnYXRoZXJpbmcuYi4wLmIuMC5jIiwicHZlLmEiLCJwdmUuYS4wIiwicHZlLmEuMC5iIiwicHZlLmEuMC5iLjAiLCJwdmUuYiIsInB2ZS5iLjAiLCJwdmUuYi4wLmEiLCJwdmUuYi4wLmEuMCIsInB2ZS5iLjAuYS4wLmEiLCJwdmUuYi4wLmEuMC5hLjAiLCJwdmUuYi4wLmEuMSIsInB2ZS5iLjAuYS4xLmEiLCJwdmUuYi4wLmEuMS5hLjAiLCJwdmUuYi4wLmEuMS5hLjEiLCJwdmUuYi4wLmIiLCJwdmUuYi4wLmIuMCIsInB2ZS5iLjAuYi4wLmEiLCJwdmUuYi4wLmIuMC5hLjAiLCJwdmUuYi4wLmIuMSIsInB2ZS5iLjAuYi4xLmEiLCJwdmUuYi4wLmIuMS5hLjEiXQ=="
-  },
-  {
-    label: "Magic Damage / Light",
-    code: "SC:WyJjb21iYXQuYiIsImNvbWJhdC5iLjAiLCJjb21iYXQuYi4wLmEiLCJjb21iYXQuYi4wLmEuMSIsImNvbWJhdC5iLjAuYS4xLmIiLCJjb21iYXQuYi4wLmEuMS5iLjEiLCJjb21iYXQuYi4wLmEuMS5iLjEuYiIsImNvbWJhdC5iLjAuYS4xLmIuMS5iLjEiLCJnYXRoZXJpbmcuYiIsImdhdGhlcmluZy5iLjAiLCJnYXRoZXJpbmcuYi4wLmIiLCJnYXRoZXJpbmcuYi4wLmIuMCIsImdhdGhlcmluZy5iLjAuYi4wLmEiLCJnYXRoZXJpbmcuYi4wLmIuMC5iIiwiZ2F0aGVyaW5nLmIuMC5iLjAuYi4wIiwiZ2F0aGVyaW5nLmIuMC5iLjAuYi4wLmIiLCJnYXRoZXJpbmcuYi4wLmIuMC5iLjAuYi4wIiwiZ2F0aGVyaW5nLmIuMC5iLjAuYi4wLmIuMC5hIiwicHZlLmEiLCJwdmUuYS4wIiwicHZlLmEuMC5hIiwicHZlLmEuMC5iIiwicHZlLmEuMC5iLjAiLCJwdmUuYiIsInB2ZS5iLjAiLCJwdmUuYi4wLmEiLCJwdmUuYi4wLmEuMCIsInB2ZS5iLjAuYS4wLmEiLCJwdmUuYi4wLmEuMC5hLjAiLCJwdmUuYi4wLmEuMSIsInB2ZS5iLjAuYS4xLmEiLCJwdmUuYi4wLmEuMS5hLjAiLCJwdmUuYi4wLmEuMS5hLjEiLCJwdmUuYi4wLmIiLCJwdmUuYi4wLmIuMCIsInB2ZS5iLjAuYi4wLmEiLCJwdmUuYi4wLmIuMC5hLjAiLCJwdmUuYi4wLmIuMSIsInB2ZS5iLjAuYi4xLmEiLCJwdmUuYi4wLmIuMS5hLjEiXQ=="
-  },
-  {
-    label: "Magic Damage / Movement Speed / Light",
-    code: "SC:WyJjb21iYXQuYiIsImNvbWJhdC5iLjAiLCJjb21iYXQuYi4wLmEiLCJjb21iYXQuYi4wLmEuMSIsImNvbWJhdC5iLjAuYS4xLmIiLCJjb21iYXQuYi4wLmEuMS5iLjAiLCJjb21iYXQuYi4wLmEuMS5iLjAuYSIsImNvbWJhdC5iLjAuYS4xLmIuMSIsImNvbWJhdC5iLjAuYS4xLmIuMS5iIiwiY29tYmF0LmIuMC5hLjEuYi4xLmIuMSIsImdhdGhlcmluZy5iIiwiZ2F0aGVyaW5nLmIuMCIsImdhdGhlcmluZy5iLjAuYiIsImdhdGhlcmluZy5iLjAuYi4wIiwiZ2F0aGVyaW5nLmIuMC5iLjAuYSIsImdhdGhlcmluZy5iLjAuYi4wLmIiLCJnYXRoZXJpbmcuYi4wLmIuMC5iLjAiLCJnYXRoZXJpbmcuYi4wLmIuMC5iLjAuYiIsImdhdGhlcmluZy5iLjAuYi4wLmIuMC5iLjAiLCJnYXRoZXJpbmcuYi4wLmIuMC5iLjAuYi4wLmEiLCJwdmUuYSIsInB2ZS5hLjAiLCJwdmUuYS4wLmEiLCJwdmUuYS4wLmEuMSIsInB2ZS5hLjAuYS4xLmEiLCJwdmUuYS4wLmEuMS5hLjAiLCJwdmUuYS4wLmEuMS5hLjAuYSIsInB2ZS5iIiwicHZlLmIuMCIsInB2ZS5iLjAuYSIsInB2ZS5iLjAuYS4xIiwicHZlLmIuMC5hLjEuYSIsInB2ZS5iLjAuYS4xLmEuMSIsInB2ZS5iLjAuYiIsInB2ZS5iLjAuYi4wIiwicHZlLmIuMC5iLjAuYSIsInB2ZS5iLjAuYi4wLmEuMCIsInB2ZS5iLjAuYi4xIiwicHZlLmIuMC5iLjEuYSIsInB2ZS5iLjAuYi4xLmEuMSJd"
-  },
-  {
-    label: "Physical Damage / Movement Speed / Light",
-    code: "SC:WyJjb21iYXQuYSIsImNvbWJhdC5hLjEiLCJjb21iYXQuYS4xLmEiLCJjb21iYXQuYS4xLmEuMCIsImNvbWJhdC5hLjEuYS4wLmIiLCJjb21iYXQuYS4xLmEuMC5iLjEiLCJjb21iYXQuYS4xLmEuMC5iLjEuYiIsImNvbWJhdC5iIiwiY29tYmF0LmIuMCIsImNvbWJhdC5iLjAuYSIsImNvbWJhdC5iLjAuYS4xIiwiY29tYmF0LmIuMC5hLjEuYiIsImNvbWJhdC5iLjAuYS4xLmIuMCIsImNvbWJhdC5iLjAuYS4xLmIuMC5hIiwicHZlLmEiLCJwdmUuYS4wIiwicHZlLmEuMC5hIiwicHZlLmEuMC5hLjEiLCJwdmUuYS4wLmEuMS5hIiwicHZlLmEuMC5hLjEuYS4wIiwicHZlLmEuMC5hLjEuYS4wLmEiLCJwdmUuYS4wLmIiLCJwdmUuYS4wLmIuMCIsInB2ZS5iIiwicHZlLmIuMCIsInB2ZS5iLjAuYSIsInB2ZS5iLjAuYS4wIiwicHZlLmIuMC5hLjAuYSIsInB2ZS5iLjAuYS4wLmEuMCIsInB2ZS5iLjAuYS4xIiwicHZlLmIuMC5hLjEuYSIsInB2ZS5iLjAuYS4xLmEuMCIsInB2ZS5iLjAuYS4xLmEuMSIsInB2ZS5iLjAuYiIsInB2ZS5iLjAuYi4wIiwicHZlLmIuMC5iLjAuYSIsInB2ZS5iLjAuYi4wLmEuMCIsInB2ZS5iLjAuYi4xIiwicHZlLmIuMC5iLjEuYSIsInB2ZS5iLjAuYi4xLmEuMSJd",
-  }
-];
   const canvasRef = useRef(null), svgRef = useRef(null), vbRef = useRef({ ...VB0 }), panRef = useRef(null);
   useParticles(canvasRef);
   const [sel, setSel] = useState(new Set());
@@ -562,21 +488,6 @@ const RECOMMENDED_BUILDS = [
   const [tt, setTt] = useState({ show: false, node: null, x: 0, y: 0 });
   const [descOpen, setDescOpen] = useState(true);
   const [sections, setSections] = useState({ stats: true, abilities: true, obtainables: true });
-
-  const loadCode = useCallback((code) => {
-    try {
-      const b64 = code.startsWith('SC:') ? code.slice(3) : code;
-      const paths = JSON.parse(decodeURIComponent(escape(atob(b64))));
-      if (!Array.isArray(paths)) return;
-      const next = new Set();
-      paths.forEach(p => { 
-        if (CHART.nm[p] && CHART.nm[p].Type !== "Root") next.add(p); 
-      });
-      setSel(next);
-    } catch (e) {
-      console.error("Invalid build code");
-    }
-  }, []);
 
   useEffect(() => { vbRef.current = vb; }, [vb]);
 
@@ -637,6 +548,21 @@ const RECOMMENDED_BUILDS = [
   const moveTt = useCallback(e => { setTt(prev => { if (!prev.show) return prev; let x = e.clientX + 17, y = e.clientY + 17; const el = document.getElementById("sc-tooltip"); if (el) { if (x + el.offsetWidth > window.innerWidth) x = e.clientX - el.offsetWidth - 17; if (y + el.offsetHeight > window.innerHeight) y = e.clientY - el.offsetHeight - 17; } return { ...prev, x, y }; }); }, []);
   const hideTt = useCallback(() => setTt(prev => ({ ...prev, show: false, node: null })), []);
 
+  const loadCode = useCallback((code) => {
+    try {
+      const b64 = code.startsWith('SC:') ? code.slice(3) : code;
+      const paths = JSON.parse(decodeURIComponent(escape(atob(b64))));
+      if (!Array.isArray(paths)) return;
+      const next = new Set();
+      paths.forEach(p => { 
+        if (CHART.nm[p] && CHART.nm[p].Type !== "Root") next.add(p); 
+      });
+      setSel(next);
+    } catch (e) {
+      console.error("Invalid build code");
+    }
+  }, []);
+
   useEffect(() => {
     const svg = svgRef.current; if (!svg) return;
     const onWheel = e => { e.preventDefault(); const r = svg.getBoundingClientRect(); if (!r.width) return; const relX = (e.clientX - r.left) / r.width; const relY = (e.clientY - r.top) / r.height; const v = vbRef.current; const pt = { x: v.x + relX * v.w, y: v.y + relY * v.h, relX, relY }; const f = e.deltaY < 0 ? 0.84 : 1 / 0.84; const nw = Math.min(MAX_W, Math.max(MIN_W, v.w * f)); const nh = nw / ASPECT; const nv = { x: pt.x - pt.relX * nw, y: pt.y - pt.relY * nh, w: nw, h: nh }; vbRef.current = nv; setVb(nv); };
@@ -662,7 +588,11 @@ const RECOMMENDED_BUILDS = [
         <DescPanel open={descOpen} onToggle={() => setDescOpen(v => !v)} />
         <div className="sc-main">
           <div className="sc-chart-wrap">
-            <a href="https://github.com/AallynReed/BetterTroveTools" target="_blank" rel="noopener noreferrer" className="sc-credits-link">Credits: BetterTroveTools · AallynReed</a>
+            
+            <a href="https://github.com/AallynReed/BetterTroveTools" target="_blank" rel="noopener noreferrer" className="sc-credits-link">
+              Credits: BetterTroveTools · AallynReed
+            </a>
+
             <div className="sc-recommended-dropdown">
               <button className="sc-dropdown-trigger">
                 <i className="ri-sparkling-2-line"></i> Recommended Builds ▾
@@ -679,6 +609,22 @@ const RECOMMENDED_BUILDS = [
                 ))}
               </div>
             </div>
+
+            <div className="sc-lore-container">
+              <div className="sc-lore-item">
+                <i className="ri-key-2-line" style={{ color: GOLD }}></i>
+                <div className="sc-lore-tt"><strong>Constellation Key</strong> Unlocks or resets branches. First 3: 250 Flux at The Celestial. Additional: 130 Credits / 1300 Cubits.</div>
+              </div>
+              <div className="sc-lore-item">
+                <i className="ri-bubble-chart-line" style={{ color: GOLD }}></i>
+                <div className="sc-lore-tt"><strong>Celestial Sphere</strong> Unlocks one specific node. Only 40 Spheres available for 120 slots — plan carefully.</div>
+              </div>
+              <div className="sc-lore-item">
+                <i className="ri-copper-diamond-line" style={{ color: GOLD }}></i>
+                <div className="sc-lore-tt"><strong>Astral Echoes</strong> Currency for Spheres. Earned in dungeons/delves (20–50/run), weekly Almanac tome (5000/week), Turtle Shells ×4/week, Despoiled Divinity vendor ×5/day.</div>
+              </div>
+            </div>
+
             <svg ref={svgRef} className="sc-svg" viewBox={`${vb.x} ${vb.y} ${vb.w} ${vb.h}`} onMouseDown={handleMouseDown} onMouseMove={moveTt}>
               <SvgDefs />
               <circle cx={CX} cy={CY} r={280} fill="url(#chart-bg)" />
@@ -686,7 +632,7 @@ const RECOMMENDED_BUILDS = [
               {CHART.el.map(e => <line key={e.id} x1={e.x1} y1={e.y1} x2={e.x2} y2={e.y2} stroke={sel.has(e.pathId) ? "#50507a" : "#1e1e2c"} strokeWidth={sel.has(e.pathId) ? 1.6 : 1} strokeDasharray="4,3.5" strokeLinecap="round" />)}
               <CenterStar onClear={clearAll} />
               {CHART.nl.map(node => {
-                if (node.Type === "Root") return <RootNode key={node.Path} node={node} onRootClick={handleRootClick} />;
+                if (node.Type === "Root") return <RootNode key={node.Path} node={node} onRootClick={handleRootClick} onEnter={e => showTt(e, node)} onLeave={hideTt} />;
                 const isSel = sel.has(node.Path), isOw = ow.has(node.Path), isMuted = !isSel && !isOw;
                 const shared = { sel: isSel, ow: isOw, muted: isMuted, onNodeClick: handleNodeClick, onEnter: e => showTt(e, node), onLeave: hideTt };
                 return node.Type === "Major" ? <MajorNode key={node.Path} node={node} {...shared} /> : <MinorNode key={node.Path} node={node} {...shared} />;
@@ -700,7 +646,15 @@ const RECOMMENDED_BUILDS = [
             </div>
           </div>
           <SummaryPanel 
-            count={sel.size} stats={summaryStats} abilities={summaryAbilities} obtainables={summaryObtainables} onClear={clearAll} sections={sections} onToggleSection={k => setSections(prev => ({ ...prev, [k]: !prev[k] }))} sel={sel} onLoadCode={loadCode}
+            count={sel.size} 
+            stats={summaryStats} 
+            abilities={summaryAbilities} 
+            obtainables={summaryObtainables} 
+            onClear={clearAll} 
+            sections={sections} 
+            onToggleSection={k => setSections(prev => ({ ...prev, [k]: !prev[k] }))}
+            sel={sel}
+            onLoadCode={loadCode}
           />
         </div>
       </div>
