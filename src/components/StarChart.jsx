@@ -616,11 +616,11 @@ export default function StarChart() {
               </div>
               <div className="sc-lore-item">
                 <i className="ri-bubble-chart-line" style={{ color: GOLD }}></i>
-                <div className="sc-lore-tt"><strong>Celestial Sphere</strong> Unlocks one specific node. Only 40 Spheres available for 120 slots — plan carefully.</div>
+                <div className="sc-lore-tt"><strong>Celestial Sphere</strong> Unlocks one specific node. Only 40 Spheres available for 120 slots - plan carefully.</div>
               </div>
               <div className="sc-lore-item">
                 <i className="ri-copper-diamond-line" style={{ color: GOLD }}></i>
-                <div className="sc-lore-tt"><strong>Astral Echoes</strong> Currency for Spheres. Earned in dungeons/delves (20–50/run), weekly Almanac tome (5000/week), Turtle Shells ×4/week, Despoiled Divinity vendor ×5/day.</div>
+                <div className="sc-lore-tt"><strong>Astral Echoes</strong> Currency for Spheres. Earned in dungeons/delves (20-50/run), weekly Almanac tome (5000/week), Turtle Shells ×4/week, Despoiled Divinity vendor ×5/day.</div>
               </div>
             </div>
 
