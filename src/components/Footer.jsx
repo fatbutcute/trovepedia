@@ -28,24 +28,27 @@ export default function Footer() {
   return (
     <footer>
       <div className="footer-inner">
-        <div className="footer-brand">
-          
-          <button
-            className="nav-logo"
-            onClick={() => navigate('/')}
-            style={{ background: 'none', border: 'none', cursor: 'pointer' }}
-          >
-            <span className="diamond"></span>
-            <span style={{ fontFamily: 'Blinker', background: 'linear-gradient(135deg, #2bb1ff 0%, #21cbff 50%, #00d4db 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Trovepedia</span>
-          </button>
-          <p>Trovepedia, made by the community.</p>
-           <StaffCard
-            discordId="371018267768389633"
-            name="ScaryZ"
-            role="Developer"
-          />         
-          
-        </div>
+      <div className="footer-brand">
+        
+        {/* JAVÍTVA: nav-logo lecserélve footer-logo-ra */}
+        <button
+          className="footer-logo"
+          onClick={() => navigate('/')}
+          style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+        >
+          <span className="diamond"></span>
+          <span style={{ fontFamily: 'Blinker', background: 'linear-gradient(135deg, #2bb1ff 0%, #21cbff 50%, #00d4db 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Trovepedia</span>
+        </button>
+        
+        <p>Trovepedia, made by the community.</p>
+        
+        <StaffCard
+          discordId="371018267768389633"
+          name="ScaryZ"
+          role="Developer"
+        />         
+        
+      </div>
 
         {Object.entries(FOOTER_LINKS).map(([title, links]) => (
           <div key={title} className="footer-col">

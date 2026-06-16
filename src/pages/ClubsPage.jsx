@@ -1,17 +1,20 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import './ClubsPage.css';
 import xvLogo from './clubs/XV/XV.webp';
-import cfgText from './clubs/XV/XV.cfg?raw'; // <── Ezt használjuk fel közvetlenül!
+import arsynLogo from './clubs/Arsyn/arsyn.webp';
+import cfgTextXV from './clubs/XV/XV.cfg?raw';
 
-// ─── Club Data ────────────────────────────────────────────────────────────────
+// ─── Teljes Club Adatbázis ───────────────────────────────────────────────────
 const CLUBS = [
   {
     id: 1,
     emblem: xvLogo,
+    isImage: true,
     tier: 'Top',
     tagline: "Trove's Leading Club",
     name: 'XV',
     subtitle: 'Join the elite.',
+    cfgData: cfgTextXV,
     description:
       'XV is a premier endgame club built for dedicated players who want to push their limits, earn greater rewards, and be part of a thriving community. With organized events, experienced members, and constant activity, XV provides everything you need to maximize your progression and enjoy the game at the highest level.',
     stats: [
@@ -35,28 +38,98 @@ const CLUBS = [
     discord: 'discord.gg/XVCLUB',
     quote: 'Great players play the game. Legends play together.',
     accent: '#C9A84C',
-    glow:   'rgba(201,168,76,0.28)',
-    glowDim:'rgba(201,168,76,0.07)',
-  }
+    glow:   'rgba(201, 168, 76, 0.28)',
+    glowDim:'rgba(201, 168, 76, 0.07)',
+    comingSoon: false,
+  },
+  /*{
+    id: 2,
+    emblem: arsynLogo, 
+    isImage: true,
+    tier: 'ELITE',
+    tagline: 'Among the strong ones.',
+    name: 'Arsyn',
+    subtitle: 'Strategic gameplay.',
+    cfgData: null,
+    description: 'Arsyn is among the top tier clubs in Trove, known for its competitive edge and strategic gameplay. With a focus on teamwork and high-level content, Arsyn is the go-to club for players looking to make progress and find good people to play with.',
+    stats: [
+      { value: '750+', label: 'Club Members' },
+      { value: '50K+', label: 'Min. PR' },
+      { value: '#2', label: 'Global Rank' },
+    ],
+    features: [],
+    requirements: ['50,000+ PR (Power Rank)', 'Active participation', 'Team-oriented mindset'],
+    discord: 'discord.gg/arsyn',
+    quote: '',
+    accent: '#730dd3',
+    glow: 'rgba(115, 13, 211, 0.28)',
+    glowDim: 'rgba(115, 13, 211, 0.07)',
+    comingSoon: true,
+  },
+  {
+    id: 3,
+    emblem: 'AP',
+    isImage: false,
+    tier: 'ELITE',
+    tagline: 'Reach the Summit',
+    name: 'APEX',
+    subtitle: 'For those who never settle.',
+    cfgData: null,
+    description: 'APEX is a competitive club currently under construction. Built for players who demand the absolute best in organized play, APEX will set a new benchmark for gaming excellence. More information arriving soon.',
+    stats: [
+      { value: '—', label: 'Members' },
+      { value: '—', label: 'Min. PR' },
+      { value: '—', label: 'Global Rank' },
+    ],
+    features: [],
+    requirements: [],
+    discord: '',
+    quote: '',
+    accent: '#C94C4C',
+    glow: 'rgba(201, 76, 76, 0.28)',
+    glowDim: 'rgba(201, 76, 76, 0.07)',
+    comingSoon: true,
+  }*/
 ];
 
-const IconChevronLeft = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"
-    strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <polyline points="15 18 9 12 15 6" />
+const IconBackArrow = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <line x1="19" y1="12" x2="5" y2="12"></line>
+    <polyline points="12 19 5 12 12 5"></polyline>
   </svg>
 );
 
-const IconChevronRight = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"
-    strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <polyline points="9 18 15 12 9 6" />
+const IconClose = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '20px', height: '20px' }}>
+    <path d="M18 6L6 18M6 6l12 12" />
   </svg>
 );
 
-// ─── HARDVERESEN GYORSÍTOTT PARTICLE CANVAS (NAGY FELBONTÁSRA OPTIMALIZÁLVA) ───
 const ClubParticles = ({ activeColor }) => {
   const canvasRef = React.useRef(null);
+  const currentColorRef = React.useRef({ r: 0, g: 210, b: 255 }); 
+  const targetColorRef = React.useRef(activeColor);
+
+  useEffect(() => {
+    targetColorRef.current = activeColor;
+  }, [activeColor]);
+
+  const parseToRGB = (colorStr) => {
+    if (!colorStr) return { r: 0, g: 210, b: 255 };
+    if (colorStr.startsWith('#')) {
+      let c = colorStr.substring(1);
+      if (c.length === 3) c = c.split('').map(x => x + x).join('');
+      const num = parseInt(c, 16);
+      return { r: (num >> 16) & 255, g: (num >> 8) & 255, b: num & 255 };
+    }
+    if (colorStr.startsWith('rgb')) {
+      const match = colorStr.match(/\d+/g);
+      if (match && match.length >= 3) {
+        return { r: parseInt(match[0]), g: parseInt(match[1]), b: parseInt(match[2]) };
+      }
+    }
+    return { r: 0, g: 210, b: 255 };
+  };
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -65,21 +138,14 @@ const ClubParticles = ({ activeColor }) => {
     
     let animationFrameId;
     let particles = [];
-    const particleCount = 200; // Picit megemeltem, mert a kisebb pöttyökből több mutat jól
+    const particleCount = 200;
 
-    // Canvas méretezése a kijelző pixelsűrűségéhez (HD / Retina / 4K fix)
     const resizeCanvas = () => {
-      const dpr = window.devicePixelRatio || 1; // Lekérjük a monitor pixelsűrűségét
+      const dpr = window.devicePixelRatio || 1;
       const rect = canvas.getBoundingClientRect();
-      
-      // A belső felbontást megszorozzuk a dpr-rel (Ettől lesz tűéles!)
       canvas.width = rect.width * dpr;
       canvas.height = rect.height * dpr;
-      
-      // A rajzolási felületet visszaméretezzük a CSS mérethez
       ctx.scale(dpr, dpr);
-      
-      // Mentjük a logikai méreteket a részecskéknek
       canvas.logicalWidth = rect.width;
       canvas.logicalHeight = rect.height;
     };
@@ -87,12 +153,10 @@ const ClubParticles = ({ activeColor }) => {
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
-    // Részecskék legenerálása (MÓDOSÍTVA: Szuper pici méretek!)
     for (let i = 0; i < particleCount; i++) {
       particles.push({
         x: Math.random() * canvas.logicalWidth,
         y: Math.random() * canvas.logicalHeight,
-        // JAVÍTVA: 1.8 helyett maximum 0.8 pixel átmérő, így mikroszkopikus porszemek lesznek!
         radius: Math.random() * 0.8 + 0.3, 
         speedX: (Math.random() - 0.5) * 0.25, 
         speedY: (Math.random() - 0.5) * 0.35, 
@@ -101,15 +165,21 @@ const ClubParticles = ({ activeColor }) => {
       });
     }
 
-    // Animációs ciklus
     const animate = () => {
-      // Mindig a logikai méret alapján törlünk
       ctx.clearRect(0, 0, canvas.logicalWidth, canvas.logicalHeight);
       
+      const targetRGB = parseToRGB(targetColorRef.current);
+      const curRGB = currentColorRef.current;
+      
+      curRGB.r += (targetRGB.r - curRGB.r) * 0.05; 
+      curRGB.g += (targetRGB.g - curRGB.g) * 0.05;
+      curRGB.b += (targetRGB.b - curRGB.b) * 0.05;
+      
+      const particleColorStyle = `rgb(${Math.round(curRGB.r)}, ${Math.round(curRGB.g)}, ${Math.round(curRGB.b)})`;
+
       particles.forEach(p => {
         p.x += p.speedX;
         p.y += p.speedY;
-
         p.alpha += p.pulseSpeed;
         if (p.alpha > 0.5 || p.alpha < 0.1) p.pulseSpeed = -p.pulseSpeed;
 
@@ -118,9 +188,9 @@ const ClubParticles = ({ activeColor }) => {
         if (p.y < 0) p.y = canvas.logicalHeight;
         if (p.y > canvas.logicalHeight) p.y = 0;
 
-        ctx.beginTransaction?.() || ctx.beginPath();
+        ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = activeColor;
+        ctx.fillStyle = particleColorStyle;
         ctx.globalAlpha = p.alpha;
         ctx.fill();
       });
@@ -133,67 +203,55 @@ const ClubParticles = ({ activeColor }) => {
       window.removeEventListener('resize', resizeCanvas);
       cancelAnimationFrame(animationFrameId);
     };
-  }, [activeColor]);
+  }, []);
 
   return <canvas ref={canvasRef} className="xvp-particles-canvas" aria-hidden="true" />;
 };
 
 export default function ClubsPage() {
-  const [current,   setCurrent]   = useState(0);
-  const [animPhase, setAnimPhase] = useState('idle');
-  const [loading,   setLoading]   = useState(true);
-
+  const [loading, setLoading] = useState(true);
+  const [activeClub, setActiveClub] = useState(null);
+  const [hoveredClub, setHoveredClub] = useState(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  
   const [showMembers, setShowMembers] = useState(false);
-  const [isClosing, setIsClosing] = useState(false);
+  const [isClosingModal, setIsClosingModal] = useState(false);
   const [membersData, setMembersData] = useState([]);
   const [sortConfig, setSortConfig] = useState({ key: 'rank', direction: 'desc' });
   const [visibleItemsCount, setVisibleItemsCount] = useState(35);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 1800);
+    const timer = setTimeout(() => setLoading(false), 1800);
     return () => clearTimeout(timer);
   }, []);
 
-  const navigate = useCallback((dir) => {
-    if (animPhase !== 'idle') return;
-
-    const exitPhase  = dir === 'right' ? 'exit-left'  : 'exit-right';
-    const enterPhase = dir === 'right' ? 'enter-right' : 'enter-left';
-
-    setAnimPhase(exitPhase);
-
+  const handleSelectClub = (club) => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
     setTimeout(() => {
-      setCurrent(prev =>
-        dir === 'right'
-          ? (prev + 1) % CLUBS.length
-          : (prev - 1 + CLUBS.length) % CLUBS.length
-      );
-      setAnimPhase(enterPhase);
-      setTimeout(() => setAnimPhase('idle'), 580);
-    }, 300);
-  }, [animPhase]);
+      setActiveClub(club);
+      setIsTransitioning(false);
+    }, 400);
+  };
 
-  const goTo = useCallback((index) => {
-    if (animPhase !== 'idle' || index === current) return;
-    navigate(index > current ? 'right' : 'left');
-  }, [animPhase, current, navigate]);
-
-  const club = CLUBS[current];
-  const cssVars = {
-    '--xv-accent':   club.accent,
-    '--xv-glow':     club.glow,
-    '--xv-glow-dim': club.glowDim,
+  const handleBackToDashboard = () => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setActiveClub(null);
+      setHoveredClub(null);
+      setIsTransitioning(false);
+    }, 400);
   };
 
   const fetchAndParseMembers = () => {
+    if (!activeClub || !activeClub.cfgData) {
+      console.warn("Nincs CFG adat ehhez a klubhoz!");
+      return;
+    }
     try {
-      if (!cfgText) return;
-      
-      const lines = cfgText.split('\n');
+      const lines = activeClub.cfgData.split('\n');
       const parsedMembers = [];
-
       lines.forEach(line => {
         if (line.includes('=')) {
           const parts = line.split('=')[1].trim().split('-');
@@ -206,7 +264,6 @@ export default function ClubsPage() {
           }
         }
       });
-
       setMembersData(parsedMembers);
       setShowMembers(true);
     } catch (error) {
@@ -214,21 +271,12 @@ export default function ClubsPage() {
     }
   };
 
-  const rankWeights = {
-    'President': 6,
-    'VP': 5,
-    'Officer': 4,
-    'Captain': 3,
-    'Enforcer': 2,
-    'Member': 1
-  };
+  const rankWeights = { 'President': 6, 'VP': 5, 'Officer': 4, 'Captain': 3, 'Enforcer': 2, 'Member': 1 };
 
   const sortedMembers = React.useMemo(() => {
     let sortable = [...membersData];
     sortable.sort((a, b) => {
-      if (sortConfig.key === 'pr') {
-        return sortConfig.direction === 'asc' ? a.pr - b.pr : b.pr - a.pr;
-      }
+      if (sortConfig.key === 'pr') return sortConfig.direction === 'asc' ? a.pr - b.pr : b.pr - a.pr;
       if (sortConfig.key === 'rank') {
         const weightA = rankWeights[a.rank] || 0;
         const weightB = rankWeights[b.rank] || 0;
@@ -253,36 +301,44 @@ export default function ClubsPage() {
 
   const requestSort = (key) => {
     let direction = 'desc';
-    if (sortConfig.key === key && sortConfig.direction === 'desc') {
-      direction = 'asc';
-    }
+    if (sortConfig.key === key && sortConfig.direction === 'desc') direction = 'asc';
     setSortConfig({ key, direction });
   };
 
-const handleCloseMembers = () => {
-    setIsClosing(true);
+  const handleCloseMembers = () => {
+    setIsClosingModal(true);
     setTimeout(() => {
       setVisibleItemsCount(35);
-      setIsClosing(false);
+      setIsClosingModal(false);
       setShowMembers(false);
     }, 300);
   };
 
+  const currentAccent = activeClub ? activeClub.accent : (hoveredClub ? hoveredClub.accent : '#00d2ff');
+  const currentGlow = activeClub ? activeClub.glow : (hoveredClub ? hoveredClub.glow : 'rgba(0, 210, 255, 0.28)');
+  const currentGlowDim = activeClub ? activeClub.glowDim : (hoveredClub ? hoveredClub.glowDim : 'rgba(0, 210, 255, 0.07)');
+
+  const cssVars = {
+    '--xv-accent': currentAccent,
+    '--xv-glow': currentGlow,
+    '--xv-glow-dim': currentGlowDim,
+  };
+
   return (
     <div className="xvp" style={cssVars}>
+      
+      {/* Betöltő képernyő */}
       <div className={`xvp-loader-screen ${!loading ? 'xvp-loader--hidden' : ''}`}>
         <div className="xvp-loader-container">
           <span className="xvp-loader-title">LOADING</span>
-          <div className="xvp-loader-bar">
-            <div className="xvp-loader-progress" />
-          </div>
-          <span className="xvp-loader-subtitle"></span>
+          <div className="xvp-loader-bar"><div className="xvp-loader-progress" /></div>
         </div>
       </div>
 
       <div className="xvp-bg" aria-hidden="true">
-        <ClubParticles activeColor={club.accent} />
+        <ClubParticles activeColor={currentAccent} />
         <div className="xvp-bg__base" />
+        {activeClub && <div className="xvp-bg__top-veil" />}
         <div className="xvp-bg__orb xvp-bg__orb--a" />
         <div className="xvp-bg__orb xvp-bg__orb--b" />
         <div className="xvp-bg__orb xvp-bg__orb--c" />
@@ -290,186 +346,153 @@ const handleCloseMembers = () => {
         <div className="xvp-bg__vignette" />
       </div>
 
-      <button
-        className="xvp-arrow xvp-arrow--left"
-        onClick={() => navigate('left')}
-        aria-label="Previous club"
-        disabled={animPhase !== 'idle'}
-      >
-        <span className="xvp-arrow__circle">
-          <IconChevronLeft />
-        </span>
-      </button>
-
-      <div className="xvp-slider">
-        <div className={`xvp-wrap xvp-wrap--${animPhase}`}>
-
-          <article className="xvp-card" role="region" aria-label={`${club.name} club`}>
-            <div className="xvp-card__shine" aria-hidden="true" />
-
-            <div className="xvp-card__inner">
-              <header className="xvp-header">
-                <div className="xvp-emblem" aria-hidden="true">
-                  {typeof club.emblem === 'string' && (club.emblem === 'NV' || club.emblem === 'AP') ? (
-                    <span className="xvp-emblem__text">{club.emblem}</span>
+      {/* ── ALAPÁLLAPOT: Dashboard ── */}
+      {!activeClub && (
+        <div className={`xvp-dashboard ${isTransitioning ? 'xvp-dashboard--exiting' : 'xvp-dashboard--entering'}`}>
+          <h1 className="xvp-dashboard-title">Select a Community</h1>
+          <div className="xvp-dashboard-grid">
+            {CLUBS.map((c) => (
+              <button 
+                key={c.id} 
+                className="xvp-dash-club"
+                style={{ '--dash-accent': c.accent, '--dash-glow': c.glow }}
+                onClick={() => handleSelectClub(c)}
+                onMouseEnter={() => setHoveredClub(c)}
+                onMouseLeave={() => setHoveredClub(null)}
+              >
+                <div className="xvp-dash-emblem">
+                  {c.isImage ? (
+                    <img src={c.emblem} alt={c.name} className="xvp-dash-emblem__img" />
                   ) : (
-                    <img src={club.emblem} alt={`${club.name} logo`} className="xvp-emblem__img" />
+                    <span className="xvp-dash-emblem__text">{c.emblem}</span>
                   )}
-                  <div className="xvp-emblem__ring xvp-emblem__ring--1" />
-                  <div className="xvp-emblem__ring xvp-emblem__ring--2" />
+                  <div className="xvp-dash-ring"></div>
+                </div>
+                <span className="xvp-dash-name">{c.name}</span>
+                {c.comingSoon && <span className="xvp-dash-badge">SOON</span>}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* ── RÉSZLETES ÁLLAPOT: Teljes oldalas nézet ── */}
+      {activeClub && (
+        <div className={`xvp-details-view ${isTransitioning ? 'xvp-details--exiting' : 'xvp-details--entering'}`}>
+          
+          <button className="xvp-back-btn" onClick={handleBackToDashboard}>
+            <span className="xvp-back-btn__icon"><IconBackArrow /></span>
+            Back to Clubs
+          </button>
+
+          <div className="xvp-fp-scroll-area">
+            <div className="xvp-fp-container">
+              
+              <header className="xvp-fp-hero">
+                <div className="xvp-fp-emblem" aria-hidden="true">
+                  {activeClub.isImage ? (
+                    <img src={activeClub.emblem} alt={`${activeClub.name} logo`} className="xvp-fp-emblem__img" />
+                  ) : (
+                    <span className="xvp-fp-emblem__text">{activeClub.emblem}</span>
+                  )}
+                  <div className="xvp-fp-emblem__ring xvp-fp-emblem__ring--1" />
+                  <div className="xvp-fp-emblem__ring xvp-fp-emblem__ring--2" />
                 </div>
 
-                <div className="xvp-title-block">
-                  <span className="xvp-tier-badge">{club.tier}</span>
-                  <p className="xvp-tagline">{club.tagline}</p>
-                  <h1 className="xvp-name">{club.name}</h1>
-                  <p className="xvp-subtitle">{club.subtitle}</p>
+                <div className="xvp-fp-title-block">
+                  <div className="xvp-fp-tags">
+                    <span className="xvp-tier-badge">{activeClub.tier}</span>
+                    <span className="xvp-tagline">{activeClub.tagline}</span>
+                  </div>
+                  <h1 className="xvp-fp-name">{activeClub.name}</h1>
+                  <p className="xvp-fp-subtitle">{activeClub.subtitle}</p>
                 </div>
               </header>
 
-              {/* ── Stats Bar ───────────────────────────────────── */}
-              <div className="xvp-stats" role="list" aria-label="Club statistics">
-                {club.stats.map((s, i) => (
+              <div className="xvp-fp-stats">
+                {activeClub.stats.map((s, i) => (
                   <React.Fragment key={s.label}>
-                    {i > 0 && <div className="xvp-stats__sep" aria-hidden="true" />}
-                    <div className="xvp-stat" role="listitem">
-                      <span className="xvp-stat__val">{s.value}</span>
-                      <span className="xvp-stat__lbl">{s.label}</span>
+                    {i > 0 && <div className="xvp-fp-stats__sep" aria-hidden="true" />}
+                    <div className="xvp-fp-stat">
+                      <span className="xvp-fp-stat__val">{s.value}</span>
+                      <span className="xvp-fp-stat__lbl">{s.label}</span>
                     </div>
                   </React.Fragment>
                 ))}
               </div>
 
-              {/* ── Description ─────────────────────────────────── */}
-              <p className="xvp-desc">{club.description}</p>
+              <div className="xvp-fp-content">
+                <main className="xvp-fp-main">
+                  <h2 className="xvp-fp-section-title">About the Club</h2>
+                  <p className="xvp-fp-desc">{activeClub.description}</p>
 
-              {/* ── Features Grid ───────────────────────────────── */}
-              {club.features.length > 0 && (
-                <section className="xvp-features" aria-label="Club features">
-                  <h2 className="xvp-section-label">Why Join {club.name}?</h2>
-                  <div className="xvp-features__grid">
-                    {club.features.map((f, i) => (
-                      <div
-                        className="xvp-feature"
-                        key={f.title}
-                        style={{ '--fi-delay': `${i * 55}ms` }}
-                      >
-                        <div className="xvp-feature-inner">
-                          <span className="xvp-feature__icon" aria-hidden="true">{f.icon}</span>
-                          <div className="xvp-feature__body">
-                            <div className="xvp-feature__title">{f.title}</div>
-                            <div className="xvp-feature__desc">{f.desc}</div>
+                  {activeClub.features.length > 0 && (
+                    <section className="xvp-fp-features">
+                      <h2 className="xvp-fp-section-title">Why Join {activeClub.name}?</h2>
+                      <div className="xvp-fp-features__grid">
+                        {activeClub.features.map((f, i) => (
+                          <div className="xvp-fp-feature" key={f.title} style={{ '--fi-delay': `${i * 55}ms` }}>
+                            <div className="xvp-fp-feature-inner">
+                              <span className="xvp-fp-feature__icon" aria-hidden="true">{f.icon}</span>
+                              <div className="xvp-fp-feature__body">
+                                <div className="xvp-fp-feature__title">{f.title}</div>
+                                <div className="xvp-fp-feature__desc">{f.desc}</div>
+                              </div>
+                            </div>
                           </div>
-                        </div>
+                        ))}
                       </div>
-                    ))}
-                  </div>
-                </section>
-              )}
+                    </section>
+                  )}
+                </main>
 
-              {/* ── Requirements + CTA ──────────────────────────── */}
-              {!club.comingSoon && club.requirements.length > 0 && (
-                <div className="xvp-footer">
-                  <div className="xvp-requirements">
-                    <h3 className="xvp-section-label">Requirements</h3>
-                    <ul className="xvp-req-list" aria-label="Membership requirements">
-                      {club.requirements.map(r => (
-                        <li key={r} className="xvp-req-item">{r}</li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div className="xvp-cta-group">
-                    {club.discord && (
-                      <a
-                        href={`https://${club.discord}`}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="xvp-btn xvp-btn--primary"
-                      >
-                        Join Club
-                      </a>
+                <aside className="xvp-fp-sidebar">
+                  <div className="xvp-fp-sidebar-card">
+                    {activeClub.comingSoon ? (
+                      <div className="xvp-coming-soon">
+                        <span className="xvp-coming-soon__label">Club under construction</span>
+                        <button className="xvp-btn xvp-btn--primary xvp-btn--full">Notify Me</button>
+                      </div>
+                    ) : (
+                      <>
+                        {activeClub.requirements.length > 0 && (
+                          <div className="xvp-fp-requirements">
+                            <h3 className="xvp-fp-sidebar-title">Requirements</h3>
+                            <ul className="xvp-fp-req-list">
+                              {activeClub.requirements.map(r => <li key={r} className="xvp-fp-req-item">{r}</li>)}
+                            </ul>
+                          </div>
+                        )}
+                        
+                        <div className="xvp-fp-actions">
+                          {activeClub.discord && (
+                            <a href={`https://${activeClub.discord}`} target="_blank" rel="noreferrer" className="xvp-btn xvp-btn--primary xvp-btn--full">
+                              Join {activeClub.name}
+                            </a>
+                          )}
+                          {activeClub.cfgData && (
+                            <button className="xvp-btn xvp-btn--secondary xvp-btn--full" onClick={fetchAndParseMembers}>
+                              View Members
+                            </button>
+                          )}
+                        </div>
+                      </>
                     )}
-                    <button className="xvp-btn xvp-btn--secondary" onClick={fetchAndParseMembers}>View Members</button>
                   </div>
-                </div>
-              )}
-
-              {/* Coming Soon CTA */}
-              {club.comingSoon && (
-                <div className="xvp-coming-soon">
-                  <span className="xvp-coming-soon__label">Club under construction</span>
-                  <button className="xvp-btn xvp-btn--primary">Notify Me</button>
-                </div>
-              )}
-
-              {/* ── Quote ───────────────────────────────────────── */}
-              {club.quote && (
-                <blockquote className="xvp-quote">
-                  <span aria-hidden="true" className="xvp-quote__deco">"</span>
-                  {club.quote}
-                  <span aria-hidden="true" className="xvp-quote__deco">"</span>
-                </blockquote>
-              )}
-
-              {/* ── Discord Link ─────────────────────────────────── */}
-              {club.discord && (
-                <div className="xvp-discord">
-                  <span className="xvp-discord__label">Discord</span>
-                  <a
-                    href={`https://${club.discord}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="xvp-discord__link"
-                  >
-                    {club.discord}
-                  </a>
-                </div>
-              )}
+                </aside>
+              </div>
 
             </div>
-          </article>
-
+          </div>
         </div>
-      </div>
+      )}
 
-      {/* ── Right Arrow ────────────────────────────────────────────────── */}
-      <button
-        className="xvp-arrow xvp-arrow--right"
-        onClick={() => navigate('right')}
-        aria-label="Next club"
-        disabled={animPhase !== 'idle'}
-      >
-        <span className="xvp-arrow__circle">
-          <IconChevronRight />
-        </span>
-      </button>
-
-      {/* ── Pagination Dots ────────────────────────────────────────────── */}
-      <nav className="xvp-pagination" aria-label="Club pagination">
-        {CLUBS.map((c, i) => (
-          <button
-            key={c.id}
-            className={`xvp-dot ${i === current ? 'xvp-dot--active' : ''}`}
-            onClick={() => goTo(i)}
-            aria-label={`Go to ${c.name}`}
-            aria-current={i === current ? 'page' : undefined}
-          />
-        ))}
-      </nav>
-
-      {/* ── MEMBERS MODAL OVERLAY (JAVÍTVA: Duplikáció kiszedve) ── */}
+      {/* ── MEMBERS MODAL OVERLAY ── */}
       {showMembers && (
-        <div className={`xvp-modal-overlay ${isClosing ? 'xvp-modal--closing' : ''}`} onClick={handleCloseMembers}>
+        <div className={`xvp-modal-overlay ${isClosingModal ? 'xvp-modal--closing' : ''}`} onClick={handleCloseMembers}>
           <div className="xvp-modal-content" onClick={(e) => e.stopPropagation()}>
-            
-            <button className="xvp-modal-close" onClick={handleCloseMembers}>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '20px', height: '20px' }}>
-              <path d="M18 6L6 18M6 6l12 12" />
-              <path d="M12 2a10 10 0 1 0 10 10" strokeDasharray="4 4" opacity="0" />
-            </svg>
-            </button>
-            
-            <h2 className="xvp-modal-title">{club.name} <span>Club Members</span> <span className="xvp-modal-update">Stats are updated every week!</span></h2>
+            <button className="xvp-modal-close" onClick={handleCloseMembers}><IconClose /></button>
+            <h2 className="xvp-modal-title">{activeClub.name} <span>Club Members</span> <span className="xvp-modal-update">Stats are updated every week!</span></h2>
             
             <div className="xvp-table-wrapper" onScroll={handleTableScroll}>
               <table className="xvp-members-table">

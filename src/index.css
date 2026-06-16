@@ -448,6 +448,44 @@ position: relative;
 .guide-name { font-weight: 400; font-size: 1.05rem; flex: 1; font-family: Quicksand;}
 .guide-date { font-size: .82rem; color: var(--muted); white-space: nowrap; }
 
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: flex-start; 
+}
+
+.footer-logo {
+  font-family: 'Cinzel', serif;
+  font-weight: 900;
+  font-size: 1.25rem;
+  letter-spacing: .05em;
+  display: flex; 
+  align-items: center; 
+  gap: 10px;
+  cursor: pointer;
+  position: relative; /* Abszolút helyett relatív, így a helyén marad a rácsban! */
+  transform: none;
+}
+
+.footer-logo .diamond {
+  display: inline-block;
+  width: 45px; 
+  height: 45px;
+  background-image: url('/icons/geometric.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  flex-shrink: 0;
+  transition: all 0.8s cubic-bezier(0.25, 0.45, 0.25, 1);
+  filter: drop-shadow(0 0 5px rgba(183, 0, 255, 0.2));
+}
+
+.footer-logo .diamond:hover {
+  transform: scale(1.25) rotate(360deg);
+  filter: drop-shadow(0 0 25px rgba(0, 142, 207, 0.719));
+}
+
 footer {
   position: relative; z-index: 1;
   background-image: linear-gradient(45deg, #04081C , #000312 100%);
@@ -460,7 +498,7 @@ footer {
 }
 .footer-brand .nav-logo { font-size: 1.1rem; }
 .footer-brand p {
-  margin-top: 12px;
+  margin-top: 0; 
   color: var(--muted);
   font-size: 1.15rem;
   line-height: 1.6;
