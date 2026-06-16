@@ -102,7 +102,7 @@ export default function ClubsPage() {
 
   const [showMembers, setShowMembers] = useState(false);
   const [membersData, setMembersData] = useState([]);
-  const [sortConfig, setSortConfig] = useState({ key: 'pr', direction: 'desc' });
+  const [sortConfig, setSortConfig] = useState({ key: 'rank', direction: 'desc' });
 
   // JAVÍTVA: Közvetlenül a beolvasott szövegből dolgozik, nincs fetch hiba!
   const fetchAndParseMembers = () => {
