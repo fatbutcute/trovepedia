@@ -818,7 +818,7 @@
   inset: 0;
   z-index: 99999;
   background: rgba(5, 5, 8, 0.85);
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(3px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -900,6 +900,8 @@
   padding: 0 20px 20px;
   scrollbar-width: thin;
   scrollbar-color: var(--xv-accent) transparent;
+  will-change: transform;
+  -webkit-overflow-scrolling: touch;
 }
 .xvp-table-wrapper::-webkit-scrollbar { width: 4px; }
 .xvp-table-wrapper::-webkit-scrollbar-thumb { background: var(--xv-accent); border-radius: 2px; }

@@ -40,7 +40,6 @@ const CLUBS = [
   }
 ];
 
-// ─── SVG Icons ────────────────────────────────────────────────────────────────
 const IconChevronLeft = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"
     strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -55,13 +54,16 @@ const IconChevronRight = () => (
   </svg>
 );
 
-// ─── Component ────────────────────────────────────────────────────────────────
 export default function ClubsPage() {
   const [current,   setCurrent]   = useState(0);
   const [animPhase, setAnimPhase] = useState('idle');
   const [loading,   setLoading]   = useState(true);
 
-  // Időzítő a Loading Screen eltüntetésére
+  const [showMembers, setShowMembers] = useState(false);
+  const [membersData, setMembersData] = useState([]);
+  const [sortConfig, setSortConfig] = useState({ key: 'rank', direction: 'desc' });
+  const [visibleItemsCount, setVisibleItemsCount] = useState(35);
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
@@ -100,11 +102,6 @@ export default function ClubsPage() {
     '--xv-glow-dim': club.glowDim,
   };
 
-  const [showMembers, setShowMembers] = useState(false);
-  const [membersData, setMembersData] = useState([]);
-  const [sortConfig, setSortConfig] = useState({ key: 'rank', direction: 'desc' });
-
-  // JAVÍTVA: Közvetlenül a beolvasott szövegből dolgozik, nincs fetch hiba!
   const fetchAndParseMembers = () => {
     try {
       if (!cfgText) return;
@@ -132,7 +129,6 @@ export default function ClubsPage() {
     }
   };
 
-  // Súlyozás a Rank szerinti rendezéshez
   const rankWeights = {
     'President': 6,
     'VP': 5,
@@ -142,7 +138,6 @@ export default function ClubsPage() {
     'Member': 1
   };
 
-  // A táblázat élő rendezése
   const sortedMembers = React.useMemo(() => {
     let sortable = [...membersData];
     sortable.sort((a, b) => {
@@ -161,16 +156,27 @@ export default function ClubsPage() {
       }
       return 0;
     });
-    return sortable;
-  }, [membersData, sortConfig]);
+    return sortable.slice(0, visibleItemsCount);
+  }, [membersData, sortConfig, visibleItemsCount]);
 
-  // Kattintás a táblázat fejlécére
+  const handleTableScroll = (e) => {
+    const { scrollTop, clientHeight, scrollHeight } = e.currentTarget;
+    if (scrollHeight - scrollTop - clientHeight < 20) {
+      setVisibleItemsCount(prev => Math.min(prev + 35, membersData.length));
+    }
+  };
+
   const requestSort = (key) => {
     let direction = 'desc';
     if (sortConfig.key === key && sortConfig.direction === 'desc') {
       direction = 'asc';
     }
     setSortConfig({ key, direction });
+  };
+
+  const handleCloseMembers = () => {
+    setVisibleItemsCount(35);
+    setShowMembers(false);
   };
 
   return (
@@ -185,7 +191,6 @@ export default function ClubsPage() {
         </div>
       </div>
 
-      {/* ── Layered Background ─────────────────────────────────────────── */}
       <div className="xvp-bg" aria-hidden="true">
         <div className="xvp-bg__base" />
         <div className="xvp-bg__orb xvp-bg__orb--a" />
@@ -195,7 +200,6 @@ export default function ClubsPage() {
         <div className="xvp-bg__vignette" />
       </div>
 
-      {/* ── Left Arrow ─────────────────────────────────────────────────── */}
       <button
         className="xvp-arrow xvp-arrow--left"
         onClick={() => navigate('left')}
@@ -207,7 +211,6 @@ export default function ClubsPage() {
         </span>
       </button>
 
-      {/* ── Main Slider ────────────────────────────────────────────────── */}
       <div className="xvp-slider">
         <div className={`xvp-wrap xvp-wrap--${animPhase}`}>
 
@@ -215,8 +218,6 @@ export default function ClubsPage() {
             <div className="xvp-card__shine" aria-hidden="true" />
 
             <div className="xvp-card__inner">
-
-              {/* ── Header ──────────────────────────────────────── */}
               <header className="xvp-header">
                 <div className="xvp-emblem" aria-hidden="true">
                   {typeof club.emblem === 'string' && (club.emblem === 'NV' || club.emblem === 'AP') ? (
@@ -366,17 +367,18 @@ export default function ClubsPage() {
         ))}
       </nav>
 
-      {/* ── MEMBERS MODAL OVERLAY ──────────────────────────────────────── */}
+      {/* ── MEMBERS MODAL OVERLAY (JAVÍTVA: Duplikáció kiszedve) ── */}
       {showMembers && (
-        <div className="xvp-modal-overlay" onClick={() => setShowMembers(false)}>
+        <div className="xvp-modal-overlay" onClick={handleCloseMembers}>
           <div className="xvp-modal-content" onClick={(e) => e.stopPropagation()}>
-            <button className="xvp-modal-close" onClick={() => setShowMembers(false)}>
+            
+            <button className="xvp-modal-close" onClick={handleCloseMembers}>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
             </button>
             
             <h2 className="xvp-modal-title">{club.name} <span>Club Members</span></h2>
             
-            <div className="xvp-table-wrapper">
+            <div className="xvp-table-wrapper" onScroll={handleTableScroll}>
               <table className="xvp-members-table">
                 <thead>
                   <tr>
