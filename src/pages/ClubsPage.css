@@ -686,7 +686,6 @@
   color: var(--xv-accent);
   background: transparent;
   border: 1px solid rgba(201,168,76,0.28);
-  display: none;
 }
 
 .xvp-btn--secondary:hover {
@@ -811,6 +810,174 @@
   background: var(--xv-accent);
   box-shadow: 0 0 10px var(--xv-glow);
 }
+
+/* ── MEMBERS MODAL (VIEW MEMBERS) ────────────────────────────────── */
+
+.xvp-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: rgba(5, 5, 8, 0.85);
+  backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  /* Sötétből bukkan elő */
+  animation: fadeInOverlay 0.3s ease forwards;
+}
+
+.xvp-modal-content {
+  position: relative;
+  width: 100%;
+  max-width: 680px;
+  max-height: 85vh;
+  background: #0a0a0f;
+  border: 1px solid var(--xv-border);
+  border-radius: var(--xv-radius-card);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 30px var(--xv-glow-dim);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  /* Alulról beúszik a semmiből */
+  animation: slideUpModal 0.4s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+/* Modal beúszó animációk */
+@keyframes fadeInOverlay {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes slideUpModal {
+  from { opacity: 0; transform: translateY(60px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.xvp-modal-close {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--xv-border);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  color: var(--xv-text-lo);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.xvp-modal-close:hover {
+  background: rgba(255, 50, 50, 0.15);
+  color: #ff4a4a;
+  border-color: rgba(255, 50, 50, 0.3);
+  transform: rotate(90deg);
+}
+
+.xvp-modal-title {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 28px;
+  font-weight: 900;
+  color: var(--xv-text-hi);
+  padding: 30px 40px 20px;
+  margin: 0;
+  border-bottom: 1px solid var(--xv-border);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.xvp-modal-title span {
+  color: var(--xv-accent);
+  text-shadow: 0 0 16px var(--xv-glow);
+}
+
+/* A táblázat konténere, hogy tudjon görgőzni, ha sok a tag */
+.xvp-table-wrapper {
+  overflow-y: auto;
+  padding: 0 20px 20px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--xv-accent) transparent;
+}
+.xvp-table-wrapper::-webkit-scrollbar { width: 4px; }
+.xvp-table-wrapper::-webkit-scrollbar-thumb { background: var(--xv-accent); border-radius: 2px; }
+
+.xvp-members-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.xvp-members-table th {
+  position: sticky;
+  top: 0;
+  background: #0a0a0f;
+  padding: 16px 20px;
+  font-family: 'Comfortaa', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--xv-text-lo);
+  cursor: pointer;
+  border-bottom: 1px solid var(--xv-border);
+  transition: color 0.2s ease, background 0.2s ease;
+  z-index: 2;
+}
+
+.xvp-members-table th:hover {
+  color: var(--xv-accent);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.xvp-members-table th.active-sort {
+  color: var(--xv-accent);
+  border-bottom: 1px solid var(--xv-accent);
+}
+
+.xvp-members-table td {
+  padding: 14px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+}
+
+.xvp-members-table tr:hover td {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* ── RANK ÉS ADAT SZÍNKÓDOK ── */
+
+/* A játékosok neve (halvány szürke) */
+.member-name {
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+/* A Power Rank (tiszta fehér, formázott számmal) */
+.member-pr {
+  color: #ffffff;
+  font-weight: 700;
+  font-family: 'Comfortaa', sans-serif;
+}
+
+/* Rank színek */
+.member-rank {
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+}
+
+.rank-president { color: #FFD700; text-shadow: 0 0 8px rgba(255, 215, 0, 0.4); } /* Sárga */
+.rank-vp        { color: #FF8C00; text-shadow: 0 0 8px rgba(255, 140, 0, 0.4); } /* Narancs */
+.rank-officer   { color: #4CA3C9; text-shadow: 0 0 8px rgba(76, 163, 201, 0.4); } /* Kék */
+.rank-captain   { color: #4CAF50; text-shadow: 0 0 8px rgba(76, 175, 80, 0.4); } /* Zöld */
+.rank-enforcer  { color: #FFDAB9; } /* Bőrszín / Peach */
+.rank-member    { color: #FFFFFF; opacity: 0.8; } /* Fehér */
 
 /* ── Reduced-motion ──────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {

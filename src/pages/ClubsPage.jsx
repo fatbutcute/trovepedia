@@ -1,7 +1,7 @@
-import React, { useState, useCallback, useEffect } from 'react'; // <── ITT VOLT A HIBA, a useEffect be lett pótolva!
+import React, { useState, useCallback, useEffect } from 'react';
 import './ClubsPage.css';
 import xvLogo from './clubs/XV/XV.webp';
-import arsynLogo from './clubs/Arsyn/arsyn.webp';
+import cfgText from './clubs/XV/XV.cfg?raw'; // <── Ezt használjuk fel közvetlenül!
 
 // ─── Club Data ────────────────────────────────────────────────────────────────
 const CLUBS = [
@@ -37,57 +37,7 @@ const CLUBS = [
     accent: '#C9A84C',
     glow:   'rgba(201,168,76,0.28)',
     glowDim:'rgba(201,168,76,0.07)',
-  },
-  /*{
-    id: 2,
-    emblem: arsynLogo,
-    tier: 'ELITE',
-    tagline: 'Among the strong ones.',
-    name: 'Arsyn',
-    subtitle: '',
-    description:
-      `Arsyn is among the top tier clubs in Trove, known for its competitive edge and strategic gameplay. With a focus on teamwork and high-level content, Arsyn is the go-to club for players looking to make progress and find good people to play with. Join Arsyn to be part of a growing community that values skill, dedication, and camaraderie.`,
-    stats: [
-      { value: '750+', label: 'Club Members' },
-      { value: '50K+', label: 'Min. PR' },
-      { value: '#2', label: 'Global Rank' },
-    ],
-    features: [],
-    requirements: [
-      '50,000+ PR (Power Rank)',
-      'Active participation',
-      'Team-oriented mindset',
-    ],
-    discord: 'discord.gg/arsyn',
-    quote: '',
-    accent:  '#730dd3',
-    glow:    'rgba(195, 0, 255, 0.28)',
-    glowDim: 'rgba(195, 0, 255, 0.07)',
-    comingSoon: true,
-  },
-  {
-    id: 3,
-    emblem: 'AP',
-    tier: 'ELITE',
-    tagline: 'Reach the Summit',
-    name: 'APEX',
-    subtitle: 'For those who never settle.',
-    description:
-      'APEX is a competitive club currently under construction. Built for players who demand the absolute best in organized play, APEX will set a new benchmark for gaming excellence. More information arriving soon.',
-    stats: [
-      { value: '—', label: 'Members' },
-      { value: '—', label: 'Min. PR' },
-      { value: '—', label: 'Global Rank' },
-    ],
-    features: [],
-    requirements: [],
-    discord: '',
-    quote: '',
-    accent:  '#C94C4C',
-    glow:    'rgba(201,76,76,0.28)',
-    glowDim: 'rgba(201,76,76,0.07)',
-    comingSoon: true,
-  }, */
+  }
 ];
 
 // ─── SVG Icons ────────────────────────────────────────────────────────────────
@@ -150,17 +100,90 @@ export default function ClubsPage() {
     '--xv-glow-dim': club.glowDim,
   };
 
+  const [showMembers, setShowMembers] = useState(false);
+  const [membersData, setMembersData] = useState([]);
+  const [sortConfig, setSortConfig] = useState({ key: 'pr', direction: 'desc' });
+
+  // JAVÍTVA: Közvetlenül a beolvasott szövegből dolgozik, nincs fetch hiba!
+  const fetchAndParseMembers = () => {
+    try {
+      if (!cfgText) return;
+      
+      const lines = cfgText.split('\n');
+      const parsedMembers = [];
+
+      lines.forEach(line => {
+        if (line.includes('=')) {
+          const parts = line.split('=')[1].trim().split('-');
+          if (parts.length >= 3) {
+            parsedMembers.push({
+              name: parts[0],
+              rank: parts[1],
+              pr: parseInt(parts[2], 10)
+            });
+          }
+        }
+      });
+
+      setMembersData(parsedMembers);
+      setShowMembers(true);
+    } catch (error) {
+      console.error("Nem sikerült feldolgozni a tagokat:", error);
+    }
+  };
+
+  // Súlyozás a Rank szerinti rendezéshez
+  const rankWeights = {
+    'President': 6,
+    'VP': 5,
+    'Officer': 4,
+    'Captain': 3,
+    'Enforcer': 2,
+    'Member': 1
+  };
+
+  // A táblázat élő rendezése
+  const sortedMembers = React.useMemo(() => {
+    let sortable = [...membersData];
+    sortable.sort((a, b) => {
+      if (sortConfig.key === 'pr') {
+        return sortConfig.direction === 'asc' ? a.pr - b.pr : b.pr - a.pr;
+      }
+      if (sortConfig.key === 'rank') {
+        const weightA = rankWeights[a.rank] || 0;
+        const weightB = rankWeights[b.rank] || 0;
+        return sortConfig.direction === 'asc' ? weightA - weightB : weightB - weightA;
+      }
+      if (sortConfig.key === 'name') {
+        if (a.name.toLowerCase() < b.name.toLowerCase()) return sortConfig.direction === 'asc' ? -1 : 1;
+        if (a.name.toLowerCase() > b.name.toLowerCase()) return sortConfig.direction === 'asc' ? 1 : -1;
+        return 0;
+      }
+      return 0;
+    });
+    return sortable;
+  }, [membersData, sortConfig]);
+
+  // Kattintás a táblázat fejlécére
+  const requestSort = (key) => {
+    let direction = 'desc';
+    if (sortConfig.key === key && sortConfig.direction === 'desc') {
+      direction = 'asc';
+    }
+    setSortConfig({ key, direction });
+  };
+
   return (
     <div className="xvp" style={cssVars}>
-    <div className={`xvp-loader-screen ${!loading ? 'xvp-loader--hidden' : ''}`}>
-      <div className="xvp-loader-container">
-        <span className="xvp-loader-title">LOADING</span>
-        <div className="xvp-loader-bar">
-          <div className="xvp-loader-progress" />
+      <div className={`xvp-loader-screen ${!loading ? 'xvp-loader--hidden' : ''}`}>
+        <div className="xvp-loader-container">
+          <span className="xvp-loader-title">LOADING</span>
+          <div className="xvp-loader-bar">
+            <div className="xvp-loader-progress" />
+          </div>
+          <span className="xvp-loader-subtitle"></span>
         </div>
-        <span className="xvp-loader-subtitle"></span>
       </div>
-    </div>
 
       {/* ── Layered Background ─────────────────────────────────────────── */}
       <div className="xvp-bg" aria-hidden="true">
@@ -275,7 +298,7 @@ export default function ClubsPage() {
                         Join Club
                       </a>
                     )}
-                    <button className="xvp-btn xvp-btn--secondary">View Members</button>
+                    <button className="xvp-btn xvp-btn--secondary" onClick={fetchAndParseMembers}>View Members</button>
                   </div>
                 </div>
               )}
@@ -342,6 +365,40 @@ export default function ClubsPage() {
           />
         ))}
       </nav>
+
+      {/* ── MEMBERS MODAL OVERLAY ──────────────────────────────────────── */}
+      {showMembers && (
+        <div className="xvp-modal-overlay" onClick={() => setShowMembers(false)}>
+          <div className="xvp-modal-content" onClick={(e) => e.stopPropagation()}>
+            <button className="xvp-modal-close" onClick={() => setShowMembers(false)}>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+            
+            <h2 className="xvp-modal-title">{club.name} <span>Club Members</span></h2>
+            
+            <div className="xvp-table-wrapper">
+              <table className="xvp-members-table">
+                <thead>
+                  <tr>
+                    <th onClick={() => requestSort('name')} className={sortConfig.key === 'name' ? 'active-sort' : ''}>Player Name</th>
+                    <th onClick={() => requestSort('rank')} className={sortConfig.key === 'rank' ? 'active-sort' : ''}>Club Rank</th>
+                    <th onClick={() => requestSort('pr')} className={sortConfig.key === 'pr' ? 'active-sort' : ''}>Power Rank</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {sortedMembers.map((member, index) => (
+                    <tr key={index}>
+                      <td className="member-name">{member.name}</td>
+                      <td className={`member-rank rank-${member.rank.toLowerCase()}`}>{member.rank}</td>
+                      <td className="member-pr">{member.pr.toLocaleString()}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      )}
 
     </div>
   );
