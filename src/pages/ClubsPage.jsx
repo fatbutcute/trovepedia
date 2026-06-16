@@ -54,12 +54,97 @@ const IconChevronRight = () => (
   </svg>
 );
 
+// ─── HARDVERESEN GYORSÍTOTT PARTICLE CANVAS (NAGY FELBONTÁSRA OPTIMALIZÁLVA) ───
+const ClubParticles = ({ activeColor }) => {
+  const canvasRef = React.useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    
+    let animationFrameId;
+    let particles = [];
+    const particleCount = 200; // Picit megemeltem, mert a kisebb pöttyökből több mutat jól
+
+    // Canvas méretezése a kijelző pixelsűrűségéhez (HD / Retina / 4K fix)
+    const resizeCanvas = () => {
+      const dpr = window.devicePixelRatio || 1; // Lekérjük a monitor pixelsűrűségét
+      const rect = canvas.getBoundingClientRect();
+      
+      // A belső felbontást megszorozzuk a dpr-rel (Ettől lesz tűéles!)
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+      
+      // A rajzolási felületet visszaméretezzük a CSS mérethez
+      ctx.scale(dpr, dpr);
+      
+      // Mentjük a logikai méreteket a részecskéknek
+      canvas.logicalWidth = rect.width;
+      canvas.logicalHeight = rect.height;
+    };
+    
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    // Részecskék legenerálása (MÓDOSÍTVA: Szuper pici méretek!)
+    for (let i = 0; i < particleCount; i++) {
+      particles.push({
+        x: Math.random() * canvas.logicalWidth,
+        y: Math.random() * canvas.logicalHeight,
+        // JAVÍTVA: 1.8 helyett maximum 0.8 pixel átmérő, így mikroszkopikus porszemek lesznek!
+        radius: Math.random() * 0.8 + 0.3, 
+        speedX: (Math.random() - 0.5) * 0.25, 
+        speedY: (Math.random() - 0.5) * 0.35, 
+        alpha: Math.random() * 0.4 + 0.1, 
+        pulseSpeed: Math.random() * 0.008 + 0.003
+      });
+    }
+
+    // Animációs ciklus
+    const animate = () => {
+      // Mindig a logikai méret alapján törlünk
+      ctx.clearRect(0, 0, canvas.logicalWidth, canvas.logicalHeight);
+      
+      particles.forEach(p => {
+        p.x += p.speedX;
+        p.y += p.speedY;
+
+        p.alpha += p.pulseSpeed;
+        if (p.alpha > 0.5 || p.alpha < 0.1) p.pulseSpeed = -p.pulseSpeed;
+
+        if (p.x < 0) p.x = canvas.logicalWidth;
+        if (p.x > canvas.logicalWidth) p.x = 0;
+        if (p.y < 0) p.y = canvas.logicalHeight;
+        if (p.y > canvas.logicalHeight) p.y = 0;
+
+        ctx.beginTransaction?.() || ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = activeColor;
+        ctx.globalAlpha = p.alpha;
+        ctx.fill();
+      });
+
+      animationFrameId = requestAnimationFrame(animate);
+    };
+    animate();
+
+    return () => {
+      window.removeEventListener('resize', resizeCanvas);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, [activeColor]);
+
+  return <canvas ref={canvasRef} className="xvp-particles-canvas" aria-hidden="true" />;
+};
+
 export default function ClubsPage() {
   const [current,   setCurrent]   = useState(0);
   const [animPhase, setAnimPhase] = useState('idle');
   const [loading,   setLoading]   = useState(true);
 
   const [showMembers, setShowMembers] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
   const [membersData, setMembersData] = useState([]);
   const [sortConfig, setSortConfig] = useState({ key: 'rank', direction: 'desc' });
   const [visibleItemsCount, setVisibleItemsCount] = useState(35);
@@ -174,9 +259,13 @@ export default function ClubsPage() {
     setSortConfig({ key, direction });
   };
 
-  const handleCloseMembers = () => {
-    setVisibleItemsCount(35);
-    setShowMembers(false);
+const handleCloseMembers = () => {
+    setIsClosing(true);
+    setTimeout(() => {
+      setVisibleItemsCount(35);
+      setIsClosing(false);
+      setShowMembers(false);
+    }, 300);
   };
 
   return (
@@ -192,6 +281,7 @@ export default function ClubsPage() {
       </div>
 
       <div className="xvp-bg" aria-hidden="true">
+        <ClubParticles activeColor={club.accent} />
         <div className="xvp-bg__base" />
         <div className="xvp-bg__orb xvp-bg__orb--a" />
         <div className="xvp-bg__orb xvp-bg__orb--b" />
@@ -369,14 +459,17 @@ export default function ClubsPage() {
 
       {/* ── MEMBERS MODAL OVERLAY (JAVÍTVA: Duplikáció kiszedve) ── */}
       {showMembers && (
-        <div className="xvp-modal-overlay" onClick={handleCloseMembers}>
+        <div className={`xvp-modal-overlay ${isClosing ? 'xvp-modal--closing' : ''}`} onClick={handleCloseMembers}>
           <div className="xvp-modal-content" onClick={(e) => e.stopPropagation()}>
             
             <button className="xvp-modal-close" onClick={handleCloseMembers}>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '20px', height: '20px' }}>
+              <path d="M18 6L6 18M6 6l12 12" />
+              <path d="M12 2a10 10 0 1 0 10 10" strokeDasharray="4 4" opacity="0" />
+            </svg>
             </button>
             
-            <h2 className="xvp-modal-title">{club.name} <span>Club Members</span></h2>
+            <h2 className="xvp-modal-title">{club.name} <span>Club Members</span> <span className="xvp-modal-update">Stats are updated every week!</span></h2>
             
             <div className="xvp-table-wrapper" onScroll={handleTableScroll}>
               <table className="xvp-members-table">

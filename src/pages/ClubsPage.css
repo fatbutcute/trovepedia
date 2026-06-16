@@ -827,6 +827,43 @@
   animation: fadeInOverlay 0.3s ease forwards;
 }
 
+.xvp-particles-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1; /* A base sötét háttér előtt, de a kártyák és nyilak mögött */
+  pointer-events: none; /* Átengedi a kattintásokat, nem zavar be a slidernek */
+}
+
+/* ── JAVÍTVA: Amikor záródik az ablak, a sötét háttér is elhalványul ── */
+.xvp-modal-overlay.xvp-modal--closing {
+  animation: fadeOutOverlay 0.3s ease forwards;
+}
+
+/* ── JAVÍTVA: Amikor záródik az ablak, a kártya visszacsúszik a semmibe ── */
+.xvp-modal-overlay.xvp-modal--closing .xvp-modal-content {
+  animation: slideDownModal 0.3s cubic-bezier(0.32, 0, 0.67, 0) forwards;
+}
+
+/* ── ÚJ: KILÉPŐ@KEYFRAMES ANIMÁCIÓK ── */
+@keyframes fadeOutOverlay {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+@keyframes slideDownModal {
+  from { 
+    opacity: 1; 
+    transform: translateY(0) scale(1); 
+  }
+  to { 
+    opacity: 0; 
+    /* Lefelé süllyed el, picit zsugorodva */
+    transform: translateY(40px) scale(0.95); 
+  }
+}
+
 .xvp-modal-content {
   position: relative;
   width: 100%;
@@ -834,7 +871,7 @@
   max-height: 85vh;
   background: #0a0a0f;
   border: 1px solid var(--xv-border);
-  border-radius: var(--xv-radius-card);
+  border-radius: 15px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 30px var(--xv-glow-dim);
   display: flex;
   flex-direction: column;
@@ -894,6 +931,15 @@
   text-shadow: 0 0 16px var(--xv-glow);
 }
 
+.xvp-modal-update {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 0.5em;
+  color: #a2a39c !important;
+  align-items: flex-end;
+  display: block;
+  text-shadow: none !important;
+}
+
 /* A táblázat konténere, hogy tudjon görgőzni, ha sok a tag */
 .xvp-table-wrapper {
   overflow-y: auto;
@@ -902,6 +948,7 @@
   scrollbar-color: var(--xv-accent) transparent;
   will-change: transform;
   -webkit-overflow-scrolling: touch;
+  scrollbar-gutter: stable;
 }
 .xvp-table-wrapper::-webkit-scrollbar { width: 4px; }
 .xvp-table-wrapper::-webkit-scrollbar-thumb { background: var(--xv-accent); border-radius: 2px; }
@@ -910,6 +957,7 @@
   width: 100%;
   border-collapse: collapse;
   text-align: left;
+  table-layout: fixed;
 }
 
 .xvp-members-table th {
