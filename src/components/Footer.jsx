@@ -36,7 +36,7 @@ export default function Footer() {
             style={{ background: 'none', border: 'none', cursor: 'pointer' }}
           >
             <span className="diamond"></span>
-            <span style={{ fontFamily: 'Blinker' }}>Trovepedia</span>
+            <span style={{ fontFamily: 'Blinker', background: 'linear-gradient(135deg, #2bb1ff 0%, #21cbff 50%, #00d4db 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Trovepedia</span>
           </button>
           <p>Trovepedia, made by the community.</p>
            <StaffCard

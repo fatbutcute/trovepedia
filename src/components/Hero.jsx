@@ -50,7 +50,7 @@ export default function Hero() {
           position: "absolute",
           inset: 0,
           zIndex: 1,
-          background: "linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6))"
+          background: "linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7))"
         }}
       />
 

@@ -12,6 +12,7 @@ import RotationsPage   from './pages/RotationsPage'
 import DelvePage       from './pages/DelvePage'
 import ClassesPage     from './pages/ClassesPage'
 import StarChart   from './components/StarChart'
+import ClubsPage from './pages/ClubsPage';
 
 export default function App() {
   return (
@@ -19,7 +20,7 @@ export default function App() {
       <ScrollToTop />
       <Navbar />
 
-      <main style={{ paddingTop: '64px' }}>
+      <main style={{ paddingTop: '0px' }}>
         <Routes>
           <Route path="/" element={<Home />} />
 
@@ -44,6 +45,8 @@ export default function App() {
           <Route path="/archive" element={<TroveArchive />} />
 
           <Route path="/starchart" element={<StarChart />} />
+
+          <Route path="/clubs" element={<ClubsPage />} />
           <Route
             path="/fishing"
             element={

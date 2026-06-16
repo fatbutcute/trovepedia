@@ -16,7 +16,6 @@ const ROTATION_TABS = [
     icon: 'dragon',
     subItems: [
       { id: 'corruxion', label: 'Corruxion' },
-      { id: 'luxion', label: 'Luxion' },
       { id: 'fluxion', label: 'Fluxion' },
       { id: 'Trials', label: 'Trials' }
     ]
@@ -630,32 +629,58 @@ function FluxionTracker({ name, anchorUTC, accentColor, description }) {
   const [isActive, setIsActive] = useState(false)
   const [targetDate, setTargetDate] = useState(null)
 
-  useEffect(() => {
-    const CYCLE_MS = 14 * 24 * 60 * 60 * 1000
-    const DURATION_MS = 3 * 24 * 60 * 60 * 1000
+useEffect(() => {
+  const CYCLE_MS = 14 * 24 * 60 * 60 * 1000;       // 14 napos teljes ciklus
+  const DURATION_MS = 3 * 24 * 60 * 60 * 1000;     // Az aktív időszak hossza (3 nap)
 
-    const tick = () => {
-      const now = Date.now()
-      const diff = now - anchorUTC
-      const cyclesPassed = Math.floor(diff / CYCLE_MS)
-      const currentStart = anchorUTC + (cyclesPassed * CYCLE_MS)
-      const currentEnd = currentStart + DURATION_MS
+  // Beállítjuk a kiindulópontot a MAI napra (Kedd), pontosan 13:00-ra
+  const baseStart = new Date();
+  baseStart.setHours(13, 0, 0, 0); // Kedd 13:00:00.000
+  
+  // Ha a "baseStart" valamilyen okból a jövőben lenne az első futáskor, 
+  // vagy ha egy korábbi ciklus startját akarjuk megkapni:
+  let initialAnchor = baseStart.getTime();
 
-      if (now >= currentStart && now < currentEnd) {
-        setIsActive(true)
-        setTargetDate(currentEnd)
-        setTimeLeft(formatTimeLeft(currentEnd - now))
-      } else {
-        setIsActive(false)
-        const nextStart = currentStart + CYCLE_MS
-        setTargetDate(nextStart)
-        setTimeLeft(formatTimeLeft(nextStart - now))
-      }
+  const tick = () => {
+    const now = Date.now();
+    
+    // Kiszámoljuk, hogy a Kedd 13:00-hoz képest hol járunk a 14 napos ciklusban
+    let diff = now - initialAnchor;
+    
+    // Ha az időben visszafelé számolnánk (pl. a legelső ciklus előtt vagyunk), eltoljuk az anchort
+    if (diff < 0) {
+      const cyclesToBacktrack = Math.ceil(Math.abs(diff) / CYCLE_MS);
+      initialAnchor -= cyclesToBacktrack * CYCLE_MS;
+      diff = now - initialAnchor;
     }
-    tick()
-    const id = setInterval(tick, 1000)
-    return () => clearInterval(id)
-  }, [anchorUTC])
+
+    const cyclesPassed = Math.floor(diff / CYCLE_MS);
+    
+    // A jelenlegi 14 napos ciklus pontos kezdete (mindig egy keddi nap 13:00)
+    const currentStart = initialAnchor + (cyclesPassed * CYCLE_MS);
+    const currentEnd = currentStart + DURATION_MS;
+
+    // Ellenőrzés: Kedd 13:00 és Péntek 13:00 között vagyunk-e?
+    if (now >= currentStart && now < currentEnd) {
+      setIsActive(true);
+      setTargetDate(currentEnd);
+      setTimeLeft(formatTimeLeft(currentEnd - now));
+    } else {
+      setIsActive(false);
+      
+      // Ha a mostani kedd 13:00-as rajt már elmúlt (és a 3 nap is lement), 
+      // akkor a következő célpont a 14 nappal későbbi Kedd 13:00 lesz
+      const nextStart = now >= currentEnd ? currentStart + CYCLE_MS : currentStart;
+      
+      setTargetDate(nextStart);
+      setTimeLeft(formatTimeLeft(nextStart - now));
+    }
+  };
+
+  tick();
+  const id = setInterval(tick, 1000);
+  return () => clearInterval(id);
+}, []); // Az anchorUTC-t ki is veheted a függőségekből, mert a kód most már magától legenerálja a mait
 
   const formatDate = (ms) => {
     if (!ms) return ''

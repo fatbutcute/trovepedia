@@ -45,8 +45,15 @@ body::before {
 }
 
 nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  display: flex; align-items: center; justify-content: space-between;
+  position: fixed; 
+  top: 0; left: 0; right: 0; 
+  z-index: 100;
+  display: flex; 
+  align-items: center; 
+  
+  /* 1. LÉPÉS: space-between HELYETT center, hogy minden középre tömörüljön */
+  justify-content: center; 
+  
   padding: 0 48px;
   height: 64px;
   background: rgba(7,8,15,0.85);
@@ -63,11 +70,15 @@ nav {
   text-decoration: none;
   display: flex; align-items: center; gap: 10px;
   cursor: pointer;
+  position: absolute;
+  left: 48px; /* Pontosan a nav paddingjéhez igazítva */
+  top: 50%;
+  transform: translateY(-50%);
 }
 .nav-logo .diamond {
   display: inline-block;
-  width: 40px; height: 40px;
-  background-image: url('/icons/abstract-shape.png');
+  width: 45px; height: 45px;
+  background-image: url('/icons/geometric.png');
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
@@ -78,7 +89,7 @@ nav {
 
 .nav-logo .diamond:hover {
     transform: scale(1.25) rotate(360deg);
-    filter: drop-shadow(0 0 25px rgb(255, 187, 0));
+    filter: drop-shadow(0 0 25px rgba(0, 142, 207, 0.719));
 }
 
 @keyframes slowSpin {
@@ -87,8 +98,12 @@ nav {
 }
 
 .nav-links {
-  display: flex; align-items: center; gap: 5px;
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  gap: 5px;
   list-style: none;
+  margin: 0 auto;
 }
 .nav-links a,
 .nav-links button {
@@ -161,10 +176,10 @@ position: relative;
   font-size: 1.2rem;
   letter-spacing: .25em;
   color: var(--cyan);
-  font-weight: 600;
+  font-weight: bold;
   opacity: 0;
   animation: slideUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards 0.55s;
-  font-family: sfprodisplay, sans-serif;
+  font-family: Quicksand, sans-serif;
 }
 
 .hero h1 {
@@ -535,6 +550,14 @@ footer {
   opacity: 1;
   transform: none;
   transform: translateY(-5px);
+}
+
+*, *::before, *::after {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 
 @media (max-width: 900px) {
