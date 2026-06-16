@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react'; // <── ITT VOLT A HIBA, a useEffect be lett pótolva!
 import './ClubsPage.css';
-import xvLogo from './clubs/XV/XV.webp'; // Feltételezve, hogy a ClubsPage.jsx a `pages` mappában van
+import xvLogo from './clubs/XV/XV.webp';
+import arsynLogo from './clubs/Arsyn/arsyn.webp';
 
 // ─── Club Data ────────────────────────────────────────────────────────────────
 const CLUBS = [
@@ -37,9 +38,9 @@ const CLUBS = [
     glow:   'rgba(201,168,76,0.28)',
     glowDim:'rgba(201,168,76,0.07)',
   },
-  {
+  /*{
     id: 2,
-    emblem: 'NV',
+    emblem: arsynLogo,
     tier: 'ELITE',
     tagline: 'Among the strong ones.',
     name: 'Arsyn',
@@ -62,7 +63,7 @@ const CLUBS = [
     accent:  '#730dd3',
     glow:    'rgba(195, 0, 255, 0.28)',
     glowDim: 'rgba(195, 0, 255, 0.07)',
-    comingSoon: false,
+    comingSoon: true,
   },
   {
     id: 3,
@@ -86,7 +87,7 @@ const CLUBS = [
     glow:    'rgba(201,76,76,0.28)',
     glowDim: 'rgba(201,76,76,0.07)',
     comingSoon: true,
-  },
+  }, */
 ];
 
 // ─── SVG Icons ────────────────────────────────────────────────────────────────

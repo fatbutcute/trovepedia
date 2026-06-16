@@ -362,6 +362,8 @@
   -webkit-font-smoothing: antialiased;
   transform: translateZ(0);
   will-change: auto;
+  mix-blend-mode: screen;
+  border-radius: 4px;
 }
 
 .xvp-card:hover .xvp-emblem {

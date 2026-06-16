@@ -20,7 +20,7 @@ export default function App() {
       <ScrollToTop />
       <Navbar />
 
-      <main style={{ paddingTop: '0px' }}>
+      <main style={{ paddingTop: '64px' }}>
         <Routes>
           <Route path="/" element={<Home />} />
 
