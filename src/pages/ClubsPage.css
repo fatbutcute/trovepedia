@@ -686,6 +686,7 @@
   color: var(--xv-accent);
   background: transparent;
   border: 1px solid rgba(201,168,76,0.28);
+  display: none;
 }
 
 .xvp-btn--secondary:hover {
