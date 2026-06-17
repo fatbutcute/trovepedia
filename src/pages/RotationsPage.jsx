@@ -64,7 +64,7 @@ function FloatingNav({ activeTab, setActiveTab }) {
     >
       <div 
         className="nav-active-indicator" 
-        style={{ transform: `translateY(${24 + (activeIndex * 64)}px)` }} 
+        style={{ transform: `translateY(${-64 + (activeIndex * 64)}px)` }} 
       />
       {ROTATION_TABS.map(item => {
         const isActiveMain = activeTab === item.id || (item.subItems && item.subItems.some(sub => sub.id === activeTab));
