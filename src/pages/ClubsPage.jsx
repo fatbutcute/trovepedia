@@ -69,7 +69,7 @@ const CLUBS = [
     requirements: ['0 PR Requirement (Everyone is welcome)', 'Just be chill and respectful to other members', 'Stay active! We clear inactives at the 751 member limit, but you can always easily rejoin through our discord.'],
     discord: 'discord.gg/arsyn',
     quote: '',
-    accent: '#730dd3',
+    accent: '#ab0dd3',
     glow: 'rgba(115, 13, 211, 0.28)',
     glowDim: 'rgba(115, 13, 211, 0.07)',
     comingSoon: false,
@@ -146,7 +146,7 @@ const ClubParticles = ({ activeColor }) => {
     
     let animationFrameId;
     let particles = [];
-    const particleCount = 200;
+    const particleCount = 1000;
 
     const resizeCanvas = () => {
       const dpr = window.devicePixelRatio || 1;
@@ -167,7 +167,7 @@ const ClubParticles = ({ activeColor }) => {
         y: Math.random() * canvas.logicalHeight,
         radius: Math.random() * 0.8 + 0.3, 
         speedX: (Math.random() - 0.5) * 0.25, 
-        speedY: (Math.random() - 0.5) * 0.35, 
+        speedY: (Math.random() - 0.5) * 0.20, 
         alpha: Math.random() * 0.4 + 0.1, 
         pulseSpeed: Math.random() * 0.008 + 0.003
       });
