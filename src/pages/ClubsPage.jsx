@@ -3,6 +3,7 @@ import './ClubsPage.css';
 import xvLogo from './clubs/XV/XV.webp';
 import arsynLogo from './clubs/Arsyn/arsyn.webp';
 import cfgTextXV from './clubs/XV/XV.cfg?raw';
+import cfgTextArsyn from './clubs/Arsyn/arsyn.cfg?raw';
 
 // ─── Teljes Club Adatbázis ───────────────────────────────────────────────────
 const CLUBS = [
@@ -42,31 +43,38 @@ const CLUBS = [
     glowDim:'rgba(201, 168, 76, 0.07)',
     comingSoon: false,
   },
-  /*{
+  {
     id: 2,
     emblem: arsynLogo, 
     isImage: true,
     tier: 'ELITE',
     tagline: 'Among the strong ones.',
     name: 'Arsyn',
-    subtitle: 'Strategic gameplay.',
-    cfgData: null,
-    description: 'Arsyn is among the top tier clubs in Trove, known for its competitive edge and strategic gameplay. With a focus on teamwork and high-level content, Arsyn is the go-to club for players looking to make progress and find good people to play with.',
+    subtitle: 'A helpful and active community.',
+    cfgData: cfgTextArsyn,
+    description: 'Looking for a club to call home? Arsyn is a top 2 club and the most active community in the game. We’re all about growing together and helping each other out. We don’t care about your Power Rank or what stage of the game you’re in, we just want to vibe, grind, and build an awesome community.',
     stats: [
       { value: '750+', label: 'Club Members' },
-      { value: '50K+', label: 'Min. PR' },
+      { value: 'No req.', label: 'Min. PR' },
       { value: '#2', label: 'Global Rank' },
     ],
-    features: [],
-    requirements: ['50,000+ PR (Power Rank)', 'Active participation', 'Team-oriented mindset'],
+    features: [
+      { title: 'Zero Requirements',         desc: 'No elitism, no gatekeeping. Whether you just downloaded the game or you’re endgame, everyone is welcome in Arsyn.' },
+      { title: 'All kinds of hosts',        desc: 'Delves, Ships, Kraken, Levis, D15 5*, Pin parties, Ramps. If you need it, we’re probably running it.' },
+      { title: 'Max Club Buffs',            desc: 'Max fixtures so you can benefit from setting our club as primary.' },
+      { title: 'Giveaways',                 desc: 'We love giving back to our members. Look forward to tons of giveaways as we have a lot stocked up to give away as soon as trading returns.' },
+      { title: '1.200+ Member Discord',     desc: 'One of the largest and most active Trove servers! Join the chat, get host pings, use our guides, enter giveaways, and use our easy ticket system to join the club or get re-invited.' },
+      { title: 'Our Sister Club',           desc: 'Arsyn recently launched our second club, Tilted Towers, which has already hit Top 9. We’re actively looking for new members to help us grow it, giving everyone an even bigger network to grind and chill with.' },
+    ],
+    requirements: ['0 PR Requirement (Everyone is welcome)', 'Just be chill and respectful to other members', 'Stay active! We clear inactives at the 751 member limit, but you can always easily rejoin through our discord.'],
     discord: 'discord.gg/arsyn',
     quote: '',
     accent: '#730dd3',
     glow: 'rgba(115, 13, 211, 0.28)',
     glowDim: 'rgba(115, 13, 211, 0.07)',
-    comingSoon: true,
+    comingSoon: false,
   },
-  {
+ /* {
     id: 3,
     emblem: 'AP',
     isImage: false,
@@ -423,7 +431,7 @@ export default function ClubsPage() {
 
               <div className="xvp-fp-content">
                 <main className="xvp-fp-main">
-                  <h2 className="xvp-fp-section-title">About the Club</h2>
+                  <h2 className="xvp-fp-section-title">About the club</h2>
                   <p className="xvp-fp-desc">{activeClub.description}</p>
 
                   {activeClub.features.length > 0 && (

@@ -27,7 +27,7 @@
   width: 100%;
   min-height: calc(100vh - 64px);
   height: auto;
-  overflow: hidden;
+  overflow: visible;
   background: var(--xv-bg);
   font-family: 'Inter', system-ui, sans-serif;
   color: var(--xv-text-hi);
@@ -367,11 +367,12 @@
    STATE 2: DETAILED VIEW (EGÉSZ OLDALAS NÉZET)
    ========================================================================== */
 .xvp-details-view {
-  position: absolute;
-  inset: 0;
+  position: relative; 
+  width: 100%;
   z-index: 10;
   display: flex;
   flex-direction: column;
+  height: auto;
 }
 
 .xvp-details--entering { animation: detailEnter 0.5s var(--xv-trans-ease) both; }
@@ -429,11 +430,12 @@
 .xvp-fp-scroll-area::-webkit-scrollbar-thumb { background: var(--xv-accent); border-radius: 4px; }
 
 .xvp-fp-container {
-  max-width: 1250px;
+  max-width: 1400px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: 50px; /* Hatalmas, szellős távolságok a szekciók között */
+  height: auto;
 }
 
 /* ── 1. Hero Szekció ── */
@@ -484,6 +486,7 @@
   grid-template-columns: 1fr 380px; /* Balra a tartalom, jobbra egy 380px-es Sidebar */
   gap: 60px;
   align-items: start;
+  height: auto;
 }
 
 .xvp-fp-section-title { font-family: 'Ubuntu', sans-serif; font-size: 22px; font-weight: 400; letter-spacing: 4px; text-transform: uppercase; color: #f0d080; margin: 0 0 24px; }
