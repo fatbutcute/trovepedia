@@ -2,11 +2,11 @@ import React, { useState, useCallback, useEffect } from 'react';
 import './ClubsPage.css';
 import xvLogo from './clubs/XV/XV.webp';
 import arsynLogo from './clubs/Arsyn/arsyn.webp';
-import mysticcaveLogo from './clubs/MysticCave/mysticcave.webp';
+import mysticcaveLogo from './clubs/Mystic/mysticcave.webp';
 
 import cfgTextXV from './clubs/XV/XV.cfg?raw';
 import cfgTextArsyn from './clubs/Arsyn/arsyn.cfg?raw';
-import cfgTextMysticCave from './clubs/MysticCave/mysticcave.cfg?raw';
+import cfgTextMystic from './clubs/Mystic/mystic.cfg?raw';
 
 // ─── Teljes Club Adatbázis ───────────────────────────────────────────────────
 const CLUBS = [
@@ -89,7 +89,7 @@ const CLUBS = [
     tagline: '',
     name: 'Mystic Cave',
     subtitle: 'If you looking for spanish community, this is the place.',
-    cfgData: cfgTextMysticCave,
+    cfgData: cfgTextMystic,
     description: 'Are you looking for active Spanish-speaking people and want to make friends? Do you want to learn about the game with a wonderful community and improve quickly? Join Mystic Cave! The only active Spanish club to date, we have plenty of guides, builds, wonderful modders and tools to make your journey a lot more easier.',
     stats: [
       { value: '715+', label: 'Members' },
