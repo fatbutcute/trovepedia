@@ -211,33 +211,24 @@ function useParticles(ref) {
       this.reset();
     }
 
-    // 120 darab csillag bőven elég, így nem terheli túl a képernyőt
     for (let i = 0; i < 120; i++) stars.push(new Star());
 
     function draw() {
-      // JAVÍTVA: Az alpha értéket 0.25-ről felemeltük 0.48-ra!
-      // Ezáltal a csillagok mögötti fénycsík sokkal rövidebb ideig él, és azonnal eltűnik, nem ég be a kijelzőbe.
       ctx.fillStyle = "rgba(3, 4, 12, 0.7)"; 
       ctx.fillRect(0, 0, W, H);
 
       const cx = W / 2, cy = H / 2;
 
       for (let s of stars) {
-        s.z -= 2; // Hipersebesség (mennyire gyorsan lőjenek ki feléd)
-        
-        // Ha a csillag elérte a képernyő síkját, azonnal indítsuk újra a középpontból
+        s.z -= 2;
         if (s.z <= 0) {
           s.reset();
           continue;
         }
 
-        // 3D-s vetítési matematika síkképernyőre
         let px = (s.x / s.z) * W + cx;
         let py = (s.y / s.z) * H + cy;
-        let radius = (1 - s.z / W) * 2.8; // Ahogy közeledik, finoman vastagodik
-
-        // JAVÍTVA: Ha a csillag kiszaladt a látható képernyőből, azonnal lőjük le és indítsuk újra,
-        // így a széleken nem fognak felhalmozódni a beragadt csíkok!
+        let radius = (1 - s.z / W) * 2.8;
         if (px < 0 || px > W || py < 0 || py > H) {
           s.reset();
           continue;
@@ -256,9 +247,6 @@ function useParticles(ref) {
   }, []);
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   SVG DEFS & COMPONENTS
-   ═══════════════════════════════════════════════════════════════════ */
 function SvgDefs() {
   return (
     <defs>
@@ -308,7 +296,6 @@ function RootNode({ node, onRootClick, onEnter, onLeave }) {
       <circle cx={cx} cy={cy} r={S * 1.75} fill="transparent" stroke={color} strokeWidth="1" strokeDasharray="2.5,3" opacity="0.38" />
       <polygon points={`${cx},${cy-S} ${cx+S},${cy} ${cx},${cy+S} ${cx-S},${cy}`} fill="rgba(3,5,16,0.88)" stroke={color} strokeWidth="2" />
       
-      {/* Egyedi ikonok a Root Node-ok közepén */}
       {ck === 'Combat' && <path d={`M${cx-4.5},${cy-4.5} L${cx+4.5},${cy+4.5} M${cx+4.5},${cy-4.5} L${cx-4.5},${cy+4.5}`} stroke={color} strokeWidth="2.5" strokeLinecap="round" />}
       {ck === 'Gathering' && <path d={`M${cx},${cy+4} C${cx-7},${cy+4} ${cx-5},${cy-3} ${cx},${cy-5} C${cx+5},${cy-3} ${cx+7},${cy+4} ${cx},${cy+4} Z`} fill={color} opacity="0.9" />}
       {ck === 'Pve' && <path d={`M${cx-2.5},${cy-4} L${cx+2.5},${cy-4} L${cx+2.5},${cy-1} L${cx+5},${cy+4} L${cx+5},${cy+5.5} L${cx-5},${cy+5.5} L${cx-5},${cy+4} L${cx-2.5},${cy-1} Z`} fill={color} opacity="0.9" />}
@@ -350,9 +337,6 @@ function MajorNode({ node, sel, ow, muted, onNodeClick, onEnter, onLeave }) {
   );
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   TOOLTIP & PANELS
-   ═══════════════════════════════════════════════════════════════════ */
 function Tooltip({ node, x, y }) {
   const color = COL[node.Constellation] || '#888';
   return (
@@ -476,9 +460,6 @@ function SumSection({ icon, label, open, onToggle, children }) {
   );
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   MAIN EXPORT COMPONENT
-   ═══════════════════════════════════════════════════════════════════ */
 export default function StarChart() {
   const canvasRef = useRef(null), svgRef = useRef(null), vbRef = useRef({ ...VB0 }), panRef = useRef(null);
   useParticles(canvasRef);
