@@ -489,16 +489,16 @@
   height: auto;
 }
 
-.xvp-fp-section-title { font-family: 'Ubuntu', sans-serif; font-size: 22px; font-weight: 400; letter-spacing: 4px; text-transform: uppercase; color: #f0d080; margin: 0 0 24px; }
-.xvp-fp-desc { font-size: 17px; line-height: 1.8; color: var(--xv-text-mid); font-weight: 300; font-family: 'Quicksand', sans-serif; margin: 0 0 40px; }
+.xvp-fp-section-title { font-family: 'Ubuntu', sans-serif; font-size: 22px; font-weight: 400; letter-spacing: 4px; text-transform: uppercase; color: var(--xv-main-title-color); margin: 0 0 24px; }
+.xvp-fp-desc { font-size: 16px; line-height: 1.8; color: var(--xv-text-mid); font-weight: 300; font-family: 'Quicksand', sans-serif; margin: 0 0 40px; }
 
 /* Features Grid */
 .xvp-fp-features__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
 .xvp-fp-feature-inner { display: flex; align-items: flex-start; gap: 16px; padding: 20px; background: rgba(255, 255, 255, 0.02); border: 1px solid var(--xv-border); border-radius: var(--xv-radius-sm); height: 100%; transition: all 0.25s ease; }
 .xvp-fp-feature-inner:hover { border-color: rgba(201, 168, 76, 0.3); background: rgba(201, 168, 76, 0.05); transform: translateY(-4px); }
 .xvp-fp-feature__icon { font-size: 24px; line-height: 1; }
-.xvp-fp-feature__title { font-size: 18px; font-weight: 600; color: #c9a84c; margin-bottom: 6px; font-family: 'Quicksand', sans-serif; }
-.xvp-fp-feature__desc { font-size: 14px; color: var(--xv-text-lo); line-height: 1.6; font-family: 'Quicksand', sans-serif; }
+.xvp-fp-feature__title { font-size: 18px; font-weight: 600; color: var(--xv-feature-title-color); margin-bottom: 6px; font-family: 'Quicksand', sans-serif; }
+.xvp-fp-feature__desc { font-size: 14px; color: #ccbfbf; line-height: 1.6; font-family: 'Quicksand', sans-serif; }
 
 /* ── Sidebar & Kártya ── */
 .xvp-fp-sidebar { position: sticky; top: 20px; }

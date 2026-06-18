@@ -2,8 +2,11 @@ import React, { useState, useCallback, useEffect } from 'react';
 import './ClubsPage.css';
 import xvLogo from './clubs/XV/XV.webp';
 import arsynLogo from './clubs/Arsyn/arsyn.webp';
+import mysticcaveLogo from './clubs/MysticCave/mysticcave.webp';
+
 import cfgTextXV from './clubs/XV/XV.cfg?raw';
 import cfgTextArsyn from './clubs/Arsyn/arsyn.cfg?raw';
+import cfgTextMysticCave from './clubs/MysticCave/mysticcave.cfg?raw';
 
 // ─── Teljes Club Adatbázis ───────────────────────────────────────────────────
 const CLUBS = [
@@ -39,8 +42,10 @@ const CLUBS = [
     discord: 'discord.gg/XVCLUB',
     quote: 'Great players play the game. Legends play together.',
     accent: '#C9A84C',
-    glow:   'rgba(201, 168, 76, 0.28)',
-    glowDim:'rgba(201, 168, 76, 0.07)',
+    glow:   'rgba(201, 168, 76, 0.3)',
+    glowDim:'rgba(201, 168, 76, 0.3)',
+    mainTitleColor: '#c9a84c',       /* Az "About the club" / "Why Join" arany színe */
+    featureTitleColor: '#f7bf27',
     comingSoon: false,
   },
   {
@@ -59,7 +64,7 @@ const CLUBS = [
       { value: '#2', label: 'Global Rank' },
     ],
     features: [
-      { title: 'Zero Requirements',         desc: 'No elitism, no gatekeeping. Whether you just downloaded the game or you’re endgame, everyone is welcome in Arsyn.' },
+      { title: 'Zero Requirements',         desc: 'No elitism, no gatekeeping. Arsyn accepts all players regardless of their current game state.' },
       { title: 'All kinds of hosts',        desc: 'Delves, Ships, Kraken, Levis, D15 5*, Pin parties, Ramps. If you need it, we’re probably running it.' },
       { title: 'Max Club Buffs',            desc: 'Max fixtures so you can benefit from setting our club as primary.' },
       { title: 'Giveaways',                 desc: 'We love giving back to our members. Look forward to tons of giveaways as we have a lot stocked up to give away as soon as trading returns.' },
@@ -70,34 +75,45 @@ const CLUBS = [
     discord: 'discord.gg/arsyn',
     quote: '',
     accent: '#ab0dd3',
-    glow: 'rgba(115, 13, 211, 0.28)',
-    glowDim: 'rgba(115, 13, 211, 0.07)',
+    glow: 'rgba(115, 13, 211, 0.3)',
+    glowDim: 'rgba(115, 13, 211, 0.3)',
+    mainTitleColor: '#6600da',       /* Az "About the club" / "Why Join" arany színe */
+    featureTitleColor: '#8d00c5',
     comingSoon: false,
   },
- /* {
+  {
     id: 3,
-    emblem: 'AP',
-    isImage: false,
+    emblem: mysticcaveLogo,
+    isImage: true,
     tier: 'ELITE',
-    tagline: 'Reach the Summit',
-    name: 'APEX',
-    subtitle: 'For those who never settle.',
-    cfgData: null,
-    description: 'APEX is a competitive club currently under construction. Built for players who demand the absolute best in organized play, APEX will set a new benchmark for gaming excellence. More information arriving soon.',
+    tagline: '',
+    name: 'Mystic Cave',
+    subtitle: 'If you looking for spanish community, this is the place.',
+    cfgData: cfgTextMysticCave,
+    description: 'Are you looking for active Spanish-speaking people and want to make friends? Do you want to learn about the game with a wonderful community and improve quickly? Join Mystic Cave! The only active Spanish club to date, we have plenty of guides, builds, wonderful modders and tools to make your journey a lot more easier.',
     stats: [
-      { value: '—', label: 'Members' },
-      { value: '—', label: 'Min. PR' },
-      { value: '—', label: 'Global Rank' },
+      { value: '715+', label: 'Members' },
+      { value: 'No Req.', label: 'Min. PR' },
+      { value: '#47', label: 'Global Rank' },
     ],
-    features: [],
-    requirements: [],
-    discord: '',
+    features: [
+      { title: 'Hosting carries',           desc: 'We are a community of players who love to host event or regular farm sessions to help you improve.' },
+      { title: 'Max Club Buffs',            desc: 'We have maxed club benefits, so the in-game progress is much faster.' },
+      { title: 'Giveaways',                 desc: 'Max fixtures so you can benefit from setting our club as primary.' },
+      { title: 'Active Discord',            desc: 'We have an active Discord server with a chill community and more!' },
+      { title: 'No requirements',           desc: 'We are not gatekeeping anyone. Whether you are a newbie or an experienced player, everyone is welcome in Mystic Cave.' },
+      { title: 'Exclusive Mods',           desc: 'We offer exclusive mods that enhance your gameplay experience.' },
+    ],
+    requirements: ['0 PR Requirement', 'Be respectful towards members', 'Stay active (Max. 30 days inactivity before kick.)'],
+    discord: 'discord.gg/SwpADjjwxV',
     quote: '',
-    accent: '#C94C4C',
-    glow: 'rgba(201, 76, 76, 0.28)',
-    glowDim: 'rgba(201, 76, 76, 0.07)',
-    comingSoon: true,
-  }*/
+    accent: '#9000ad',
+    glow: 'rgba(130, 11, 177, 0.3)',
+    glowDim: 'rgba(162, 0, 255, 0.3)',
+    mainTitleColor: '#c300ff',       /* Az "About the club" / "Why Join" arany színe */
+    featureTitleColor: '#ae59f3',
+    comingSoon: false,
+  }
 ];
 
 const IconBackArrow = () => (
@@ -279,7 +295,7 @@ export default function ClubsPage() {
     }
   };
 
-  const rankWeights = { 'President': 6, 'VP': 5, 'Officer': 4, 'Captain': 3, 'Enforcer': 2, 'Member': 1 };
+  const rankWeights = { 'President': 6, 'VP': 5, 'Officer': 4, 'Enforcer': 3, 'Captain': 2, 'Member': 1 };
 
   const sortedMembers = React.useMemo(() => {
     let sortable = [...membersData];
@@ -326,10 +342,12 @@ export default function ClubsPage() {
   const currentGlow = activeClub ? activeClub.glow : (hoveredClub ? hoveredClub.glow : 'rgba(0, 210, 255, 0.28)');
   const currentGlowDim = activeClub ? activeClub.glowDim : (hoveredClub ? hoveredClub.glowDim : 'rgba(0, 210, 255, 0.07)');
 
-  const cssVars = {
+const cssVars = {
     '--xv-accent': currentAccent,
     '--xv-glow': currentGlow,
     '--xv-glow-dim': currentGlowDim,
+    '--xv-main-title-color': activeClub ? activeClub.mainTitleColor : '#f0d080',
+    '--xv-feature-title-color': activeClub ? activeClub.featureTitleColor : '#c9a84c',
   };
 
   return (
