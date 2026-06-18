@@ -45,16 +45,13 @@ body::before {
 }
 
 nav {
-  position: fixed; 
-  top: 0; left: 0; right: 0; 
+  position: fixed;
+  top: 0; left: 0; right: 0;
   z-index: 100;
-  display: flex; 
-  align-items: center; 
-  
-  /* 1. LÉPÉS: space-between HELYETT center, hogy minden középre tömörüljön */
-  justify-content: center; 
-  
-  padding: 0 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;   /* logo left, links center/right */
+  padding: 0 clamp(16px, 4vw, 48px);
   height: 64px;
   background: rgba(7,8,15,0.85);
   backdrop-filter: blur(16px);
@@ -62,19 +59,46 @@ nav {
 }
 
 .nav-logo {
-  font-family: 'Cinzel', serif;
-  font-weight: 900;
-  font-size: 1.25rem;
-  letter-spacing: .05em;
-  color: var(--gold);
-  text-decoration: none;
-  display: flex; align-items: center; gap: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: none;
+  border: none;
   cursor: pointer;
-  position: absolute;
-  left: 48px; /* Pontosan a nav paddingjéhez igazítva */
-  top: 50%;
-  transform: translateY(-50%);
+  padding: 0;
+  flex-shrink: 0;   /* never squish the logo */
 }
+
+.nav-logo-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+.nav-logo-title {
+  display: block;
+  font-family: MontserratBlack, sans-serif;
+  font-size: 1rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #2bb1ff 0%, #21cbff 50%, #00d4db 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.nav-logo-sub {
+  display: block;
+  font-family: Quicksand, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  background: linear-gradient(135deg, #46ffb2 0%, #00e3f3 50%, #00d3b0 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 .nav-logo .diamond {
   display: inline-block;
   width: 45px; height: 45px;
@@ -142,6 +166,104 @@ nav {
 }
 .nav-cta:hover {
   opacity: .85;
+}
+
+/* ── Hamburger button ── */
+.nav-hamburger {
+  display: none;          /* hidden on desktop */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+.nav-hamburger span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  transform-origin: center;
+}
+/* Animate into X when open */
+.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ── Mobile drawer ── */
+.nav-drawer {
+  display: none;          /* hidden on desktop */
+  position: fixed;
+  top: 64px;              /* directly below navbar */
+  left: 0;
+  right: 0;
+  z-index: 99;
+  background: rgba(7, 8, 20, 0.98);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 0 20px;
+  transform: translateY(-8px);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+.nav-drawer.open {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: all;
+}
+.nav-drawer ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+.nav-drawer ul li button {
+  display: block;
+  width: 100%;
+  padding: 14px clamp(16px, 5vw, 32px);
+  text-align: left;
+  background: none;
+  border: none;
+  color: var(--text);
+  font-family: 'Blinker', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-bottom: 1px solid var(--border);
+  transition: color 0.2s, background 0.2s;
+}
+.nav-drawer ul li:last-child button { border-bottom: none; }
+.nav-drawer ul li button:hover,
+.nav-drawer ul li button.active {
+  color: var(--gold);
+  background: rgba(232, 184, 75, 0.06);
+}
+
+/* ── Backdrop ── */
+.nav-backdrop {
+  display: none;          /* hidden on desktop */
+  position: fixed;
+  inset: 64px 0 0 0;
+  z-index: 98;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+/* ── Mobile breakpoint ── */
+@media (max-width: 900px) {
+  .nav-links { display: none; }      /* hide desktop links */
+  .nav-hamburger { display: flex; }  /* show hamburger */
+  .nav-drawer { display: block; }    /* enable drawer (visibility via opacity/transform) */
+  .nav-backdrop { display: block; }
 }
 
 .Trovepedia {
@@ -599,13 +721,12 @@ footer {
 }
 
 @media (max-width: 900px) {
-  nav { padding: 0 20px; }
-  nav ul { display: none; }
   section { padding: 72px 20px; }
   .footer-inner { grid-template-columns: 1fr 1fr; }
   .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
   .page-header { padding: 60px 20px 32px; }
 }
+
 @media (max-width: 560px) {
   .footer-inner { grid-template-columns: 1fr; }
   .stats-strip { padding: 40px 20px; }

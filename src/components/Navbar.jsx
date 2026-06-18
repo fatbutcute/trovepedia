@@ -1,9 +1,10 @@
+import { useState, useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 
 const NAV_ITEMS = [
-  { label: 'Guides',  path: '/guides' },
-  { label: 'Classes',  path: '/classes' },
-  { label: 'Delve Index',path: '/delve' },
+  { label: 'Guides',      path: '/guides' },
+  { label: 'Classes',     path: '/classes' },
+  { label: 'Delve Index', path: '/delve' },
   { label: 'Rotations',   path: '/rotations' },
   { label: 'Archive',     path: '/archive' },
   { label: 'Star Chart',  path: '/starchart' },
@@ -13,65 +14,86 @@ const NAV_ITEMS = [
 export default function Navbar() {
   const navigate  = useNavigate()
   const location  = useLocation()
+  const [isOpen, setIsOpen] = useState(false)
+
+  // Close drawer on route change
+  useEffect(() => { setIsOpen(false) }, [location.pathname])
+
+  // Close drawer on Escape key
+  useEffect(() => {
+    const handleKey = (e) => { if (e.key === 'Escape') setIsOpen(false) }
+    document.addEventListener('keydown', handleKey)
+    return () => document.removeEventListener('keydown', handleKey)
+  }, [])
+
+  // Prevent body scroll when drawer is open
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? 'hidden' : ''
+    return () => { document.body.style.overflow = '' }
+  }, [isOpen])
 
   const goHome = () => navigate('/')
 
   return (
-    <nav>
-      <button className="nav-logo" onClick={goHome} style={{ background: 'none', border: 'none' }}>
-        <span className="diamond" />
-{/* Közös tároló doboz, ami függőleges oszloppá rendezi őket, balra vagy középre igazítva */}
-<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '2px' }}>
-  
-  <span style={{ 
-    display: 'block',
-    fontFamily: 'MontserratBlack', 
-    background: 'linear-gradient(135deg, #2bb1ff 0%, #21cbff 50%, #00d4db 100%)', 
-    WebkitBackgroundClip: 'text', 
-    backgroundClip: 'text', 
-    WebkitTextFillColor: 'transparent', 
-    color: 'transparent', 
-    fontWeight: '800', 
-    fontSize: '1rem'
-  }}>
-    Trovepedia
-  </span>
+    <>
+      <nav>
+        {/* Logo */}
+        <button className="nav-logo" onClick={goHome}>
+          <span className="diamond" />
+          <div className="nav-logo-text">
+            <span className="nav-logo-title">Trovepedia</span>
+            <span className="nav-logo-sub">made by community</span>
+          </div>
+        </button>
 
-  <span style={{ 
-    display: 'block',
-    fontFamily: 'Quicksand', 
-    background: 'linear-gradient(135deg, #46ffb2 0%, #00e3f3 50%, #00d3b0 100%)', 
-    WebkitBackgroundClip: 'text', 
-    backgroundClip: 'text', 
-    WebkitTextFillColor: 'transparent', 
-    color: 'transparent', 
-    fontWeight: '800', 
-    fontSize: '0.85rem',
-    letterSpacing: '0.5px'
-  }}>
-    made by community
-  </span>
+        {/* Desktop links */}
+        <ul className="nav-links">
+          {NAV_ITEMS.map(({ label, path }) => (
+            <li key={path}>
+              <button
+                className={location.pathname === path ? 'active' : ''}
+                onClick={() => navigate(path)}
+              >
+                {label}
+              </button>
+            </li>
+          ))}
+        </ul>
 
-</div>
-      </button>
+        {/* Hamburger — mobile only */}
+        <button
+          className={`nav-hamburger ${isOpen ? 'open' : ''}`}
+          onClick={() => setIsOpen(prev => !prev)}
+          aria-label={isOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={isOpen}
+        >
+          <span /><span /><span />
+        </button>
+      </nav>
 
-      <ul className="nav-links">
-        {NAV_ITEMS.map(({ label, path }) => (
-          <li key={path}>
-            <button
-              className={location.pathname === path ? 'active' : ''}
-              onClick={() => navigate(path)}
-            >
-              {label}
-            </button>
-          </li>
-        ))}
-        <li>
-          <a href="https://discord.gg/" target="_blank" rel="noopener noreferrer" className="nav-cta" style={{ display: 'none' }}>
-            Discord
-          </a>
-        </li>
-      </ul>
-    </nav>
+      {/* Mobile drawer */}
+      <div
+        className={`nav-drawer ${isOpen ? 'open' : ''}`}
+        aria-hidden={!isOpen}
+      >
+        <ul>
+          {NAV_ITEMS.map(({ label, path }) => (
+            <li key={path}>
+              <button
+                className={location.pathname === path ? 'active' : ''}
+                onClick={() => navigate(path)}
+              >
+                {label}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Backdrop */}
+      {isOpen && (
+        <div className="nav-backdrop" onClick={() => setIsOpen(false)} />
+      )}
+    </>
   )
 }
