@@ -254,8 +254,8 @@
   align-items: center;
   gap: 12px;
   color: var(--xv-text-mid);
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 13px;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1em;
   letter-spacing: 2px;
   text-transform: uppercase;
   cursor: pointer;
@@ -280,7 +280,7 @@
   box-shadow: 0 0 15px var(--xv-glow);
 }
 .xvp-back-btn:hover .xvp-back-btn__icon {
-  transform: translateX(-4px);
+  transform: translateX(-10px);
 }
 
 .xvp-bg__top-veil {

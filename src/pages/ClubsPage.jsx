@@ -167,11 +167,26 @@ const ClubParticles = ({ activeColor }) => {
     const resizeCanvas = () => {
       const dpr = window.devicePixelRatio || 1;
       const rect = canvas.getBoundingClientRect();
+      
+      const oldWidth = canvas.logicalWidth || rect.width;
+      const oldHeight = canvas.logicalHeight || rect.height;
+      
       canvas.width = rect.width * dpr;
       canvas.height = rect.height * dpr;
       ctx.scale(dpr, dpr);
+      
       canvas.logicalWidth = rect.width;
       canvas.logicalHeight = rect.height;
+
+      if (particles.length > 0 && oldWidth > 0 && oldHeight > 0) {
+        const widthRatio = rect.width / oldWidth;
+        const heightRatio = rect.height / oldHeight;
+
+        particles.forEach(p => {
+          p.x = p.x * widthRatio;
+          p.y = p.y * heightRatio;
+        });
+      }
     };
     
     resizeCanvas();
