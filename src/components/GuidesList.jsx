@@ -1,5 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import './GuidesList.css';
+import { Link } from 'react-router-dom';
+import ReactMarkdown from 'react-markdown';
 
 export const GUIDES_DATA = [
   { 
@@ -7,7 +9,75 @@ export const GUIDES_DATA = [
     title: 'Optimal Building Paths', 
     desc: 'Skill chart, Rune Anvil and more...', 
     icon: 'ri-bar-chart-box-line', 
-    slug: 'crafting-paths' 
+    slug: 'crafting-paths',
+    author: 'Hellfire191 - Arsyn',
+    date: '2026-07-02',
+    content: `## What is Star Chart?  
+The Star Chart is a crucial system in Trove that enhances your character’s power. This guide will walk you through the optimal setup, essential resources, and tips for efficiently progressing through the Star Chart.
+
+## Recommended Star Chart Path
+
+This setup is widely used in the current endgame and benefits both magic and physical damage classes. It also maximizes the Light stat, which is essential for dealing with high-tier enemies.
+
+## Node Colors & Their Effects
+Green Nodes: Provide Light (Total: 250).  
+Red Nodes: Increase Physical Damage,  
+Blue Nodes: Increase Magic Damage,  
+Purple Nodes: Increase both Magic and Physical Damage.
+
+<div class="gd-image-container">
+  <div class="gd-image-glow-border"></div>
+  <img src="/guideimages/arsynskillchart.webp" alt="Skill Chart Layout" />
+</div>
+
+Additionally, some nodes provide special buffs, such as increased damage for four hours after defeating 5-star bosses in the Sundered Uplands or flask-related buffs. Also there are nodes that provide attack speed, magic find for loots, and many more bonuses for your gameplays.  
+## Essential Resources for the Star Chart
+### To progress through the Star Chart, you need three key resources:  
+#### Astral Echoes  
+Earned from completing dungeons and opening chests. A large quantity (thousands) is required to fully upgrade the Star Chart.
+#### Celestial Spheres  
+Used to unlock nodes in the Star Chart. Nodes grant various stats and power boosts. Maximum of 40 nodes can be unlocked at once.
+#### Constellation Keys  
+Required to unlock Major Nodes. Can be purchased with 1,300 Cubits from the store ([N] > More section). Unlocking major nodes also grants Balefire Dragon Fragments.
+##### Nodes are divided into:
+* Major Nodes (large nodes, require special keys to unlock),
+* Minor Nodes (smaller nodes, unlocked using Celestial Spheres),
+* Nodes must be unlocked sequentially; skipping is not allowed,
+* Purchase Celestial Spheres from The Celestial NPC near The Grand Orrery Bench using Astral Echoes.
+
+## Important Tips  
+
+### Use the Astral Echoes Almanac
+
+<div class="gd-flex-row">
+  <div class="gd-flex-text">
+
+* The Astral Echoes Almanac is a weekly legendary tome that grants 5,000 Astral Echoes upon completion,
+* It significantly speeds up Star Chart progression,
+* Available in the store ([N] > More section) for 2,000 Credits during discounts.
+
+  </div>
+  
+  <div class="gd-flex-image-wrap">
+    <div class="gd-image-container">
+      <div class="gd-image-glow-border"></div>
+      <img src="/guideimages/astralechoesalmanac.webp" alt="Astral Echoes Almanac" />
+    </div>
+  </div>
+</div>
+
+###  Resetting the Star Chart
+* You can reset your Star Chart at any time using one Constellation Key at the center node,
+* Celestial Spheres will be refunded upon reset,
+* Constellation Keys will not be refunded, but previously unlocked Major Nodes remain unlocked permanently.
+
+<div class="gd-image-container">
+  <div class="gd-image-glow-border"></div>
+  <img src="/guideimages/startchartreset.webp" alt="Resetting the Star Chart" />
+</div>  
+By following this guide, you can efficiently progress through the Star Chart and enhance your character’s strength.  
+If you wish to see the best build for your class, check out this spreadsheet:  
+<a href="https://docs.google.com/spreadsheets/d/1Q2xdqeoHLafC9se5cy_Gpc54KnmpaQez7TGsc5C1Lqw/edit?usp=sharing" target="_blank" rel="noreferrer">https://docs.google.com/spreadsheets/d/1Q2xdqeoHLafC9se5cy_Gpc54KnmpaQez7TGsc5C1Lqw/edit?usp=sharing</a>`
   },
   { 
     tag: 'Max Light', 
@@ -113,18 +183,14 @@ export default function GuidesList({ limit }) {
         <p>Community-written, up-to-date guides for all important Trove mechanics.</p>
       </header>
 
-<div className="guides-grid">
+      <div className="guides-grid">
         {guides.map(({ tag, title, desc, icon, slug }, index) => (
-          <div
+          /* JAVÍTVA: div helyett Link komponenst használunk az egyedi slug útvonallal */
+          <Link
+            to={`/guides/${slug}`}
             key={slug}
-            // A SLUG HOZZÁADÁSA CLASSKÉNT
             className={`guide-card ${slug}`}
-            onClick={() => navigate(`/guides/${slug}`)}
-            role="button"
-            tabIndex={0}
-            onKeyDown={(e) => e.key === 'Enter' && navigate(`/guides/${slug}`)}
             style={{ 
-                cursor: 'pointer', 
                 animationDelay: `${index * 0.08}s` 
             }}
           >
@@ -136,7 +202,7 @@ export default function GuidesList({ limit }) {
               <h3>{title}</h3>
               <p>{desc}</p>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>

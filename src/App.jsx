@@ -13,6 +13,7 @@ import DelvePage       from './pages/DelvePage'
 import ClassesPage     from './pages/ClassesPage'
 import StarChart   from './components/StarChart'
 import ClubsPage from './pages/ClubsPage';
+import GuideDetailPage from './pages/GuideDetailPage';
 
 export default function App() {
   return (
@@ -25,16 +26,6 @@ export default function App() {
           <Route path="/" element={<Home />} />
 
           <Route path="/guides" element={<GuidesPage />} />
-          <Route
-            path="/guides/:slug"
-            element={
-              <PlaceholderPage
-                icon="📖"
-                title="Guides"
-                desc="Guides will be available soon."
-              />
-            }
-          />
 
           <Route path="/classes" element={<ClassesPage />} />
 
@@ -47,6 +38,8 @@ export default function App() {
           <Route path="/starchart" element={<StarChart />} />
 
           <Route path="/clubs" element={<ClubsPage />} />
+
+          <Route path="/guides/:slug" element={<GuideDetailPage />} />
           <Route
             path="/fishing"
             element={
