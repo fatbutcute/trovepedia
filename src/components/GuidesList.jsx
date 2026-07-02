@@ -5,9 +5,9 @@ import ReactMarkdown from 'react-markdown';
 
 export const GUIDES_DATA = [
   { 
-    tag: 'Bench / Charts Paths', 
+    tag: 'Skill Chart & Rune Anvil', 
     title: 'Optimal Building Paths', 
-    desc: 'Skill chart, Rune Anvil and more...', 
+    desc: 'Learn how to optimize your skill chart and rune anvil.', 
     icon: 'ri-bar-chart-box-line', 
     slug: 'crafting-paths',
     author: 'Hellfire191 - Arsyn',
