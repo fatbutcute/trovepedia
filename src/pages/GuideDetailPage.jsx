@@ -37,11 +37,24 @@ export default function GuideDetailPage() {
 
   return (
     <div className="page-wrapper guides-detail-page">
+    <button className="gd-back-btn" onClick={() => navigate('/guides')}>
+        <svg 
+          viewBox="0 0 24 24" 
+          width="30" 
+          height="30" 
+          stroke="currentColor" 
+          strokeWidth="2.5" 
+          fill="none" 
+          strokeLinecap="round" 
+          strokeLinejoin="round"
+        >
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+      </button>
       <div className="gd-container">
         
-        <button className="btn btn-ghost gd-back-btn" onClick={() => navigate('/guides')}>
-          ← BACK TO GUIDES
-        </button>
+
 
         <header className="gd-header">
           <div className="gd-tag-wrapper">
