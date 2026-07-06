@@ -9,7 +9,7 @@ const NAV_ITEMS = [
   { label: 'Archive',     path: '/archive' },
   { label: 'Star Chart',  path: '/starchart' },
   { label: 'Clubs',       path: '/clubs' },
-  /*{ label: 'News',        path: '/news' }, */
+  { label: 'News',        path: '/news' },
   { label: 'Fishing',     path: '/fishing' },
 ]
 
