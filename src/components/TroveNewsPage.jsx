@@ -34,7 +34,7 @@ export default function TroveNewsPage() {
     <div className="page-wrapper news-page">
       <header className="news-header">
         <h1>Trove <span className="highlight">News</span></h1>
-        <p>The latest updates, patch notes, and community events directly from Mystic Cave.</p>
+        <p>The latest updates, patch notes, and community events directly from the official Trove website.</p>
       </header>
 
       {loading ? (
@@ -47,48 +47,42 @@ export default function TroveNewsPage() {
           <p style={{ color: '#ff4444' }}>Couldn't load news: {error}</p>
         </div>
       ) : (
-        <div className="news-grid">
-          {news.map((item, index) => {
-            // A leírás alapján pontosan ezeket a kulcsokat használjuk:
-            const title = item.title || "Trove Update";
-            const excerpt = item.excerpt || "";
-            const link = item.url || "https://mystic-cave.com/";
-            const imageUrl = item.image || '/guideimages/default-news.webp';
-            
-            // Szép dátum formázás
-            const pubDate = item.date ? new Date(item.date).toLocaleDateString('en-US', {
-              year: 'numeric', month: 'long', day: 'numeric'
-            }) : 'Recently Updated';
+            <div className="news-grid">
+            {/* JAVÍTVA: A .slice(0, 9) segítségével csak az első 9 hírt engedjük át, 
+                így pontosan 3 darab 3-as sorod lesz, és nem marad magányos kártya alul! */}
+            {news.slice(0, 9).map((item, index) => {
+                const title = item.title || "Trove Update";
+                const excerpt = item.excerpt || "";
+                const link = item.url || "https://mystic-cave.com/";
+                const imageUrl = item.image || '/guideimages/default-news.webp';
+                
+                const pubDate = item.date ? new Date(item.date).toLocaleDateString('en-US', {
+                year: 'numeric', month: 'long', day: 'numeric'
+                }) : 'Recently Updated';
 
-            return (
-              <a 
-                href={link} 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="news-card" 
-                key={item.id || index}
-                style={{ animationDelay: `${(index % 10) * 0.05}s` }}
-              >
-                <div className="news-card-image">
-                  <img 
-                    src={imageUrl} 
-                    alt={title} 
-                    loading="lazy"
-                    onError={(e) => { e.target.src = '/guideimages/default-news.webp'; }} 
-                  />
-                  <div className="news-card-overlay">
-                    <span>Read Article ↗</span>
-                  </div>
-                </div>
-                <div className="news-card-content">
-                  <span className="news-date">{pubDate}</span>
-                  <h3>{title}</h3>
-                  <p>{excerpt}</p>
-                </div>
-              </a>
-            );
-          })}
-        </div>
+                return (
+                <a 
+                    href={link} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="news-card" 
+                    key={item.id || index}
+                    style={{ animationDelay: `${(index % 10) * 0.05}s` }}
+                >
+                    {/* ... a kártya belső része (kép, tartalom) változatlan marad ... */}
+                    <div className="news-card-image">
+                    <img src={imageUrl} alt={title} loading="lazy" onError={(e) => { e.target.src = '/guideimages/default-news.webp'; }} />
+                    <div className="news-card-overlay"><span>Read Article ↗</span></div>
+                    </div>
+                    <div className="news-card-content">
+                    <span className="news-date">{pubDate}</span>
+                    <h3>{title}</h3>
+                    <p>{excerpt}</p>
+                    </div>
+                </a>
+                );
+            })}
+            </div>
       )}
 
       {/* Ha üres a válasz */}
