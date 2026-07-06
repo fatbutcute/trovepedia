@@ -5,20 +5,20 @@ const FOOTER_LINKS = {
   Content: [
     { label: 'Guides',  path: '/guides' },
     { label: 'Classes',  path: '/classes' },
-    { label: 'Delve Index',path: '/delve' },
+    /* { label: 'Delve Index',path: '/delve' }, */
     { label: 'Rotations',   path: '/rotations' },
   ],
   Tools: [
-    { label: 'PR Calculator', path: '/calculator' },
-    { label: 'Fishing',   path: '/fishing' },
+    { label: 'Star Chart', path: '/starchart' },
+    { label: 'Fishing', path: '/fishing' },
     { label: 'Calendar',        path: '/calendar' },
     { label: 'Map',        path: '/map' },
   ],
   Community: [
-    { label: 'Discord',        href: 'https://discord.gg/' },
+    { label: 'Trove - Discord',        href: 'https://discord.com/invite/trovegame' },
     { label: 'Trovesaurus',    href: 'https://trovesaurus.com/' },
-    { label: 'Contribute',   path: '/contribute' },
-    { label: 'Contact',      path: '/contact' },
+    { label: 'Contributors',   path: '/contribute' },
+    /* { label: 'Contact',      path: '/contact' }, */
   ],
 }
 
@@ -42,11 +42,11 @@ export default function Footer() {
         
         <p>Trovepedia, made by the community.</p>
         
-        <StaffCard
+        {/*<StaffCard
           discordId="371018267768389633"
           name="ScaryZ"
           role="Developer"
-        />         
+        />      */   }
         
       </div>
 

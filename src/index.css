@@ -685,8 +685,15 @@ footer {
   font-size: 1.1rem;
   padding: 48px 24px;
 }
+
+.placeholder-page p {
+  font-family: 'Quicksand', serif;
+  color: #00e3f3;
+  font-size: 1.25rem;
+}
+
 .placeholder-page h2 {
-  font-family: 'GoogleSansFlex', serif;
+  font-family: 'Quicksand', serif;
   color: var(--gold);
   font-size: 2rem;
 }

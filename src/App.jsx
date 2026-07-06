@@ -14,6 +14,8 @@ import ClassesPage     from './pages/ClassesPage'
 import StarChart   from './components/StarChart'
 import ClubsPage from './pages/ClubsPage';
 import GuideDetailPage from './pages/GuideDetailPage';
+import TroveNewsPage from './components/TroveNewsPage';
+import FishingPage from './pages/FishingPage';
 
 export default function App() {
   return (
@@ -40,6 +42,11 @@ export default function App() {
           <Route path="/clubs" element={<ClubsPage />} />
 
           <Route path="/guides/:slug" element={<GuideDetailPage />} />
+
+          <Route path="/news" element={<TroveNewsPage />} />
+
+          <Route path="/fishing" element={<FishingPage />} />
+
           <Route
             path="/fishing"
             element={

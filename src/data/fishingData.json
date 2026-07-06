@@ -1,0 +1,30 @@
+{
+  "poles": [
+    { "name": "Basic Fishing Pole", "liquid": "Water", "source": "Saltwater Sam (Hub)", "price": "200 Glim", "effect": "Basic fishing in open waters." },
+    { "name": "Lady of the Lake", "liquid": "Water", "source": "Water Powered Fishing Workbench", "price": "3,500 Glim, 50 Ancient Scale", "effect": "Attracts rare water fish." },
+    { "name": "Molten Magma Melter", "liquid": "Lava", "source": "Magma Powered Fishing Workbench", "price": "3,500 Glim, 50 Ancient Scale", "effect": "Allows fishing in Lava liquids." },
+    { "name": "Wish Finder", "liquid": "Chocolate", "source": "Chocolate Powered Fishing Workbench", "price": "3,500 Glim, 50 Ancient Scale", "effect": "Allows fishing in Chocolate liquids." },
+    { "name": "Chaos Fishing Pole", "liquid": "All Liquids", "source": "Chaos Core Workbench", "price": "3 Chaos Core, 5,000 Glim", "effect": "Can fish in any liquid + grants a rare catch bonus." }
+  ],
+  "openWaters": [
+    { "fish": "Ancient Flatfish", "rarity": "Rare", "liquid": "Water", "biome": "Any Biome", "depth": "Any", "notes": "Deconstructs into Ancient Scale." },
+    { "fish": "Hub Hugger", "rarity": "Common", "liquid": "Water", "biome": "Hub", "depth": "Any", "notes": "Very common catch in the main world hub." },
+    { "fish": "Chocodile", "rarity": "Rare", "liquid": "Chocolate", "biome": "Candoria", "depth": "Any", "notes": "Requires Chocolate pole to catch." },
+    { "fish": "Flamin' Fish", "rarity": "Uncommon", "liquid": "Lava", "biome": "Dragonfire Peaks", "depth": "Any", "notes": "Requires Lava pole to catch." },
+    { "fish": "Plasma Tetra", "rarity": "Rare", "liquid": "Plasma", "biome": "Neon City", "depth": "Any", "notes": "Requires specialized fishing pole." },
+    { "fish": "Gorefish", "rarity": "Rare", "liquid": "Blood / Plasma", "biome": "Shadow Tower / Geode Surface", "depth": "Any", "notes": "Extremely rare dark variant." },
+    { "fish": "Deep Crimson Crab", "rarity": "Epic", "liquid": "Lava", "biome": "Dragonfire Peaks", "depth": "Deep Waters", "notes": "Can only be found in deep magma pools." },
+    { "fish": "Neon Jellyfish", "rarity": "Uncommon", "liquid": "Plasma", "biome": "Neon City", "depth": "Any", "notes": "Glows in the dark, high Glim deconstruction yield." },
+    { "fish": "Saltwater Swordfish", "rarity": "Rare", "liquid": "Water", "biome": "Treasure Isles", "depth": "Deep Waters", "notes": "Found in open ocean zones." },
+    { "fish": "Choco Fin", "rarity": "Common", "liquid": "Chocolate", "biome": "Candoria", "depth": "Any", "notes": "Basic fish found in chocolate rivers." }
+  ],
+  "pools": [
+    { "fish": "Glinting Goldfish", "rarity": "Rare", "liquid": "Water Pool", "biome": "Any Biome", "poolType": "Golden Pool", "notes": "High glim value when deconstructed." },
+    { "fish": "Deep Sea Star", "rarity": "Epic", "liquid": "Water Pool", "biome": "Treasure Isles", "poolType": "Deep Pool", "notes": "Found in deep open ocean concentric circles." },
+    { "fish": "Cocoa Caster", "rarity": "Rare", "liquid": "Chocolate Pool", "biome": "Candoria", "poolType": "Chocolate Fizz", "notes": "Chocolate pool exclusive node." },
+    { "fish": "Magma Ray", "rarity": "Epic", "liquid": "Lava Pool", "biome": "Dragonfire Peaks", "poolType": "Lava Swirl", "notes": "Requires precise casting into the center." },
+    { "fish": "Frigid Floater", "rarity": "Uncommon", "liquid": "Ice Pool", "biome": "Permafrost", "poolType": "Ice Hole", "notes": "Can be caught in frozen sub-biomes." },
+    { "fish": "Brighteye Bass", "rarity": "Rare", "liquid": "Water Pool", "biome": "Medieval Highlands", "poolType": "Highland Pool", "notes": "Spawns near dungeon structures." },
+    { "fish": "Radiant Koi", "rarity": "Legendary", "liquid": "Water Pool", "biome": "Radiant Ruins", "poolType": "Sky Pool", "notes": "Incredibly rare sky variant, grants Radiant shards." }
+  ]
+}

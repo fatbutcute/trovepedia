@@ -1,0 +1,231 @@
+/* ==========================================================================
+   TROVEPEDIA FISHING JOURNAL - Premium UI & Lazy Loading Grid
+   ========================================================================== */
+
+.fishing-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px 100px 20px;
+  min-height: 100vh;
+}
+
+.fishing-header {
+  text-align: center;
+  margin-bottom: 40px;
+  width: 100%;
+  max-width: 800px;
+}
+
+.fishing-header h1 {
+  font-family: 'MontserratBlack', sans-serif;
+  font-size: clamp(2.5rem, 5vw, 3.8rem);
+  color: #fff;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.fishing-header .highlight {
+  color: var(--gold, #e8b84b);
+}
+
+.fishing-header p {
+  color: #9499c3;
+  font-size: 1.15rem;
+  font-family: 'Quicksand', sans-serif;
+  margin-bottom: 30px;
+}
+
+/* ── FÜLEK / TABS ── */
+.fishing-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.fish-tab-btn {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #9499c3;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-family: 'Comfortaa', sans-serif;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.fish-tab-btn:hover {
+  background: rgba(123, 66, 245, 0.1);
+  border-color: rgba(123, 66, 245, 0.4);
+  color: #fff;
+}
+
+.fish-tab-btn.active {
+  background: rgba(123, 66, 245, 0.25);
+  border-color: #7b42f5;
+  color: #fff;
+  box-shadow: 0 0 15px rgba(123, 66, 245, 0.3);
+}
+
+/* ── KERESŐ ── */
+.fishing-search-wrapper {
+  width: 100%;
+}
+
+.fishing-search-input {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 15px 25px;
+  border-radius: 12px;
+  color: #fff;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.fishing-search-input:focus {
+  outline: none;
+  border-color: #7b42f5;
+  box-shadow: 0 0 15px rgba(123, 66, 245, 0.2);
+}
+
+/* ── GRID ÉS KÁRTYÁK ── */
+.fishing-container {
+  width: 100%;
+  max-width: 1200px;
+}
+
+.fishing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+.fish-ui-card {
+  background: rgba(7, 8, 15, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 24px;
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fishFadeUp 0.4s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.fish-ui-card:hover {
+  transform: translateY(-5px);
+}
+
+.fish-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.fish-liquid-tag {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #c9cbe7;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: 26px;
+  box-sizing: border-box;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.fish-rarity-badge {
+  font-family: 'Blinker', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.fish-card-title {
+  font-family: 'Dosis', sans-serif;
+  font-size: 1.4rem;
+  color: #fff;
+  margin: 0;
+  font-weight: 500;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+}
+
+.fish-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.fish-info-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.95rem;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.fish-info-row strong {
+  color: #9499c3;
+}
+
+.fish-info-row span {
+  color: #fff;
+}
+
+.fish-card-notes {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 0.9rem;
+  color: #9499c3;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 600;
+}
+
+/* ── RARITY KATEGÓRIÁK EFFEKTJEI ── */
+.fish-ui-card.f-rarity-rare { border-color: rgba(123, 66, 245, 0.3); }
+.fish-ui-card.f-rarity-rare .fish-rarity-badge { color: #7b42f5; }
+.fish-ui-card.f-rarity-rare:hover { box-shadow: 0 15px 30px rgba(123, 66, 245, 0.15); border-color: #7b42f5; }
+
+.fish-ui-card.f-rarity-epic { border-color: rgba(232, 184, 75, 0.3); }
+.fish-ui-card.f-rarity-epic .fish-rarity-badge { color: var(--gold, #e8b84b); }
+.fish-ui-card.f-rarity-epic:hover { box-shadow: 0 15px 30px rgba(232, 184, 75, 0.15); border-color: var(--gold, #e8b84b); }
+
+.fish-ui-card.f-rarity-uncommon { border-color: rgba(0, 210, 255, 0.3); }
+.fish-ui-card.f-rarity-uncommon .fish-rarity-badge { color: #00d2ff; }
+
+/* ── LAZY LOADER INFÓ SÁV ── */
+.fish-lazy-loader {
+  text-align: center;
+  margin-top: 40px;
+  color: rgba(255, 255, 255, 0.3);
+  font-family: 'Comfortaa', sans-serif;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+}
+
+.fish-no-results {
+  text-align: center;
+  color: #9499c3;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1.2rem;
+  margin-top: 40px;
+}
+
+@keyframes fishFadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}

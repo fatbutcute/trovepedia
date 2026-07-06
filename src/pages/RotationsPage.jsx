@@ -490,13 +490,6 @@ function D15Rotations() {
   return (
     <div className="rot-tab-content fade-in-up">
       <header className="rot-hero">
-                    <div className="rot-credits">
-            <div className="rot-credits-titles">
-                <span className="rot-d15">Rotation Systems by</span>
-              <span className="rot-credits-text">D15 Rotation Systems built by</span>
-            </div>
-            <StaffCard discordId="346016772664721418" name="NZ" role="Developer, Soruden" />
-          </div>
         <div className="rot-hero-left">
           <h1 className="rot-title">
             <span className="rot-title-accent"> D15</span>
