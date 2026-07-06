@@ -196,6 +196,63 @@
   font-weight: 600;
 }
 
+.fish-ui-card.f-rarity-legendary {
+  border: 1px solid rgba(232, 114, 75, 0.4) !important;
+  background: linear-gradient(145deg, rgba(15, 10, 5, 0.85), rgba(7, 8, 15, 0.6)) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.fish-ui-card.f-rarity-legendary .fish-rarity-badge {
+  background: linear-gradient(90deg, #ff9900, #ff5500) !important;
+  background-clip: text !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  
+  font-weight: 900;
+  text-shadow: 0 0 10px rgba(255, 85, 0, 0.3);
+}
+
+.fish-ui-card.f-rarity-legendary:hover {
+  transform: translateY(0px) scale(1) !important;
+  border-color: #ffaa00 !important;
+
+  box-shadow: 
+    0 0 25px rgba(255, 136, 0, 0.35), 
+    0 0 50px rgba(255, 68, 0, 0.15),
+    0 15px 40px rgba(0, 0, 0, 0.6) !important;
+}
+
+.fish-ui-card.f-rarity-legendary:hover .fish-card-title {
+  color: #ffcc00 !important;
+  text-shadow: 0 0 12px rgba(255, 204, 0, 0.6), 0 2px 4px rgba(0,0,0,0.8) !important;
+}
+
+.fish-ui-card.f-rarity-legendary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 170, 0, 0.08),
+    transparent
+  );
+  transform: skewX(-25deg);
+}
+
+.fish-ui-card.f-rarity-legendary:hover::before {
+  animation: legendaryShine 3s ease-in-out infinite;
+}
+
+@keyframes legendaryShine {
+  0% { left: -150%; }
+  100% { left: 150%; }
+}
+
 /* ── RARITY KATEGÓRIÁK EFFEKTJEI ── */
 .fish-ui-card.f-rarity-rare { border-color: rgba(123, 66, 245, 0.3); }
 .fish-ui-card.f-rarity-rare .fish-rarity-badge { color: #7b42f5; }
