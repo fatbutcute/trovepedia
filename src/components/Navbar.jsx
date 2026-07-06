@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from 'react-router-dom'
 const NAV_ITEMS = [
   { label: 'Guides',      path: '/guides' },
   { label: 'Classes',     path: '/classes' },
-  { label: 'Delve Index', path: '/delve' },
+  /* { label: 'Delve Index', path: '/delve' }, */
   { label: 'Rotations',   path: '/rotations' },
   { label: 'Archive',     path: '/archive' },
   { label: 'Star Chart',  path: '/starchart' },
