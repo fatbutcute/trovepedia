@@ -76,8 +76,9 @@ Required to unlock Major Nodes. Can be purchased with 1,300 Cubits from the stor
   <img src="/guideimages/startchartreset.webp" alt="Resetting the Star Chart" />
 </div>  
 By following this guide, you can efficiently progress through the Star Chart and enhance your character’s strength.  
-If you wish to see the best build for your class, check out this spreadsheet:  
-<a href="https://docs.google.com/spreadsheets/d/1Q2xdqeoHLafC9se5cy_Gpc54KnmpaQez7TGsc5C1Lqw/edit?usp=sharing" target="_blank" rel="noreferrer">https://docs.google.com/spreadsheets/d/1Q2xdqeoHLafC9se5cy_Gpc54KnmpaQez7TGsc5C1Lqw/edit?usp=sharing</a>`
+If you wish to see the best build for your class, check out this spreadsheet:
+  
+<a href="https://docs.google.com/spreadsheets/d/1Q2xdqeoHLafC9se5cy_Gpc54KnmpaQez7TGsc5C1Lqw/edit?usp=sharing" target="_blank" rel="noreferrer">Check out the classes spreadsheet!</a>`
   },
   { 
     tag: 'Max Light', 
