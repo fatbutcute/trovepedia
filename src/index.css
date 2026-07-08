@@ -17,6 +17,7 @@
   --gold2:     #f5d27a;
   --cyan:      #40d0ff;
   --purple:    #7c5cfc;
+  --green:     #4caf50;
   --text:      #d8ddf5;
   --muted:     #6a7090;
   --card-bg:   rgba(14,16,38,0.85);
@@ -478,7 +479,7 @@ position: relative;
 .card[data-accent="gold"]::before  { background: linear-gradient(90deg, var(--gold), #fbff1a); }
 .card[data-accent="cyan"]::before  { background: linear-gradient(90deg, var(--cyan), #60eeff); }
 .card[data-accent="purple"]::before { background: linear-gradient(90deg, #9500D1, #8500b9); }
-.card[data-accent="green"]::before { background: linear-gradient(90deg, #E5009E, #cc008b); }
+.card[data-accent="green"]::before { background: linear-gradient(90deg, #25c916, #21ad1c); }
 .card[data-accent="red"]::before   { background: linear-gradient(90deg, hsl(61, 100%, 75%), #fdff8d); }
 .card[data-accent="blue"]::before  { background: linear-gradient(90deg, #ff9d1c, #ff8800); }
 
@@ -663,6 +664,7 @@ footer {
 .footer-bottom {
   font-family: Comfortaa;
   font-size: 1em;
+  opacity: 0.5;
 }
 
 .page-wrapper {

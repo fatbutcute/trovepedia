@@ -10,17 +10,17 @@ const FEATURES = [
   },
   {
     icon: '/icons/sword.png', 
-    accent: 'cyan', 
+    accent: 'green', 
     path: '/classes',
     title: 'Classes',
     desc:  'Discover all classes: their characteristics, best builds, and tips for effective gameplay.',
   },
   {
-    icon: '/icons/pickaxe.png', 
-    accent: 'purple', 
-    path: '/delve',
-    title: 'Delve Index',
-    desc:  'Complete delve index for optimizing your progression — with the best strategies at every level.',
+    icon: '/icons/web.png', 
+    accent: 'cyan', 
+    path: '/starchart',
+    title: 'Star Chart',
+    desc:  'This simulator helps you plan your Star Chart progression and optimize stats.',
   },
   {
     icon: '/icons/time.png', 

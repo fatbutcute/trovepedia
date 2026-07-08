@@ -11,8 +11,9 @@ const FOOTER_LINKS = {
   Tools: [
     { label: 'Star Chart', path: '/starchart' },
     { label: 'Fishing', path: '/fishing' },
-    { label: 'Calendar',        path: '/calendar' },
-    { label: 'Map',        path: '/map' },
+    /* { label: 'Calendar',        path: '/calendar' }, */
+    /* { label: 'Map',        path: '/map' }, */
+    { label: 'Archive', path: '/archive' },
   ],
   Community: [
     { label: 'Trove - Discord',        href: 'https://discord.com/invite/trovegame' },
