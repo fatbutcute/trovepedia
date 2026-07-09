@@ -283,7 +283,7 @@ nav {
 }
 
 .hero {
-position: relative;
+  position: relative;
   z-index: 1;
   min-height: 100vh;
   display: flex;
@@ -768,6 +768,11 @@ footer {
 @font-face {
   font-family: 'MontserratBlack';
   src: url('./fonts/Montserrat-Black.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'MontserratBold';
+  src: url('./fonts/Montserrat-Bold.ttf') format('truetype');
 }
 
 @font-face {

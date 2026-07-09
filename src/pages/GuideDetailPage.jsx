@@ -8,6 +8,8 @@ import rehypeRaw from 'rehype-raw';
 export default function GuideDetailPage() {
   const { slug } = useParams(); 
   const navigate = useNavigate();
+  
+  // A te kódodban ez 'guide' néven fut, így ezt használjuk lentebb is!
   const guide = GUIDES_DATA.find((g) => g.slug === slug);
   
   const [activeModalImg, setActiveModalImg] = useState(null);
@@ -25,6 +27,17 @@ export default function GuideDetailPage() {
     }, 250);
   };
 
+  // JAVÍTVA: A 'guide' változóból olvassuk ki a bgImage-et, ha létezik a cikk
+  const pageBackgroundStyle = guide && guide.bgImage 
+    ? {
+        backgroundImage: `linear-gradient(to top, rgba(7, 8, 15, 0.9) 0%, rgba(7, 8, 15, 0.95) 60%), url(${guide.bgImage})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center top',
+        backgroundAttachment: 'fixed',
+        minHeight: '100vh'
+      }
+    : {};
+
   if (!guide) {
     return (
       <div className="page-wrapper placeholder-page">
@@ -36,8 +49,9 @@ export default function GuideDetailPage() {
   }
 
   return (
-    <div className="page-wrapper guides-detail-page">
-    <button className="gd-back-btn" onClick={() => navigate('/guides')}>
+    /* JAVÍTVA: Ide került be a style={pageBackgroundStyle}, így a teljes oldal megkapja a képet! */
+    <div className="page-wrapper guides-detail-page" style={pageBackgroundStyle}>
+      <button className="gd-back-btn" onClick={() => navigate('/guides')}>
         <svg 
           viewBox="0 0 24 24" 
           width="30" 
@@ -52,10 +66,8 @@ export default function GuideDetailPage() {
           <polyline points="12 19 5 12 12 5"></polyline>
         </svg>
       </button>
+      
       <div className="gd-container">
-        
-
-
         <header className="gd-header">
           <div className="gd-tag-wrapper">
             <i className={`${guide.icon} gd-icon`}></i>
@@ -101,7 +113,6 @@ export default function GuideDetailPage() {
             )}
           </div>
         </div>
-
       </div>
 
       {activeModalImg && (
@@ -115,7 +126,6 @@ export default function GuideDetailPage() {
           </div>
         </div>
       )}
-
     </div>
   );
 }

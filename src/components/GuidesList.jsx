@@ -10,8 +10,10 @@ export const GUIDES_DATA = [
     desc: 'Learn how to optimize your skill chart and rune anvil.', 
     icon: 'ri-bar-chart-box-line', 
     slug: 'crafting-paths',
+    bgImage: '/guidebg/skillchart.webp',
     author: 'Hellfire191 - Arsyn',
     date: '2026-07-02',
+    
     content: `## What is Star Chart?  
 The Star Chart is a crucial system in Trove that enhances your character’s power. This guide will walk you through the optimal setup, essential resources, and tips for efficiently progressing through the Star Chart.
 
@@ -149,6 +151,7 @@ If you wish to see the best build for your class, check out this spreadsheet:
     desc: 'The end game guide for mystic gear.', 
     icon: 'ri-sparkling-line', 
     slug: 'mystic-gear',
+    bgImage: '/guidebg/mysticgear.webp',
     author: 'Rocket__, Fayysal - Arsyn',
     date: '2026-07-09',
     content: `The Mystic Gear system is a pinnacle endgame progression mechanic in Trove that substantially boosts your character's stats. This guide covers the total resource costs required to fully upgrade your gear from Tier 0 to Tier 5, alongside optimal 8-week farming strategies.
