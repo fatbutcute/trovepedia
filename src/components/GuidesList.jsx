@@ -148,7 +148,66 @@ If you wish to see the best build for your class, check out this spreadsheet:
     title: 'Mystic Gear', 
     desc: 'The end game guide for mystic gear.', 
     icon: 'ri-sparkling-line', 
-    slug: 'mystic-gear' 
+    slug: 'mystic-gear',
+    author: 'Rocket__, Fayysal - Arsyn',
+    date: '2026-07-09',
+    content: `The Mystic Gear system is a pinnacle endgame progression mechanic in Trove that substantially boosts your character's stats. This guide covers the total resource costs required to fully upgrade your gear from Tier 0 to Tier 5, alongside optimal 8-week farming strategies.
+
+## Total Upgrade Costs (Tier 0 → 5)
+
+Fully upgrading a complete set of Mystic Gear requires a massive amount of investment. Below is the breakdown of the market value and exact material counts needed for a maxed-out setup.
+
+* **Depths Cores (Total: 6,500)** * **Market Value:** ~84.5 Million Flux  
+  * **Type:** Tradeable (~13,000 Flux each)
+* **Soul of the Depths (Total: 1,675)** * **Market Value:** N/A  
+  * **Type:** Account-Bound / Non-Tradeable
+* **Deepstone (Total: 18,850)** * **Market Value:** ~17 Million Flux  
+  * **Type:** Tradeable (~900 Flux each)
+
+---
+
+## The 8-Week Farming Strategy
+
+To acquire the necessary Depths Cores and Souls efficiently without exhausting all your resources, pacing your progression over an 8-week cycle is highly recommended.
+
+### Depths Cores Breakdown
+Through consistent daily and weekly activities, you can easily amass over 15,000 Cores during this period:
+
+* **Sparkle Keys (5 per day):** Yields **1,680 Depths Cores** (assuming an average of 6 cores per 5-star dungeon).
+* **Normal Keys:** Yields **8,400 Depths Cores** (based on utilizing roughly 150 Normal Keys daily).
+* **Obelisks:** Yields **6,000 Depths Cores** (achievable by securing a minimum of 3,000 cores per fast invasion event).
+* **Trunks:** Yields **~1,000 Depths Cores** (granted if you have unlocked the dedicated node from the Runic Anvil).
+
+### Soul of the Depths Breakdown
+Since Souls are non-tradeable, time-gated gates dictate their farming loops. Maximize your Monday resets:
+
+<div class="gd-flex-row">
+  <div class="gd-flex-text">
+
+* **Monday Reset Dungeon Bonus:** Completing 5 designated dungeons on Monday yields **1,960 Soul of the Depths** (calculated using *Sparkle Keys only*).
+* **Normal Key Vaults:** Opening vaults in Kraken / The Depths Delves rewards **~6 souls** per vault.
+* **Sparkling Key Vaults:** Opening vaults in Kraken / The Depths Delves rewards **~8 souls** per vault.
+
+  </div>
+  
+  <div class="gd-flex-image-wrap">
+    <div class="gd-image-container">
+      <div class="gd-image-glow-border"></div>
+      <img src="/guideimages/soulofthedepths.webp" alt="Farming Soul of the Depths" />
+    </div>
+  </div>
+</div>
+
+---
+
+## Deepstone Farming (Tuesday Exclusive)
+
+Deepstone gathering is heavily optimized when executed on **TUESDAY** due to specific daily multipliers. 
+
+* Deepstones only start to populate and spawn **after you clear the first Vault** inside the delve.
+* **Kraken / The Depths Delve:** Yields **~350 Deepstones per portal** when farming between Depths levels 170 and 182.
+
+By organizing your farm schedules around Monday's Soul lockouts and Tuesday's Deepstone boosts, you can effortlessly craft and max out your Mystic Gear set.`
   },
   { 
     tag: 'Geode', 
