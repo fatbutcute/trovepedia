@@ -498,6 +498,7 @@ html {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
+  margin-top: 30px !important;
 }
 
 .calc-modal-content {
@@ -534,6 +535,7 @@ html {
   display: flex !important;
   align-items: center !important;
   gap: 15px !important;
+  margin-top: -5px !important;
 }
 .calc-modal-header i { font-size: 2rem !important; color: var(--calc-accent) !important; }
 .calc-modal-header h2 { font-family: 'Gordita', sans-serif !important; font-size: 1.6rem !important; margin: 0 !important; color: #fff !important; }

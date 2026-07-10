@@ -30,7 +30,7 @@ const ACCENT_RGB = {
 };
 
 const CALCULATORS = [
-  { id: 'pr', title: 'Power Rank', desc: 'Calculate your maximum potential Power Rank.', icon: 'ri-vip-crown-line', color: 'gold', height: '700px', width: '860px' },
+  { id: 'pr', title: 'Power Rank', desc: 'Calculate your maximum potential Power Rank.', icon: 'ri-vip-crown-line', color: 'gold', height: '830px', width: '860px' },
   { id: 'gem', title: 'Gem Augment', desc: 'Find out how many augments you need for 100%.', icon: 'ri-vip-diamond-line', color: 'cyan', height: 'auto', width: '600px' },
   { id: 'dragon', title: 'Dragon Coin', desc: 'Convert hours to coins or coins to hours.', icon: 'ri-fire-line', color: 'red', height: '650px', width: '600px' },
   { id: 'trunk', title: 'Trunk Drop', desc: 'Calculate expected drops from opening Trunks.', icon: 'ri-treasure-map-line', color: 'purple', height: '720px', width: '600px' },
