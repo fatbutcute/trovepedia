@@ -8,9 +8,9 @@ const NAV_ITEMS = [
   { label: 'Rotations',   path: '/rotations' },
   { label: 'Archive',     path: '/archive' },
   { label: 'Star Chart',  path: '/starchart' },
+  { label: 'Calculators', path: '/calculators' },
   { label: 'Clubs',       path: '/clubs' },
   { label: 'News',        path: '/news' },
-  { label: 'Fishing',     path: '/fishing' },
 ]
 
 export default function Navbar() {

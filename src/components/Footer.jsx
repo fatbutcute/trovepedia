@@ -2,23 +2,31 @@ import { useNavigate } from 'react-router-dom'
 import StaffCard from './StaffCard'
 
 const FOOTER_LINKS = {
-  Content: [
+  Navigation: [
     { label: 'Guides',  path: '/guides' },
     { label: 'Classes',  path: '/classes' },
     /* { label: 'Delve Index',path: '/delve' }, */
     { label: 'Rotations',   path: '/rotations' },
+
+
+
   ],
   Tools: [
-    { label: 'Star Chart', path: '/starchart' },
-    { label: 'Fishing', path: '/fishing' },
+
+    /* { label: 'Fishing', path: '/fishing' }, */
     /* { label: 'Calendar',        path: '/calendar' }, */
     /* { label: 'Map',        path: '/map' }, */
+    
+    { label: 'Calculators', path: '/calculators' },
+    { label: 'Star Chart', path: '/starchart' },
     { label: 'Archive', path: '/archive' },
   ],
   Community: [
     { label: 'Trove - Discord',        href: 'https://discord.com/invite/trovegame' },
     { label: 'Trovesaurus',    href: 'https://trovesaurus.com/' },
     { label: 'Contributors',   path: '/contribute' },
+    { label: 'Clubs', path: '/clubs' },
+    { label: 'News', path: '/news' },
     /* { label: 'Contact',      path: '/contact' }, */
   ],
 }

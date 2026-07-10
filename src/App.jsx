@@ -16,6 +16,7 @@ import ClubsPage from './pages/ClubsPage';
 import GuideDetailPage from './pages/GuideDetailPage';
 import TroveNewsPage from './components/TroveNewsPage';
 import FishingPage from './pages/FishingPage';
+import CalculatorsPage from './components/CalculatorsPage';
 
 export default function App() {
   return (
@@ -46,6 +47,8 @@ export default function App() {
           <Route path="/news" element={<TroveNewsPage />} />
 
           <Route path="/fishing" element={<FishingPage />} />
+
+          <Route path="/calculators" element={<CalculatorsPage />} />
 
           <Route
             path="/fishing"

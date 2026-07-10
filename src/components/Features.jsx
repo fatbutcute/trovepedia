@@ -39,7 +39,7 @@ const FEATURES = [
   {
     icon: '/icons/calculator.png', 
     accent: 'blue', 
-    path: '/calculator',
+    path: '/calculators',
     title: 'Calculators',
     desc:  'Precise formulas and calculation methods for determining and optimizing your true power.',
   },
