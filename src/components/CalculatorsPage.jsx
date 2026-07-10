@@ -30,28 +30,25 @@ const ACCENT_RGB = {
 };
 
 const CALCULATORS = [
-  { id: 'pr', title: 'Power Rank', desc: 'Calculate your maximum potential Power Rank.', icon: 'ri-vip-crown-line', color: 'gold', height: '640px', width: '900px' },
-  { id: 'gem', title: 'Gem Augment', desc: 'Find out how many augments you need for 100%.', icon: 'ri-vip-diamond-line', color: 'cyan', height: 'auto', width: '700px' },
-  { id: 'dragon', title: 'Dragon Coin', desc: 'Convert hours to coins or coins to hours.', icon: 'ri-fire-line', color: 'red', height: '700px', width: '700px' },
-  { id: 'trunk', title: 'Trunk Drop', desc: 'Calculate expected drops from opening Trunks.', icon: 'ri-treasure-map-line', color: 'purple', height: '700px', width: '700px' },
-  { id: 'venturine', title: 'Venturine', desc: 'Convert Venturine to Signets and vice versa.', icon: 'ri-coins-line', color: 'blue', height: '600px', width: '800px' },
-  { id: 'depths-souls', title: 'Depths Souls', desc: 'Plan your Soul of the Depths farming.', icon: 'ri-ghost-line', color: 'green', height: 'auto', width: '700px' },
-  { id: 'depths-core', title: 'Depths Core', desc: 'Calculate required runs for Depths Cores.', icon: 'ri-coreos-line', color: 'gold', height: 'auto', width: '700px' },
-  { id: 'cubit', title: 'Cubit & Dragonite', desc: 'Track your daily Cubits and Diamond Dragonite.', icon: 'ri-money-dollar-circle-line', color: 'cyan', height: 'auto', width: '700px' }
+  { id: 'pr', title: 'Power Rank', desc: 'Calculate your maximum potential Power Rank.', icon: 'ri-vip-crown-line', color: 'gold', height: '700px', width: '860px' },
+  { id: 'gem', title: 'Gem Augment', desc: 'Find out how many augments you need for 100%.', icon: 'ri-vip-diamond-line', color: 'cyan', height: 'auto', width: '600px' },
+  { id: 'dragon', title: 'Dragon Coin', desc: 'Convert hours to coins or coins to hours.', icon: 'ri-fire-line', color: 'red', height: '650px', width: '600px' },
+  { id: 'trunk', title: 'Trunk Drop', desc: 'Calculate expected drops from opening Trunks.', icon: 'ri-treasure-map-line', color: 'purple', height: '720px', width: '600px' },
+  { id: 'venturine', title: 'Venturine', desc: 'Convert Venturine to Signets and vice versa.', icon: 'ri-coins-line', color: 'blue', height: '550px', width: '680px' },
+  { id: 'depths-souls', title: 'Depths Souls', desc: 'Plan your Soul of the Depths farming.', icon: 'ri-ghost-line', color: 'green', height: 'auto', width: '600px' },
+  { id: 'depths-core', title: 'Depths Core', desc: 'Calculate required runs for Depths Cores.', icon: 'ri-coreos-line', color: 'gold', height: 'auto', width: '600px' },
+  { id: 'cubit', title: 'Cubit & Dragonite', desc: 'Track your daily Cubits and Diamond Dragonite.', icon: 'ri-money-dollar-circle-line', color: 'cyan', height: 'auto', width: '600px' }
 ];
 
 export default function CalculatorsPage() {
   const navigate = useNavigate();
   const [activeCalc, setActiveCalc] = useState(null);
-  
-  // JAVÍTVA: Bevezetjük az animációhoz szükséges hiányzó állapotot
   const [isClosing, setIsClosing] = useState(false);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
   }, []);
 
-  // JAVÍTVA: Definiáljuk a hiányzó bezáró függvényt a lágy animációhoz
   const handleCloseModal = () => {
     setIsClosing(true);
     setTimeout(() => {

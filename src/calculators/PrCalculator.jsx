@@ -78,7 +78,7 @@ export default function PrCalculator() {
       <div className="calc-toggle-grid" style={{ gridTemplateColumns: 'repeat(4, 1fr)' }}>
         {Object.keys(gemCache).map(type => (
           <div key={type} className="calc-toggle-btn" onClick={() => setActiveModalGem(type)} style={{ textTransform: 'capitalize' }}>
-            💎 {type}
+             {type}
           </div>
         ))}
       </div>
@@ -94,7 +94,7 @@ export default function PrCalculator() {
             onClick={() => toggleDragon(type)}
             style={{ textTransform: 'capitalize' }}
           >
-            🐲 {type}
+             {type}
           </div>
         ))}
       </div>
@@ -118,30 +118,36 @@ export default function PrCalculator() {
       </div>
 
 {/* ── BRUTÁLISAN MENŐ GEM SZERKESZTŐ SUB-MODAL ── */}
+{/* ✨ JAVÍTVA: A mockupod alapján teljesen újjáépített Gem szintválasztó rács ✨ */}
       {activeModalGem && (
         <div className="calc-submodal-overlay" onClick={() => setActiveModalGem(null)}>
           <div className="calc-submodal" onClick={(e) => e.stopPropagation()}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-              <h3 style={{ margin: 0 }}>✨ {activeModalGem} Gem Settings</h3>
+            
+            {/* Fejléc a bezáró gombbal */}
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '25px' }}>
+              <h3 style={{ margin: 0, textTransform: 'capitalize' }}>Edit {activeModalGem} Gem Levels</h3>
               <button 
                 onClick={() => setActiveModalGem(null)} 
-                style={{ background: 'none', border: 'none', color: '#9499c3', fontSize: '1.5rem', cursor: 'pointer' }}
+                style={{ background: 'none', border: 'none', color: '#9499c3', fontSize: '1.8rem', cursor: 'pointer', lineHeight: 1 }}
               >
                 ×
               </button>
             </div>
             
+            {/* A 3 darab Gem slot egymás alatt */}
             {['emp', 'lesser1', 'lesser2'].map(slot => (
-              <div key={slot} className="calc-field" style={{ marginBottom: '20px' }}>
-                <label style={{ display: 'block', marginBottom: '8px', fontSize: '0.8rem', color: '#e8b84b', letterSpacing: '1px' }}>
-                  {slot === 'emp' ? '👑 Empowered Gem' : slot === 'lesser1' ? '💎 Lesser Gem 1' : '💎 Lesser Gem 2'}:
+              <div key={slot} className="calc-field" style={{ marginBottom: '22px' }}>
+                <label style={{ display: 'block', marginBottom: '10px', fontSize: '0.85rem', color: '#9499c3', fontWeight: '600' }}>
+                  {slot === 'emp' ? 'Empowered Gem Level:' : slot === 'lesser1' ? 'Lesser Gem 1 Level:' : 'Lesser Gem 2 Level:'}
                 </label>
                 
-                {/* Custom Menő Rács a legördülő menü helyett */}
+                {/* 8 oszlopos prémium mátrix rács */}
                 <div className="calc-premium-matrix">
+                  
+                  {/* A "None" gomb beolvasztva a rács elejére */}
                   <button
                     type="button"
-                    className={`matrix-item none-btn ${gemCache[activeModalGem][slot] === 0 ? 'active' : ''}`}
+                    className={`matrix-item ${gemCache[activeModalGem][slot] === 0 ? 'active' : ''}`}
                     onClick={() => {
                       setGemCache({
                         ...gemCache,
@@ -149,9 +155,10 @@ export default function PrCalculator() {
                       });
                     }}
                   >
-                    Unequipped
+                    None
                   </button>
                   
+                  {/* A szintek generálása 15-től 30-ig */}
                   {gemLevels.filter(lvl => lvl !== 0).map(lvl => (
                     <button
                       key={lvl}
@@ -171,8 +178,9 @@ export default function PrCalculator() {
               </div>
             ))}
             
-            <button className="calc-submit-btn" style={{ marginTop: '15px', marginBottom: 0 }} onClick={() => setActiveModalGem(null)}>
-              Apply Changes
+            {/* Alsó fő akciógomb a mentéshez */}
+            <button className="calc-submit-btn" style={{ marginTop: '20px', marginBottom: 0 }} onClick={() => setActiveModalGem(null)}>
+              Save & Recalculate
             </button>
           </div>
         </div>
