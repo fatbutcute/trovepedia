@@ -81,6 +81,24 @@
     color: var(--text-secondary);
 }
 
+.light {
+    font-family: Quicksand;
+    font-size: 1.4rem;
+    color: rgb(32, 210, 255);
+    line-height: 1em;
+    font-weight: 800;
+}
+
+.crystalgear {
+    font-size: 1.2rem;
+    font-weight: 800;
+}
+
+.mysticgear {
+    font-size: 1.2rem;
+    font-weight: 800;
+}
+
 .guides-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(400px, 3fr));

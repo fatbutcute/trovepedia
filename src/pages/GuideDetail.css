@@ -295,8 +295,8 @@
 
 .gd-lightbox-content {
   position: relative;
-  max-width: 95vw;
-  max-height: 85vh;
+  max-width: 1200px;
+  max-height: auto;
   display: flex;
   align-items: center;
   justify-content: center;
