@@ -87,7 +87,7 @@ If you wish to see the best build for your class, check out this spreadsheet:
     title: 'Maximize Your Light', 
     desc: 'This guide shows you how to maximize your light.', 
     icon: 'ri-sun-line', 
-    slug: 'light-system',
+    slug: 'maximize-light',
     bgImage: '/guidebg/cosmic.webp',
     author: 'Mortrak, Losiqn - Arsyn',
     date: '2026-07-15',
