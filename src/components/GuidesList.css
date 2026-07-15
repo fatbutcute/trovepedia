@@ -293,11 +293,11 @@
     background-image: url('/guidebg/skillchart.webp'); 
 }
 
-.light-system {
+.maximize-light {
     --accent: #ffc569;
 }
 
-.light-system::after {
+.maximize-light::after {
     background-image: url('/guidebg/cosmic.webp');
 }
 
