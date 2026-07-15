@@ -35,7 +35,7 @@ const CALCULATORS = [
   { id: 'dragon', title: 'Dragon Coin', desc: 'Convert hours to coins or coins to hours.', icon: 'ri-fire-line', color: 'red', height: '650px', width: '600px' },
   { id: 'trunk', title: 'Trunk Drop', desc: 'Calculate expected drops from opening Trunks.', icon: 'ri-treasure-map-line', color: 'purple', height: '720px', width: '600px' },
   { id: 'venturine', title: 'Venturine', desc: 'Convert Venturine to Signets and vice versa.', icon: 'ri-coins-line', color: 'blue', height: '550px', width: '680px' },
-  { id: 'depths-souls', title: 'Depths Souls', desc: 'Plan your Soul of the Depths farming.', icon: 'ri-ghost-line', color: 'green', height: 'auto', width: '600px' },
+  { id: 'depths-souls', title: 'Depths Souls', desc: 'Plan your Soul of the Depths farming.', icon: 'ri-ghost-line', color: 'green', height: '650px', width: '600px' },
   { id: 'depths-core', title: 'Depths Core', desc: 'Calculate required runs for Depths Cores.', icon: 'ri-coreos-line', color: 'gold', height: 'auto', width: '600px' },
   { id: 'cubit', title: 'Cubit & Dragonite', desc: 'Track your daily Cubits and Diamond Dragonite.', icon: 'ri-money-dollar-circle-line', color: 'cyan', height: 'auto', width: '600px' }
 ];
