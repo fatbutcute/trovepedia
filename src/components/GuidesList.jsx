@@ -89,7 +89,7 @@ If you wish to see the best build for your class, check out this spreadsheet:
     icon: 'ri-sun-line', 
     slug: 'maximize-light',
     bgImage: '/guidebg/cosmic.webp',
-    author: 'Mortrak, Losiqn - Arsyn',
+    author: 'Losiqn - Arsyn',
     date: '2026-07-15',
     content: `## How to get max light?
 
@@ -153,7 +153,7 @@ These are max mystic gems. Make sure they have **3 boosts*** on Light and are **
   <img src="/guideimages/Mysticfacemax.png"/>
 </div>
 
-## Misc. Gear - Total Light: 1675
+## Misc. Gear - Total Light: 1800
 <div class="gd-image-container">
   <div class="gd-image-glow-border"></div>
   <img src="/guideimages/C5GEARMYSTICGEMS3page0005.webp"/>
@@ -164,7 +164,7 @@ These are max mystic gems. Make sure they have **3 boosts*** on Light and are **
 * Rings: For long time, only crystal rings were available, but now you can also get the new mystic rings. Both of them are good, but mystic rings are better because they gives more light and new ring abilities. Mystic rings can be crafted at the Ringcrafting Bench after reaching max lvl in the Ringcrafter Bench. To be able to Mystic Rings you need mystic loops which are similar to primal loops, but mystic loops can be only acquired from D15, after reaching a new primal level. Note: You must be in D15 in the moment when you get the new primal level.
 * Auto-Use Rune: This rune is a must-have for endgame players. Can be obtainable from the Rune Crafting Bench, after reaching a specified level in the bench.
 
-## Allys - Total Light: 400 or 500
+## Allies - Total Light: 400 or 450
 <div class="gd-image-container">
   <div class="gd-image-glow-border"></div>
   <img src="/guideimages/C5GEARMYSTICGEMS3page0006.webp"/>
@@ -188,7 +188,7 @@ Each dragon gives a significant amount of light, and the total light from dragon
 </div>
 
 ##
-* Star Chart: There are some orbs in the Star Chart (as shown on the image) which gives small amounts of light. Two of the 3 orbs unlocks Scorpius and Starry Skyfire allies.
+* Light Orbs: There are some orbs in the Star Chart (as shown on the image) which gives small amounts of light. Two of the 3 orbs unlocks Scorpius and Starry Skyfire allies.
 * Constellation Key: Count this item as some kind of currency. If you have Constellation Keys, you can unlock minor orbs in the Star Chart. Constellation Keys can be either acquired for 1300 cubits on the Store -> More tab or you can obtain the Locksmith's Lexicon by reaching Mastery Lvl 270. The tome gives you 1 key every week. You need 91 keys to unlock all the 3 orbs which is 118.300 cubits.
 * Celestial Sphere: Used to unlock major orbs in the Star Chart. You can obtain these spheres at the Celestial in the NW building of the Hub. Note: The first 3 Celestial Sphere costs 100 flux each, after buying the first amounts, you will need Astral Echoes in the future to buy more Celestial Spheres.
 * Astral Echoes: Currency to buy Celestial Spheres. Best ways to get Astral Echoes: 
@@ -249,7 +249,7 @@ Each dragon gives a significant amount of light, and the total light from dragon
 <span classname="mysticgear">Mystic Gear: 13796 Light - using 400 light Ally.</span>\n
 ###
 ###\n\n
-<span classname="light">Absolute Max Light can be 14604 - with (450 Light) Ally + Berserk Battler (we count the Berserk Battler's proc as plus light.)</span>
+<span classname="light">Absolute Max Light can be 14730 - with (450 Light) Ally + Berserk Battler (we count the Berserk Battler's proc as plus light.)</span>
 `
   },
   { 
