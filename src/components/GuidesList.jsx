@@ -161,8 +161,8 @@ These are max mystic gems. Make sure they have **3 boosts*** on Light and are **
 
 ### Banner, Rings and Auto-Use Rune:
 * Enshadowed Torch of Knotted Shadow: One of the necessary items to reach max light. It can be obtained from Geode Topside Leviathan bosses. Note: Banners such as the Enshadowed Banner of Knotted Shadow cannot be traded and there are several type of banners which gives different stat bonuses. Good to know: You have a guarenteed chance to get the first banner after killing 250 leviathans.
-* Rings: For long time, only crystal rings were available, but now you can also get the new mystic rings. Both of them are good, but mystic rings are better because they gives more light and new ring abilities. Mystic rings can be crafted at the Ringcrafting Bench after reaching max lvl in the Ringcrafter Bench. To be able to Mystic Rings you need mystic loops which are similar to primal loops, but mystic loops can be only acquired from D15, after reaching a new primal level. Note: You must be in D15 in the moment when you get the new primal level.
-* Auto-Use Rune: This rune is a must-have for endgame players. Can be obtainable from the Rune Crafting Bench, after reaching a specified level in the bench.
+* Rings: For long time, only crystal rings were available, but now you can also get the new mystic rings. Both of them are good, but mystic rings are better because they gives more light and new ring abilities. Mystic rings can be crafted at the Ringcrafting Bench after reaching max lvl in the Ringcrafter Bench. To be able to craft Mystic Rings you need mystic loops which are similar to primal loops, but mystic loops can be only acquired from D15, after reaching a new primal level. Note: You must be in D15 in the moment when you get the new primal level.
+* Auto-Use (Repel) Rune: This rune is a must-have for endgame players. Can be obtainable from the Rune Crafting Bench, after reaching a specified level in the bench.
 
 ## Allies - Total Light: 400 or 450
 <div class="gd-image-container">
