@@ -417,8 +417,6 @@ Ships and Towers are two types of **5★ dungeons** found in the **Sundered Upla
 
 While they function similarly, they are used for completely different endgame farming purposes.
 
----
-
 ## Ships (D13 XP Farming)
 
 Ships are primarily used for **Experience (XP) farming** and are typically run in Difficulty 13. They function as a wave-based dungeon where players stay in assigned rooms to continuously spawn enemies and maximize XP gains. 
