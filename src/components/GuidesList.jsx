@@ -417,7 +417,7 @@ Ships and Towers are two types of **5 star dungeons** found in the **Sundered Up
 
 ## Ships (D13 XP Farming)
 
-Ships are primarily used for **Experience (XP) farming** and are typically run in Difficulty 13. They function as a wave-based dungeon where players stay in assigned rooms to continuously spawn enemies and maximize XP gains. 
+Ships are primarily used for **Experience (XP) farming** and are typically run in Difficulty 13. They function as a wave-based dungeon where players stay in assigned rooms to continuously spawn enemies and maximize XP gains, also you can loot very rare items from specified bosses.
 
 The best time to do this is usually on **Mondays**, when most players are farming their weekly tomes and clearing 5-star dungeons for weekly drops (reaching Wave 75+ on a ship). To maximize your efficiency, it is ideal to farm ships during events that drop event currency, on **XP Weeks**, or on **XP Days** if you want to level up your classes or farm Primal Loops.
 
@@ -431,7 +431,7 @@ The best time to do this is usually on **Mondays**, when most players are farmin
 * With the current max Light (<span class="text-cyan">~14,730 Light</span> as of 26/7/2026), players can realistically reach around **Wave 100**.
 
 ### Requirements
-* **6 Players total:**
+* **7 Players total:**
   * **5 players** covering individual rooms.
   * **1 player** handling the boss room.
   * **1 reset player** to activate the console immediately after each wave.
