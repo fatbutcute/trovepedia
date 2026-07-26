@@ -32,7 +32,7 @@ export default function GuideDetailPage() {
     ? {
         backgroundImage: `linear-gradient(to top, rgba(7, 8, 15, 0.9) 0%, rgba(7, 8, 15, 0.95) 60%), url(${guide.bgImage})`,
         backgroundSize: 'cover',
-        backgroundPosition: 'center top',
+        backgroundPosition: guide.bgPosition || 'center center',
         backgroundAttachment: 'fixed',
         minHeight: '100vh'
       }

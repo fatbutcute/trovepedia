@@ -80,7 +80,18 @@ Required to unlock Major Nodes. Can be purchased with 1,300 Cubits from the stor
 By following this guide, you can efficiently progress through the Star Chart and enhance your character’s strength.  
 If you wish to see the best build for your class, check out this spreadsheet:
   
-<a href="https://docs.google.com/spreadsheets/d/1Q2xdqeoHLafC9se5cy_Gpc54KnmpaQez7TGsc5C1Lqw/edit?usp=sharing" target="_blank" rel="noreferrer">Check out the classes spreadsheet!</a>`
+<a href="https://docs.google.com/spreadsheets/d/1Q2xdqeoHLafC9se5cy_Gpc54KnmpaQez7TGsc5C1Lqw/edit?usp=sharing" target="_blank" rel="noreferrer">Check out the classes spreadsheet!</a>
+
+## Recommended Anvil Upgrade Path
+<div class="gd-image-container">
+  <div class="gd-image-glow-border"></div>
+  <img src="/guideimages/anvil1.webp" alt="Resetting the Star Chart" />
+</div>
+<div class="gd-image-container">
+  <div class="gd-image-glow-border"></div>
+  <img src="/guideimages/anvil2.webp" alt="Resetting the Star Chart" />
+</div>
+`
   },
   { 
     tag: 'Max Light', 
@@ -315,6 +326,7 @@ Each dragon gives a significant amount of light, and the total light from dragon
     icon: 'ri-sparkling-line', 
     slug: 'mystic-gear',
     bgImage: '/guidebg/mysticgear.webp',
+    bgPosition: 'center top',
     author: 'Rocket__, Fayysal - Arsyn',
     date: '2026-07-09',
     content: `The Mystic Gear system is a pinnacle endgame progression mechanic in Trove that substantially boosts your character's stats. This guide covers the total resource costs required to fully upgrade your gear from Tier 0 to Tier 5, alongside optimal 8-week farming strategies.
@@ -394,7 +406,78 @@ By organizing your farm schedules around Monday's Soul lockouts and Tuesday's De
     title: 'Learn about ships and towers!', 
     desc: 'Best strategies to farm them, wave management and more...', 
     icon: 'ri-signal-tower-line', 
-    slug: 'towers-ships' 
+    slug: 'towers-ships',
+    bgImage: '/guidebg/shipandtower.webp',
+    bgPosition: 'center center',
+    author: 'ChrisNeverGiveUp - Arsyn',
+    date: '2026-07-26',
+    content: `## Ships & Towers
+
+Ships and Towers are two types of **5★ dungeons** found in the **Sundered Uplands** biome in Difficulty 13 and 14 Prime worlds. 
+
+While they function similarly, they are used for completely different endgame farming purposes:
+
+---
+
+## Ships (D13 XP Farming)
+
+Ships are primarily used for **Experience (XP) farming** and are typically run in Difficulty 13. They function as a wave-based dungeon where players stay in assigned rooms to continuously spawn enemies and maximize XP gains. 
+
+The best time to do this is usually on **Mondays**, when most players are farming their weekly tomes and clearing 5-star dungeons for weekly drops (reaching Wave 75+ on a ship). To maximize your efficiency, it is ideal to farm ships during events that drop event currency, on **XP Weeks**, or on **XP Days** if you want to level up your classes or farm Primal Loops.
+
+<div class="gd-image-container">
+  <div class="gd-image-glow-border"></div>
+  <img src="/guideimages/ship.webp" alt="Ship Dungeon in Sundered Uplands" />
+</div>
+
+### Objective
+* Push to the highest wave as quickly as possible.
+* With the current max Light (<span class="text-cyan">~14,730 Light</span> as of 26/7/2026), players can realistically reach around **Wave 100**.
+
+### Requirements
+* **6 Players total:**
+  * **5 players** covering individual rooms.
+  * **1 player** handling the boss room.
+  * **1 reset player** to activate the console immediately after each wave.
+
+<div class="gd-info-box">
+  <div class="gd-info-box-content">
+    <h4 class="gd-info-title">What are Rooms?</h4>
+    <p>
+      Rooms are separate, isolated sections of the ship where enemies spawn independently from one another.
+    </p>
+  </div>
+</div>
+
+### Optimization Tips
+* Use a **runner or alt account** to locate the next ship while the current one is being completed.
+* Minimize downtime between ships to maximize your **XP/hour** efficiency.
+
+---
+
+## Towers (D14 Phoenix Motes Farming)
+
+Towers are primarily used for farming **Phoenix Motes**, a key crafting resource at the Sundered Uplands crafting bench. They are typically run in Difficulty 14, where waves are harder and shorter.
+
+<div class="gd-image-container">
+  <div class="gd-image-glow-border"></div>
+  <img src="/guideimages/tower.webp" alt="Tower Dungeon in Sundered Uplands" />
+</div>
+
+### Objective
+Farm **Phoenix Motes**, which:
+* **Main Boss Drop:** Guaranteed or highly common drops obtained directly upon defeating the final boss at the end of the dungeon.
+* **Mini-Boss Drop:** Secondary, occasional drops awarded when clearing mini-bosses found throughout the different rooms of the tower.
+
+### Requirements
+* **1 or more players** with <span class="text-cyan">12,500+ Light</span>.
+
+### Optimization Tips
+* Assign players to **specific rooms** once the tower begins.
+* Each player repeatedly clears their assigned room independently.
+* Return to the **boss room** immediately on boss waves.
+* A **dedicated reset player** improves overall farming speed significantly.
+* **Limit players in the farm to less than 8** to maximize Phoenix Mote drop rates per player.`
   },
 ];
 
