@@ -415,7 +415,7 @@ By organizing your farm schedules around Monday's Soul lockouts and Tuesday's De
 
 Ships and Towers are two types of **5★ dungeons** found in the **Sundered Uplands** biome in Difficulty 13 and 14 Prime worlds. 
 
-While they function similarly, they are used for completely different endgame farming purposes:
+While they function similarly, they are used for completely different endgame farming purposes.
 
 ---
 
