@@ -413,9 +413,7 @@ By organizing your farm schedules around Monday's Soul lockouts and Tuesday's De
     date: '2026-07-26',
     content: `## Ships & Towers
 
-Ships and Towers are two types of **5★ dungeons** found in the **Sundered Uplands** biome in Difficulty 13 and 14 Prime worlds. 
-
-While they function similarly, they are used for completely different endgame farming purposes.
+Ships and Towers are two types of **5 star dungeons** found in the **Sundered Uplands** biome in Difficulty 13 and 14 Prime worlds. While they function similarly, they are used for completely different endgame farming purposes.
 
 ## Ships (D13 XP Farming)
 
