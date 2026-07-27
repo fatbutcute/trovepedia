@@ -409,7 +409,7 @@ By organizing your farm schedules around Monday's Soul lockouts and Tuesday's De
     slug: 'towers-ships',
     bgImage: '/guidebg/shipandtower.webp',
     bgPosition: 'center center',
-    author: 'ChrisNeverGiveUp - Arsyn',
+    author: 'ChrisNeverGiveUp, YoloNico - Arsyn',
     date: '2026-07-26',
     content: `## Ships & Towers
 
@@ -473,7 +473,19 @@ Farm **Phoenix Motes**, which:
 * Each player repeatedly clears their assigned room independently.
 * Return to the **boss room** immediately on boss waves.
 * A **dedicated reset player** improves overall farming speed significantly.
-* **Limit players in the farm to less than 8** to maximize Phoenix Mote drop rates per player.`
+* **Limit players in the farm to less than 8** to maximize Phoenix Mote drop rates per player.
+
+## Best spots on Towers
+<div class="gd-image-container">
+  <div class="gd-image-glow-border"></div>
+  <img src="/guideimages/towerspot.webp" alt="Tower Dungeon in Sundered Uplands" />
+</div>
+
+## Cleanerspot + boss room loot spot
+<div class="gd-image-container">
+  <div class="gd-image-glow-border"></div>
+  <img src="/guideimages/towerspot2.webp" alt="Tower Dungeon in Sundered Uplands" />
+</div>`
   },
 ];
 
