@@ -239,7 +239,7 @@
 .bg-grid {
   position: absolute; inset: 0; z-index: 0; pointer-events: none;
   background-image: linear-gradient(rgba(166, 58, 255, 0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(166, 58, 255, 0.04) 1px, transparent 1px);
-  background-size: 40px 40px;
+  background-size: 0px;
 }
 .bg-vignette { position: absolute; inset: 0; z-index: 0; pointer-events: none; background: radial-gradient(circle at center, transparent 0%, rgba(3, 3, 12, 0.9) 100%); }
 

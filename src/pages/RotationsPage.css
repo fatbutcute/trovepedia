@@ -21,7 +21,7 @@
   min-height: 100vh;
   width: 100%;
   background-color: #04040a;
-  background-image: linear-gradient(rgba(4, 4, 14, 0.88), rgba(4, 4, 14, 0.88)), 
+  background-image: linear-gradient(rgba(4, 4, 14, 0.95), rgba(4, 4, 14, 0.95)), 
                     url('/images/biomes/longshadeup.webp');
   background-size: cover;
   background-position: center;
@@ -236,6 +236,8 @@
 
 .rot-content-area {
   width: 100%;
+  padding: 60px 30px;
+  border-radius: 20px;
 }
 
 .rot-credits {
@@ -660,18 +662,23 @@ font-family: 'Blinker', monospace;
 
 /* ── CHALLENGE & TRACKER BOXES ── */
 .challenge-box {
-  margin-top: 30px;
+  margin-top: 30px !important;
   padding: 40px;
   border-radius: 16px;
   text-align: center;
   background: rgba(22, 22, 36, 0.6);
   border: 1px solid rgba(255,255,255,0.05);
   transition: all 0.3s;
+  width: 900px;
+  margin: auto;
 }
 
 .challenge-box.live {
   border-color: #4ade80;
   box-shadow: 0 0 30px rgba(74, 222, 128, 0.15);
+  width: 800px;
+  margin: auto;
+  margin-top: 30px;
 }
 
 .status-badge {
@@ -718,7 +725,7 @@ font-family: 'Blinker', monospace;
   height: 100%;
   background-image: linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
                     linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
-  background-size: 45px 45px;
+  background-size: 0px;
   background-position: center;
   pointer-events: none;
   z-index: 2;
