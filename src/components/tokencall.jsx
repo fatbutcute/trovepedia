@@ -4,19 +4,15 @@ export default function TokenCall() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [activeTab, setActiveTab] = useState('server');
 
   const fetchData = async () => {
     setLoading(true);
     setError(null);
-
     try {
       const res = await fetch(`/api/player`);
       const json = await res.json();
-
-      if (!res.ok) {
-        throw new Error(json.error || 'Failed to fetch data.');
-      }
-
+      if (!res.ok) throw new Error(json.error || 'Hiba történt.');
       setData(json);
     } catch (err) {
       setError(err.message);
@@ -29,117 +25,132 @@ export default function TokenCall() {
     fetchData();
   }, []);
 
-  const formatTime = (timestamp) => {
-    if (!timestamp) return 'N/A';
-    return new Date(timestamp * 1000).toLocaleTimeString();
-  };
-
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-slate-950 text-slate-100 rounded-2xl shadow-2xl border border-slate-800 my-8">
-      <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mb-8 border-b border-slate-800 pb-4">
+    <div style={styles.container}>
+      {/* Fejléc */}
+      <div style={styles.header}>
         <div>
-          <h2 className="text-3xl font-extrabold text-amber-400 tracking-wide">⚔️ Trove Live Dashboard</h2>
-          <p className="text-sm text-slate-400 mt-1">Valós idejű szerver adatok és rotációk</p>
+          <h1 style={styles.title}>⚔️ Trove Live Dashboard</h1>
+          <p style={styles.subtitle}>Hivatalos szerver adatok, rotációk és státuszok</p>
         </div>
-        <button 
-          onClick={fetchData} 
-          disabled={loading}
-          className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-5 py-2.5 rounded-xl transition-all shadow-lg hover:shadow-amber-500/20 disabled:opacity-50 text-sm cursor-pointer"
-        >
+        <button style={styles.button} onClick={fetchData} disabled={loading}>
           {loading ? 'Frissítés...' : '🔄 Adatok frissítése'}
         </button>
       </div>
 
-      {error && (
-        <div className="p-4 bg-red-950/80 border border-red-500/50 text-red-200 rounded-xl mb-6 text-sm">
-          {error}
+      {error && <div style={styles.errorBox}>{error}</div>}
+
+      {/* Fő elrendezés (két oszlop, mint a profi oldalakon) */}
+      <div style={styles.layout}>
+        
+        {/* Bal oldali menü / Kategóriák */}
+        <div style={styles.sidebar}>
+          <h3 style={styles.sidebarTitle}>Kategóriák</h3>
+          <button 
+            style={{ ...styles.sidebarBtn, ...(activeTab === 'server' ? styles.sidebarBtnActive : {}) }}
+            onClick={() => setActiveTab('server')}
+          >
+            ⏳ Szerver & Resetek
+          </button>
+          <button 
+            style={{ ...styles.sidebarBtn, ...(activeTab === 'buffs' ? styles.sidebarBtnActive : {}) }}
+            onClick={() => setActiveTab('buffs')}
+          >
+            ✨ Napi & Heti Buffok
+          </button>
+          <button 
+            style={{ ...styles.sidebarBtn, ...(activeTab === 'chaos' ? styles.sidebarBtnActive : {}) }}
+            onClick={() => setActiveTab('chaos')}
+          >
+            🎁 Chaos Chest
+          </button>
         </div>
-      )}
 
-      {loading && !data && (
-        <div className="text-center py-16 text-slate-400 animate-pulse text-lg">
-          Adatok betöltése a Trove szerverekről...
-        </div>
-      )}
-
-      {data && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          
-          {/* Szerver Státusz */}
-          <div className="bg-slate-900/90 p-5 rounded-xl border border-slate-800 shadow-md">
-            <h3 className="text-lg font-bold text-sky-400 mb-4 flex items-center gap-2 border-b border-slate-800 pb-2">
-              ⏳ Szerver Státusz & Resetek
-            </h3>
-            <div className="space-y-3 text-sm">
-              <div className="flex justify-between items-center">
-                <span className="text-slate-400">Aktuális Trove Nap:</span> 
-                <span className="font-bold text-emerald-400 bg-emerald-950/50 px-2.5 py-1 rounded-md border border-emerald-800/50">
-                  {data.serverTime?.trove_day || 'N/A'}
-                </span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-slate-400">Napi Reset:</span> 
-                <span className="font-mono text-amber-300 bg-slate-950 px-2 py-1 rounded border border-slate-800">
-                  {formatTime(data.serverTime?.daily_reset_at)}
-                </span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-slate-400">Heti Reset:</span> 
-                <span className="font-mono text-amber-300 bg-slate-950 px-2 py-1 rounded border border-slate-800">
-                  {formatTime(data.serverTime?.weekly_reset_at)}
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* Napi Buffok */}
-          <div className="bg-slate-900/90 p-5 rounded-xl border border-slate-800 shadow-md">
-            <h3 className="text-lg font-bold text-emerald-400 mb-4 flex items-center gap-2 border-b border-slate-800 pb-2">
-              ✨ Napi Buffok
-            </h3>
-            <div className="text-sm space-y-2">
-              {data.dailyBuffs?.name ? (
-                <div className="bg-slate-950 p-3 rounded-lg border border-slate-800">
-                  <p className="font-bold text-amber-300 mb-1">{data.dailyBuffs.name}</p>
-                  <p className="text-xs text-slate-300 mb-1"><span className="text-slate-400">Normál:</span> {data.dailyBuffs.normal_buff}</p>
-                  <p className="text-xs text-purple-300"><span className="text-slate-400">Prémium:</span> {data.dailyBuffs.premium_buff}</p>
+        {/* Jobb oldali tartalommező */}
+        <div style={styles.contentArea}>
+          {loading && !data ? (
+            <div style={styles.loadingText}>Adatok betöltése...</div>
+          ) : data ? (
+            <div>
+              {activeTab === 'server' && (
+                <div>
+                  <h3 style={styles.sectionTitle}>Szerver Státusz</h3>
+                  <div style={styles.card}>
+                    <p style={styles.row}><span>Aktuális Trove Nap:</span> <strong>{data.serverTime?.trove_day || 'N/A'}</strong></p>
+                    <p style={styles.row}><span>Napi Reset ID:</span> <span style={styles.mono}>{data.serverTime?.daily_reset_at || 'N/A'}</span></p>
+                    <p style={styles.row}><span>Heti Reset ID:</span> <span style={styles.mono}>{data.serverTime?.weekly_reset_at || 'N/A'}</span></p>
+                  </div>
                 </div>
-              ) : (
-                <div className="bg-slate-950 p-3 rounded-lg border border-slate-800 font-mono text-xs text-slate-300 overflow-x-auto max-h-36">
-                  <pre>{JSON.stringify(data.dailyBuffs, null, 2)}</pre>
+              )}
+
+              {activeTab === 'buffs' && (
+                <div>
+                  <h3 style={styles.sectionTitle}>Napi Buffok részletei</h3>
+                  <div style={styles.card}>
+                    {data.dailyBuffs?.current ? (
+                      <div>
+                        <h4 style={{ color: '#fbbf24', marginBottom: '10px' }}>{data.dailyBuffs.current.name}</h4>
+                        <p style={{ fontSize: '13px', color: '#cbd5e1', marginBottom: '8px' }}>
+                          <strong>Normál:</strong> {data.dailyBuffs.current.normal_buff?.join(', ')}
+                        </p>
+                        <p style={{ fontSize: '13px', color: '#e879f9' }}>
+                          <strong>Prémium:</strong> {data.dailyBuffs.current.premium_buff?.join(', ')}
+                        </p>
+                      </div>
+                    ) : (
+                      <pre style={styles.pre}>{JSON.stringify(data.dailyBuffs, null, 2)}</pre>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {activeTab === 'chaos' && (
+                <div>
+                  <h3 style={styles.sectionTitle}>Heti Chaos Chest</h3>
+                  <div style={styles.card}>
+                    {data.chaosChest?.item ? (
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+                        {data.chaosChest.item.image_url && (
+                          <img src={data.chaosChest.item.image_url} alt="Item" style={{ width: '50px', height: '50px', background: '#020617', padding: '5px', borderRadius: '8px' }} />
+                        )}
+                        <div>
+                          <h4 style={{ color: '#fbbf24' }}>{data.chaosChest.item.name || 'Ismeretlen tárgy'}</h4>
+                          <p style={{ fontSize: '12px', color: '#94a3b8' }}>Blueprint: {data.chaosChest.item.blueprint}</p>
+                        </div>
+                      </div>
+                    ) : (
+                      <pre style={styles.pre}>{JSON.stringify(data.chaosChest, null, 2)}</pre>
+                    )}
+                  </div>
                 </div>
               )}
             </div>
-          </div>
-
-          {/* Heti Chaos Chest */}
-          <div className="bg-slate-900/90 p-5 rounded-xl border border-slate-800 shadow-md md:col-span-2">
-            <h3 className="text-lg font-bold text-purple-400 mb-4 flex items-center gap-2 border-b border-slate-800 pb-2">
-              🎁 Heti Chaos Chest Kiemelt Tárgy
-            </h3>
-            {data.chaosChest?.item ? (
-              <div className="flex flex-col sm:flex-row items-center gap-4 bg-slate-950 p-4 rounded-xl border border-slate-800">
-                {data.chaosChest.item.image_url && (
-                  <img 
-                    src={data.chaosChest.item.image_url} 
-                    alt="Chaos Item" 
-                    className="w-16 h-16 object-contain bg-slate-900 p-2 rounded-lg border border-slate-800"
-                  />
-                )}
-                <div className="flex-1 text-center sm:text-left">
-                  <h4 className="text-base font-bold text-amber-300">{data.chaosChest.item.name || 'Ismeretlen tárgy'}</h4>
-                  <p className="text-xs text-slate-400 mt-1">Aktív állapot: <span className="text-emerald-400 font-semibold">Igen</span></p>
-                </div>
-              </div>
-            ) : (
-              <div className="bg-slate-950 p-3 rounded-lg border border-slate-800 font-mono text-xs text-purple-200 overflow-x-auto">
-                <pre>{JSON.stringify(data.chaosChest, null, 2)}</pre>
-              </div>
-            )}
-          </div>
-
+          ) : null}
         </div>
-      )}
+
+      </div>
     </div>
   );
 }
+
+// Belső, tiszta CSS stílusok, amik garantáltan nem csúsznak szét
+const styles = {
+  container: { maxWidth: '1100px', margin: '40px auto', padding: '20px', background: '#090d16', color: '#f8fafc', borderRadius: '16px', border: '1px solid #1e293b', fontFamily: 'sans-serif' },
+  header: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #1e293b', paddingBottom: '20px', marginBottom: '20px' },
+  title: { fontSize: '24px', fontWeight: 'bold', color: '#f59e0b', margin: 0 },
+  subtitle: { fontSize: '13px', color: '#94a3b8', margin: '4px 0 0 0' },
+  button: { background: '#f59e0b', color: '#020617', border: 'none', padding: '10px 18px', fontWeight: 'bold', borderRadius: '8px', cursor: 'pointer' },
+  errorBox: { background: '#450a0a', border: '1px solid #ef4444', color: '#fca5a5', padding: '12px', borderRadius: '8px', marginBottom: '20px', fontSize: '14px' },
+  layout: { display: 'grid', gridTemplateColumns: '260px 1fr', gap: '20px' },
+  sidebar: { background: '#020617', padding: '15px', borderRadius: '12px', border: '1px solid #1e293b', display: 'flex', flexDirection: 'column', gap: '8px' },
+  sidebarTitle: { fontSize: '12px', textTransform: 'uppercase', color: '#64748b', letterSpacing: '1px', marginBottom: '5px' },
+  sidebarBtn: { background: 'transparent', border: 'none', color: '#94a3b8', textAlign: 'left', padding: '10px 12px', borderRadius: '8px', cursor: 'pointer', fontSize: '14px', fontWeight: '500', transition: '0.2s' },
+  sidebarBtnActive: { background: '#1e293b', color: '#f8fafc', borderLeft: '4px solid #f59e0b' },
+  contentArea: { background: '#020617', padding: '20px', borderRadius: '12px', border: '1px solid #1e293b', minHeight: '350px' },
+  sectionTitle: { fontSize: '18px', fontWeight: 'bold', color: '#38bdf8', marginBottom: '15px', marginTop: 0 },
+  card: { background: '#090d16', padding: '15px', borderRadius: '8px', border: '1px solid #1e293b' },
+  row: { display: 'flex', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid #1e293b', fontSize: '14px', color: '#cbd5e1' },
+  mono: { fontFamily: 'monospace', color: '#f59e0b' },
+  loadingText: { textAlign: 'center', color: '#64748b', padding: '40px' },
+  pre: { fontSize: '11px', color: '#a78bfa', overflowX: 'auto', margin: 0 }
+};
