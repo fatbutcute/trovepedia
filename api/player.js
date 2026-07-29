@@ -13,7 +13,7 @@ export default async function handler(req, res) {
       fetch('https://api.aallyn.net/v1/rotations/calendar', { headers }),
       fetch('https://api.aallyn.net/v1/rotations/delves?week=', { headers }),
       fetch('https://api.aallyn.net/v1/rotations/biomes', { headers }),
-      fetch('https://api.aallyn.net/v1/leaderboards', { headers }),
+      fetch('https://api.aallyn.net/v1/leaderboards', { headers })
     ]);
 
     const serverTime = await timeRes.json().catch(() => null);
