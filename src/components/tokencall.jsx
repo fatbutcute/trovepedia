@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import './tokencall.css';
+import './TokenCall.css';
 
 export default function TokenCall() {
   const [data, setData] = useState(null);
@@ -27,40 +27,40 @@ export default function TokenCall() {
   }, []);
 
   return (
-    <div style={styles.container}>
+    <div className="trove-container">
       {/* Fejléc */}
-      <div style={styles.header}>
+      <div className="trove-header">
         <div>
-          <h1 style={styles.title}>⚔️ Trove Live Dashboard</h1>
-          <p style={styles.subtitle}>Hivatalos szerver adatok, rotációk és státuszok</p>
+          <h1 className="trove-title">⚔️ Trove Live Dashboard</h1>
+          <p className="trove-subtitle">Hivatalos szerver adatok, rotációk és státuszok</p>
         </div>
-        <button style={styles.button} onClick={fetchData} disabled={loading}>
+        <button className="trove-button" onClick={fetchData} disabled={loading}>
           {loading ? 'Frissítés...' : '🔄 Adatok frissítése'}
         </button>
       </div>
 
-      {error && <div style={styles.errorBox}>{error}</div>}
+      {error && <div className="trove-error">{error}</div>}
 
-      {/* Fő elrendezés (két oszlop, mint a profi oldalakon) */}
-      <div style={styles.layout}>
+      {/* Fő elrendezés */}
+      <div className="trove-layout">
         
-        {/* Bal oldali menü / Kategóriák */}
-        <div style={styles.sidebar}>
-          <h3 style={styles.sidebarTitle}>Kategóriák</h3>
+        {/* Bal oldali menü */}
+        <div className="trove-sidebar">
+          <span className="trove-sidebar-title">Kategóriák</span>
           <button 
-            style={{ ...styles.sidebarBtn, ...(activeTab === 'server' ? styles.sidebarBtnActive : {}) }}
+            className={`trove-sidebar-btn ${activeTab === 'server' ? 'active' : ''}`}
             onClick={() => setActiveTab('server')}
           >
             ⏳ Szerver & Resetek
           </button>
           <button 
-            style={{ ...styles.sidebarBtn, ...(activeTab === 'buffs' ? styles.sidebarBtnActive : {}) }}
+            className={`trove-sidebar-btn ${activeTab === 'buffs' ? 'active' : ''}`}
             onClick={() => setActiveTab('buffs')}
           >
             ✨ Napi & Heti Buffok
           </button>
           <button 
-            style={{ ...styles.sidebarBtn, ...(activeTab === 'chaos' ? styles.sidebarBtnActive : {}) }}
+            className={`trove-sidebar-btn ${activeTab === 'chaos' ? 'active' : ''}`}
             onClick={() => setActiveTab('chaos')}
           >
             🎁 Chaos Chest
@@ -68,26 +68,26 @@ export default function TokenCall() {
         </div>
 
         {/* Jobb oldali tartalommező */}
-        <div style={styles.contentArea}>
+        <div className="trove-content">
           {loading && !data ? (
-            <div style={styles.loadingText}>Adatok betöltése...</div>
+            <div className="trove-loading">Adatok betöltése...</div>
           ) : data ? (
             <div>
               {activeTab === 'server' && (
                 <div>
-                  <h3 style={styles.sectionTitle}>Szerver Státusz</h3>
-                  <div style={styles.card}>
-                    <p style={styles.row}><span>Aktuális Trove Nap:</span> <strong>{data.serverTime?.trove_day || 'N/A'}</strong></p>
-                    <p style={styles.row}><span>Napi Reset ID:</span> <span style={styles.mono}>{data.serverTime?.daily_reset_at || 'N/A'}</span></p>
-                    <p style={styles.row}><span>Heti Reset ID:</span> <span style={styles.mono}>{data.serverTime?.weekly_reset_at || 'N/A'}</span></p>
+                  <h3 className="trove-section-title">Szerver Státusz</h3>
+                  <div className="trove-card">
+                    <p className="trove-row"><span>Aktuális Trove Nap:</span> <strong>{data.serverTime?.trove_day || 'N/A'}</strong></p>
+                    <p className="trove-row"><span>Napi Reset ID:</span> <span className="trove-mono">{data.serverTime?.daily_reset_at || 'N/A'}</span></p>
+                    <p className="trove-row"><span>Heti Reset ID:</span> <span className="trove-mono">{data.serverTime?.weekly_reset_at || 'N/A'}</span></p>
                   </div>
                 </div>
               )}
 
               {activeTab === 'buffs' && (
                 <div>
-                  <h3 style={styles.sectionTitle}>Napi Buffok részletei</h3>
-                  <div style={styles.card}>
+                  <h3 className="trove-section-title">Napi Buffok részletei</h3>
+                  <div className="trove-card">
                     {data.dailyBuffs?.current ? (
                       <div>
                         <h4 style={{ color: '#fbbf24', marginBottom: '10px' }}>{data.dailyBuffs.current.name}</h4>
@@ -99,7 +99,7 @@ export default function TokenCall() {
                         </p>
                       </div>
                     ) : (
-                      <pre style={styles.pre}>{JSON.stringify(data.dailyBuffs, null, 2)}</pre>
+                      <pre className="trove-pre">{JSON.stringify(data.dailyBuffs, null, 2)}</pre>
                     )}
                   </div>
                 </div>
@@ -107,8 +107,8 @@ export default function TokenCall() {
 
               {activeTab === 'chaos' && (
                 <div>
-                  <h3 style={styles.sectionTitle}>Heti Chaos Chest</h3>
-                  <div style={styles.card}>
+                  <h3 className="trove-section-title">Heti Chaos Chest</h3>
+                  <div className="trove-card">
                     {data.chaosChest?.item ? (
                       <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
                         {data.chaosChest.item.image_url && (
@@ -120,7 +120,7 @@ export default function TokenCall() {
                         </div>
                       </div>
                     ) : (
-                      <pre style={styles.pre}>{JSON.stringify(data.chaosChest, null, 2)}</pre>
+                      <pre className="trove-pre">{JSON.stringify(data.chaosChest, null, 2)}</pre>
                     )}
                   </div>
                 </div>
@@ -133,25 +133,3 @@ export default function TokenCall() {
     </div>
   );
 }
-
-// Belső, tiszta CSS stílusok, amik garantáltan nem csúsznak szét
-const styles = {
-  container: { maxWidth: '1100px', margin: '40px auto', padding: '20px', background: '#090d16', color: '#f8fafc', borderRadius: '16px', border: '1px solid #1e293b', fontFamily: 'sans-serif' },
-  header: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #1e293b', paddingBottom: '20px', marginBottom: '20px' },
-  title: { fontSize: '24px', fontWeight: 'bold', color: '#f59e0b', margin: 0 },
-  subtitle: { fontSize: '13px', color: '#94a3b8', margin: '4px 0 0 0' },
-  button: { background: '#f59e0b', color: '#020617', border: 'none', padding: '10px 18px', fontWeight: 'bold', borderRadius: '8px', cursor: 'pointer' },
-  errorBox: { background: '#450a0a', border: '1px solid #ef4444', color: '#fca5a5', padding: '12px', borderRadius: '8px', marginBottom: '20px', fontSize: '14px' },
-  layout: { display: 'grid', gridTemplateColumns: '260px 1fr', gap: '20px' },
-  sidebar: { background: '#020617', padding: '15px', borderRadius: '12px', border: '1px solid #1e293b', display: 'flex', flexDirection: 'column', gap: '8px' },
-  sidebarTitle: { fontSize: '12px', textTransform: 'uppercase', color: '#64748b', letterSpacing: '1px', marginBottom: '5px' },
-  sidebarBtn: { background: 'transparent', border: 'none', color: '#94a3b8', textAlign: 'left', padding: '10px 12px', borderRadius: '8px', cursor: 'pointer', fontSize: '14px', fontWeight: '500', transition: '0.2s' },
-  sidebarBtnActive: { background: '#1e293b', color: '#f8fafc', borderLeft: '4px solid #f59e0b' },
-  contentArea: { background: '#020617', padding: '20px', borderRadius: '12px', border: '1px solid #1e293b', minHeight: '350px' },
-  sectionTitle: { fontSize: '18px', fontWeight: 'bold', color: '#38bdf8', marginBottom: '15px', marginTop: 0 },
-  card: { background: '#090d16', padding: '15px', borderRadius: '8px', border: '1px solid #1e293b' },
-  row: { display: 'flex', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid #1e293b', fontSize: '14px', color: '#cbd5e1' },
-  mono: { fontFamily: 'monospace', color: '#f59e0b' },
-  loadingText: { textAlign: 'center', color: '#64748b', padding: '40px' },
-  pre: { fontSize: '11px', color: '#a78bfa', overflowX: 'auto', margin: 0 }
-};
