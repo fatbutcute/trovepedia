@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import './TokenCall.css';
 
 export default function TokenCall() {
   const [data, setData] = useState(null);

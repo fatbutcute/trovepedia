@@ -1,0 +1,155 @@
+.trove-container {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #090d16;
+  color: #f8fafc;
+  border-radius: 16px;
+  border: 1px solid #1e293b;
+  font-family: sans-serif;
+}
+
+.trove-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #1e293b;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+.trove-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #f59e0b;
+  margin: 0;
+}
+
+.trove-subtitle {
+  font-size: 13px;
+  color: #94a3b8;
+  margin: 4px 0 0 0;
+}
+
+.trove-button {
+  background: #f59e0b;
+  color: #020617;
+  border: none;
+  padding: 10px 18px;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.trove-button:hover {
+  background: #d97706;
+}
+
+.trove-error {
+  background: #450a0a;
+  border: 1px solid #ef4444;
+  color: #fca5a5;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.trove-layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 20px;
+}
+
+.trove-sidebar {
+  background: #020617;
+  padding: 15px;
+  borderRadius: 12px;
+  border: 1px solid #1e293b;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.trove-sidebar-title {
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #64748b;
+  letter-spacing: 1px;
+  margin-bottom: 5px;
+}
+
+.trove-sidebar-btn {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  text-align: left;
+  padding: 10px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: 0.2s;
+}
+
+.trove-sidebar-btn:hover {
+  background: #1e293b;
+  color: #f8fafc;
+}
+
+.trove-sidebar-btn.active {
+  background: #1e293b;
+  color: #f8fafc;
+  border-left: 4px solid #f59e0b;
+}
+
+.trove-content {
+  background: #020617;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #1e293b;
+  min-height: 350px;
+}
+
+.trove-section-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #38bdf8;
+  margin-bottom: 15px;
+  margin-top: 0;
+}
+
+.trove-card {
+  background: #090d16;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #1e293b;
+}
+
+.trove-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #1e293b;
+  font-size: 14px;
+  color: #cbd5e1;
+}
+
+.trove-mono {
+  font-family: monospace;
+  color: #f59e0b;
+}
+
+.trove-loading {
+  text-align: center;
+  color: #64748b;
+  padding: 40px;
+}
+
+.trove-pre {
+  font-size: 11px;
+  color: #a78bfa;
+  overflow-x: auto;
+  margin: 0;
+}
