@@ -2,7 +2,7 @@ export default async function handler(req, res) {
   const token = process.env.KIWI_TOKEN;
 
   try {
-    const response = await fetch(`https://api.aallyn.net/v1/leaderboards`, {
+    const response = await fetch(`https://api.aallyn.net/v1/rotations/server-time`, {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
