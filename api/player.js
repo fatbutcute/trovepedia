@@ -1,25 +1,31 @@
 export default async function handler(req, res) {
   const token = process.env.KIWI_TOKEN;
+  const headers = {
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json'
+  };
 
   try {
-    const response = await fetch(`https://api.aallyn.net/v1/rotations/server-time`, {
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      }
+    const [timeRes, dailyBuffRes, chaosRes] = await Promise.all([
+      fetch('https://api.aallyn.net/v1/rotations/server-time', { headers }),
+      fetch('https://api.aallyn.net/v1/rotations/daily-buffs', { headers }),
+      fetch('https://api.aallyn.net/v1/rotations/chaos-chest', { headers }),
+      fetch('https://api.aallyn.net/v1/rotations/calendar', { headers }),
+      fetch('https://api.aallyn.net/v1/rotations/delves?week=', { headers }),
+      fetch('https://api.aallyn.net/v1/rotations/biomes', { headers }),
+      fetch('https://api.aallyn.net/v1/leaderboards', { headers }),
+    ]);
+
+    const serverTime = await timeRes.json().catch(() => null);
+    const dailyBuffs = await dailyBuffRes.json().catch(() => null);
+    const chaosChest = await chaosRes.json().catch(() => null);
+
+    return res.status(200).json({
+      serverTime,
+      dailyBuffs,
+      chaosChest
     });
-
-    const data = await response.json().catch(() => null);
-
-    if (!response.ok) {
-      return res.status(response.status).json({ 
-        error: `API Error (Status ${response.status})`, 
-        details: data 
-      });
-    }
-
-    return res.status(200).json(data);
   } catch (error) {
-    return res.status(500).json({ error: error.message });
+    return res.status(500).json({ error: 'Failed to fetch Trove data', message: error.message });
   }
 }
