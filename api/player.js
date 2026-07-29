@@ -15,13 +15,17 @@ export default async function handler(req, res) {
       }
     });
 
+    const data = await response.json().catch(() => null);
+
     if (!response.ok) {
-      return res.status(response.status).json({ error: 'Failed to fetch player data from Trove API.' });
+      return res.status(response.status).json({ 
+        error: `API Error (Status ${response.status})`, 
+        details: data || 'No response body from Trove API.' 
+      });
     }
 
-    const data = await response.json();
     return res.status(200).json(data);
   } catch (error) {
-    return res.status(500).json({ error: 'Internal server error while fetching data.' });
+    return res.status(500).json({ error: 'Internal server error while fetching data.', message: error.message });
   }
 }
