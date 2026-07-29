@@ -40,7 +40,6 @@ export default function TroveNewsPage() {
       {loading ? (
         <div className="news-loader">
           <div className="spinner"></div>
-          <p>Connecting to Database...</p>
         </div>
       ) : error ? (
         <div className="fish-no-results">
