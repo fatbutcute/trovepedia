@@ -448,68 +448,6 @@ export default function TokenCall() {
                 )}
               </section>
 
-            {/* Chaos Chest */}
-            <section
-              id="chaos"
-              className="td-card"
-              ref={(el) => (sectionRefs.current.chaos = el)}
-            >
-              <div className="td-card-header">
-                <div className="td-card-title">
-                  <span className="td-card-icon">◆</span> Chaos Chest
-                </div>
-                <StatusBadge state={sectionState('chaosChest')} />
-              </div>
-
-              {chaosChest?.item ? (
-                <>
-              <div className="td-chaos-hero">
-                <div className="td-chaos-icon">
-                  {chaosChest.item?.image_url && chaosChest.item.image_url.trim() !== '' ? (
-                    <img 
-                      src={chaosChest.item.image_url} 
-                      alt={chaosChest.item?.name || 'Chaos Item'} 
-                      style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-                      onError={(e) => {
-                        // Ha a kép letöltése meghiúsul (404/hibás URL), elrejtjük a képet és kirakjuk a szimbólumot
-                        e.target.style.display = 'none';
-                        e.target.parentNode.innerText = '◆';
-                      }}
-                    />
-                  ) : (
-                    '◆'
-                  )}
-                </div>
-                <div>
-                  <div className="td-chaos-name">{chaosChest.item?.name ?? 'Mystery item'}</div>
-                  {chaosChest.item?.blueprint && (
-                    <div className="td-chaos-blueprint">{chaosChest.item.blueprint}</div>
-                  )}
-                </div>
-              </div>
-
-                  {chaosChest?.active ? (
-                    <div>
-                      <div className="td-countdown">
-                        {formatCountdown(
-                          serverTime?.now_unix + (chaosChest?.seconds_remaining ?? 0),
-                          nowTick
-                        ) ?? formatDuration(chaosChest?.seconds_remaining)}
-                      </div>
-                      <div className="td-countdown-label">until window closes</div>
-                    </div>
-                  ) : (
-                    <div>
-                      <div className="td-countdown">{formatDuration(chaosChest?.seconds_remaining)}</div>
-                      <div className="td-countdown-label">until next window opens</div>
-                    </div>
-                  )}
-                </>
-              ) : (
-                <div className="td-empty">No Chaos Chest data available this week.</div>
-              )}
-            </section>
-
               <section
                 id="biomes"
                 className="td-card"
