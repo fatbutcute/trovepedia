@@ -324,7 +324,6 @@ export default function TokenCall() {
                             alt={WEEKDAY_LABELS[i]} 
                             className="td-week-icon"
                             onError={(e) => {
-                              // Ha véletlenül nem találná a képet, visszarakja az emoji-t
                               e.target.style.display = 'none';
                             }}
                           />

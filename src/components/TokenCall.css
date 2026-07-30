@@ -494,7 +494,7 @@
 }
 
 .td-tag {
-  font-size: 0.72rem;
+  font-size: 0.9rem;
   padding: 4px 9px;
   border-radius: 999px;
   background: rgba(125, 211, 252, 0.08);
@@ -533,8 +533,8 @@
 }
 
 .td-week-icon {
-  width: 30px;
-  height: 30px;
+  width: 22px;
+  height: 22px;
   object-fit: contain;
   display: block;
 }
