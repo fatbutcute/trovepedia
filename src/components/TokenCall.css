@@ -487,9 +487,10 @@
 
 .td-tag-row {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: flex-start;
   gap: 6px;
-  font-family: Quicksand;
+  font-family: 'Quicksand', sans-serif;
 }
 
 .td-tag {
@@ -526,13 +527,14 @@
   border-radius: var(--radius-sm);
   background: var(--card-alt);
   border: 1px solid var(--border);
-  font-size: 0.68rem;
+  font-size: 0.85rem;
+  font-weight: bold;
   color: var(--text-dim);
 }
 
 .td-week-icon {
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
   object-fit: contain;
   display: block;
 }
