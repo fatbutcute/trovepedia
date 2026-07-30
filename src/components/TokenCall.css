@@ -487,6 +487,7 @@
 .td-badge.error {
   background: rgba(248, 113, 113, 0.12);
   color: var(--bad);
+  font-family: Quicksand;
 }
 
 .td-badge.muted {

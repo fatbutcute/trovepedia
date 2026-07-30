@@ -304,27 +304,34 @@ export default function TokenCall() {
 
   const sectionRefs = useRef({});
 
-  async function loadData(forPlayer) {
+async function loadData(forPlayer) {
     try {
       const url = forPlayer
         ? `/api/player?player=${encodeURIComponent(forPlayer)}`
         : '/api/player';
       
-      const [res, weeklyRes] = await Promise.allSettled([
+      const [res, weeklyRes, activityRes] = await Promise.allSettled([
         fetch(url).then((r) => r.json()),
         fetch('https://trove.aallyn.net/static/assets/data/weekly_buffs.json').then((r) => r.json()),
+        fetch('https://api.aallyn.net/site/leaderboards/activity').then((r) => r.json()),
       ]);
 
       let mainJson = res.status === 'fulfilled' ? res.value : null;
       let staticWeekly = weeklyRes.status === 'fulfilled' ? weeklyRes.value : null;
+      let activityData = activityRes.status === 'fulfilled' ? activityRes.value : null;
 
       if (!mainJson || mainJson.error) {
         throw new Error(mainJson?.error?.message || 'Request failed');
       }
 
+      if (!mainJson.data) mainJson.data = {};
+      
       if (staticWeekly) {
-        if (!mainJson.data) mainJson.data = {};
         mainJson.data.weeklyBuffsStatic = staticWeekly;
+      }
+
+      if (activityData) {
+        mainJson.data.playerActivity = activityData;
       }
 
       setPayload(mainJson);
@@ -456,18 +463,24 @@ export default function TokenCall() {
             </div>
           </div>
 
-          {/* --- Player Activity Kártya az Óra alatt --- */}
+          {/* --- Player Activity Kártya --- */}
           <div className="td-sidebar-card glow-green">
             <div className="td-card-header">
               <div className="td-card-title">
                 <span className="td-card-icon" style={{ color: '#4ade80' }}>●</span> Active Players
               </div>
-              <StatusBadge state={playerActivity ? 'ok' : sectionState('playerActivity')} label="LIVE" customClass="badge-green" />
+              <StatusBadge 
+                state={playerActivity ? 'ok' : 'loading'} 
+                label="LIVE" 
+                customClass="badge-green" 
+              />
             </div>
 
             <div className="td-activity-content">
               <div className="td-activity-count">
-                {playerActivity?.active_players ?? playerActivity?.count ?? playerActivity?.total ?? '--'}
+                {typeof playerActivity === 'number'
+                  ? playerActivity
+                  : playerActivity?.active_players ?? playerActivity?.count ?? playerActivity?.total ?? playerActivity?.players ?? '--'}
               </div>
               <div className="td-activity-sub">players online right now</div>
             </div>
