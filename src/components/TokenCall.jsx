@@ -380,17 +380,19 @@ function DashboardNews() {
 export default function TokenCall() {
   const [payload, setPayload] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [initialOverlay, setInitialOverlay] = useState(true);
+  const [fadeOut, setFadeOut] = useState(false);
   const [fetchError, setFetchError] = useState(null);
   const [clockOffsetSeconds, setClockOffsetSeconds] = useState(0);
   const [nowTick, setNowTick] = useState(() => Math.floor(Date.now() / 1000));
   const [activeSection, setActiveSection] = useState(NAV_SECTIONS[0].id);
   const [searchValue, setSearchValue] = useState('');
   const [playerQuery, setPlayerQuery] = useState('');
-  const [initialOverlay, setInitialOverlay] = useState(true);
 
   const sectionRefs = useRef({});
 
   async function loadData(forPlayer) {
+    const startTime = Date.now();
     try {
       const url = forPlayer
         ? `/api/player?player=${encodeURIComponent(forPlayer)}`
@@ -425,8 +427,14 @@ export default function TokenCall() {
       setFetchError(err?.message || 'Could not reach the dashboard API.');
     } finally {
       setLoading(false);
-      // Elrejtjük a loader réteget egy pici átmenettel, miután megérkeztek az adatok
-      setTimeout(() => setInitialOverlay(false), 300);
+      
+      const elapsedTime = Date.now() - startTime;
+      const remainingTime = Math.max(0, 500 - elapsedTime);
+
+      setTimeout(() => {
+        setFadeOut(true);
+        setTimeout(() => setInitialOverlay(false), 400);
+      }, remainingTime);
     }
   }
 
