@@ -343,58 +343,67 @@ export default function TokenCall() {
               )}
             </section>
 
-          {/* Weekly Buffs */}
-          <section
-            id="weekly-buffs"
-            className="td-card"
-            ref={(el) => (sectionRefs.current.weeklyBuffs = el)}
-          >
-            <div className="td-card-header">
-              <div className="td-card-title">
-                <img 
-                  src="/icons/quest.png" 
-                  alt="Weekly Buffs" 
-                  className="td-card-title-icon" 
-                  onError={(e) => { e.target.style.display = 'none'; }}
-                />
-                Weekly Buffs
+            <section
+              id="weekly-buffs"
+              className="td-card"
+              ref={(el) => (sectionRefs.current.weeklyBuffs = el)}
+            >
+              <div className="td-card-header">
+                <div className="td-card-title">
+                  <img 
+                    src="/icons/quest.png" 
+                    alt="Weekly Buffs" 
+                    className="td-card-title-icon" 
+                    onError={(e) => { e.target.style.display = 'none'; }}
+                  />
+                  Weekly Buffs
+                </div>
+                <StatusBadge state={sectionState('weeklyBuffs')} />
               </div>
-              <StatusBadge state={sectionState('weeklyBuffs')} />
-            </div>
 
-            {weeklyBuffs ? (
-              <div className="td-weekly-buff-list">
-                {/* Event / Event Buffs */}
-                {weeklyBuffs.event && (
-                  <div className="td-weekly-buff-item">
-                    <span className="td-weekly-buff-label">Current Event:</span>
-                    <span className="td-weekly-buff-value">{weeklyBuffs.event.name || weeklyBuffs.event}</span>
-                  </div>
-                )}
+              {weeklyBuffs ? (
+                <div className="td-weekly-buff-list">
+                  {/* 1. Ha van megnevezett Event */}
+                  {weeklyBuffs.event && (
+                    <div className="td-weekly-buff-item">
+                      <span className="td-weekly-buff-label">Current Event</span>
+                      <span className="td-weekly-buff-value">
+                        {typeof weeklyBuffs.event === 'object' 
+                          ? weeklyBuffs.event.name || weeklyBuffs.event.title 
+                          : weeklyBuffs.event}
+                      </span>
+                    </div>
+                  )}
 
-                {/* Normal / Active Weekly Buffs */}
-                {Array.isArray(weeklyBuffs.buffs) && weeklyBuffs.buffs.length > 0 ? (
-                  weeklyBuffs.buffs.map((buff, i) => (
-                    <div className="td-tag premium" key={i}>
-                      ✦ {typeof buff === 'string' ? buff : buff?.name || 'Weekly Bonus'}
-                    </div>
-                  ))
-                ) : Array.isArray(weeklyBuffs.normal_buffs) && weeklyBuffs.normal_buffs.length > 0 ? (
-                  weeklyBuffs.normal_buffs.map((buff, i) => (
-                    <div className="td-tag premium" key={i}>
-                      ✦ {typeof buff === 'string' ? buff : buff?.name || 'Weekly Bonus'}
-                    </div>
-                  ))
-                ) : (
-                  typeof weeklyBuffs === 'string' && (
-                    <div className="td-tag premium">✦ {weeklyBuffs}</div>
-                  )
-                )}
-              </div>
-            ) : (
-              <div className="td-empty">Weekly buffs are unavailable right now.</div>
-            )}
-          </section>
+                  {/* 2. Buffok tömbjének dinamikus renderelése */}
+                  {(() => {
+                    // Megpróbáljuk kinyerni a buffok tömbjét bármilyen néven jön az API-ból
+                    const buffArray = weeklyBuffs.buffs || weeklyBuffs.weekly_buffs || weeklyBuffs.normal_buffs || weeklyBuffs.current;
+
+                    if (Array.isArray(buffArray) && buffArray.length > 0) {
+                      return buffArray.map((buff, i) => (
+                        <div className="td-tag premium" key={i}>
+                          ✦ {typeof buff === 'string' ? buff : buff?.name || buff?.description || 'Weekly Bonus'}
+                        </div>
+                      ));
+                    }
+
+                    // Ha a válasz maga egy sima szöveg/objektum tömb helyett
+                    if (typeof weeklyBuffs === 'string') {
+                      return <div className="td-tag premium">✦ {weeklyBuffs}</div>;
+                    }
+
+                    if (!weeklyBuffs.event) {
+                      return <div className="td-empty">No active weekly buffs found.</div>;
+                    }
+
+                    return null;
+                  })()}
+                </div>
+              ) : (
+                <div className="td-empty">Weekly buffs are unavailable right now.</div>
+              )}
+            </section>
 
             {/* Chaos Chest */}
             <section
@@ -563,70 +572,108 @@ export default function TokenCall() {
               )}
             </section>
 
-            {/* Player lookup */}
+            {/* Leaderboard Records */}
             <section
-              id="player"
-              className="td-card span-2"
-              ref={(el) => (sectionRefs.current.player = el)}
+              id="records"
+              className="td-card"
+              ref={(el) => (sectionRefs.current.records = el)}
             >
               <div className="td-card-header">
                 <div className="td-card-title">
-                  <span className="td-card-icon">⌕</span> Player Lookup
+                  <img 
+                    src="/icons/quest.png" 
+                    alt="Leaderboard Records" 
+                    className="td-card-title-icon" 
+                    onError={(e) => { e.target.style.display = 'none'; }}
+                  />
+                  Leaderboard Records
                 </div>
-                {playerQuery && <StatusBadge state={sectionState('playerProfile')} />}
+                <StatusBadge state={sectionState('leaderboardRecords')} />
               </div>
 
-              {!playerQuery ? (
-                <div className="td-player-empty">
-                  Search a player name above to see their leaderboard summary.
-                </div>
-              ) : playerProfile ? (
-                <>
-                  <div className="td-buff-hero">
-                    <div>
-                      <div className="td-buff-name">
-                        {playerProfile?.player_name ?? playerQuery}
-                        {playerProfile?.verified ? ' ✓' : ''}
+              {records ? (
+                <div className="td-record-list">
+                  {/* Trove Mastery Record */}
+                  {records?.trove_mastery && (
+                    <div className="td-record-card">
+                      <div className="td-record-icon-wrapper">
+                        <img 
+                          src="/icons/trove_mastery.png" 
+                          alt="Trove Mastery" 
+                          className="td-record-icon"
+                          onError={(e) => {
+                            e.target.style.display = 'none';
+                            if (e.target.parentNode) e.target.parentNode.innerText = '🏆';
+                          }}
+                        />
                       </div>
-                      <div className="td-buff-weekday">
-                        {playerProfile?.summary?.boards_appeared ?? 0} boards ·{' '}
-                        {playerProfile?.summary?.appearances ?? 0} appearances
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="td-player-summary">
-                    <div className="td-player-stat">
-                      <div className="td-player-stat-label">Best Rank</div>
-                      <div className="td-player-stat-value">
-                        {playerProfile?.summary?.best_rank ?? '—'}
-                      </div>
-                    </div>
-                    <div className="td-player-stat">
-                      <div className="td-player-stat-label">Best Board</div>
-                      <div className="td-player-stat-value">
-                        {playerProfile?.summary?.best_rank_board_name ?? '—'}
-                      </div>
-                    </div>
-                  </div>
-
-                  {Array.isArray(playerProfile?.recent) && playerProfile.recent.length > 0 && (
-                    <div className="td-player-recent">
-                      {playerProfile.recent.slice(0, 6).map((row, i) => (
-                        <div className="td-player-recent-row" key={i}>
-                          <span>{row?.board_name ?? row?.leaderboard ?? 'Board'}</span>
-                          <span>
-                            #{row?.rank ?? '—'} · {row?.score ?? '—'}
-                          </span>
+                      <div className="td-record-info">
+                        <div className="td-record-name">Trove Mastery</div>
+                        <div className="td-record-holder">
+                          👑 {records.trove_mastery?.player_name || records.trove_mastery?.player || 'Unknown'}
                         </div>
-                      ))}
+                      </div>
+                      <div className="td-record-badge">
+                        Lv {records.trove_mastery?.level ?? records.trove_mastery?.score ?? '—'}
+                      </div>
                     </div>
                   )}
-                </>
-              ) : (
-                <div className="td-player-empty">
-                  No results for "{playerQuery}". Check the spelling and try again.
+
+                  {/* Geode Mastery Record */}
+                  {records?.geode_mastery && (
+                    <div className="td-record-card">
+                      <div className="td-record-icon-wrapper">
+                        <img 
+                          src="/icons/geode_mastery.png" 
+                          alt="Geode Mastery" 
+                          className="td-record-icon"
+                          onError={(e) => {
+                            e.target.style.display = 'none';
+                            if (e.target.parentNode) e.target.parentNode.innerText = '💎';
+                          }}
+                        />
+                      </div>
+                      <div className="td-record-info">
+                        <div className="td-record-name">Geode Mastery</div>
+                        <div className="td-record-holder">
+                          👑 {records.geode_mastery?.player_name || records.geode_mastery?.player || 'Unknown'}
+                        </div>
+                      </div>
+                      <div className="td-record-badge geode">
+                        Lv {records.geode_mastery?.level ?? records.geode_mastery?.score ?? '—'}
+                        {records.geode_mastery?.capped ? ' (MAX)' : ''}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Power Rank Record */}
+                  {records?.power_rank && (
+                    <div className="td-record-card">
+                      <div className="td-record-icon-wrapper">
+                        <img 
+                          src="/icons/power_rank.png" 
+                          alt="Power Rank" 
+                          className="td-record-icon"
+                          onError={(e) => {
+                            e.target.style.display = 'none';
+                            if (e.target.parentNode) e.target.parentNode.innerText = '⚡';
+                          }}
+                        />
+                      </div>
+                      <div className="td-record-info">
+                        <div className="td-record-name">Power Rank</div>
+                        <div className="td-record-holder">
+                          👑 {records.power_rank?.player_name || records.power_rank?.player || 'Unknown'}
+                        </div>
+                      </div>
+                      <div className="td-record-badge power">
+                        {records.power_rank?.value ?? records.power_rank?.score ?? '—'} PR
+                      </div>
+                    </div>
+                  )}
                 </div>
+              ) : (
+                <div className="td-empty">Leaderboard records are unavailable right now.</div>
               )}
             </section>
           </div>
