@@ -76,7 +76,7 @@
 
 .td-search {
   flex: 1;
-  min-width: 200px;
+  max-width: 250px;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -99,6 +99,7 @@
   outline: none;
   color: var(--text);
   font-size: 0.9rem;
+  font-family: Quicksand;
 }
 
 .td-search input::placeholder {
@@ -110,26 +111,54 @@
   flex-shrink: 0;
 }
 
-.td-search button {
-  background: var(--accent-strong);
+.td-search-submit-btn {
+  background: linear-gradient(135deg, var(--accent-strong) 0%, #0284c7 100%);
   color: #04121c;
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 999px;
-  padding: 6px 14px;
-  font-size: 0.82rem;
-  font-weight: 600;
+  
+  /* Bővebb padding és fix szélesség/magasság a szép elrendezésért */
+  padding: 8px 24px;
+  min-width: 110px;
+  height: 42px; /* Illeszkedik a keresőmező magasságához */
+  flex-shrink: 0;
+  
+  font-size: 0.88rem;
+  font-weight: 700;
+  font-family: 'Quicksand', sans-serif;
+  letter-spacing: 0.03em;
   cursor: pointer;
-  transition: filter 0.15s ease;
   white-space: nowrap;
+  
+  /* Finom átmenetek és glow hatás */
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 10px rgba(56, 189, 248, 0.2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.td-search button:hover {
-  filter: brightness(1.08);
+/* Hover effektus: emelkedés + neon izzás */
+.td-search-submit-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #38bdf8 0%, #0369a1 100%);
+  box-shadow: 0 0 18px var(--accent-glow), 0 4px 12px rgba(0, 0, 0, 0.4);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.4);
 }
 
-.td-search button:disabled {
-  opacity: 0.5;
+/* Kattintási effektus */
+.td-search-submit-btn:active:not(:disabled) {
+  transform: translateY(0) scale(0.97);
+  box-shadow: 0 0 8px var(--accent-glow);
+}
+
+/* Letiltott (üres kereső) állapot */
+.td-search-submit-btn:disabled {
+  opacity: 0.4;
   cursor: not-allowed;
+  filter: grayscale(0.8);
+  box-shadow: none;
 }
 
 .td-header-actions {
@@ -150,6 +179,7 @@
   align-items: center;
   gap: 6px;
   transition: border-color 0.15s ease, color 0.15s ease;
+  display: none;
 }
 
 .td-refresh-btn:hover {
@@ -204,19 +234,22 @@
 }
 
 .td-clock-label {
-  font-size: 0.72rem;
+  font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--text-faint);
   margin-bottom: 6px;
+  font-family: Comfortaa;
+  font-weight: 800;
 }
 
 .td-clock-time {
-  font-size: 1.9rem;
-  font-weight: 700;
+  font-size: 1.6rem;
+  font-weight: 600;
   font-variant-numeric: tabular-nums;
   color: var(--text);
   letter-spacing: 0.02em;
+  font-family: Quicksand;
 }
 
 .td-clock-day {
@@ -236,8 +269,10 @@
 .td-reset-row {
   display: flex;
   justify-content: space-between;
-  font-size: 0.78rem;
+  font-size: 0.85rem;
   color: var(--text-dim);
+  font-family: Quicksand;
+  font-weight: 800;
 }
 
 .td-reset-row span:last-child {
@@ -249,6 +284,7 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
+  display: none;
 }
 
 .td-nav-label {
@@ -295,10 +331,13 @@
 }
 
 .td-sidebar-footer {
+  margin-bottom: 60px;
   margin-top: auto;
-  font-size: 0.72rem;
+  font-size: 1rem;
   color: var(--text-faint);
   line-height: 1.5;
+  font-family: Blinker;
+  font-weight: 600;
 }
 
 /* ---------- Main content ---------- */
@@ -363,7 +402,8 @@
   align-items: center;
   gap: 8px;
   font-size: 0.95rem;
-  font-weight: 600;
+  font-weight: 400;
+  font-family: Comfortaa;
 }
 
 .td-card-icon {
@@ -412,6 +452,8 @@
 .td-badge.muted {
   background: rgba(148, 163, 184, 0.1);
   color: var(--text-dim);
+  font-family: Quicksand;
+  font-weight: 600;
 }
 
 /* Buffs card */
@@ -665,7 +707,8 @@
 .td-empty {
   color: var(--text-faint);
   font-size: 0.82rem;
-  font-style: italic;
+  font-family: Quicksand;
+  font-weight: 600;
 }
 
 /* ---------- Responsive ---------- */

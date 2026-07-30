@@ -150,11 +150,15 @@ export default function TokenCall() {
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
           />
-          <button type="submit" disabled={!searchValue.trim()}>
+
+        </form>
+          <button 
+            type="submit" 
+            className="td-search-submit-btn" 
+            disabled={!searchValue.trim()}
+          >
             Search
           </button>
-        </form>
-
         <div className="td-header-actions">
           <button
             type="button"
