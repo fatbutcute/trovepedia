@@ -36,6 +36,7 @@ const BASE_URL = 'https://api.aallyn.net';
 const ENDPOINTS = {
   serverTime: '/v1/rotations/server-time',
   dailyBuffs: '/v1/rotations/daily-buffs',
+  weeklyBuffs: '/v1/rotations/weekly-buffs',
   chaosChest: '/v1/rotations/chaos-chest',
   biomes: '/v1/rotations/biomes',
 };
