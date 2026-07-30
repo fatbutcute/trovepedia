@@ -51,7 +51,7 @@ export default function App() {
 
           <Route path="/calculators" element={<CalculatorsPage />} />
 
-          <Route path="/token-test" element={<TokenCall />} />
+          <Route path="/hub" element={<TokenCall />} />
 
           <Route
             path="/fishing"

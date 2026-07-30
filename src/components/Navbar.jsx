@@ -11,6 +11,7 @@ const NAV_ITEMS = [
   { label: 'Calculators', path: '/calculators' },
   { label: 'Clubs',       path: '/clubs' },
   { label: 'News',        path: '/news' },
+  { label: 'Hub',        path: '/hub' },
 ]
 
 export default function Navbar() {
