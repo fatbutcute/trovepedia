@@ -41,47 +41,37 @@ function StatusBadge({ state, okLabel = 'Live', errorLabel = 'Unavailable' }) {
   return <span className="td-badge muted">Loading</span>;
 }
 
-// Aallyn hivatalos bióma kép útvonalépítője
 function getBiomeImageUrl(biome) {
   if (!biome) return null;
 
-  // 1. Ha az API-ból közvetlen teljes URL jönne:
   const rawUrl = biome.icon || biome.image_url || biome.banner;
   if (rawUrl && typeof rawUrl === 'string' && rawUrl.startsWith('http')) {
     return rawUrl;
   }
 
-  // 2. Ha van explicit id vagy filename az API válaszban (pl. "dinosaur"):
-  const biomeId = biome.id || biome.code || biome.biome_id;
-  if (biomeId && typeof biomeId === 'string') {
-    const cleanId = biomeId.toLowerCase().trim().replace(/\s+/g, '_');
-    return `https://trove.aallyn.net/static/assets/biomes/${cleanId}.png`;
-  }
+  const rawName = biome.final_name || biome.name || biome.id || '';
+  if (!rawName) return null;
 
-  // 3. Ha csak a bióma neve van meg (pl. "Dinosaur Jungle" -> "dinosaur"):
-  const rawName = biome.final_name || biome.name || '';
-  if (rawName) {
-    const nameLower = rawName.toLowerCase();
-    
-    // Gyakoribb bióma nevek megfeleltetése az Aallyn statikus fájlneveihez
-    if (nameLower.includes('dinosaur')) return 'https://trove.aallyn.net/static/assets/biomes/dinosaur.png';
-    if (nameLower.includes('desert') || nameLower.includes('frontier')) return 'https://trove.aallyn.net/static/assets/biomes/desert.png';
-    if (nameLower.includes('spire') || nameLower.includes('forbidden')) return 'https://trove.aallyn.net/static/assets/biomes/spires.png';
-    if (nameLower.includes('lost') || nameLower.includes('isles') || nameLower.includes('treasure')) return 'https://trove.aallyn.net/static/assets/biomes/isles.png';
-    if (nameLower.includes('permafrost') || nameLower.includes('tundra')) return 'https://trove.aallyn.net/static/assets/biomes/permafrost.png';
-    if (nameLower.includes('neon') || nameLower.includes('city')) return 'https://trove.aallyn.net/static/assets/biomes/neon.png';
-    if (nameLower.includes('geode') || nameLower.includes('cave')) return 'https://trove.aallyn.net/static/assets/biomes/geode.png';
-    if (nameLower.includes('shade') || nameLower.includes('long')) return 'https://trove.aallyn.net/static/assets/biomes/long_shade.png';
-    if (nameLower.includes('sundured') || nameLower.includes('sundervale')) return 'https://trove.aallyn.net/static/assets/biomes/sundervale.png';
+  const nameLower = rawName.toLowerCase();
 
-    // Alapértelmezett név-tisztítás (pl. "Weathered Wastelands" -> "weathered_wastelands")
-    const formattedName = nameLower.replace(/[^a-z0-9]/g, '_').replace(/_+/g, '_').replace(/^|_$/g, '');
-    return `https://trove.aallyn.net/static/assets/biomes/${formattedName}.png`;
-  }
+  if (nameLower.includes('forbidden') || nameLower.includes('spires')) return 'https://trove.aallyn.net/static/assets/biomes/spires.png';
+  if (nameLower.includes('weathered') || nameLower.includes('wasteland')) return 'https://trove.aallyn.net/static/assets/biomes/weathered.png';
+  if (nameLower.includes('lost') || nameLower.includes('isles') || nameLower.includes('treasure')) return 'https://trove.aallyn.net/static/assets/biomes/isles.png';
+  if (nameLower.includes('dinosaur') || nameLower.includes('jungle')) return 'https://trove.aallyn.net/static/assets/biomes/dinosaur.png';
+  if (nameLower.includes('desert') || nameLower.includes('frontier')) return 'https://trove.aallyn.net/static/assets/biomes/desert.png';
+  if (nameLower.includes('permafrost') || nameLower.includes('tundra')) return 'https://trove.aallyn.net/static/assets/biomes/permafrost.png';
+  if (nameLower.includes('neon') || nameLower.includes('city')) return 'https://trove.aallyn.net/static/assets/biomes/neon.png';
+  if (nameLower.includes('geode') || nameLower.includes('cave')) return 'https://trove.aallyn.net/static/assets/biomes/geode.png';
+  if (nameLower.includes('shade') || nameLower.includes('long')) return 'https://trove.aallyn.net/static/assets/biomes/shade.png';
+  if (nameLower.includes('sundervale') || nameLower.includes('sundured')) return 'https://trove.aallyn.net/static/assets/biomes/sundervale.png';
+  if (nameLower.includes('candoria') || nameLower.includes('candy')) return 'https://trove.aallyn.net/static/assets/biomes/candoria.png';
+  if (nameLower.includes('fae') || nameLower.includes('wilds')) return 'https://trove.aallyn.net/static/assets/biomes/fae.png';
+  if (nameLower.includes('dragon') || nameLower.includes('volcano')) return 'https://trove.aallyn.net/static/assets/biomes/dragon.png';
+  if (nameLower.includes('shadow') || nameLower.includes('tower')) return 'https://trove.aallyn.net/static/assets/biomes/shadow.png';
 
-  return null;
+  const formatted = nameLower.split(' ')[0].replace(/[^a-z0-9]/g, '');
+  return `https://trove.aallyn.net/static/assets/biomes/${formatted}.png`;
 }
-
 export default function TokenCall() {
   const [payload, setPayload] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -93,8 +83,6 @@ export default function TokenCall() {
   const [playerQuery, setPlayerQuery] = useState('');
 
   const sectionRefs = useRef({});
-
-  // --- Data fetching -------------------------------------------------
 
   async function loadData(forPlayer) {
     try {
