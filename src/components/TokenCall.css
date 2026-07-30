@@ -207,7 +207,7 @@
 /* ---------- Sidebar ---------- */
 
 .td-sidebar {
-  width: 300px;
+  width: 350px;
   flex-shrink: 0;
   padding: 20px 16px;
   border-right: 1px solid var(--border);
@@ -516,11 +516,13 @@
 .td-buff-name {
   font-weight: 700;
   font-size: 1.05rem;
+  font-family: Quicksand;
 }
 
 .td-buff-weekday {
   font-size: 0.75rem;
   color: var(--text-faint);
+  font-family: Quicksand;
 }
 
 .td-tag-row {
@@ -622,6 +624,7 @@
   font-weight: 700;
   color: #3fecff;
   font-family: Quicksand;
+  margin-top: 15px;
 }
 
 .td-countdown-label {
