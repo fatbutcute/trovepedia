@@ -148,6 +148,15 @@ export default function TokenCall() {
   const biomes = data?.biomes;
   const records = data?.leaderboardRecords;
   const playerProfile = data?.playerProfile;
+  const WEEKLY_ICONS = [
+  '/icons/pickaxe.png',
+  '/icons/fish.png',
+  '/icons/icons8-sparkling-diamond-80.png',
+  '/icons/quest.png',
+  '/icons/dragon.png',
+  '/icons/xp.png',
+  '/icons/lootbag.png'
+];
 
   const todayWeekday = useMemo(() => {
     if (!Number.isFinite(serverTime?.trove_day)) return null;
@@ -310,7 +319,15 @@ export default function TokenCall() {
                           }`}
                           title={day?.name ?? ''}
                         >
-                          {day?.emoji ?? '•'}
+                          <img 
+                            src={WEEKLY_ICONS[i]} 
+                            alt={WEEKDAY_LABELS[i]} 
+                            className="td-week-icon"
+                            onError={(e) => {
+                              // Ha véletlenül nem találná a képet, visszarakja az emoji-t
+                              e.target.style.display = 'none';
+                            }}
+                          />
                           <div>{WEEKDAY_LABELS[i] ?? ''}</div>
                         </div>
                       ))}
