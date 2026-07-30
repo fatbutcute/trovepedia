@@ -302,15 +302,25 @@ export default function TokenCall() {
 
               {chaosChest?.item ? (
                 <>
-                  <div className="td-chaos-hero">
-                    <div className="td-chaos-icon">◆</div>
-                    <div>
-                      <div className="td-chaos-name">{chaosChest.item?.name ?? 'Mystery item'}</div>
-                      {chaosChest.item?.blueprint && (
-                        <div className="td-chaos-blueprint">{chaosChest.item.blueprint}</div>
-                      )}
-                    </div>
-                  </div>
+              <div className="td-chaos-hero">
+                <div className="td-chaos-icon">
+                  {chaosChest.item?.image_url ? (
+                    <img 
+                      src={chaosChest.item.image_url} 
+                      alt={chaosChest.item?.name || 'Chaos Item'} 
+                      style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                    />
+                  ) : (
+                    '◆'
+                  )}
+                </div>
+                <div>
+                  <div className="td-chaos-name">{chaosChest.item?.name ?? 'Mystery item'}</div>
+                  {chaosChest.item?.blueprint && (
+                    <div className="td-chaos-blueprint">{chaosChest.item.blueprint}</div>
+                  )}
+                </div>
+              </div>
 
                   {chaosChest?.active ? (
                     <div>
