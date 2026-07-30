@@ -385,6 +385,43 @@
   font-family: Quicksand;
 }
 
+.td-card-title-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+/* Weekly Buffs kártya stílusai */
+.td-weekly-buff-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.td-weekly-buff-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: var(--card-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 0.82rem;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.td-weekly-buff-label {
+  color: var(--text-dim);
+  font-weight: 600;
+}
+
+.td-weekly-buff-value {
+  color: var(--accent);
+  font-weight: 700;
+}
+
 @media (max-width: 900px) {
   .td-card.span-2 {
     grid-column: span 1;

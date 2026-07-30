@@ -148,6 +148,7 @@ export default function TokenCall() {
   const biomes = data?.biomes;
   const records = data?.leaderboardRecords;
   const playerProfile = data?.playerProfile;
+  const weeklyBuffs = data?.weeklyBuffs;
   const WEEKLY_ICONS = [
   '/icons/pickaxe.png',
   '/icons/fish.png',
@@ -271,18 +272,22 @@ export default function TokenCall() {
           )}
 
           <div className="td-grid">
-            {/* Today's Buffs */}
-            <section
-              id="buffs"
-              className="td-card span-2"
-              ref={(el) => (sectionRefs.current.buffs = el)}
-            >
-              <div className="td-card-header">
-                <div className="td-card-title">
-                  <span className="td-card-icon">✦</span> Today's Buffs
-                </div>
-                <StatusBadge state={sectionState('dailyBuffs')} />
+          <section
+            id="buffs"
+            className="td-card span-2"
+            ref={(el) => (sectionRefs.current.buffs = el)}
+          >
+            <div className="td-card-header">
+              <div className="td-card-title">
+                <img 
+                  src="/icons/power.png" 
+                  alt="Today's Buffs" 
+                  className="td-card-title-icon" 
+                />
+                Today's Buffs
               </div>
+              <StatusBadge state={sectionState('dailyBuffs')} />
+            </div>
 
               {dailyBuffs?.current ? (
                 <>
@@ -337,6 +342,59 @@ export default function TokenCall() {
                 <div className="td-empty">Buff rotation is unavailable right now.</div>
               )}
             </section>
+
+          {/* Weekly Buffs */}
+          <section
+            id="weekly-buffs"
+            className="td-card"
+            ref={(el) => (sectionRefs.current.weeklyBuffs = el)}
+          >
+            <div className="td-card-header">
+              <div className="td-card-title">
+                <img 
+                  src="/icons/quest.png" 
+                  alt="Weekly Buffs" 
+                  className="td-card-title-icon" 
+                  onError={(e) => { e.target.style.display = 'none'; }}
+                />
+                Weekly Buffs
+              </div>
+              <StatusBadge state={sectionState('weeklyBuffs')} />
+            </div>
+
+            {weeklyBuffs ? (
+              <div className="td-weekly-buff-list">
+                {/* Event / Event Buffs */}
+                {weeklyBuffs.event && (
+                  <div className="td-weekly-buff-item">
+                    <span className="td-weekly-buff-label">Current Event:</span>
+                    <span className="td-weekly-buff-value">{weeklyBuffs.event.name || weeklyBuffs.event}</span>
+                  </div>
+                )}
+
+                {/* Normal / Active Weekly Buffs */}
+                {Array.isArray(weeklyBuffs.buffs) && weeklyBuffs.buffs.length > 0 ? (
+                  weeklyBuffs.buffs.map((buff, i) => (
+                    <div className="td-tag premium" key={i}>
+                      ✦ {typeof buff === 'string' ? buff : buff?.name || 'Weekly Bonus'}
+                    </div>
+                  ))
+                ) : Array.isArray(weeklyBuffs.normal_buffs) && weeklyBuffs.normal_buffs.length > 0 ? (
+                  weeklyBuffs.normal_buffs.map((buff, i) => (
+                    <div className="td-tag premium" key={i}>
+                      ✦ {typeof buff === 'string' ? buff : buff?.name || 'Weekly Bonus'}
+                    </div>
+                  ))
+                ) : (
+                  typeof weeklyBuffs === 'string' && (
+                    <div className="td-tag premium">✦ {weeklyBuffs}</div>
+                  )
+                )}
+              </div>
+            ) : (
+              <div className="td-empty">Weekly buffs are unavailable right now.</div>
+            )}
+          </section>
 
             {/* Chaos Chest */}
             <section

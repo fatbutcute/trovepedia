@@ -39,6 +39,7 @@ const ENDPOINTS = {
   weeklyBuffs: '/v1/rotations/weekly-buffs',
   chaosChest: '/v1/rotations/chaos-chest',
   biomes: '/v1/rotations/biomes',
+  leaderboardRecords: '/v1/leaderboards/records',
 };
 
 const REQUEST_TIMEOUT_MS = 8000;
