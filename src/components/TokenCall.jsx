@@ -469,16 +469,42 @@ async function loadData(forPlayer) {
               <div className="td-activity-content">
                 <div className="td-activity-count">
                   {(() => {
-                    if (!playerActivity) return "--";
-                    if (Number.isFinite(playerActivity.latest)) {
-                      return Math.round(playerActivity.latest).toLocaleString();
+                    const J = playerActivity;
+                    if (!J) return "--";
+
+                    // 1. Üzemeltető hivatalos logikája: J.series tömb utolsó eleme
+                    if (J.series && Array.isArray(J.series) && J.series.length > 0) {
+                      const G = J.series[J.series.length - 1];
+                      const val = G?.active_players ?? G?.count;
+                      return Number.isFinite(val) ? Math.round(val).toLocaleString() : "--";
                     }
-                    const last = Array.isArray(playerActivity.points)
-                      ? playerActivity.points[playerActivity.points.length - 1]
-                      : null;
-                    return Number.isFinite(last?.active)
-                      ? Math.round(last.active).toLocaleString()
-                      : "--";
+
+                    // 2. Ha sima tömbként érkezne: J utolsó eleme
+                    if (Array.isArray(J) && J.length > 0) {
+                      const G = J[J.length - 1];
+                      const val = G?.active_players ?? G?.count;
+                      return Number.isFinite(val) ? Math.round(val).toLocaleString() : "--";
+                    }
+
+                    // 3. Ha közvetlen .latest szám van benne
+                    if (Number.isFinite(J.latest)) {
+                      return Math.round(J.latest).toLocaleString();
+                    }
+
+                    // 4. Ha .points tömbként jönne
+                    if (Array.isArray(J.points) && J.points.length > 0) {
+                      const last = J.points[J.points.length - 1];
+                      const val = last?.active ?? last?.active_players;
+                      return Number.isFinite(val) ? Math.round(val).toLocaleString() : "--";
+                    }
+
+                    // 5. Ha sima objektum (J.active_players vagy J.count)
+                    if (typeof J === "object") {
+                      const val = J.active_players ?? J.count;
+                      return Number.isFinite(val) ? Math.round(val).toLocaleString() : (val ?? "--");
+                    }
+
+                    return "--";
                   })()}
                 </div>
                 <div className="td-activity-sub">players online right now</div>
