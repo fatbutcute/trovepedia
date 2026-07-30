@@ -90,29 +90,42 @@ export default function TokenCall() {
 
   // --- Data fetching -------------------------------------------------
 
-  async function loadData(forPlayer) {
-    try {
-      const url = forPlayer
-        ? `/api/player?player=${encodeURIComponent(forPlayer)}`
-        : '/api/player';
-      const res = await fetch(url);
-      const json = await res.json();
-      if (!res.ok) {
-        throw new Error(json?.error?.message || `Request failed (${res.status})`);
-      }
-      setPayload(json);
-      setFetchError(null);
+async function loadData(forPlayer) {
+  try {
+    const url = forPlayer
+      ? `/api/player?player=${encodeURIComponent(forPlayer)}`
+      : '/api/player';
+    
+    const [res, weeklyRes] = await Promise.allSettled([
+      fetch(url).then((r) => r.json()),
+      fetch('https://trove.aallyn.net/static/assets/data/weekly_buffs.json').then((r) => r.json()),
+    ]);
 
-      const serverNow = json?.data?.serverTime?.now_unix;
-      if (Number.isFinite(serverNow)) {
-        setClockOffsetSeconds(serverNow - Math.floor(Date.now() / 1000));
-      }
-    } catch (err) {
-      setFetchError(err?.message || 'Could not reach the dashboard API.');
-    } finally {
-      setLoading(false);
+    let mainJson = res.status === 'fulfilled' ? res.value : null;
+    let staticWeekly = weeklyRes.status === 'fulfilled' ? weeklyRes.value : null;
+
+    if (!mainJson || mainJson.error) {
+      throw new Error(mainJson?.error?.message || 'Request failed');
     }
+
+    if (staticWeekly) {
+      if (!mainJson.data) mainJson.data = {};
+      mainJson.data.weeklyBuffsStatic = staticWeekly;
+    }
+
+    setPayload(mainJson);
+    setFetchError(null);
+
+    const serverNow = mainJson?.data?.serverTime?.now_unix;
+    if (Number.isFinite(serverNow)) {
+      setClockOffsetSeconds(serverNow - Math.floor(Date.now() / 1000));
+    }
+  } catch (err) {
+    setFetchError(err?.message || 'Could not reach the dashboard API.');
+  } finally {
+    setLoading(false);
   }
+}
 
   useEffect(() => {
     loadData(playerQuery);
@@ -148,7 +161,7 @@ export default function TokenCall() {
   const biomes = data?.biomes;
   const records = data?.leaderboardRecords;
   const playerProfile = data?.playerProfile;
-  const weeklyBuffs = data?.weeklyBuffs;
+  const weeklyBuffs = data?.weeklyBuffsStatic || data?.weeklyBuffs;
   const WEEKLY_ICONS = [
   '/icons/pickaxe.png',
   '/icons/fish.png',
@@ -241,7 +254,6 @@ export default function TokenCall() {
             </div>
           </div>
 
-          {/* Chaos Chest átrakva ide a Sidebarba */}
           <div className="td-sidebar-card">
             <div className="td-card-header">
               <div className="td-card-title">
@@ -376,77 +388,74 @@ export default function TokenCall() {
               )}
             </section>
 
-              <section
-                id="weekly-buffs"
-                className="td-card"
-                ref={(el) => (sectionRefs.current.weeklyBuffs = el)}
-              >
-                <div className="td-card-header">
-                  <div className="td-card-title">
-                    <img 
-                      src="/icons/quest.png" 
-                      alt="Weekly Buffs" 
-                      className="td-card-title-icon" 
-                      onError={(e) => { e.target.style.display = 'none'; }}
-                    />
-                    Weekly Buffs
-                  </div>
-                  <StatusBadge state={sectionState('weeklyBuffs')} />
+            <section
+              id="weekly-buffs"
+              className="td-card"
+              ref={(el) => (sectionRefs.current.weeklyBuffs = el)}
+            >
+              <div className="td-card-header">
+                <div className="td-card-title">
+                  <img 
+                    src="/icons/quest.png" 
+                    alt="Weekly Buffs" 
+                    className="td-card-title-icon" 
+                    onError={(e) => { e.target.style.display = 'none'; }}
+                  />
+                  Weekly Buffs
                 </div>
+                <StatusBadge state={weeklyBuffs ? 'ok' : sectionState('weeklyBuffs')} />
+              </div>
 
-                {weeklyBuffs ? (
-                  <div className="td-weekly-buff-list">
-                    {/* Debug kiíratás a konzolra, ha meg akarod nézni a nyers szerkezetet */}
-                    {console.log('Weekly Buffs API raw data:', weeklyBuffs)}
+              {weeklyBuffs ? (
+                <div className="td-weekly-buff-list">
+                  {/* 1. Esemény neve (Event) */}
+                  {(weeklyBuffs.event || weeklyBuffs.event_name || weeklyBuffs.name) && (
+                    <div className="td-weekly-buff-item">
+                      <span className="td-weekly-buff-label">Current Event:</span>
+                      <span className="td-weekly-buff-value">
+                        {typeof weeklyBuffs.event === 'object'
+                          ? weeklyBuffs.event?.name || weeklyBuffs.event?.title
+                          : weeklyBuffs.event || weeklyBuffs.event_name || weeklyBuffs.name}
+                      </span>
+                    </div>
+                  )}
 
-                    {/* 1. Ha van esemény neve */}
-                    {(weeklyBuffs.event || weeklyBuffs.event_name || weeklyBuffs.name) && (
-                      <div className="td-weekly-buff-item">
-                        <span className="td-weekly-buff-label">Event:</span>
-                        <span className="td-weekly-buff-value">
-                          {typeof weeklyBuffs.event === 'object'
-                            ? weeklyBuffs.event?.name || weeklyBuffs.event?.title
-                            : weeklyBuffs.event || weeklyBuffs.event_name || weeklyBuffs.name}
-                        </span>
-                      </div>
-                    )}
+                  {/* 2. Buffok kigyűjtése */}
+                  {(() => {
+                    const buffList = 
+                      weeklyBuffs.buffs || 
+                      weeklyBuffs.weekly_buffs || 
+                      weeklyBuffs.active_buffs || 
+                      weeklyBuffs.normal_buffs || 
+                      (Array.isArray(weeklyBuffs) ? weeklyBuffs : null);
 
-                    {/* 2. Buffok kigyűjtése minden lehetséges API mezőnévből */}
-                    {(() => {
-                      const rawList = 
-                        weeklyBuffs.buffs || 
-                        weeklyBuffs.weekly_buffs || 
-                        weeklyBuffs.active_buffs || 
-                        weeklyBuffs.normal_buffs || 
-                        weeklyBuffs.current ||
-                        weeklyBuffs.items ||
-                        (Array.isArray(weeklyBuffs) ? weeklyBuffs : null);
+                    if (Array.isArray(buffList) && buffList.length > 0) {
+                      return buffList.map((buff, i) => (
+                        <div className="td-tag premium" key={i}>
+                          ✦ {typeof buff === 'string' ? buff : buff?.name || buff?.description || 'Weekly Bonus'}
+                        </div>
+                      ));
+                    }
 
-                      if (Array.isArray(rawList) && rawList.length > 0) {
-                        return rawList.map((buff, i) => (
-                          <div className="td-tag premium" key={i}>
-                            ✦ {typeof buff === 'string' ? buff : buff?.name || buff?.description || buff?.title || 'Weekly Bonus'}
-                          </div>
-                        ));
-                      }
+                    // Ha a JSON közvetlenül egy tömb vagy objektum kulcs-értékekkel
+                    if (typeof weeklyBuffs === 'object' && !weeklyBuffs.event) {
+                      return Object.entries(weeklyBuffs).map(([key, val], i) => (
+                        <div className="td-weekly-buff-item" key={i}>
+                          <span className="td-weekly-buff-label">{key}:</span>
+                          <span className="td-weekly-buff-value">
+                            {typeof val === 'object' ? val?.name || JSON.stringify(val) : String(val)}
+                          </span>
+                        </div>
+                      ));
+                    }
 
-                      // Ha a válasz egy egybefüggő szöveg
-                      if (typeof weeklyBuffs === 'string') {
-                        return <div className="td-tag premium">✦ {weeklyBuffs}</div>;
-                      }
-
-                      // Ha van event, de külön buff lista nincs
-                      if (weeklyBuffs.event || weeklyBuffs.event_name) {
-                        return null;
-                      }
-
-                      return <div className="td-empty">No active weekly buffs found.</div>;
-                    })()}
-                  </div>
-                ) : (
-                  <div className="td-empty">Weekly buffs are unavailable right now.</div>
-                )}
-              </section>
+                    return <div className="td-empty">No active weekly buffs found.</div>;
+                  })()}
+                </div>
+              ) : (
+                <div className="td-empty">Weekly buffs are unavailable right now.</div>
+              )}
+            </section>
 
               <section
                 id="biomes"
