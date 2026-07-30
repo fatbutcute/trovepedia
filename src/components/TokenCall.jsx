@@ -82,41 +82,7 @@ function getBiomeImageUrl(biome) {
   return null;
 }
 
-function CustomDropdown({ value, options, onChange, label }) {
-  const [isOpen, setIsOpen] = useState(false);
-
-  return (
-    <div className="custom-dropdown-container">
-      <label className="dropdown-label">{label}</label>
-      <div className={`custom-dropdown ${isOpen ? 'open' : ''}`} onClick={() => setIsOpen(!isOpen)}>
-        <div className="selected-value">
-          {options.find(opt => opt.value === value)?.label || value}
-          <span className={`arrow ${isOpen ? 'up' : ''}`}>▼</span>
-        </div>
-        
-        {isOpen && (
-          <div className="dropdown-options fade-in-down">
-            {options.map(opt => (
-              <div 
-                key={opt.value} 
-                className={`dropdown-option ${opt.value === value ? 'active' : ''}`}
-                onClick={(e) => { 
-                  e.stopPropagation();
-                  onChange(opt.value); 
-                  setIsOpen(false); 
-                }}
-              >
-                {opt.label}
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-    </div>
-  );
-}
-
-/* --- ÚJ: Luxion Rotation Tracker Komponens (2 oszlopos) --- */
+/* --- Luxion Rotation Tracker Komponens (2 oszlopos) --- */
 function LuxionTracker({ luxion, serverTime, nowTick }) {
   const isActive = luxion?.active;
   const secondsRemaining = luxion?.seconds_remaining ?? 0;
@@ -170,38 +136,6 @@ function LuxionTracker({ luxion, serverTime, nowTick }) {
   );
 }
 
-            {/* --- Luxion Sidebar Card --- */}
-            <div className="td-sidebar-card glow-amber">
-              <div className="td-card-header">
-                <div className="td-card-title">
-                  <span className="td-card-icon" style={{ color: '#f59e0b' }}>🐲</span> Luxion
-                </div>
-                <StatusBadge 
-                  state={sectionState('luxion')} 
-                  label={luxion?.active ? 'Active' : 'Away'} 
-                  customClass={luxion?.active ? 'badge-amber' : 'muted'} 
-                />
-              </div>
-
-              {luxion ? (
-                <div className="td-sidebar-chaos">
-                  <div className="td-sidebar-chaos-time">
-                    <div className="td-countdown" style={{ color: '#f59e0b' }}>
-                      {formatCountdown(
-                        serverTime?.now_unix + (luxion?.seconds_remaining ?? 0),
-                        nowTick
-                      ) ?? formatDuration(luxion?.seconds_remaining)}
-                    </div>
-                    <div className="td-countdown-label">
-                      {luxion.active ? 'leaves in' : 'arrives in'}
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                <div className="td-empty">No Luxion data.</div>
-              )}
-            </div>
-
 /* --- Trove News Dashboard Komponens (9 hír + görgethető) --- */
 function DashboardNews() {
   const [news, setNews] = useState([]);
@@ -246,7 +180,6 @@ function DashboardNews() {
       ) : error ? (
         <div className="td-empty" style={{ color: '#f87171' }}>Could not load news articles.</div>
       ) : (
-        /* GÖRGETHETŐ KONTÉNER HÍREKKEL */
         <div className="td-news-scroll-container">
           <div className="td-news-grid">
             {news.slice(0, 9).map((item, index) => {
@@ -406,6 +339,13 @@ export default function TokenCall() {
 
   return (
     <div className="trove-dashboard">
+      {initialOverlay && (
+        <div className={`td-initial-loader ${fadeOut ? 'fade-out' : ''}`}>
+          <div className="td-loader-spinner" />
+          <div className="td-loader-text">Loading Trove Dashboard...</div>
+        </div>
+      )}
+
       <header className="td-header">
         <div className="td-title">
           <span className="td-title-mark" />
@@ -1005,8 +945,12 @@ export default function TokenCall() {
               )}
             </section>
             
-            {/* 2. Sor 1-2. oszlop: Trials Tracker */}
-            <TrialsTracker />
+            {/* 2. Sor 1-2. oszlop: Luxion Tracker */}
+            <LuxionTracker 
+              luxion={luxion} 
+              serverTime={serverTime} 
+              nowTick={nowTick} 
+            />
 
             {/* 2. Sor 3-4. oszlop: Trove News */}
             <DashboardNews />
