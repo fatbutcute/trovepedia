@@ -82,53 +82,54 @@ function getBiomeImageUrl(biome) {
   return null;
 }
 
-/* --- Luxion Rotation Tracker Komponens (2 oszlopos) --- */
+/* --- Luxion / Trials of Luxion Tracker Komponens (2 oszlopos, háttérképpel) --- */
 function LuxionTracker({ luxion, serverTime, nowTick }) {
   const isActive = luxion?.active;
   const secondsRemaining = luxion?.seconds_remaining ?? 0;
-  const targetTime = serverTime?.now_unix ? serverTime.now_unix + secondsRemaining : null;
+  const targetTime = serverTime?.now_unix && secondsRemaining > 0 
+    ? serverTime.now_unix + secondsRemaining 
+    : null;
 
   return (
-    <section id="luxion-tracker" className="td-card span-2 glow-amber">
-      <div className="td-card-header">
-        <div className="td-card-title">
-          <span className="td-title-mark" style={{ background: '#f59e0b', boxShadow: '0 0 12px 2px rgba(245, 158, 11, 0.4)' }}></span>
-          <span style={{ color: '#f59e0b', fontWeight: 'bold', fontSize: '1.2rem', marginLeft: '4px', fontFamily: 'Comfortaa, sans-serif' }}>
-            Luxion the Golden Dragon
-          </span>
-        </div>
-        <StatusBadge 
-          state={luxion ? 'ok' : 'loading'} 
-          label={isActive ? 'ACTIVE IN HUB' : 'AWAY'} 
-          customClass={isActive ? 'badge-amber' : 'muted'} 
-        />
-      </div>
+    <section id="luxion-tracker" className="td-card span-2 glow-amber td-luxion-card-bg">
+      {/* Sötét overlay a háttérkép felett */}
+      <div className="td-luxion-overlay" />
 
-      <div className="td-luxion-body">
-        <div className="td-luxion-hero-card">
-          <div className="td-luxion-icon-wrap">
-            <span style={{ fontSize: '2.5rem' }}>🐲</span>
+      <div className="td-luxion-content">
+        <div className="td-card-header">
+          <div className="td-card-title">
+            <span className="td-title-mark" style={{ background: '#f59e0b', boxShadow: '0 0 12px 2px rgba(245, 158, 11, 0.5)' }}></span>
+            <span style={{ color: '#fbbf24', fontWeight: 'bold', fontSize: '1.25rem', marginLeft: '4px', fontFamily: 'Comfortaa, sans-serif' }}>
+              Trials of Luxion
+            </span>
           </div>
-          <div className="td-luxion-status-info">
-            <div className="td-luxion-state-title">
-              {isActive ? 'Luxion is currently in the Hub!' : 'Luxion is currently away'}
+          <StatusBadge 
+            state={luxion ? 'ok' : 'loading'} 
+            label={isActive ? 'ACTIVE IN HUB' : 'AWAY'} 
+            customClass={isActive ? 'badge-amber' : 'muted'} 
+          />
+        </div>
+
+        <div className="td-luxion-body">
+          <div className="td-luxion-hero-card">
+            <div className="td-luxion-status-info">
+              <p className="td-luxion-desc">
+                {isActive 
+                  ? 'Luxion the Golden Dragon has landed in the Hub! Visit his shop to exchange Dragon Coins for exclusive mounts, allies, styles, and special items before he departs.'
+                  : 'Trials of Luxion is a special recurring event in Trove. Luxion visits the Hub periodically to offer rare dragon-themed rewards, styles, and collectibles in exchange for Dragon Coins.'}
+              </p>
             </div>
-            <div className="td-luxion-state-sub">
+          </div>
+
+          <div className="td-luxion-timer-box">
+            <div className="td-luxion-timer-label">
+              {isActive ? 'Leaves the Hub in' : 'Next arrival'}
+            </div>
+            <div className="td-luxion-timer-value">
               {isActive 
-                ? 'Visit the Hub to trade Dragon Coins for rare mounts, allies, and styles.' 
-                : 'Prepare your Dragon Coins for Luxion’s next visit to the Hub.'}
+                ? (targetTime ? (formatCountdown(targetTime, nowTick) ?? formatDuration(secondsRemaining)) : formatDuration(secondsRemaining))
+                : (secondsRemaining > 0 ? formatDuration(secondsRemaining) : 'Schedule TBA')}
             </div>
-          </div>
-        </div>
-
-        <div className="td-luxion-timer-box">
-          <div className="td-luxion-timer-label">
-            {isActive ? 'Leaves the Hub in' : 'Arrives in the Hub in'}
-          </div>
-          <div className="td-luxion-timer-value">
-            {targetTime 
-              ? (formatCountdown(targetTime, nowTick) ?? formatDuration(secondsRemaining))
-              : formatDuration(secondsRemaining)}
           </div>
         </div>
       </div>
