@@ -641,7 +641,6 @@ async function loadData(forPlayer) {
                   />
                   Today's Buffs
                 </div>
-                <StatusBadge state={sectionState('dailyBuffs')} label="Live" />
               </div>
 
               {dailyBuffs?.current ? (
