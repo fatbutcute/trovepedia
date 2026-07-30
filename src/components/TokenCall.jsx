@@ -407,50 +407,58 @@ async function loadData(forPlayer) {
               </div>
 
               {weeklyBuffs ? (
-                <div className="td-weekly-buff-list">
-                  {/* 1. Esemény neve (Event) */}
-                  {(weeklyBuffs.event || weeklyBuffs.event_name || weeklyBuffs.name) && (
-                    <div className="td-weekly-buff-item">
-                      <span className="td-weekly-buff-label">Current Event:</span>
-                      <span className="td-weekly-buff-value">
-                        {typeof weeklyBuffs.event === 'object'
-                          ? weeklyBuffs.event?.name || weeklyBuffs.event?.title
-                          : weeklyBuffs.event || weeklyBuffs.event_name || weeklyBuffs.name}
-                      </span>
+                <div className="td-weekly-buff-container">
+                  {/* 1. Esemény fejléc (ha van aktív Event) */}
+                  {(weeklyBuffs.event || weeklyBuffs.event_name) && (
+                    <div className="td-weekly-event-banner">
+                      <div className="td-weekly-event-label">Active Event</div>
+                      <div className="td-weekly-event-title">
+                        ✦ {typeof weeklyBuffs.event === 'object' 
+                            ? weeklyBuffs.event.name || weeklyBuffs.event.title 
+                            : weeklyBuffs.event || weeklyBuffs.event_name}
+                      </div>
                     </div>
                   )}
 
-                  {/* 2. Buffok kigyűjtése */}
-                  {(() => {
-                    const buffList = 
-                      weeklyBuffs.buffs || 
-                      weeklyBuffs.weekly_buffs || 
-                      weeklyBuffs.active_buffs || 
-                      weeklyBuffs.normal_buffs || 
-                      (Array.isArray(weeklyBuffs) ? weeklyBuffs : null);
+                  {/* 2. Heti bónuszok listája */}
+                  <div className="td-tag-row">
+                    {(() => {
+                      // Kigyűjtjük a buffokat a JSON tömbjeiből
+                      const buffsList = 
+                        weeklyBuffs.buffs || 
+                        weeklyBuffs.weekly_buffs || 
+                        weeklyBuffs.active_buffs || 
+                        (Array.isArray(weeklyBuffs) ? weeklyBuffs : []);
 
-                    if (Array.isArray(buffList) && buffList.length > 0) {
-                      return buffList.map((buff, i) => (
-                        <div className="td-tag premium" key={i}>
-                          ✦ {typeof buff === 'string' ? buff : buff?.name || buff?.description || 'Weekly Bonus'}
-                        </div>
-                      ));
-                    }
-
-                    // Ha a JSON közvetlenül egy tömb vagy objektum kulcs-értékekkel
-                    if (typeof weeklyBuffs === 'object' && !weeklyBuffs.event) {
-                      return Object.entries(weeklyBuffs).map(([key, val], i) => (
-                        <div className="td-weekly-buff-item" key={i}>
-                          <span className="td-weekly-buff-label">{key}:</span>
-                          <span className="td-weekly-buff-value">
-                            {typeof val === 'object' ? val?.name || JSON.stringify(val) : String(val)}
+                      if (Array.isArray(buffsList) && buffsList.length > 0) {
+                        return buffsList.map((buff, i) => (
+                          <span className="td-tag premium" key={i}>
+                            {typeof buff === 'string' ? buff : buff?.name || buff?.description || 'Weekly Bonus'}
                           </span>
-                        </div>
-                      ));
-                    }
+                        ));
+                      }
 
-                    return <div className="td-empty">No active weekly buffs found.</div>;
-                  })()}
+                      // Ha az adatok kulcs-értékként vannak strukturálva a JSON-ban
+                      if (typeof weeklyBuffs === 'object') {
+                        const entries = Object.entries(weeklyBuffs).filter(
+                          ([key]) => !['event', 'event_name', 'starts_at', 'ends_at'].includes(key)
+                        );
+
+                        if (entries.length > 0) {
+                          return entries.map(([key, val], i) => (
+                            <div className="td-weekly-buff-item" key={i}>
+                              <span className="td-weekly-buff-label">{key.replace(/_/g, ' ')}:</span>
+                              <span className="td-weekly-buff-value">
+                                {typeof val === 'object' ? val?.name || JSON.stringify(val) : String(val)}
+                              </span>
+                            </div>
+                          ));
+                        }
+                      }
+
+                      return <div className="td-empty">No active weekly buffs listed.</div>;
+                    })()}
+                  </div>
                 </div>
               ) : (
                 <div className="td-empty">Weekly buffs are unavailable right now.</div>
