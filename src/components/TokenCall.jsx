@@ -457,6 +457,7 @@ async function loadData(forPlayer) {
             </div>
           </div>
 
+          {/* --- Player Activity Kártya --- */}
           <div className="td-sidebar-card glow-green">
             <div className="td-card-header">
               <div className="td-card-title">
@@ -470,20 +471,23 @@ async function loadData(forPlayer) {
                 {(() => {
                   if (!playerActivity) return '--';
                   
-                  // Ha tömb érkezik vissza az API-ból (ahogy a képen látszik)
-                  if (Array.isArray(playerActivity)) {
-                    // Összeadjuk a tömbben található active_players értékeket, vagy kivesszük az elsőt
-                    const totalActive = playerActivity.reduce((acc, curr) => acc + (curr.active_players || 0), 0);
-                    return totalActive > 0 ? totalActive : (playerActivity[0]?.active_players ?? '--');
-                  }
-                  
-                  // Ha sima objektum
-                  if (typeof playerActivity === 'object') {
-                    return playerActivity.active_players ?? playerActivity.count ?? playerActivity.total ?? '--';
+                  // 1. Ha az API a fő objektumban küldi a valódi online játékosszámot
+                  if (typeof playerActivity === 'object' && !Array.isArray(playerActivity)) {
+                    if (playerActivity.active_players !== undefined) return playerActivity.active_players;
+                    if (playerActivity.total_active !== undefined) return playerActivity.total_active;
+                    if (playerActivity.online !== undefined) return playerActivity.online;
                   }
 
-                  // Ha sima szám
-                  return playerActivity;
+                  // 2. Ha tömb érkezik, kizárólag a legelső elem 'active_players' értékét vesszük ki 
+                  // (Aallyn-nél az első elem jelöli az összegzett online játékosszámot, nem adjuk össze a kategóriákat!)
+                  if (Array.isArray(playerActivity) && playerActivity.length > 0) {
+                    return playerActivity[0]?.active_players ?? playerActivity[0]?.count ?? '--';
+                  }
+
+                  // 3. Ha sima szám
+                  if (typeof playerActivity === 'number') return playerActivity;
+
+                  return '--';
                 })()}
               </div>
               <div className="td-activity-sub">players online right now</div>
