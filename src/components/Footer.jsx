@@ -7,9 +7,7 @@ const FOOTER_LINKS = {
     { label: 'Classes',  path: '/classes' },
     /* { label: 'Delve Index',path: '/delve' }, */
     { label: 'Rotations',   path: '/rotations' },
-
-
-
+    { label: 'Hub',   path: '/hub' },
   ],
   Tools: [
 
