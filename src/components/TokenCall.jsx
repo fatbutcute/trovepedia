@@ -219,13 +219,7 @@ async function loadData(forPlayer) {
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
           />
-          <button 
-            type="submit" 
-            className="td-search-submit-btn" 
-            disabled={!searchValue.trim()}
-          >
-            Search
-          </button>
+
         </form>
           <button 
             type="submit" 
@@ -275,7 +269,7 @@ async function loadData(forPlayer) {
         <div className="td-sidebar-card glow-blue">
           <div className="td-card-header">
             <div className="td-card-title">
-              <span className="td-card-icon">◆</span> Chaos Chest
+              <span className="td-card-icon">◆</span> Chaos Mega-Core Week
             </div>
             <StatusBadge 
               state={sectionState('chaosChest')} 
@@ -340,11 +334,6 @@ async function loadData(forPlayer) {
 
           {corruxion ? (
             <div className="td-sidebar-chaos">
-              <div className="td-chaos-hero">
-                <div className="td-chaos-name">
-                  {corruxion.active ? 'Corruxion is HERE!' : 'Corruxion Away'}
-                </div>
-              </div>
               <div className="td-sidebar-chaos-time">
                 <div className="td-countdown" style={{ color: '#c084fc' }}>
                   {formatCountdown(
