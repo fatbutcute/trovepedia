@@ -94,6 +94,20 @@ export default function TokenCall() {
   const [searchValue, setSearchValue] = useState('');
   const [playerQuery, setPlayerQuery] = useState('');
 
+  const [isBuffModalOpen, setIsBuffModalOpen] = useState(false);
+
+const DAY_COLORS = [
+  '#9500d1',
+  '#5cffeb',
+  '#ef3ca5',
+  '#fbda83',
+  '#ab023c',
+  '#15ef7b',
+  '#ff9900'
+];
+
+const currentDayColor = todayWeekday !== null ? DAY_COLORS[todayWeekday] || '#5cffeb' : '#5cffeb';
+
   const sectionRefs = useRef({});
 
   // --- Data fetching -------------------------------------------------
@@ -403,9 +417,14 @@ async function loadData(forPlayer) {
           )}
 
           <div className="td-grid">
+
           <section
             id="buffs"
-            className="td-card span-2"
+            className="td-card td-buff-interactive-card"
+            style={{
+              '--buff-glow-color': currentDayColor
+            }}
+            onClick={() => setIsBuffModalOpen(true)}
             ref={(el) => (sectionRefs.current.buffs = el)}
           >
             <div className="td-card-header">
@@ -417,62 +436,84 @@ async function loadData(forPlayer) {
                 />
                 Today's Buffs
               </div>
-              <StatusBadge state={sectionState('dailyBuffs')} />
+              <span className="td-buff-click-hint">Click for full schedule ↗</span>
             </div>
 
-              {dailyBuffs?.current ? (
-                <>
-                  <div className="td-buff-hero">
-                    <span className="td-buff-emoji">{dailyBuffs.current?.emoji ?? '🎁'}</span>
-                    <div>
-                      <div className="td-buff-name">{dailyBuffs.current?.name ?? 'Unknown buff'}</div>
-                      <div className="td-buff-weekday">{dailyBuffs.current?.weekday ?? ''}</div>
-                    </div>
+            {dailyBuffs?.current ? (
+              <div className="td-buff-hero-compact">
+                <span className="td-buff-emoji">{dailyBuffs.current?.emoji ?? '🎁'}</span>
+                <div>
+                  <div className="td-buff-name" style={{ color: currentDayColor }}>
+                    {dailyBuffs.current?.name ?? 'Unknown buff'}
                   </div>
-
-                  <div className="td-tag-row">
-                    {Array.isArray(dailyBuffs.current?.normal_buffs) &&
-                      dailyBuffs.current.normal_buffs.map((buff, i) => (
-                        <span className="td-tag" key={`normal-${i}`}>
-                          {typeof buff === 'string' ? buff : buff?.name ?? 'Buff'}
-                        </span>
-                      ))}
-                    {Array.isArray(dailyBuffs.current?.premium_buffs) &&
-                      dailyBuffs.current.premium_buffs.map((buff, i) => (
-                        <span className="td-tag premium" key={`premium-${i}`}>
-                          {typeof buff === 'string' ? buff : buff?.name ?? 'Premium buff'}
-                        </span>
-                      ))}
+                  <div className="td-buff-weekday">
+                    {dailyBuffs.current?.weekday ?? WEEKDAY_LABELS[todayWeekday]} · Active Today
                   </div>
+                </div>
+              </div>
+            ) : (
+              <div className="td-empty">Buff rotation is unavailable right now.</div>
+            )}
+          </section>
 
-                  {Array.isArray(dailyBuffs?.week) && dailyBuffs.week.length > 0 && (
-                    <div className="td-week-strip">
-                      {dailyBuffs.week.map((day, i) => (
-                        <div
-                          key={i}
-                          className={`td-week-day${
-                            todayWeekday !== null && i === todayWeekday ? ' today' : ''
-                          }`}
-                          title={day?.name ?? ''}
-                        >
+          {/* --- FULLSCREEN POPUP MODAL --- */}
+          {isBuffModalOpen && (
+            <div className="td-modal-overlay" onClick={() => setIsBuffModalOpen(false)}>
+              <div 
+                className="td-modal-content" 
+                onClick={(e) => e.stopPropagation()} // Ne záródjon be, ha a tartalomra kattintasz
+              >
+                <div className="td-modal-header">
+                  <div className="td-card-title">
+                    <img src="/icons/power.png" alt="Buffs" className="td-card-title-icon" />
+                    Weekly Buff Schedule
+                  </div>
+                  <button className="td-modal-close" onClick={() => setIsBuffModalOpen(false)}>✕</button>
+                </div>
+
+                <div className="td-modal-body">
+                  {Array.isArray(dailyBuffs?.week) && dailyBuffs.week.map((day, i) => {
+                    const dayColor = DAY_COLORS[i] || '#5cffeb';
+                    const isToday = todayWeekday !== null && i === todayWeekday;
+
+                    return (
+                      <div 
+                        key={i} 
+                        className={`td-modal-day-card${isToday ? ' today-highlight' : ''}`}
+                        style={{ '--day-color': dayColor }}
+                      >
+                        <div className="td-modal-day-header">
                           <img 
                             src={WEEKLY_ICONS[i]} 
                             alt={WEEKDAY_LABELS[i]} 
-                            className="td-week-icon"
-                            onError={(e) => {
-                              e.target.style.display = 'none';
-                            }}
+                            className="td-modal-day-icon"
+                            onError={(e) => { e.target.style.display = 'none'; }}
                           />
-                          <div>{WEEKDAY_LABELS[i] ?? ''}</div>
+                          <span className="td-modal-day-name" style={{ color: dayColor }}>
+                            {WEEKDAY_LABELS[i]} - {day?.name || 'Buff Day'}
+                          </span>
+                          {isToday && <span className="td-badge live">TODAY</span>}
                         </div>
-                      ))}
-                    </div>
-                  )}
-                </>
-              ) : (
-                <div className="td-empty">Buff rotation is unavailable right now.</div>
-              )}
-            </section>
+
+                        <div className="td-tag-row">
+                          {Array.isArray(day?.normal_buffs) && day.normal_buffs.map((buff, j) => (
+                            <span className="td-tag custom-colored" key={`n-${j}`}>
+                              {typeof buff === 'string' ? buff : buff?.name}
+                            </span>
+                          ))}
+                          {Array.isArray(day?.premium_buffs) && day.premium_buffs.map((buff, j) => (
+                            <span className="td-tag premium custom-colored" key={`p-${j}`}>
+                              ✦ {typeof buff === 'string' ? buff : buff?.name}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          )}
 
             {/* Weekly Buffs */}
             <section
