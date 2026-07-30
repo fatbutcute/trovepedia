@@ -17,6 +17,7 @@ import GuideDetailPage from './pages/GuideDetailPage';
 import TroveNewsPage from './components/TroveNewsPage';
 import FishingPage from './pages/FishingPage';
 import CalculatorsPage from './components/CalculatorsPage';
+import TokenCall from './components/TokenCall';
 
 export default function App() {
   return (
@@ -49,6 +50,8 @@ export default function App() {
           <Route path="/fishing" element={<FishingPage />} />
 
           <Route path="/calculators" element={<CalculatorsPage />} />
+
+          <Route path="/token-test" element={<TokenCall />} />
 
           <Route
             path="/fishing"
