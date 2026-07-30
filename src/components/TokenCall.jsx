@@ -82,6 +82,225 @@ function getBiomeImageUrl(biome) {
   return null;
 }
 
+/* --- ÚJ: CustomDropdown Komponens a Trials-hoz --- */
+function CustomDropdown({ value, options, onChange, label }) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div className="custom-dropdown-container">
+      <label className="dropdown-label">{label}</label>
+      <div className={`custom-dropdown ${isOpen ? 'open' : ''}`} onClick={() => setIsOpen(!isOpen)}>
+        <div className="selected-value">
+          {options.find(opt => opt.value === value)?.label || value}
+          <span className={`arrow ${isOpen ? 'up' : ''}`}>▼</span>
+        </div>
+        
+        {isOpen && (
+          <div className="dropdown-options fade-in-down">
+            {options.map(opt => (
+              <div 
+                key={opt.value} 
+                className={`dropdown-option ${opt.value === value ? 'active' : ''}`}
+                onClick={(e) => { 
+                  e.stopPropagation();
+                  onChange(opt.value); 
+                  setIsOpen(false); 
+                }}
+              >
+                {opt.label}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+/* --- ÚJ: Trials Tracker Komponens --- */
+function TrialsTracker() {
+  const [view, setView] = useState('calendar');
+  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth());
+  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
+  const [timezone, setTimezone] = useState('local'); 
+  
+  const [startCost, setStartCost] = useState(7);
+  const [produceCount, setProduceCount] = useState(1);
+
+  const calcTotal = useMemo(() => {
+    const s = parseInt(startCost) || 0;
+    const n = parseInt(produceCount) || 0;
+    if (s < 7 || n < 1) return 0;
+    const floorN4 = Math.floor(n / 4);
+    return (n * s) + (floorN4 * (n - 2 * floorN4 - 2));
+  }, [startCost, produceCount]);
+
+  const daysInMonth = new Date(selectedYear, selectedMonth + 1, 0).getDate();
+  const firstDay = new Date(selectedYear, selectedMonth, 1).getDay();
+
+  const convertToUTC = (localDate, tzName) => {
+    const options = {
+      year: 'numeric', month: 'numeric', day: 'numeric',
+      hour: 'numeric', minute: 'numeric', second: 'numeric',
+      timeZone: tzName, hour12: false
+    };
+    return new Date(localDate.toLocaleString('en-US', options));
+  };
+
+  const convertFromUTC = (utcDate, tzName) => {
+    const options = {
+      year: 'numeric', month: 'numeric', day: 'numeric',
+      hour: 'numeric', minute: 'numeric', second: 'numeric',
+      timeZone: tzName, hour12: false
+    };
+    return new Date(utcDate.toLocaleString('en-US', options));
+  };
+
+  const getIntervals = (day) => {
+    const intervals = [];
+    const tzMap = {
+      'local': Intl.DateTimeFormat().resolvedOptions().timeZone,
+      'utc': 'UTC',
+      'cet': 'Europe/Paris',
+      'est': 'America/New_York',
+      'pst': 'America/Los_Angeles'
+    };
+    const currentTimezone = tzMap[timezone] || 'UTC';
+    const currentDate = new Date(selectedYear, selectedMonth, day);
+    const baseTime = new Date(Date.UTC(1900, 0, 3, 11, 0, 0));
+    
+    const startOfDay = new Date(selectedYear, selectedMonth, day);
+    startOfDay.setHours(0, 0, 0, 0);
+    const startOfDayUTC = convertToUTC(startOfDay, currentTimezone);
+    
+    const hoursSinceBase = (startOfDayUTC.getTime() - baseTime.getTime()) / (1000 * 60 * 60);
+    const cycleLength = 27;
+    let cycleIndex = Math.floor(hoursSinceBase / cycleLength);
+    
+    for (let i = -2; i <= 2; i++) {
+      const currentCycle = cycleIndex + i;
+      const startTimeUTC = new Date(baseTime.getTime() + currentCycle * cycleLength * 60 * 60 * 1000);
+      const endTimeUTC = new Date(startTimeUTC.getTime() + 3 * 60 * 60 * 1000);
+      const startTimeLocal = convertFromUTC(startTimeUTC, currentTimezone);
+      
+      if (startTimeLocal.getDate() === currentDate.getDate() &&
+          startTimeLocal.getMonth() === currentDate.getMonth() &&
+          startTimeLocal.getFullYear() === currentDate.getFullYear()) {
+          
+          const timeFormat = { 
+              hour: '2-digit', 
+              minute: '2-digit',
+              hour12: false,
+              timeZone: currentTimezone
+          };
+          const startFormatted = startTimeUTC.toLocaleTimeString('en-US', timeFormat);
+          const endFormatted = endTimeUTC.toLocaleTimeString('en-US', timeFormat);
+          intervals.push(`${startFormatted} - ${endFormatted}`);
+      }
+    }
+    return intervals;
+  };
+
+  return (
+    <section id="trials" className="td-card span-2">
+      <div className="trials-header">
+        <div className="td-card-title">
+          <span className="td-title-mark" style={{ background: '#b7003d', boxShadow: '0 0 12px 2px rgba(183, 0, 61, 0.4)' }}></span>
+          <span style={{ color: '#ff0077', fontWeight: 'bold', fontSize: '1.2rem', marginLeft: '4px' }}>Trials Tracker</span>
+        </div>
+        <div className="trials-toggle">
+          <div 
+            className="toggle-active-bg" 
+            style={{ transform: `translateX(${view === 'calendar' ? '0px' : '200px'})` }}
+          />
+          <button className={view === 'calendar' ? 'active' : ''} onClick={() => setView('calendar')}>Event Calendar</button>
+          <button className={view === 'calculator' ? 'active' : ''} onClick={() => setView('calculator')}>Venturine Calculator</button>
+        </div>
+      </div>
+      <p className="trials-credits">Original creators of the trials calendar: <span className="trials-credit-names">Ginnne, __reisalin__, MewsCat, とても残念だ</span></p>
+      
+      {view === 'calendar' ? (
+        <div key="calendar-view" className="trials-calendar-container">
+          <div className="calendar-controls">
+            <CustomDropdown 
+              label="Year"
+              value={selectedYear} 
+              options={[2025, 2026].map(y => ({ value: y, label: y }))}
+              onChange={setSelectedYear} 
+            />
+            <CustomDropdown 
+              label="Month"
+              value={selectedMonth} 
+              options={["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"].map((m, i) => ({ value: i, label: m }))}
+              onChange={setSelectedMonth} 
+            />
+            <CustomDropdown 
+              label="Timezone"
+              value={timezone} 
+              options={[
+                { value: 'local', label: 'Local Time (Auto)' },
+                { value: 'utc', label: 'UTC / Server Time' },
+                { value: 'cet', label: 'CET (Central European)' },
+                { value: 'est', label: 'EST (Eastern / NY)' },
+                { value: 'pst', label: 'PST (Pacific / LA)' }
+              ]}
+              onChange={setTimezone} 
+            />
+          </div>
+          <div className="calendar-grid">
+            {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map(d => <div key={d} className="calendar-day-label">{d}</div>)}
+            
+            {Array.from({ length: firstDay === 0 ? 6 : firstDay - 1 }).map((_, i) => (
+              <div key={`empty-${i}`} className="calendar-day empty" />
+            ))}
+            
+            {Array.from({ length: daysInMonth }).map((_, i) => {
+              const day = i + 1;
+              const intervals = getIntervals(day);
+              const isToday = new Date().getDate() === day && new Date().getMonth() === selectedMonth && new Date().getFullYear() === selectedYear;
+              return (
+                <div key={day} className={`calendar-day ${isToday ? 'today' : ''} ${intervals.length > 0 ? 'has-event' : ''}`}>
+                  <span className="day-number">{day}</span>
+                  {intervals.map((int, idx) => <div key={idx} className="day-interval">{int}</div>)}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      ) : (
+        <div key="calc-view" className="venturine-calc-container">
+          <div className="calc-inputs">
+            <div className="input-group">
+              <label>Initial Cost</label>
+              <input 
+                type="number" 
+                className="calc-input-field"
+                value={startCost} 
+                min="7" 
+                onChange={(e) => setStartCost(e.target.value)} 
+              />
+            </div>
+            <div className="input-group">
+              <label>Production Quantity</label>
+              <input 
+                type="number" 
+                className="calc-input-field"
+                value={produceCount} 
+                min="1" 
+                onChange={(e) => setProduceCount(e.target.value)} 
+              />
+            </div>
+          </div>
+          <div className="calc-result">
+            <h3>Total Materials Needed</h3>
+            <div className="result-value">{calcTotal}</div>
+          </div>
+        </div>
+      )}
+    </section>
+  );
+}
+
 export default function TokenCall() {
   const [payload, setPayload] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -748,6 +967,10 @@ export default function TokenCall() {
                 <div className="td-empty">Leaderboard records are unavailable right now.</div>
               )}
             </section>
+            
+            {/* ÚJ: Trials Tracker 2 Oszlopon */}
+            <TrialsTracker />
+            
           </div>
         </main>
       </div>
