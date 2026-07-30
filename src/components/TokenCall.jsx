@@ -53,24 +53,28 @@ function getBiomeImageUrl(biome) {
   if (!rawName) return null;
 
   const nameLower = rawName.toLowerCase();
+  const BASE_PATH = 'https://trove.aallyn.net/static/assets/biomes/';
 
-  if (nameLower.includes('forbidden') || nameLower.includes('spires')) return 'https://trove.aallyn.net/static/assets/biomes/spires.png';
-  if (nameLower.includes('weathered') || nameLower.includes('wasteland')) return 'https://trove.aallyn.net/static/assets/biomes/weathered.png';
-  if (nameLower.includes('lost') || nameLower.includes('isles') || nameLower.includes('treasure')) return 'https://trove.aallyn.net/static/assets/biomes/isles.png';
-  if (nameLower.includes('dinosaur') || nameLower.includes('jungle')) return 'https://trove.aallyn.net/static/assets/biomes/dinosaur.png';
-  if (nameLower.includes('desert') || nameLower.includes('frontier')) return 'https://trove.aallyn.net/static/assets/biomes/desert.png';
-  if (nameLower.includes('permafrost') || nameLower.includes('tundra')) return 'https://trove.aallyn.net/static/assets/biomes/permafrost.png';
-  if (nameLower.includes('neon') || nameLower.includes('city')) return 'https://trove.aallyn.net/static/assets/biomes/neon.png';
-  if (nameLower.includes('geode') || nameLower.includes('cave')) return 'https://trove.aallyn.net/static/assets/biomes/geode.png';
-  if (nameLower.includes('shade') || nameLower.includes('long')) return 'https://trove.aallyn.net/static/assets/biomes/shade.png';
-  if (nameLower.includes('sundervale') || nameLower.includes('sundured')) return 'https://trove.aallyn.net/static/assets/biomes/sundervale.png';
-  if (nameLower.includes('candoria') || nameLower.includes('candy')) return 'https://trove.aallyn.net/static/assets/biomes/candoria.png';
-  if (nameLower.includes('fae') || nameLower.includes('wilds')) return 'https://trove.aallyn.net/static/assets/biomes/fae.png';
-  if (nameLower.includes('dragon') || nameLower.includes('volcano')) return 'https://trove.aallyn.net/static/assets/biomes/dragon.png';
-  if (nameLower.includes('shadow') || nameLower.includes('tower')) return 'https://trove.aallyn.net/static/assets/biomes/shadow.png';
+  // Pontos illesztés a megadott fájllistád alapján:
+  if (nameLower.includes('candoria') || nameLower.includes('candy')) return `${BASE_PATH}candy.png`;
+  if (nameLower.includes('dinosaur') || nameLower.includes('jungle')) return `${BASE_PATH}dinosaur.png`;
+  if (nameLower.includes('dragon') || nameLower.includes('volcano')) return `${BASE_PATH}dragon.png`;
+  if (nameLower.includes('dunes')) return `${BASE_PATH}dunes.png`;
+  if (nameLower.includes('fae') || nameLower.includes('wilds')) return `${BASE_PATH}fae.png`;
+  if (nameLower.includes('forest') || nameLower.includes('medieval')) return `${BASE_PATH}forest.png`;
+  if (nameLower.includes('desert') || nameLower.includes('frontier')) return `${BASE_PATH}frontier.png`;
+  if (nameLower.includes('giant') || nameLower.includes('giantland')) return `${BASE_PATH}giantland.png`;
+  if (nameLower.includes('shade') || nameLower.includes('long_shade') || nameLower.includes('long shade')) return `${BASE_PATH}long_shade.png`;
+  if (nameLower.includes('neon') || nameLower.includes('city')) return `${BASE_PATH}neon.png`;
+  if (nameLower.includes('peaceful') || nameLower.includes('hills')) return `${BASE_PATH}peaceful.png`;
+  if (nameLower.includes('pirate') || nameLower.includes('isles') || nameLower.includes('treasure') || nameLower.includes('lost')) return `${BASE_PATH}pirate.png`;
+  if (nameLower.includes('sandsea') || nameLower.includes('sea')) return `${BASE_PATH}sandsea.png`;
+  if (nameLower.includes('spire') || nameLower.includes('forbidden')) return `${BASE_PATH}spires.png`;
+  if (nameLower.includes('tundra') || nameLower.includes('permafrost')) return `${BASE_PATH}tundra.png`;
+  if (nameLower.includes('undead') || nameLower.includes('cursed') || nameLower.includes('vale')) return `${BASE_PATH}undead.png`;
+  if (nameLower.includes('wasteland') || nameLower.includes('weathered')) return `${BASE_PATH}wasteland.png`;
 
-  const formatted = nameLower.split(' ')[0].replace(/[^a-z0-9]/g, '');
-  return `https://trove.aallyn.net/static/assets/biomes/${formatted}.png`;
+  return null;
 }
 export default function TokenCall() {
   const [payload, setPayload] = useState(null);
@@ -83,6 +87,8 @@ export default function TokenCall() {
   const [playerQuery, setPlayerQuery] = useState('');
 
   const sectionRefs = useRef({});
+
+  // --- Data fetching -------------------------------------------------
 
   async function loadData(forPlayer) {
     try {
