@@ -313,7 +313,24 @@ async function loadData(forPlayer) {
       const [res, weeklyRes, activityRes] = await Promise.allSettled([
         fetch(url).then((r) => r.json()),
         fetch('https://trove.aallyn.net/static/assets/data/weekly_buffs.json').then((r) => r.json()),
-        fetch('https://api.aallyn.net/site/leaderboards/activity').then((r) => r.json()),
+        fetch('https://api.aallyn.net/site/leaderboards/activity', {
+          headers: {
+            'accept': 'application/json',
+            'accept-language': 'en-US,en;q=0.9,hu;q=0.8',
+            'priority': 'u=1, i',
+            'sec-ch-ua': '"Not=A?Brand";v="99", "Google Chrome";v="151", "Chromium";v="151"',
+            'sec-ch-ua-mobile': '?0',
+            'sec-ch-ua-platform': '"Windows"',
+            'sec-fetch-dest': 'empty',
+            'sec-fetch-mode': 'cors',
+            'sec-fetch-site': 'same-site'
+          },
+          referrer: 'https://trove.aallyn.net/',
+          body: null,
+          method: 'GET',
+          mode: 'cors',
+          credentials: 'omit'
+        }).then((r) => r.json())
       ]);
 
       let mainJson = res.status === 'fulfilled' ? res.value : null;
@@ -325,7 +342,7 @@ async function loadData(forPlayer) {
       }
 
       if (!mainJson.data) mainJson.data = {};
-      
+
       if (staticWeekly) {
         mainJson.data.weeklyBuffsStatic = staticWeekly;
       }
