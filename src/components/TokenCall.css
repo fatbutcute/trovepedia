@@ -1465,6 +1465,144 @@
   align-items: center; 
 }
 
+/* Trials Header elrendezés (Fejléc balra, Mini Kalkulátor jobbra) */
+.trials-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.trials-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.trials-credits {
+  font-size: 0.78rem;
+  color: var(--text-faint);
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 600;
+  margin: 0;
+}
+
+.trials-credit-names {
+  color: var(--text-dim);
+  font-weight: 700;
+}
+
+/* --- ÚJ: Kompakt Mini Kalkulátor Jobb Felül --- */
+.trials-mini-calc {
+  background: rgba(183, 0, 61, 0.08);
+  border: 1px solid rgba(183, 0, 61, 0.3);
+  border-radius: var(--radius-md);
+  padding: 8px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-shadow: 0 0 15px rgba(183, 0, 61, 0.08);
+}
+
+.mini-calc-title {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #ff0077;
+  font-weight: 800;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.mini-calc-body {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mini-calc-input {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.mini-calc-input label {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  font-weight: 700;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.mini-calc-input input {
+  width: 50px;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 4px 8px;
+  color: #fff;
+  font-size: 0.88rem;
+  font-weight: 700;
+  font-family: 'Quicksand', sans-serif;
+  text-align: center;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.mini-calc-input input:focus {
+  border-color: #ff0077;
+}
+
+/* Nyilak eltüntetése az inputokról */
+.mini-calc-input input::-webkit-outer-spin-button,
+.mini-calc-input input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.mini-calc-input input[type=number] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+.mini-calc-result {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(183, 0, 61, 0.2);
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 0, 119, 0.3);
+}
+
+.mini-result-label {
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.mini-result-value {
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: #ff0077;
+  font-family: 'Quicksand', sans-serif;
+  text-shadow: 0 0 8px rgba(255, 0, 119, 0.5);
+}
+
+/* Mobil beállítások */
+@media (max-width: 600px) {
+  .trials-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .trials-mini-calc {
+    width: 100%;
+  }
+  .mini-calc-body {
+    justify-content: space-between;
+  }
+}
+
 /* Ha mobilon/tableten nézik (ahol kevesebb az oszlop), automatikusan illeszkedjen */
 @media (max-width: 1400px) {
   #trials.td-card.span-2 {

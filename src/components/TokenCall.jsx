@@ -117,9 +117,7 @@ function CustomDropdown({ value, options, onChange, label }) {
   );
 }
 
-/* --- ÚJ: Trials Tracker Komponens --- */
 function TrialsTracker() {
-  const [view, setView] = useState('calendar');
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth());
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
   const [timezone, setTimezone] = useState('local'); 
@@ -204,99 +202,92 @@ function TrialsTracker() {
   return (
     <section id="trials" className="td-card span-2">
       <div className="trials-header">
-        <div className="td-card-title">
-          <span className="td-title-mark" style={{ background: '#b7003d', boxShadow: '0 0 12px 2px rgba(183, 0, 61, 0.4)' }}></span>
-          <span style={{ color: '#ff0077', fontWeight: 'bold', fontSize: '1.2rem', marginLeft: '4px' }}>Trials Tracker</span>
-        </div>
-        <div className="trials-toggle">
-          <div 
-            className="toggle-active-bg" 
-            style={{ transform: `translateX(${view === 'calendar' ? '0px' : '200px'})` }}
-          />
-          <button className={view === 'calendar' ? 'active' : ''} onClick={() => setView('calendar')}>Event Calendar</button>
-          <button className={view === 'calculator' ? 'active' : ''} onClick={() => setView('calculator')}>Venturine Calculator</button>
-        </div>
-      </div>
-      <p className="trials-credits">Original creators of the trials calendar: <span className="trials-credit-names">Ginnne, __reisalin__, MewsCat, とても残念だ</span></p>
-      
-      {view === 'calendar' ? (
-        <div key="calendar-view" className="trials-calendar-container">
-          <div className="calendar-controls">
-            <CustomDropdown 
-              label="Year"
-              value={selectedYear} 
-              options={[2025, 2026].map(y => ({ value: y, label: y }))}
-              onChange={setSelectedYear} 
-            />
-            <CustomDropdown 
-              label="Month"
-              value={selectedMonth} 
-              options={["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"].map((m, i) => ({ value: i, label: m }))}
-              onChange={setSelectedMonth} 
-            />
-            <CustomDropdown 
-              label="Timezone"
-              value={timezone} 
-              options={[
-                { value: 'local', label: 'Local Time (Auto)' },
-                { value: 'utc', label: 'UTC / Server Time' },
-                { value: 'cet', label: 'CET (Central European)' },
-                { value: 'est', label: 'EST (Eastern / NY)' },
-                { value: 'pst', label: 'PST (Pacific / LA)' }
-              ]}
-              onChange={setTimezone} 
-            />
+        <div className="trials-header-left">
+          <div className="td-card-title">
+            <span className="td-title-mark" style={{ background: '#b7003d', boxShadow: '0 0 12px 2px rgba(183, 0, 61, 0.4)' }}></span>
+            <span style={{ color: '#ff0077', fontWeight: 'bold', fontSize: '1.2rem', marginLeft: '4px' }}>Trials Tracker</span>
           </div>
-          <div className="calendar-grid">
-            {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map(d => <div key={d} className="calendar-day-label">{d}</div>)}
-            
-            {Array.from({ length: firstDay === 0 ? 6 : firstDay - 1 }).map((_, i) => (
-              <div key={`empty-${i}`} className="calendar-day empty" />
-            ))}
-            
-            {Array.from({ length: daysInMonth }).map((_, i) => {
-              const day = i + 1;
-              const intervals = getIntervals(day);
-              const isToday = new Date().getDate() === day && new Date().getMonth() === selectedMonth && new Date().getFullYear() === selectedYear;
-              return (
-                <div key={day} className={`calendar-day ${isToday ? 'today' : ''} ${intervals.length > 0 ? 'has-event' : ''}`}>
-                  <span className="day-number">{day}</span>
-                  {intervals.map((int, idx) => <div key={idx} className="day-interval">{int}</div>)}
-                </div>
-              );
-            })}
-          </div>
+          <p className="trials-credits">Original creators: <span className="trials-credit-names">Ginnne, __reisalin__, MewsCat, とても残念だ</span></p>
         </div>
-      ) : (
-        <div key="calc-view" className="venturine-calc-container">
-          <div className="calc-inputs">
-            <div className="input-group">
-              <label>Initial Cost</label>
+
+        {/* ÚJ: Kompakt Vízszintes Kalkulátor jobb felül */}
+        <div className="trials-mini-calc">
+          <div className="mini-calc-title">Venturine Calculator</div>
+          <div className="mini-calc-body">
+            <div className="mini-calc-input">
+              <label>Cost</label>
               <input 
                 type="number" 
-                className="calc-input-field"
                 value={startCost} 
                 min="7" 
                 onChange={(e) => setStartCost(e.target.value)} 
               />
             </div>
-            <div className="input-group">
-              <label>Production Quantity</label>
+            <div className="mini-calc-input">
+              <label>Qty</label>
               <input 
                 type="number" 
-                className="calc-input-field"
                 value={produceCount} 
                 min="1" 
                 onChange={(e) => setProduceCount(e.target.value)} 
               />
             </div>
-          </div>
-          <div className="calc-result">
-            <h3>Total Materials Needed</h3>
-            <div className="result-value">{calcTotal}</div>
+            <div className="mini-calc-result">
+              <span className="mini-result-label">Total</span>
+              <span className="mini-result-value">{calcTotal}</span>
+            </div>
           </div>
         </div>
-      )}
+      </div>
+
+      {/* Mindig látható Event Calendar */}
+      <div className="trials-calendar-container">
+        <div className="calendar-controls">
+          <CustomDropdown 
+            label="Year"
+            value={selectedYear} 
+            options={[2025, 2026].map(y => ({ value: y, label: y }))}
+            onChange={setSelectedYear} 
+          />
+          <CustomDropdown 
+            label="Month"
+            value={selectedMonth} 
+            options={["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"].map((m, i) => ({ value: i, label: m }))}
+            onChange={setSelectedMonth} 
+          />
+          <CustomDropdown 
+            label="Timezone"
+            value={timezone} 
+            options={[
+              { value: 'local', label: 'Local Time (Auto)' },
+              { value: 'utc', label: 'UTC / Server Time' },
+              { value: 'cet', label: 'CET (Central European)' },
+              { value: 'est', label: 'EST (Eastern / NY)' },
+              { value: 'pst', label: 'PST (Pacific / LA)' }
+            ]}
+            onChange={setTimezone} 
+          />
+        </div>
+        <div className="calendar-grid">
+          {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map(d => <div key={d} className="calendar-day-label">{d}</div>)}
+          
+          {Array.from({ length: firstDay === 0 ? 6 : firstDay - 1 }).map((_, i) => (
+            <div key={`empty-${i}`} className="calendar-day empty" />
+          ))}
+          
+          {Array.from({ length: daysInMonth }).map((_, i) => {
+            const day = i + 1;
+            const intervals = getIntervals(day);
+            const isToday = new Date().getDate() === day && new Date().getMonth() === selectedMonth && new Date().getFullYear() === selectedYear;
+            return (
+              <div key={day} className={`calendar-day ${isToday ? 'today' : ''} ${intervals.length > 0 ? 'has-event' : ''}`}>
+                <span className="day-number">{day}</span>
+                {intervals.map((int, idx) => <div key={idx} className="day-interval">{int}</div>)}
+              </div>
+            );
+          })}
+        </div>
+      </div>
     </section>
   );
 }
