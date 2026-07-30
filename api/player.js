@@ -10,6 +10,7 @@ const ENDPOINTS = {
   leaderboardRecords: '/v1/leaderboards/records',
   corruxion: '/v1/rotations/corruxion',
   fluxion: '/v1/rotations/fluxion',
+  luxion: '/v1/rotations/luxion',
 };
 
 const REQUEST_TIMEOUT_MS = 8000;

@@ -1851,6 +1851,92 @@
   }
 }
 
+/* =========================================
+   LUXION TRACKER (2 OSZLOPOS RÁCS ELRENDEZÉS)
+========================================= */
+
+#luxion-tracker.td-card.span-2 {
+  grid-column: 1 / span 2 !important;
+  grid-row: 2 !important;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.td-luxion-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 6px;
+}
+
+.td-luxion-hero-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--card-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 16px;
+}
+
+.td-luxion-icon-wrap {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-md);
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.td-luxion-state-title {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: var(--text);
+}
+
+.td-luxion-state-sub {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  margin-top: 4px;
+  line-height: 1.35;
+}
+
+.td-luxion-timer-box {
+  background: rgba(245, 158, 11, 0.08);
+  border: 1px dashed rgba(245, 158, 11, 0.35);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.td-luxion-timer-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-dim);
+  font-weight: 700;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.td-luxion-timer-value {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: #f59e0b;
+  font-family: 'Quicksand', sans-serif;
+  text-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
+}
+
 /* Mobil beállítások */
 @media (max-width: 600px) {
   .trials-header {

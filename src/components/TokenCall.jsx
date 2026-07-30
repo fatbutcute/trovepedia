@@ -116,178 +116,91 @@ function CustomDropdown({ value, options, onChange, label }) {
   );
 }
 
-function TrialsTracker() {
-  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth());
-  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
-  const [timezone, setTimezone] = useState('local'); 
-  
-  const [startCost, setStartCost] = useState(7);
-  const [produceCount, setProduceCount] = useState(1);
-
-  const calcTotal = useMemo(() => {
-    const s = parseInt(startCost) || 0;
-    const n = parseInt(produceCount) || 0;
-    if (s < 7 || n < 1) return 0;
-    const floorN4 = Math.floor(n / 4);
-    return (n * s) + (floorN4 * (n - 2 * floorN4 - 2));
-  }, [startCost, produceCount]);
-
-  const daysInMonth = new Date(selectedYear, selectedMonth + 1, 0).getDate();
-  const firstDay = new Date(selectedYear, selectedMonth, 1).getDay();
-
-  const convertToUTC = (localDate, tzName) => {
-    const options = {
-      year: 'numeric', month: 'numeric', day: 'numeric',
-      hour: 'numeric', minute: 'numeric', second: 'numeric',
-      timeZone: tzName, hour12: false
-    };
-    return new Date(localDate.toLocaleString('en-US', options));
-  };
-
-  const convertFromUTC = (utcDate, tzName) => {
-    const options = {
-      year: 'numeric', month: 'numeric', day: 'numeric',
-      hour: 'numeric', minute: 'numeric', second: 'numeric',
-      timeZone: tzName, hour12: false
-    };
-    return new Date(utcDate.toLocaleString('en-US', options));
-  };
-
-  const getIntervals = (day) => {
-    const intervals = [];
-    const tzMap = {
-      'local': Intl.DateTimeFormat().resolvedOptions().timeZone,
-      'utc': 'UTC',
-      'cet': 'Europe/Paris',
-      'est': 'America/New_York',
-      'pst': 'America/Los_Angeles'
-    };
-    const currentTimezone = tzMap[timezone] || 'UTC';
-    const currentDate = new Date(selectedYear, selectedMonth, day);
-    const baseTime = new Date(Date.UTC(1900, 0, 3, 11, 0, 0));
-    
-    const startOfDay = new Date(selectedYear, selectedMonth, day);
-    startOfDay.setHours(0, 0, 0, 0);
-    const startOfDayUTC = convertToUTC(startOfDay, currentTimezone);
-    
-    const hoursSinceBase = (startOfDayUTC.getTime() - baseTime.getTime()) / (1000 * 60 * 60);
-    const cycleLength = 27;
-    let cycleIndex = Math.floor(hoursSinceBase / cycleLength);
-    
-    for (let i = -2; i <= 2; i++) {
-      const currentCycle = cycleIndex + i;
-      const startTimeUTC = new Date(baseTime.getTime() + currentCycle * cycleLength * 60 * 60 * 1000);
-      const endTimeUTC = new Date(startTimeUTC.getTime() + 3 * 60 * 60 * 1000);
-      const startTimeLocal = convertFromUTC(startTimeUTC, currentTimezone);
-      
-      if (startTimeLocal.getDate() === currentDate.getDate() &&
-          startTimeLocal.getMonth() === currentDate.getMonth() &&
-          startTimeLocal.getFullYear() === currentDate.getFullYear()) {
-          
-          const timeFormat = { 
-              hour: '2-digit', 
-              minute: '2-digit',
-              hour12: false,
-              timeZone: currentTimezone
-          };
-          const startFormatted = startTimeUTC.toLocaleTimeString('en-US', timeFormat);
-          const endFormatted = endTimeUTC.toLocaleTimeString('en-US', timeFormat);
-          intervals.push(`${startFormatted} - ${endFormatted}`);
-      }
-    }
-    return intervals;
-  };
+/* --- ÚJ: Luxion Rotation Tracker Komponens (2 oszlopos) --- */
+function LuxionTracker({ luxion, serverTime, nowTick }) {
+  const isActive = luxion?.active;
+  const secondsRemaining = luxion?.seconds_remaining ?? 0;
+  const targetTime = serverTime?.now_unix ? serverTime.now_unix + secondsRemaining : null;
 
   return (
-    <section id="trials" className="td-card span-2">
-      <div className="trials-header">
-        <div className="trials-header-left">
-          <div className="td-card-title">
-            <span className="td-title-mark" style={{ background: '#b7003d', boxShadow: '0 0 12px 2px rgba(183, 0, 61, 0.4)' }}></span>
-            <span style={{ color: '#ff0077', fontWeight: 'bold', fontSize: '1.2rem', marginLeft: '4px' }}>Trials Tracker</span>
-          </div>
-          <p className="trials-credits">Original creators: <span className="trials-credit-names">Ginnne, __reisalin__, MewsCat, とても残念だ</span></p>
+    <section id="luxion-tracker" className="td-card span-2 glow-amber">
+      <div className="td-card-header">
+        <div className="td-card-title">
+          <span className="td-title-mark" style={{ background: '#f59e0b', boxShadow: '0 0 12px 2px rgba(245, 158, 11, 0.4)' }}></span>
+          <span style={{ color: '#f59e0b', fontWeight: 'bold', fontSize: '1.2rem', marginLeft: '4px', fontFamily: 'Comfortaa, sans-serif' }}>
+            Luxion the Golden Dragon
+          </span>
         </div>
-
-        <div className="trials-mini-calc">
-          <div className="mini-calc-title">Venturine Calculator</div>
-          <div className="mini-calc-body">
-            <div className="mini-calc-input">
-              <label>Cost</label>
-              <input 
-                type="number" 
-                value={startCost} 
-                min="7" 
-                onChange={(e) => setStartCost(e.target.value)} 
-              />
-            </div>
-            <div className="mini-calc-input">
-              <label>Quantity</label>
-              <input 
-                type="number" 
-                value={produceCount} 
-                min="1" 
-                onChange={(e) => setProduceCount(e.target.value)} 
-              />
-            </div>
-            <div className="mini-calc-result">
-              <span className="mini-result-label">Total</span>
-              <span className="mini-result-value">{calcTotal}</span>
-            </div>
-          </div>
-        </div>
+        <StatusBadge 
+          state={luxion ? 'ok' : 'loading'} 
+          label={isActive ? 'ACTIVE IN HUB' : 'AWAY'} 
+          customClass={isActive ? 'badge-amber' : 'muted'} 
+        />
       </div>
 
-      <div className="trials-calendar-container">
-        <div className="calendar-controls">
-          <CustomDropdown 
-            label="Year"
-            value={selectedYear} 
-            options={[2025, 2026].map(y => ({ value: y, label: y }))}
-            onChange={setSelectedYear} 
-          />
-          <CustomDropdown 
-            label="Month"
-            value={selectedMonth} 
-            options={["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"].map((m, i) => ({ value: i, label: m }))}
-            onChange={setSelectedMonth} 
-          />
-          <CustomDropdown 
-            label="Timezone"
-            value={timezone} 
-            options={[
-              { value: 'local', label: 'Local Time (Auto)' },
-              { value: 'utc', label: 'UTC / Server Time' },
-              { value: 'cet', label: 'CET (Central European)' },
-              { value: 'est', label: 'EST (Eastern / NY)' },
-              { value: 'pst', label: 'PST (Pacific / LA)' }
-            ]}
-            onChange={setTimezone} 
-          />
+      <div className="td-luxion-body">
+        <div className="td-luxion-hero-card">
+          <div className="td-luxion-icon-wrap">
+            <span style={{ fontSize: '2.5rem' }}>🐲</span>
+          </div>
+          <div className="td-luxion-status-info">
+            <div className="td-luxion-state-title">
+              {isActive ? 'Luxion is currently in the Hub!' : 'Luxion is currently away'}
+            </div>
+            <div className="td-luxion-state-sub">
+              {isActive 
+                ? 'Visit the Hub to trade Dragon Coins for rare mounts, allies, and styles.' 
+                : 'Prepare your Dragon Coins for Luxion’s next visit to the Hub.'}
+            </div>
+          </div>
         </div>
-        <div className="calendar-grid">
-          {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map(d => <div key={d} className="calendar-day-label">{d}</div>)}
-          
-          {Array.from({ length: firstDay === 0 ? 6 : firstDay - 1 }).map((_, i) => (
-            <div key={`empty-${i}`} className="calendar-day empty" />
-          ))}
-          
-          {Array.from({ length: daysInMonth }).map((_, i) => {
-            const day = i + 1;
-            const intervals = getIntervals(day);
-            const isToday = new Date().getDate() === day && new Date().getMonth() === selectedMonth && new Date().getFullYear() === selectedYear;
-            return (
-              <div key={day} className={`calendar-day ${isToday ? 'today' : ''} ${intervals.length > 0 ? 'has-event' : ''}`}>
-                <span className="day-number">{day}</span>
-                {intervals.map((int, idx) => <div key={idx} className="day-interval">{int}</div>)}
-              </div>
-            );
-          })}
+
+        <div className="td-luxion-timer-box">
+          <div className="td-luxion-timer-label">
+            {isActive ? 'Leaves the Hub in' : 'Arrives in the Hub in'}
+          </div>
+          <div className="td-luxion-timer-value">
+            {targetTime 
+              ? (formatCountdown(targetTime, nowTick) ?? formatDuration(secondsRemaining))
+              : formatDuration(secondsRemaining)}
+          </div>
         </div>
       </div>
     </section>
   );
 }
+
+            {/* --- Luxion Sidebar Card --- */}
+            <div className="td-sidebar-card glow-amber">
+              <div className="td-card-header">
+                <div className="td-card-title">
+                  <span className="td-card-icon" style={{ color: '#f59e0b' }}>🐲</span> Luxion
+                </div>
+                <StatusBadge 
+                  state={sectionState('luxion')} 
+                  label={luxion?.active ? 'Active' : 'Away'} 
+                  customClass={luxion?.active ? 'badge-amber' : 'muted'} 
+                />
+              </div>
+
+              {luxion ? (
+                <div className="td-sidebar-chaos">
+                  <div className="td-sidebar-chaos-time">
+                    <div className="td-countdown" style={{ color: '#f59e0b' }}>
+                      {formatCountdown(
+                        serverTime?.now_unix + (luxion?.seconds_remaining ?? 0),
+                        nowTick
+                      ) ?? formatDuration(luxion?.seconds_remaining)}
+                    </div>
+                    <div className="td-countdown-label">
+                      {luxion.active ? 'leaves in' : 'arrives in'}
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div className="td-empty">No Luxion data.</div>
+              )}
+            </div>
 
 /* --- Trove News Dashboard Komponens (9 hír + görgethető) --- */
 function DashboardNews() {
@@ -470,6 +383,7 @@ export default function TokenCall() {
   const corruxion = data?.corruxion;
   const fluxion = data?.fluxion;
   const playerActivity = data?.playerActivity;
+  const luxion = data?.luxion;
 
   const todayWeekday = useMemo(() => {
     if (!Number.isFinite(serverTime?.trove_day)) return null;
