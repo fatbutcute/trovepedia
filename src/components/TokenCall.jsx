@@ -457,46 +457,43 @@ async function loadData(forPlayer) {
             </div>
           </div>
 
-          {/* --- Player Activity Kártya --- */}
-          <div className="td-sidebar-card glow-green">
-            <div className="td-card-header">
-              <div className="td-card-title">
-                <span className="td-card-icon" style={{ color: '#4ade80' }}>●</span> Active Players
+            {/* --- Player Activity Kártya --- */}
+            <div className="td-sidebar-card glow-green">
+              <div className="td-card-header">
+                <div className="td-card-title">
+                  <span className="td-card-icon" style={{ color: '#4ade80' }}>●</span> Active Players
+                </div>
+                <StatusBadge state={playerActivity ? 'ok' : 'loading'} label="LIVE" customClass="badge-green" />
               </div>
-              <StatusBadge state={playerActivity ? 'ok' : 'loading'} label="LIVE" customClass="badge-green" />
-            </div>
 
-            <div className="td-activity-content">
-              <div className="td-activity-count">
-                {(() => {
-                  if (!playerActivity) return '--';
+              <div className="td-activity-content">
+                <div className="td-activity-count">
+                  {(() => {
+                    if (!playerActivity) return '--';
 
-                  // 1. Ha az adat egy tömb (idősor) -> utolsó elem active_players
-                  if (Array.isArray(playerActivity) && playerActivity.length > 0) {
-                    const last = playerActivity[playerActivity.length - 1];
-                    return last?.active_players ?? last?.count ?? last?.value ?? '--';
-                  }
+                    // 1. Ha a válaszban benne van a 'series' tömb (pl. { series: [{ active_players: 837 }, ...] })
+                    if (playerActivity.series && Array.isArray(playerActivity.series) && playerActivity.series.length > 0) {
+                      const lastPoint = playerActivity.series[playerActivity.series.length - 1];
+                      return lastPoint?.active_players ?? lastPoint?.count ?? '--';
+                    }
 
-                  // 2. Ha az objektumban jön a tömb (.series / .data)
-                  if (playerActivity.series && Array.isArray(playerActivity.series) && playerActivity.series.length > 0) {
-                    const last = playerActivity.series[playerActivity.series.length - 1];
-                    return last?.active_players ?? last?.count ?? last?.value ?? '--';
-                  }
+                    // 2. Ha közvetlenül a tömb jön vissza
+                    if (Array.isArray(playerActivity) && playerActivity.length > 0) {
+                      const lastPoint = playerActivity[playerActivity.length - 1];
+                      return lastPoint?.active_players ?? lastPoint?.count ?? '--';
+                    }
 
-                  // 3. Ha sima objektum
-                  if (typeof playerActivity === 'object') {
-                    return playerActivity.active_players ?? playerActivity.count ?? playerActivity.total ?? '--';
-                  }
+                    // 3. Ha sima objektumként érkezne
+                    if (typeof playerActivity === 'object') {
+                      return playerActivity.active_players ?? playerActivity.count ?? '--';
+                    }
 
-                  // 4. Ha sima szám
-                  if (typeof playerActivity === 'number') return playerActivity;
-
-                  return '--';
-                })()}
+                    return '--';
+                  })()}
+                </div>
+                <div className="td-activity-sub">players online right now</div>
               </div>
-              <div className="td-activity-sub">players online right now</div>
             </div>
-          </div>
 
           {/* 1. Chaos Chest */}
           <div className="td-sidebar-card glow-blue">
