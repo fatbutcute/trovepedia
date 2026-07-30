@@ -1447,7 +1447,7 @@
   grid-column: 1 / span 2 !important;
   grid-row: 2 !important;
   width: 100%;
-  min-height: 520px; 
+  min-height: 830px; 
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
