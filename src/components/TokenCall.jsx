@@ -41,6 +41,47 @@ function StatusBadge({ state, okLabel = 'Live', errorLabel = 'Unavailable' }) {
   return <span className="td-badge muted">Loading</span>;
 }
 
+// Aallyn hivatalos bióma kép útvonalépítője
+function getBiomeImageUrl(biome) {
+  if (!biome) return null;
+
+  // 1. Ha az API-ból közvetlen teljes URL jönne:
+  const rawUrl = biome.icon || biome.image_url || biome.banner;
+  if (rawUrl && typeof rawUrl === 'string' && rawUrl.startsWith('http')) {
+    return rawUrl;
+  }
+
+  // 2. Ha van explicit id vagy filename az API válaszban (pl. "dinosaur"):
+  const biomeId = biome.id || biome.code || biome.biome_id;
+  if (biomeId && typeof biomeId === 'string') {
+    const cleanId = biomeId.toLowerCase().trim().replace(/\s+/g, '_');
+    return `https://trove.aallyn.net/static/assets/biomes/${cleanId}.png`;
+  }
+
+  // 3. Ha csak a bióma neve van meg (pl. "Dinosaur Jungle" -> "dinosaur"):
+  const rawName = biome.final_name || biome.name || '';
+  if (rawName) {
+    const nameLower = rawName.toLowerCase();
+    
+    // Gyakoribb bióma nevek megfeleltetése az Aallyn statikus fájlneveihez
+    if (nameLower.includes('dinosaur')) return 'https://trove.aallyn.net/static/assets/biomes/dinosaur.png';
+    if (nameLower.includes('desert') || nameLower.includes('frontier')) return 'https://trove.aallyn.net/static/assets/biomes/desert.png';
+    if (nameLower.includes('spire') || nameLower.includes('forbidden')) return 'https://trove.aallyn.net/static/assets/biomes/spires.png';
+    if (nameLower.includes('lost') || nameLower.includes('isles') || nameLower.includes('treasure')) return 'https://trove.aallyn.net/static/assets/biomes/isles.png';
+    if (nameLower.includes('permafrost') || nameLower.includes('tundra')) return 'https://trove.aallyn.net/static/assets/biomes/permafrost.png';
+    if (nameLower.includes('neon') || nameLower.includes('city')) return 'https://trove.aallyn.net/static/assets/biomes/neon.png';
+    if (nameLower.includes('geode') || nameLower.includes('cave')) return 'https://trove.aallyn.net/static/assets/biomes/geode.png';
+    if (nameLower.includes('shade') || nameLower.includes('long')) return 'https://trove.aallyn.net/static/assets/biomes/long_shade.png';
+    if (nameLower.includes('sundured') || nameLower.includes('sundervale')) return 'https://trove.aallyn.net/static/assets/biomes/sundervale.png';
+
+    // Alapértelmezett név-tisztítás (pl. "Weathered Wastelands" -> "weathered_wastelands")
+    const formattedName = nameLower.replace(/[^a-z0-9]/g, '_').replace(/_+/g, '_').replace(/^|_$/g, '');
+    return `https://trove.aallyn.net/static/assets/biomes/${formattedName}.png`;
+  }
+
+  return null;
+}
+
 export default function TokenCall() {
   const [payload, setPayload] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -350,37 +391,75 @@ export default function TokenCall() {
             </section>
 
               {/* Biomes */}
-              <section
-                id="biomes"
-                className="td-card"
-                ref={(el) => (sectionRefs.current.biomes = el)}
-              >
-                <div className="td-card-header">
-                  <div className="td-card-title">
-                    <span className="td-card-icon">❖</span> Biome Rotation
-                  </div>
-                  <StatusBadge state={sectionState('biomes')} />
+            <section
+              id="biomes"
+              className="td-card"
+              ref={(el) => (sectionRefs.current.biomes = el)}
+            >
+              <div className="td-card-header">
+                <div className="td-card-title">
+                  <span className="td-card-icon">❖</span> Biome Rotation
                 </div>
+                <StatusBadge state={sectionState('biomes')} />
+              </div>
 
-                {biomes?.current ? (
-                  <>
-                    <div className="td-biome-block">
-                      <div className="td-biome-block-label">Current Biomes</div>
+              {biomes?.current ? (
+                <>
+                  <div className="td-biome-block">
+                    <div className="td-biome-block-label">Current Biomes</div>
+                    <div className="td-biome-list">
+                      {Array.isArray(biomes.current?.biomes) && biomes.current.biomes.length > 0 ? (
+                        biomes.current.biomes.map((biome, i) => {
+                          const imgUrl = getBiomeImageUrl(biome);
+                          return (
+                            <div className="td-biome-chip" key={i}>
+                              {imgUrl ? (
+                                <img 
+                                  src={imgUrl} 
+                                  alt={biome?.name || 'Biome'} 
+                                  className="td-biome-chip-img"
+                                  onError={(e) => {
+                                    // Ha a generált fájlnév mégsem létezne az Aallyn szerverén
+                                    e.target.style.display = 'none';
+                                    if (e.target.parentNode && !e.target.parentNode.querySelector('.td-biome-fallback-icon')) {
+                                      const badge = document.createElement('span');
+                                      badge.className = 'td-biome-fallback-icon';
+                                      e.target.parentNode.insertBefore(badge, e.target);
+                                    }
+                                  }}
+                                />
+                              ) : (
+                                <span className="td-biome-fallback-icon" />
+                              )}
+                              <span>{biome?.final_name ?? biome?.name ?? 'Unknown biome'}</span>
+                            </div>
+                          );
+                        })
+                      ) : (
+                        <span className="td-empty">No biome data.</span>
+                      )}
+                    </div>
+                  </div>
+
+                  {Array.isArray(biomes?.upcoming) && biomes.upcoming.length > 0 && (
+                    <div className="td-biome-block" style={{ marginTop: '16px' }}>
+                      <div className="td-biome-block-label">
+                        Next ({formatCountdown(biomes.upcoming[0]?.starts_at, nowTick) ?? '--'})
+                      </div>
                       <div className="td-biome-list">
-                        {Array.isArray(biomes.current?.biomes) && biomes.current.biomes.length > 0 ? (
-                          biomes.current.biomes.map((biome, i) => {
-                            const imgUrl = biome?.icon || biome?.image_url || biome?.banner;
+                        {Array.isArray(biomes.upcoming[0]?.biomes) &&
+                          biomes.upcoming[0].biomes.map((biome, i) => {
+                            const imgUrl = getBiomeImageUrl(biome);
                             return (
                               <div className="td-biome-chip" key={i}>
-                                {imgUrl && typeof imgUrl === 'string' && imgUrl.trim() !== '' ? (
+                                {imgUrl ? (
                                   <img 
                                     src={imgUrl} 
                                     alt={biome?.name || 'Biome'} 
                                     className="td-biome-chip-img"
                                     onError={(e) => {
-                                      // Ha nem tudja letölteni a képet, kicseréljük egy kis jelvényre
                                       e.target.style.display = 'none';
-                                      if (e.target.parentNode) {
+                                      if (e.target.parentNode && !e.target.parentNode.querySelector('.td-biome-fallback-icon')) {
                                         const badge = document.createElement('span');
                                         badge.className = 'td-biome-fallback-icon';
                                         e.target.parentNode.insertBefore(badge, e.target);
@@ -393,104 +472,13 @@ export default function TokenCall() {
                                 <span>{biome?.final_name ?? biome?.name ?? 'Unknown biome'}</span>
                               </div>
                             );
-                          })
-                        ) : (
-                          <span className="td-empty">No biome data.</span>
-                        )}
-                      </div>
-                    </div>
-
-                    {Array.isArray(biomes?.upcoming) && biomes.upcoming.length > 0 && (
-                      <div className="td-biome-block" style={{ marginTop: '16px' }}>
-                        <div className="td-biome-block-label">
-                          Next ({formatCountdown(biomes.upcoming[0]?.starts_at, nowTick) ?? '--'})
-                        </div>
-                        <div className="td-biome-list">
-                          {Array.isArray(biomes.upcoming[0]?.biomes) &&
-                            biomes.upcoming[0].biomes.map((biome, i) => {
-                              const imgUrl = biome?.icon || biome?.image_url || biome?.banner;
-                              return (
-                                <div className="td-biome-chip" key={i}>
-                                  {imgUrl && typeof imgUrl === 'string' && imgUrl.trim() !== '' ? (
-                                    <img 
-                                      src={imgUrl} 
-                                      alt={biome?.name || 'Biome'} 
-                                      className="td-biome-chip-img"
-                                      onError={(e) => {
-                                        e.target.style.display = 'none';
-                                        if (e.target.parentNode) {
-                                          const badge = document.createElement('span');
-                                          badge.className = 'td-biome-fallback-icon';
-                                          e.target.parentNode.insertBefore(badge, e.target);
-                                        }
-                                      }}
-                                    />
-                                  ) : (
-                                    <span className="td-biome-fallback-icon" />
-                                  )}
-                                  <span>{biome?.final_name ?? biome?.name ?? 'Unknown biome'}</span>
-                                </div>
-                              );
-                            })}
-                        </div>
-                      </div>
-                    )}
-                  </>
-                ) : (
-                  <div className="td-empty">Biome rotation is unavailable right now.</div>
-                )}
-              </section>
-
-            {/* Leaderboard Records */}
-            <section
-              id="records"
-              className="td-card"
-              ref={(el) => (sectionRefs.current.records = el)}
-            >
-              <div className="td-card-header">
-                <div className="td-card-title">
-                  <span className="td-card-icon">☰</span> Leaderboard Records
-                </div>
-                <StatusBadge state={sectionState('leaderboardRecords')} />
-              </div>
-
-              {records ? (
-                <div className="td-record-list">
-                  {records?.trove_mastery && (
-                    <div className="td-record-row">
-                      <div>
-                        <div className="td-record-name">Trove Mastery</div>
-                        <div className="td-record-holder">{records.trove_mastery?.player_name ?? 'Unknown'}</div>
-                      </div>
-                      <div className="td-record-value">
-                        Lv {records.trove_mastery?.level ?? '—'}
+                          })}
                       </div>
                     </div>
                   )}
-                  {records?.geode_mastery && (
-                    <div className="td-record-row">
-                      <div>
-                        <div className="td-record-name">Geode Mastery</div>
-                        <div className="td-record-holder">{records.geode_mastery?.player_name ?? 'Unknown'}</div>
-                      </div>
-                      <div className="td-record-value">
-                        Lv {records.geode_mastery?.level ?? '—'}
-                        {records.geode_mastery?.capped ? ' (capped)' : ''}
-                      </div>
-                    </div>
-                  )}
-                  {records?.power_rank && (
-                    <div className="td-record-row">
-                      <div>
-                        <div className="td-record-name">Power Rank</div>
-                        <div className="td-record-holder">{records.power_rank?.player_name ?? 'Unknown'}</div>
-                      </div>
-                      <div className="td-record-value">{records.power_rank?.value ?? '—'}</div>
-                    </div>
-                  )}
-                </div>
+                </>
               ) : (
-                <div className="td-empty">Leaderboard records are unavailable right now.</div>
+                <div className="td-empty">Biome rotation is unavailable right now.</div>
               )}
             </section>
 
