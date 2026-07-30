@@ -162,6 +162,9 @@ async function loadData(forPlayer) {
   const records = data?.leaderboardRecords;
   const playerProfile = data?.playerProfile;
   const weeklyBuffs = data?.weeklyBuffsStatic || data?.weeklyBuffs;
+  const corruxion = data?.corruxion;
+  const fluxion = data?.fluxion;
+
   const WEEKLY_ICONS = [
   '/icons/pickaxe.png',
   '/icons/fish.png',
@@ -234,80 +237,147 @@ async function loadData(forPlayer) {
 
       <div className="td-body">
         <aside className="td-sidebar">
-          <div className="td-clock-card">
-            <div className="td-clock-label">Server Time (UTC)</div>
-            <div className="td-clock-time">{formatClock(nowTick)}</div>
-            {todayWeekday !== null && (
-              <div className="td-clock-day">
-                {WEEKDAY_LABELS[todayWeekday] ?? '—'} · Trove Day {serverTime?.trove_day}
-              </div>
-            )}
-            <div className="td-clock-resets">
-              <div className="td-reset-row">
-                <span>Daily reset in</span>
-                <span>{formatCountdown(serverTime?.daily_reset_at, nowTick) ?? '--'}</span>
-              </div>
-              <div className="td-reset-row">
-                <span>Weekly reset in</span>
-                <span>{formatCountdown(serverTime?.weekly_reset_at, nowTick) ?? '--'}</span>
-              </div>
+        <div className="td-clock-card">
+          <div className="td-clock-label">Server Time (UTC)</div>
+          <div className="td-clock-time">{formatClock(nowTick)}</div>
+          {todayWeekday !== null && (
+            <div className="td-clock-day">
+              {WEEKDAY_LABELS[todayWeekday] ?? '—'} · Trove Day {serverTime?.trove_day}
+            </div>
+          )}
+          <div className="td-clock-resets">
+            <div className="td-reset-row">
+              <span>Daily reset in</span>
+              <span>{formatCountdown(serverTime?.daily_reset_at, nowTick) ?? '--'}</span>
+            </div>
+            <div className="td-reset-row">
+              <span>Weekly reset in</span>
+              <span>{formatCountdown(serverTime?.weekly_reset_at, nowTick) ?? '--'}</span>
             </div>
           </div>
+        </div>
 
-          <div className="td-sidebar-card">
-            <div className="td-card-header">
-              <div className="td-card-title">
-                <span className="td-card-icon">◆</span> Chaos Chest
-              </div>
-              <StatusBadge state={sectionState('chaosChest')} />
+        {/* 1. Chaos Chest Kártya (KÉK GLOW) */}
+        <div className="td-sidebar-card glow-blue">
+          <div className="td-card-header">
+            <div className="td-card-title">
+              <span className="td-card-icon">◆</span> Chaos Chest
             </div>
+            <StatusBadge state={sectionState('chaosChest')} />
+          </div>
 
-            {chaosChest?.item ? (
-              <div className="td-sidebar-chaos">
-                <div className="td-chaos-hero">
-                  <div className="td-chaos-icon">
-                    {chaosChest.item?.image_url && chaosChest.item.image_url.trim() !== '' ? (
-                      <img 
-                        src={chaosChest.item.image_url} 
-                        alt={chaosChest.item?.name || 'Chaos Item'} 
-                        style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-                        onError={(e) => {
-                          e.target.style.display = 'none';
-                          if (e.target.parentNode) e.target.parentNode.innerText = '◆';
-                        }}
-                      />
-                    ) : (
-                      '◆'
-                    )}
-                  </div>
-                  <div>
-                    <div className="td-chaos-name">{chaosChest.item?.name ?? 'Mystery item'}</div>
-                    {chaosChest.item?.blueprint && (
-                      <div className="td-chaos-blueprint">{chaosChest.item.blueprint}</div>
-                    )}
-                  </div>
+          {chaosChest?.item ? (
+            <div className="td-sidebar-chaos">
+              <div className="td-chaos-hero">
+                <div className="td-chaos-icon">
+                  {chaosChest.item?.image_url && chaosChest.item.image_url.trim() !== '' ? (
+                    <img 
+                      src={chaosChest.item.image_url} 
+                      alt={chaosChest.item?.name || 'Chaos Item'} 
+                      style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                      onError={(e) => {
+                        e.target.style.display = 'none';
+                        if (e.target.parentNode) e.target.parentNode.innerText = '◆';
+                      }}
+                    />
+                  ) : (
+                    '◆'
+                  )}
                 </div>
-
-                <div className="td-sidebar-chaos-time">
-                  <div className="td-countdown">
-                    {formatCountdown(
-                      serverTime?.now_unix + (chaosChest?.seconds_remaining ?? 0),
-                      nowTick
-                    ) ?? formatDuration(chaosChest?.seconds_remaining)}
-                  </div>
-                  <div className="td-countdown-label">until reset</div>
+                <div>
+                  <div className="td-chaos-name">{chaosChest.item?.name ?? 'Mystery item'}</div>
+                  {chaosChest.item?.blueprint && (
+                    <div className="td-chaos-blueprint">{chaosChest.item.blueprint}</div>
+                  )}
                 </div>
               </div>
-            ) : (
-              <div className="td-empty">No Chaos Chest data.</div>
-            )}
+
+              <div className="td-sidebar-chaos-time">
+                <div className="td-countdown">
+                  {formatCountdown(
+                    serverTime?.now_unix + (chaosChest?.seconds_remaining ?? 0),
+                    nowTick
+                  ) ?? formatDuration(chaosChest?.seconds_remaining)}
+                </div>
+                <div className="td-countdown-label">until reset</div>
+              </div>
+            </div>
+          ) : (
+            <div className="td-empty">No Chaos Chest data.</div>
+          )}
+        </div>
+
+        {/* 2. Corruxion Kártya (LILA GLOW) */}
+        <div className="td-sidebar-card glow-purple">
+          <div className="td-card-header">
+            <div className="td-card-title">
+              <span className="td-card-icon" style={{ color: '#c084fc' }}>✦</span> Corruxion
+            </div>
+            <StatusBadge state={sectionState('corruxion')} />
           </div>
 
-          {/* Sidebar Footer */}
-          <div className="td-sidebar-footer">
-            Data via the Kiwi API (aallyn.net). Auto-refreshes every 30s.
+          {corruxion ? (
+            <div className="td-sidebar-chaos">
+              <div className="td-chaos-hero">
+                <div className="td-chaos-name">
+                  {corruxion.active ? 'Corruxion is HERE!' : 'Corruxion Away'}
+                </div>
+              </div>
+              <div className="td-sidebar-chaos-time">
+                <div className="td-countdown" style={{ color: '#c084fc' }}>
+                  {formatCountdown(
+                    serverTime?.now_unix + (corruxion?.seconds_remaining ?? 0),
+                    nowTick
+                  ) ?? formatDuration(corruxion?.seconds_remaining)}
+                </div>
+                <div className="td-countdown-label">
+                  {corruxion.active ? 'leaves in' : 'arrives in'}
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="td-empty">No Corruxion data.</div>
+          )}
+        </div>
+
+        {/* 3. Fluxion Kártya (SÁRGA/NARANCS GLOW) */}
+        <div className="td-sidebar-card glow-amber">
+          <div className="td-card-header">
+            <div className="td-card-title">
+              <span className="td-card-icon" style={{ color: '#f59e0b' }}>◈</span> Fluxion
+            </div>
+            <StatusBadge state={sectionState('fluxion')} />
           </div>
-        </aside>
+
+          {fluxion ? (
+            <div className="td-sidebar-chaos">
+              <div className="td-chaos-hero">
+                <div className="td-chaos-name">
+                  {fluxion.state || (fluxion.active ? 'Voting Active' : 'Voting Closed')}
+                </div>
+              </div>
+              <div className="td-sidebar-chaos-time">
+                <div className="td-countdown" style={{ color: '#f59e0b' }}>
+                  {formatCountdown(
+                    serverTime?.now_unix + (fluxion?.seconds_remaining ?? 0),
+                    nowTick
+                  ) ?? formatDuration(fluxion?.seconds_remaining)}
+                </div>
+                <div className="td-countdown-label">
+                  {fluxion.active ? 'window closes in' : 'next window in'}
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="td-empty">No Fluxion data.</div>
+          )}
+        </div>
+
+        {/* Sidebar Footer */}
+        <div className="td-sidebar-footer">
+          Data via the Kiwi API (aallyn.net). Auto-refreshes every 30s.
+        </div>
+      </aside>
 
         <main className="td-main">
           {fetchError && (

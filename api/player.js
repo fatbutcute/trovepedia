@@ -40,6 +40,8 @@ const ENDPOINTS = {
   chaosChest: '/v1/rotations/chaos-chest',
   biomes: '/v1/rotations/biomes',
   leaderboardRecords: '/v1/leaderboards/records',
+  corruxion: '/v1/rotations/corruxion',
+  fluxion: '/v1/rotations/fluxion',
 };
 
 const REQUEST_TIMEOUT_MS = 8000;

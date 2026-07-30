@@ -943,6 +943,56 @@
   font-weight: 700;
 }
 
+/* Sidebar Kártyák alapbeállítása és Smooth Transition */
+.td-sidebar-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
+              box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
+              border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, box-shadow;
+}
+
+/* Hover-re finom "smooth scale" és kiemelés */
+.td-sidebar-card:hover {
+  transform: scale(1.02);
+}
+
+/* 1. Chaos Chest - Kék Glow */
+.td-sidebar-card.glow-blue {
+  border-color: rgba(56, 189, 248, 0.25);
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.08);
+}
+.td-sidebar-card.glow-blue:hover {
+  border-color: rgba(56, 189, 248, 0.6);
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.25);
+}
+
+/* 2. Corruxion - Lila Glow */
+.td-sidebar-card.glow-purple {
+  border-color: rgba(192, 132, 252, 0.25);
+  box-shadow: 0 0 12px rgba(192, 132, 252, 0.08);
+}
+.td-sidebar-card.glow-purple:hover {
+  border-color: rgba(192, 132, 252, 0.6);
+  box-shadow: 0 0 20px rgba(192, 132, 252, 0.25);
+}
+
+/* 3. Fluxion - Sárga/Narancs Glow */
+.td-sidebar-card.glow-amber {
+  border-color: rgba(245, 158, 11, 0.25);
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.08);
+}
+.td-sidebar-card.glow-amber:hover {
+  border-color: rgba(245, 158, 11, 0.6);
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.25);
+}
+
 /* ---------- Responsive ---------- */
 
 @media (max-width: 860px) {
