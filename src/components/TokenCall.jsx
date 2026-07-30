@@ -386,6 +386,7 @@ export default function TokenCall() {
   const [activeSection, setActiveSection] = useState(NAV_SECTIONS[0].id);
   const [searchValue, setSearchValue] = useState('');
   const [playerQuery, setPlayerQuery] = useState('');
+  const [initialOverlay, setInitialOverlay] = useState(true);
 
   const sectionRefs = useRef({});
 
@@ -424,6 +425,8 @@ export default function TokenCall() {
       setFetchError(err?.message || 'Could not reach the dashboard API.');
     } finally {
       setLoading(false);
+      // Elrejtjük a loader réteget egy pici átmenettel, miután megérkeztek az adatok
+      setTimeout(() => setInitialOverlay(false), 300);
     }
   }
 
