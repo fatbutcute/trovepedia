@@ -82,7 +82,6 @@ function getBiomeImageUrl(biome) {
   return null;
 }
 
-/* --- ÚJ: CustomDropdown Komponens a Trials-hoz --- */
 function CustomDropdown({ value, options, onChange, label }) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -210,7 +209,6 @@ function TrialsTracker() {
           <p className="trials-credits">Original creators: <span className="trials-credit-names">Ginnne, __reisalin__, MewsCat, とても残念だ</span></p>
         </div>
 
-        {/* ÚJ: Kompakt Vízszintes Kalkulátor jobb felül */}
         <div className="trials-mini-calc">
           <div className="mini-calc-title">Venturine Calculator</div>
           <div className="mini-calc-body">
@@ -240,7 +238,6 @@ function TrialsTracker() {
         </div>
       </div>
 
-      {/* Mindig látható Event Calendar */}
       <div className="trials-calendar-container">
         <div className="calendar-controls">
           <CustomDropdown 
@@ -292,6 +289,92 @@ function TrialsTracker() {
   );
 }
 
+/* --- ÚJ: Trove News Dashboard Komponens (2 oszlopos) --- */
+function DashboardNews() {
+  const [news, setNews] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch('https://mystic-cave.com/api/v1/news')
+      .then((res) => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json();
+      })
+      .then((json) => {
+        if (!cancelled && json && json.data) {
+          setNews(json.data);
+        }
+      })
+      .catch((err) => {
+        if (!cancelled) setError(err.message);
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+    return () => { cancelled = true; };
+  }, []);
+
+  return (
+    <section id="td-news" className="td-card span-2">
+      <div className="td-card-header">
+        <div className="td-card-title">
+          <span className="td-title-mark" style={{ background: '#e8b84b', boxShadow: '0 0 12px 2px rgba(232, 184, 75, 0.4)' }}></span>
+          <span style={{ color: '#e8b84b', fontWeight: 'bold', fontSize: '1.2rem', marginLeft: '4px', fontFamily: 'Comfortaa, sans-serif' }}>Trove News</span>
+        </div>
+        <StatusBadge state={loading ? 'loading' : error ? 'error' : 'ok'} label="Updates" customClass="badge-amber" />
+      </div>
+
+      {loading ? (
+        <div className="td-news-loader">
+          <div className="spin">⟳</div> Loading latest news...
+        </div>
+      ) : error ? (
+        <div className="td-empty" style={{ color: '#f87171' }}>Could not load news articles.</div>
+      ) : (
+        <div className="td-news-grid">
+          {news.slice(0, 3).map((item, index) => {
+            const title = item.title || "Trove Update";
+            const excerpt = item.excerpt || "";
+            const link = item.url || "https://mystic-cave.com/";
+            const imageUrl = item.image || '/guideimages/default-news.webp';
+            
+            const pubDate = item.date ? new Date(item.date).toLocaleDateString('en-US', {
+              month: 'short', day: 'numeric', year: 'numeric'
+            }) : 'Recent';
+
+            return (
+              <a 
+                href={link} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="td-news-card" 
+                key={item.id || index}
+              >
+                <div className="td-news-card-image">
+                  <img 
+                    src={imageUrl} 
+                    alt={title} 
+                    loading="lazy" 
+                    onError={(e) => { e.target.src = '/guideimages/default-news.webp'; }} 
+                  />
+                  <div className="td-news-card-overlay"><span>Read ↗</span></div>
+                </div>
+                <div className="td-news-card-content">
+                  <span className="td-news-date">{pubDate}</span>
+                  <h4 className="td-news-title">{title}</h4>
+                  <p className="td-news-excerpt">{excerpt}</p>
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      )}
+    </section>
+  );
+}
+
 export default function TokenCall() {
   const [payload, setPayload] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -304,7 +387,7 @@ export default function TokenCall() {
 
   const sectionRefs = useRef({});
 
-async function loadData(forPlayer) {
+  async function loadData(forPlayer) {
     try {
       const url = forPlayer
         ? `/api/player?player=${encodeURIComponent(forPlayer)}`
@@ -457,61 +540,48 @@ async function loadData(forPlayer) {
             </div>
           </div>
 
-            {/* --- Player Activity Kártya --- */}
-            <div className="td-sidebar-card glow-green">
-              <div className="td-card-header">
-                <div className="td-card-title">
-                  <span className="td-card-icon" style={{ color: '#4ade80' }}>●</span> Active Players
-                </div>
-                <StatusBadge state={playerActivity ? 'ok' : 'loading'} label="LIVE" customClass="badge-green" />
+          <div className="td-sidebar-card glow-green">
+            <div className="td-card-header">
+              <div className="td-card-title">
+                <span className="td-card-icon" style={{ color: '#4ade80' }}>●</span> Active Players
               </div>
-
-              <div className="td-activity-content">
-                <div className="td-activity-count">
-                  {(() => {
-                    const J = playerActivity;
-                    if (!J) return "--";
-
-                    // 1. Üzemeltető hivatalos logikája: J.series tömb utolsó eleme
-                    if (J.series && Array.isArray(J.series) && J.series.length > 0) {
-                      const G = J.series[J.series.length - 1];
-                      const val = G?.active_players ?? G?.count;
-                      return Number.isFinite(val) ? Math.round(val).toLocaleString() : "--";
-                    }
-
-                    // 2. Ha sima tömbként érkezne: J utolsó eleme
-                    if (Array.isArray(J) && J.length > 0) {
-                      const G = J[J.length - 1];
-                      const val = G?.active_players ?? G?.count;
-                      return Number.isFinite(val) ? Math.round(val).toLocaleString() : "--";
-                    }
-
-                    // 3. Ha közvetlen .latest szám van benne
-                    if (Number.isFinite(J.latest)) {
-                      return Math.round(J.latest).toLocaleString();
-                    }
-
-                    // 4. Ha .points tömbként jönne
-                    if (Array.isArray(J.points) && J.points.length > 0) {
-                      const last = J.points[J.points.length - 1];
-                      const val = last?.active ?? last?.active_players;
-                      return Number.isFinite(val) ? Math.round(val).toLocaleString() : "--";
-                    }
-
-                    // 5. Ha sima objektum (J.active_players vagy J.count)
-                    if (typeof J === "object") {
-                      const val = J.active_players ?? J.count;
-                      return Number.isFinite(val) ? Math.round(val).toLocaleString() : (val ?? "--");
-                    }
-
-                    return "--";
-                  })()}
-                </div>
-                <div className="td-activity-sub">players online right now</div>
-              </div>
+              <StatusBadge state={playerActivity ? 'ok' : 'loading'} label="LIVE" customClass="badge-green" />
             </div>
 
-          {/* 1. Chaos Chest */}
+            <div className="td-activity-content">
+              <div className="td-activity-count">
+                {(() => {
+                  const J = playerActivity;
+                  if (!J) return "--";
+                  if (J.series && Array.isArray(J.series) && J.series.length > 0) {   
+                    const G = J.series[J.series.length - 1];
+                    const val = G?.active_players ?? G?.count;
+                    return Number.isFinite(val) ? Math.round(val).toLocaleString() : "--";
+                  }
+                  if (Array.isArray(J) && J.length > 0) {                             
+                    const G = J[J.length - 1];
+                    const val = G?.active_players ?? G?.count;
+                    return Number.isFinite(val) ? Math.round(val).toLocaleString() : "--";
+                  }
+                  if (Number.isFinite(J.latest)) {
+                    return Math.round(J.latest).toLocaleString();
+                  }
+                  if (Array.isArray(J.points) && J.points.length > 0) {
+                    const last = J.points[J.points.length - 1];
+                    const val = last?.active ?? last?.active_players;
+                    return Number.isFinite(val) ? Math.round(val).toLocaleString() : "--";
+                  }
+                  if (typeof J === "object") {
+                    const val = J.active_players ?? J.count;
+                    return Number.isFinite(val) ? Math.round(val).toLocaleString() : (val ?? "--");
+                  }
+                  return "--";
+                })()}
+              </div>
+              <div className="td-activity-sub">players online right now</div>
+            </div>
+          </div>
+
           <div className="td-sidebar-card glow-blue">
             <div className="td-card-header">
               <div className="td-card-title">
@@ -565,7 +635,6 @@ async function loadData(forPlayer) {
             )}
           </div>
 
-          {/* 2. Corruxion */}
           <div className="td-sidebar-card glow-purple">
             <div className="td-card-header">
               <div className="td-card-title">
@@ -597,7 +666,6 @@ async function loadData(forPlayer) {
             )}
           </div>
 
-          {/* 3. Fluxion */}
           <div className="td-sidebar-card glow-amber">
             <div className="td-card-header">
               <div className="td-card-title">
@@ -648,7 +716,6 @@ async function loadData(forPlayer) {
           )}
 
           <div className="td-grid">
-            {/* Today's Buffs (Egyszerű, Letisztult) */}
             <section
               id="buffs"
               className="td-card"
@@ -663,6 +730,7 @@ async function loadData(forPlayer) {
                   />
                   Today's Buffs
                 </div>
+                <StatusBadge state={sectionState('dailyBuffs')} label="Live" />
               </div>
 
               {dailyBuffs?.current ? (
@@ -681,7 +749,6 @@ async function loadData(forPlayer) {
                     </div>
                   </div>
 
-                  {/* Napi Aktív Buff tagek */}
                   <div className="td-tag-row">
                     {Array.isArray(dailyBuffs.current?.normal_buffs) &&
                       dailyBuffs.current.normal_buffs.map((buff, i) => (
@@ -702,7 +769,6 @@ async function loadData(forPlayer) {
               )}
             </section>
 
-            {/* Weekly Buffs */}
             <section
               id="weekly-buffs"
               className="td-card"
@@ -807,7 +873,6 @@ async function loadData(forPlayer) {
               )}
             </section>
 
-            {/* Biomes */}
             <section
               id="biomes"
               className="td-card"
@@ -912,7 +977,6 @@ async function loadData(forPlayer) {
               )}
             </section>
 
-            {/* Leaderboard Records */}
             <section
               id="records"
               className="td-card"
@@ -1014,8 +1078,11 @@ async function loadData(forPlayer) {
               )}
             </section>
             
-            {/* ÚJ: Trials Tracker 2 Oszlopon */}
+            {/* 2. Sor 1-2. oszlop: Trials Tracker */}
             <TrialsTracker />
+
+            {/* 2. Sor 3-4. oszlop: Trove News */}
+            <DashboardNews />
             
           </div>
         </main>
