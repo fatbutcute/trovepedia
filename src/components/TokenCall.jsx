@@ -518,7 +518,7 @@ async function loadData(forPlayer) {
                     const getBonusIcon = (name) => {
                       const lower = (name || '').toLowerCase();
                       if (lower.includes('star')) return '/icons/star.png';
-                      if (lower.includes('xp') || lower.includes('experience')) return '/icons/xpweek.png';
+                      if (lower.includes('xp') || lower.includes('experience')) return '/icons/xpweekly.png';
                       if (lower.includes('stat') || lower.includes('reroll')) return '/icons/stat.png';
                       if (lower.includes('invasion') || lower.includes('fast')) return '/icons/fastinv.png';
                       return '/icons/quest.png'; // Alapértelmezett tartalék ikon
