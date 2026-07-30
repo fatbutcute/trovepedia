@@ -219,7 +219,13 @@ async function loadData(forPlayer) {
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
           />
-
+          <button 
+            type="submit" 
+            className="td-search-submit-btn" 
+            disabled={!searchValue.trim()}
+          >
+            Search
+          </button>
         </form>
           <button 
             type="submit" 
