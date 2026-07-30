@@ -360,12 +360,20 @@ export default function TokenCall() {
               {biomes?.current ? (
                 <>
                   <div className="td-biome-block">
-                    <div className="td-biome-block-label">Current</div>
+                    <div className="td-biome-block-label">Current Biomes</div>
                     <div className="td-biome-list">
                       {Array.isArray(biomes.current?.biomes) && biomes.current.biomes.length > 0 ? (
                         biomes.current.biomes.map((biome, i) => (
                           <span className="td-biome-chip" key={i}>
-                            <span className="td-biome-chip-icon" />
+                            {biome?.icon || biome?.image_url ? (
+                              <img 
+                                src={biome.icon || biome.image_url} 
+                                alt={biome?.name || 'Biome'} 
+                                className="td-biome-chip-img"
+                              />
+                            ) : (
+                              <span className="td-biome-chip-icon" />
+                            )}
                             {biome?.final_name ?? biome?.name ?? 'Unknown biome'}
                           </span>
                         ))

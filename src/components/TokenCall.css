@@ -382,6 +382,7 @@
 
 .td-card.span-2 {
   grid-column: span 2;
+  font-family: Quicksand;
 }
 
 @media (max-width: 900px) {
@@ -442,6 +443,7 @@
 .td-badge.live {
   background: rgba(74, 222, 128, 0.12);
   color: var(--good);
+  font-family: Quicksand;
 }
 
 .td-badge.error {
@@ -487,6 +489,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
+  font-family: Quicksand;
 }
 
 .td-tag {
@@ -508,6 +511,7 @@
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 6px;
+
 }
 
 .td-week-day {
@@ -549,19 +553,22 @@
 .td-chaos-name {
   font-weight: 700;
   font-size: 1rem;
+  font-family: Quicksand;
 }
 
 .td-chaos-blueprint {
   font-size: 0.72rem;
   color: var(--text-faint);
   font-family: 'SFMono-Regular', Consolas, monospace;
+  display: none;
 }
 
 .td-countdown {
   font-variant-numeric: tabular-nums;
   font-size: 1.4rem;
   font-weight: 700;
-  color: var(--accent);
+  color: #3fecff;
+  font-family: Blinker;
 }
 
 .td-countdown-label {
@@ -569,6 +576,7 @@
   color: var(--text-faint);
   text-transform: uppercase;
   letter-spacing: 0.06em;
+  display: none;
 }
 
 /* Biomes card */
@@ -585,11 +593,12 @@
 }
 
 .td-biome-block-label {
-  font-size: 0.7rem;
+  font-size: 0.85rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--text-faint);
   margin-bottom: 8px;
+  font-family: Quicksand;
 }
 
 .td-biome-list {
@@ -607,6 +616,7 @@
   border-radius: 999px;
   padding: 5px 11px;
   font-size: 0.75rem;
+  font-family: Quicksand;
 }
 
 .td-biome-chip-icon {
@@ -615,6 +625,14 @@
   border-radius: 4px;
   background: var(--accent-strong);
   opacity: 0.6;
+  flex-shrink: 0;
+}
+
+.td-biome-chip-img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  border-radius: 4px;
   flex-shrink: 0;
 }
 
@@ -634,6 +652,7 @@
   border-radius: var(--radius-sm);
   background: var(--card-alt);
   border: 1px solid var(--border);
+  font-family: Quicksand;
 }
 
 .td-record-name {
