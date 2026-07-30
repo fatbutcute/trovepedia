@@ -471,22 +471,25 @@ async function loadData(forPlayer) {
                 {(() => {
                   if (!playerActivity) return '--';
 
-                  // 1. Ha az adat egy tömbként jön vissza (Idősor) -> Kivesszük az utolsó, legfrissebb pontot!
+                  // 1. Ha az adat egy tömb (idősor) -> utolsó elem active_players
                   if (Array.isArray(playerActivity) && playerActivity.length > 0) {
-                    const latestPoint = playerActivity[playerActivity.length - 1];
-                    return latestPoint?.active_players ?? latestPoint?.count ?? latestPoint?.value ?? '--';
+                    const last = playerActivity[playerActivity.length - 1];
+                    return last?.active_players ?? last?.count ?? last?.value ?? '--';
                   }
 
-                  // 2. Ha az objektumon belül van 'series' vagy 'data' tömb
+                  // 2. Ha az objektumban jön a tömb (.series / .data)
                   if (playerActivity.series && Array.isArray(playerActivity.series) && playerActivity.series.length > 0) {
-                    const latestPoint = playerActivity.series[playerActivity.series.length - 1];
-                    return latestPoint?.active_players ?? latestPoint?.count ?? latestPoint?.value ?? '--';
+                    const last = playerActivity.series[playerActivity.series.length - 1];
+                    return last?.active_players ?? last?.count ?? last?.value ?? '--';
                   }
 
-                  // 3. Ha sima objektumként érkezik
+                  // 3. Ha sima objektum
                   if (typeof playerActivity === 'object') {
-                    return playerActivity.active_players ?? playerActivity.current ?? '--';
+                    return playerActivity.active_players ?? playerActivity.count ?? playerActivity.total ?? '--';
                   }
+
+                  // 4. Ha sima szám
+                  if (typeof playerActivity === 'number') return playerActivity;
 
                   return '--';
                 })()}

@@ -10,6 +10,7 @@ const ENDPOINTS = {
   leaderboardRecords: '/v1/leaderboards/records',
   corruxion: '/v1/rotations/corruxion',
   fluxion: '/v1/rotations/fluxion',
+  playerActivity: '/v1/leaderboards/activity/series?period=1m', // <--- ITT VAN AZ ENDPOINTS-BAN!
 };
 
 const REQUEST_TIMEOUT_MS = 8000;
@@ -88,24 +89,6 @@ export default async function handler(req, res) {
       errors[key] = { message: result.error };
     }
   });
-
-  // --- AZ ÁLTALAD MEGTALÁLT PONTOS CÉL-ENDPOINTHOZ KÉSZÜLT KÉRÉS ---
-  try {
-    const actRes = await fetch('https://api.aallyn.net/site/leaderboards/activity/series?period=1m', {
-      headers: {
-        'Accept': 'application/json',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-        'Referer': 'https://trove.aallyn.net/'
-      }
-    });
-    if (actRes.ok) {
-      data.playerActivity = await actRes.json();
-    } else {
-      data.playerActivity = null;
-    }
-  } catch (e) {
-    data.playerActivity = null;
-  }
 
   const playerQuery = typeof req.query?.player === 'string' ? req.query.player.trim() : '';
   if (playerQuery) {
