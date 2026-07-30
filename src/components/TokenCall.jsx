@@ -13,16 +13,6 @@ const NAV_SECTIONS = [
 
 const WEEKDAY_LABELS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
-const DAY_COLORS = [
-  '#9500d1', // Mon (Lila)
-  '#5cffeb', // Tue (Ciánkék)
-  '#ef3ca5', // Wed (Rózsaszín)
-  '#fbda83', // Thu (Sárga/Arany)
-  '#ab023c', // Fri (Bordó)
-  '#15ef7b', // Sat (Zöld)
-  '#ff9900'  // Sun (Narancs)
-];
-
 function formatClock(unixSeconds) {
   if (!Number.isFinite(unixSeconds)) return '--:--:--';
   const d = new Date(unixSeconds * 1000);
@@ -73,6 +63,7 @@ function getBiomeImageUrl(biome) {
   const nameLower = rawName.toLowerCase();
   const BASE_PATH = 'https://trove.aallyn.net/static/assets/biomes/';
 
+  // Pontos illesztés a megadott fájllistád alapján:
   if (nameLower.includes('candoria') || nameLower.includes('candy')) return `${BASE_PATH}candy.png`;
   if (nameLower.includes('dinosaur') || nameLower.includes('jungle')) return `${BASE_PATH}dinosaur.png`;
   if (nameLower.includes('dragon') || nameLower.includes('volcano')) return `${BASE_PATH}dragon.png`;
@@ -93,7 +84,6 @@ function getBiomeImageUrl(biome) {
 
   return null;
 }
-
 export default function TokenCall() {
   const [payload, setPayload] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -105,46 +95,59 @@ export default function TokenCall() {
   const [playerQuery, setPlayerQuery] = useState('');
 
   const [isBuffModalOpen, setIsBuffModalOpen] = useState(false);
+
+const DAY_COLORS = [
+  '#9500d1',
+  '#5cffeb',
+  '#ef3ca5',
+  '#fbda83',
+  '#ab023c',
+  '#15ef7b',
+  '#ff9900'
+];
+
+const currentDayColor = todayWeekday !== null ? DAY_COLORS[todayWeekday] || '#5cffeb' : '#5cffeb';
+
   const sectionRefs = useRef({});
 
   // --- Data fetching -------------------------------------------------
 
-  async function loadData(forPlayer) {
-    try {
-      const url = forPlayer
-        ? `/api/player?player=${encodeURIComponent(forPlayer)}`
-        : '/api/player';
-      
-      const [res, weeklyRes] = await Promise.allSettled([
-        fetch(url).then((r) => r.json()),
-        fetch('https://trove.aallyn.net/static/assets/data/weekly_buffs.json').then((r) => r.json()),
-      ]);
+async function loadData(forPlayer) {
+  try {
+    const url = forPlayer
+      ? `/api/player?player=${encodeURIComponent(forPlayer)}`
+      : '/api/player';
+    
+    const [res, weeklyRes] = await Promise.allSettled([
+      fetch(url).then((r) => r.json()),
+      fetch('https://trove.aallyn.net/static/assets/data/weekly_buffs.json').then((r) => r.json()),
+    ]);
 
-      let mainJson = res.status === 'fulfilled' ? res.value : null;
-      let staticWeekly = weeklyRes.status === 'fulfilled' ? weeklyRes.value : null;
+    let mainJson = res.status === 'fulfilled' ? res.value : null;
+    let staticWeekly = weeklyRes.status === 'fulfilled' ? weeklyRes.value : null;
 
-      if (!mainJson || mainJson.error) {
-        throw new Error(mainJson?.error?.message || 'Request failed');
-      }
-
-      if (staticWeekly) {
-        if (!mainJson.data) mainJson.data = {};
-        mainJson.data.weeklyBuffsStatic = staticWeekly;
-      }
-
-      setPayload(mainJson);
-      setFetchError(null);
-
-      const serverNow = mainJson?.data?.serverTime?.now_unix;
-      if (Number.isFinite(serverNow)) {
-        setClockOffsetSeconds(serverNow - Math.floor(Date.now() / 1000));
-      }
-    } catch (err) {
-      setFetchError(err?.message || 'Could not reach the dashboard API.');
-    } finally {
-      setLoading(false);
+    if (!mainJson || mainJson.error) {
+      throw new Error(mainJson?.error?.message || 'Request failed');
     }
+
+    if (staticWeekly) {
+      if (!mainJson.data) mainJson.data = {};
+      mainJson.data.weeklyBuffsStatic = staticWeekly;
+    }
+
+    setPayload(mainJson);
+    setFetchError(null);
+
+    const serverNow = mainJson?.data?.serverTime?.now_unix;
+    if (Number.isFinite(serverNow)) {
+      setClockOffsetSeconds(serverNow - Math.floor(Date.now() / 1000));
+    }
+  } catch (err) {
+    setFetchError(err?.message || 'Could not reach the dashboard API.');
+  } finally {
+    setLoading(false);
   }
+}
 
   useEffect(() => {
     loadData(playerQuery);
@@ -153,6 +156,8 @@ export default function TokenCall() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [playerQuery]);
 
+  // Local ticking clock, synced to server time via the offset above so the
+  // displayed clock stays accurate between polls without re-fetching.
   useEffect(() => {
     const tick = setInterval(() => {
       setNowTick(Math.floor(Date.now() / 1000) + clockOffsetSeconds);
@@ -183,23 +188,19 @@ export default function TokenCall() {
   const fluxion = data?.fluxion;
 
   const WEEKLY_ICONS = [
-    '/icons/pickaxe.png',
-    '/icons/fish.png',
-    '/icons/icons8-sparkling-diamond-80.png',
-    '/icons/quest.png',
-    '/icons/dragon.png',
-    '/icons/xp.png',
-    '/icons/lootbag.png'
-  ];
+  '/icons/pickaxe.png',
+  '/icons/fish.png',
+  '/icons/icons8-sparkling-diamond-80.png',
+  '/icons/quest.png',
+  '/icons/dragon.png',
+  '/icons/xp.png',
+  '/icons/lootbag.png'
+];
 
-  // Nap kiszámítása
   const todayWeekday = useMemo(() => {
     if (!Number.isFinite(serverTime?.trove_day)) return null;
     return ((serverTime.trove_day % 7) + 7) % 7;
   }, [serverTime]);
-
-  // Aktuális nap színe (a todayWeekday UTÁN számoljuk ki!)
-  const currentDayColor = todayWeekday !== null ? DAY_COLORS[todayWeekday] || '#5cffeb' : '#5cffeb';
 
   function handleNavClick(id) {
     setActiveSection(id);
@@ -233,6 +234,7 @@ export default function TokenCall() {
             onChange={(e) => setSearchValue(e.target.value)}
           />
 
+        </form>
           <button 
             type="submit" 
             className="td-search-submit-btn" 
@@ -240,8 +242,6 @@ export default function TokenCall() {
           >
             Search
           </button>
-        </form>
-
         <div className="td-header-actions">
           <button
             type="button"
@@ -259,154 +259,155 @@ export default function TokenCall() {
 
       <div className="td-body">
         <aside className="td-sidebar">
-          <div className="td-clock-card">
-            <div className="td-clock-label">Server Time (UTC)</div>
-            <div className="td-clock-time">{formatClock(nowTick)}</div>
-            {todayWeekday !== null && (
-              <div className="td-clock-day">
-                {WEEKDAY_LABELS[todayWeekday] ?? '—'} · Trove Day {serverTime?.trove_day}
-              </div>
-            )}
-            <div className="td-clock-resets">
-              <div className="td-reset-row">
-                <span>Daily reset in</span>
-                <span>{formatCountdown(serverTime?.daily_reset_at, nowTick) ?? '--'}</span>
-              </div>
-              <div className="td-reset-row">
-                <span>Weekly reset in</span>
-                <span>{formatCountdown(serverTime?.weekly_reset_at, nowTick) ?? '--'}</span>
-              </div>
+        <div className="td-clock-card">
+          <div className="td-clock-label">Server Time (UTC)</div>
+          <div className="td-clock-time">{formatClock(nowTick)}</div>
+          {todayWeekday !== null && (
+            <div className="td-clock-day">
+              {WEEKDAY_LABELS[todayWeekday] ?? '—'} · Trove Day {serverTime?.trove_day}
+            </div>
+          )}
+          <div className="td-clock-resets">
+            <div className="td-reset-row">
+              <span>Daily reset in</span>
+              <span>{formatCountdown(serverTime?.daily_reset_at, nowTick) ?? '--'}</span>
+            </div>
+            <div className="td-reset-row">
+              <span>Weekly reset in</span>
+              <span>{formatCountdown(serverTime?.weekly_reset_at, nowTick) ?? '--'}</span>
             </div>
           </div>
+        </div>
 
-          {/* 1. Chaos Chest Kártya */}
-          <div className="td-sidebar-card glow-blue">
-            <div className="td-card-header">
-              <div className="td-card-title">
-                <span className="td-card-icon">◆</span> Chaos Chest
-              </div>
-              <StatusBadge 
-                state={sectionState('chaosChest')} 
-                label={chaosChest?.active ? 'Active' : 'Live'} 
-                customClass="badge-blue" 
-              />
+        {/* 1. Chaos Chest Kártya (KÉK GLOW) */}
+        <div className="td-sidebar-card glow-blue">
+          <div className="td-card-header">
+            <div className="td-card-title">
+              <span className="td-card-icon">◆</span> Chaos Mega-Core Week
             </div>
-
-            {chaosChest?.item ? (
-              <div className="td-sidebar-chaos">
-                <div className="td-chaos-hero">
-                  <div className="td-chaos-icon">
-                    {chaosChest.item?.image_url && chaosChest.item.image_url.trim() !== '' ? (
-                      <img 
-                        src={chaosChest.item.image_url} 
-                        alt={chaosChest.item?.name || 'Chaos Item'} 
-                        style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-                        onError={(e) => {
-                          e.target.style.display = 'none';
-                          if (e.target.parentNode) e.target.parentNode.innerText = '◆';
-                        }}
-                      />
-                    ) : (
-                      '◆'
-                    )}
-                  </div>
-                  <div>
-                    <div className="td-chaos-name">{chaosChest.item?.name ?? 'Mystery item'}</div>
-                    {chaosChest.item?.blueprint && (
-                      <div className="td-chaos-blueprint">{chaosChest.item.blueprint}</div>
-                    )}
-                  </div>
-                </div>
-
-                <div className="td-sidebar-chaos-time">
-                  <div className="td-countdown">
-                    {formatCountdown(
-                      serverTime?.now_unix + (chaosChest?.seconds_remaining ?? 0),
-                      nowTick
-                    ) ?? formatDuration(chaosChest?.seconds_remaining)}
-                  </div>
-                  <div className="td-countdown-label">until reset</div>
-                </div>
-              </div>
-            ) : (
-              <div className="td-empty">No Chaos Chest data.</div>
-            )}
+            <StatusBadge 
+              state={sectionState('chaosChest')} 
+              label={chaosChest?.active ? 'Active' : 'Live'} 
+              customClass="badge-blue" 
+            />
           </div>
 
-          {/* 2. Corruxion Kártya */}
-          <div className="td-sidebar-card glow-purple">
-            <div className="td-card-header">
-              <div className="td-card-title">
-                <span className="td-card-icon" style={{ color: '#c084fc' }}>✦</span> Corruxion
+          {chaosChest?.item ? (
+            <div className="td-sidebar-chaos">
+              <div className="td-chaos-hero">
+                <div className="td-chaos-icon">
+                  {chaosChest.item?.image_url && chaosChest.item.image_url.trim() !== '' ? (
+                    <img 
+                      src={chaosChest.item.image_url} 
+                      alt={chaosChest.item?.name || 'Chaos Item'} 
+                      style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                      onError={(e) => {
+                        e.target.style.display = 'none';
+                        if (e.target.parentNode) e.target.parentNode.innerText = '◆';
+                      }}
+                    />
+                  ) : (
+                    '◆'
+                  )}
+                </div>
+                <div>
+                  <div className="td-chaos-name">{chaosChest.item?.name ?? 'Mystery item'}</div>
+                  {chaosChest.item?.blueprint && (
+                    <div className="td-chaos-blueprint">{chaosChest.item.blueprint}</div>
+                  )}
+                </div>
               </div>
-              <StatusBadge 
-                state={sectionState('corruxion')} 
-                label={corruxion?.active ? 'Active' : 'Away'} 
-                customClass={corruxion?.active ? 'badge-purple' : 'muted'} 
-              />
+
+              <div className="td-sidebar-chaos-time">
+                <div className="td-countdown">
+                  {formatCountdown(
+                    serverTime?.now_unix + (chaosChest?.seconds_remaining ?? 0),
+                    nowTick
+                  ) ?? formatDuration(chaosChest?.seconds_remaining)}
+                </div>
+                <div className="td-countdown-label">until reset</div>
+              </div>
             </div>
+          ) : (
+            <div className="td-empty">No Chaos Chest data.</div>
+          )}
+        </div>
 
-            {corruxion ? (
-              <div className="td-sidebar-chaos">
-                <div className="td-sidebar-chaos-time">
-                  <div className="td-countdown" style={{ color: '#c084fc' }}>
-                    {formatCountdown(
-                      serverTime?.now_unix + (corruxion?.seconds_remaining ?? 0),
-                      nowTick
-                    ) ?? formatDuration(corruxion?.seconds_remaining)}
-                  </div>
-                  <div className="td-countdown-label">
-                    {corruxion.active ? 'leaves in' : 'arrives in'}
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <div className="td-empty">No Corruxion data.</div>
-            )}
-          </div>
-
-          {/* 3. Fluxion Kártya */}
-          <div className="td-sidebar-card glow-amber">
-            <div className="td-card-header">
-              <div className="td-card-title">
-                <span className="td-card-icon" style={{ color: '#f59e0b' }}>◈</span> Fluxion
-              </div>
-              <StatusBadge 
-                state={sectionState('fluxion')} 
-                label={
-                  fluxion?.state 
-                    ? fluxion.state 
-                    : fluxion?.active 
-                      ? 'Active' 
-                      : 'Voting'
-                } 
-                customClass="badge-amber" 
-              />
+        {/* 2. Corruxion Kártya (LILA GLOW) */}
+        <div className="td-sidebar-card glow-purple">
+          <div className="td-card-header">
+            <div className="td-card-title">
+              <span className="td-card-icon" style={{ color: '#c084fc' }}>✦</span> Corruxion
             </div>
+            <StatusBadge 
+              state={sectionState('corruxion')} 
+              label={corruxion?.active ? 'Active' : 'Away'} 
+              customClass={corruxion?.active ? 'badge-purple' : 'muted'} 
+            />
+          </div>
 
-            {fluxion ? (
-              <div className="td-sidebar-chaos">
-                <div className="td-sidebar-chaos-time">
-                  <div className="td-countdown" style={{ color: '#f59e0b' }}>
-                    {formatCountdown(
-                      serverTime?.now_unix + (fluxion?.seconds_remaining ?? 0),
-                      nowTick
-                    ) ?? formatDuration(fluxion?.seconds_remaining)}
-                  </div>
-                  <div className="td-countdown-label">
-                    {fluxion.active ? 'window closes in' : 'next window in'}
-                  </div>
+          {corruxion ? (
+            <div className="td-sidebar-chaos">
+              <div className="td-sidebar-chaos-time">
+                <div className="td-countdown" style={{ color: '#c084fc' }}>
+                  {formatCountdown(
+                    serverTime?.now_unix + (corruxion?.seconds_remaining ?? 0),
+                    nowTick
+                  ) ?? formatDuration(corruxion?.seconds_remaining)}
+                </div>
+                <div className="td-countdown-label">
+                  {corruxion.active ? 'leaves in' : 'arrives in'}
                 </div>
               </div>
-            ) : (
-              <div className="td-empty">No Fluxion data.</div>
-            )}
+            </div>
+          ) : (
+            <div className="td-empty">No Corruxion data.</div>
+          )}
+        </div>
+
+        {/* 3. Fluxion Kártya (SÁRGA/NARANCS GLOW) */}
+        <div className="td-sidebar-card glow-amber">
+          <div className="td-card-header">
+            <div className="td-card-title">
+              <span className="td-card-icon" style={{ color: '#f59e0b' }}>◈</span> Fluxion
+            </div>
+            <StatusBadge 
+              state={sectionState('fluxion')} 
+              label={
+                fluxion?.state 
+                  ? fluxion.state 
+                  : fluxion?.active 
+                    ? 'Active' 
+                    : 'Voting'
+              } 
+              customClass="badge-amber" 
+            />
           </div>
 
-          <div className="td-sidebar-footer">
-            Data via the Kiwi API (aallyn.net). Auto-refreshes every 30s.
-          </div>
-        </aside>
+          {fluxion ? (
+            <div className="td-sidebar-chaos">
+              <div className="td-sidebar-chaos-time">
+                <div className="td-countdown" style={{ color: '#f59e0b' }}>
+                  {formatCountdown(
+                    serverTime?.now_unix + (fluxion?.seconds_remaining ?? 0),
+                    nowTick
+                  ) ?? formatDuration(fluxion?.seconds_remaining)}
+                </div>
+                <div className="td-countdown-label">
+                  {fluxion.active ? 'window closes in' : 'next window in'}
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="td-empty">No Fluxion data.</div>
+          )}
+        </div>
+
+        {/* Sidebar Footer */}
+        <div className="td-sidebar-footer">
+          Data via the Kiwi API (aallyn.net). Auto-refreshes every 30s.
+        </div>
+      </aside>
 
         <main className="td-main">
           {fetchError && (
@@ -416,103 +417,77 @@ export default function TokenCall() {
           )}
 
           <div className="td-grid">
-            {/* Today's Buffs */}
-            <section
-              id="buffs"
-              className="td-card td-buff-interactive-card"
-              style={{
-                '--buff-glow-color': currentDayColor
-              }}
-              onClick={() => setIsBuffModalOpen(true)}
-              ref={(el) => (sectionRefs.current.buffs = el)}
-            >
-              <div className="td-card-header">
-                <div className="td-card-title">
-                  <img 
-                    src="/icons/power.png" 
-                    alt="Today's Buffs" 
-                    className="td-card-title-icon" 
-                  />
-                  Today's Buffs
-                </div>
-                <span className="td-buff-click-hint">Click for full schedule ↗</span>
+            
+          <section
+            id="buffs"
+            className="td-card span-2"
+            ref={(el) => (sectionRefs.current.buffs = el)}
+          >
+            <div className="td-card-header">
+              <div className="td-card-title">
+                <img 
+                  src="/icons/power.png" 
+                  alt="Today's Buffs" 
+                  className="td-card-title-icon" 
+                />
+                Today's Buffs
               </div>
+              <StatusBadge state={sectionState('dailyBuffs')} />
+            </div>
 
               {dailyBuffs?.current ? (
-                <div className="td-buff-hero-compact">
-                  <span className="td-buff-emoji">{dailyBuffs.current?.emoji ?? '🎁'}</span>
-                  <div>
-                    <div className="td-buff-name" style={{ color: currentDayColor }}>
-                      {dailyBuffs.current?.name ?? 'Unknown buff'}
-                    </div>
-                    <div className="td-buff-weekday">
-                      {dailyBuffs.current?.weekday ?? WEEKDAY_LABELS[todayWeekday]} · Active Today
+                <>
+                  <div className="td-buff-hero">
+                    <span className="td-buff-emoji">{dailyBuffs.current?.emoji ?? '🎁'}</span>
+                    <div>
+                      <div className="td-buff-name">{dailyBuffs.current?.name ?? 'Unknown buff'}</div>
+                      <div className="td-buff-weekday">{dailyBuffs.current?.weekday ?? ''}</div>
                     </div>
                   </div>
-                </div>
+
+                  <div className="td-tag-row">
+                    {Array.isArray(dailyBuffs.current?.normal_buffs) &&
+                      dailyBuffs.current.normal_buffs.map((buff, i) => (
+                        <span className="td-tag" key={`normal-${i}`}>
+                          {typeof buff === 'string' ? buff : buff?.name ?? 'Buff'}
+                        </span>
+                      ))}
+                    {Array.isArray(dailyBuffs.current?.premium_buffs) &&
+                      dailyBuffs.current.premium_buffs.map((buff, i) => (
+                        <span className="td-tag premium" key={`premium-${i}`}>
+                          {typeof buff === 'string' ? buff : buff?.name ?? 'Premium buff'}
+                        </span>
+                      ))}
+                  </div>
+
+                  {Array.isArray(dailyBuffs?.week) && dailyBuffs.week.length > 0 && (
+                    <div className="td-week-strip">
+                      {dailyBuffs.week.map((day, i) => (
+                        <div
+                          key={i}
+                          className={`td-week-day${
+                            todayWeekday !== null && i === todayWeekday ? ' today' : ''
+                          }`}
+                          title={day?.name ?? ''}
+                        >
+                          <img 
+                            src={WEEKLY_ICONS[i]} 
+                            alt={WEEKDAY_LABELS[i]} 
+                            className="td-week-icon"
+                            onError={(e) => {
+                              e.target.style.display = 'none';
+                            }}
+                          />
+                          <div>{WEEKDAY_LABELS[i] ?? ''}</div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </>
               ) : (
                 <div className="td-empty">Buff rotation is unavailable right now.</div>
               )}
             </section>
-
-            {/* FULLSCREEN POPUP MODAL */}
-            {isBuffModalOpen && (
-              <div className="td-modal-overlay" onClick={() => setIsBuffModalOpen(false)}>
-                <div 
-                  className="td-modal-content" 
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  <div className="td-modal-header">
-                    <div className="td-card-title">
-                      <img src="/icons/power.png" alt="Buffs" className="td-card-title-icon" />
-                      Weekly Buff Schedule
-                    </div>
-                    <button className="td-modal-close" onClick={() => setIsBuffModalOpen(false)}>✕</button>
-                  </div>
-
-                  <div className="td-modal-body">
-                    {Array.isArray(dailyBuffs?.week) && dailyBuffs.week.map((day, i) => {
-                      const dayColor = DAY_COLORS[i] || '#5cffeb';
-                      const isToday = todayWeekday !== null && i === todayWeekday;
-
-                      return (
-                        <div 
-                          key={i} 
-                          className={`td-modal-day-card${isToday ? ' today-highlight' : ''}`}
-                          style={{ '--day-color': dayColor }}
-                        >
-                          <div className="td-modal-day-header">
-                            <img 
-                              src={WEEKLY_ICONS[i]} 
-                              alt={WEEKDAY_LABELS[i]} 
-                              className="td-modal-day-icon"
-                              onError={(e) => { e.target.style.display = 'none'; }}
-                            />
-                            <span className="td-modal-day-name" style={{ color: dayColor }}>
-                              {WEEKDAY_LABELS[i]} - {day?.name || 'Buff Day'}
-                            </span>
-                            {isToday && <span className="td-badge live">TODAY</span>}
-                          </div>
-
-                          <div className="td-tag-row">
-                            {Array.isArray(day?.normal_buffs) && day.normal_buffs.map((buff, j) => (
-                              <span className="td-tag custom-colored" key={`n-${j}`}>
-                                {typeof buff === 'string' ? buff : buff?.name}
-                              </span>
-                            ))}
-                            {Array.isArray(day?.premium_buffs) && day.premium_buffs.map((buff, j) => (
-                              <span className="td-tag premium custom-colored" key={`p-${j}`}>
-                                ✦ {typeof buff === 'string' ? buff : buff?.name}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              </div>
-            )}
 
             {/* Weekly Buffs */}
             <section
@@ -549,13 +524,14 @@ export default function TokenCall() {
                     const secondsToReset = weeklyResetAt && nowTick ? Math.max(0, weeklyResetAt - nowTick) : 0;
                     const ONE_WEEK_SEC = 7 * 24 * 3600;
 
+                    // Segédfüggvény a megadott ikonok hozzárendeléséhez
                     const getBonusIcon = (name) => {
                       const lower = (name || '').toLowerCase();
                       if (lower.includes('star')) return '/icons/star.png';
                       if (lower.includes('xp') || lower.includes('experience')) return '/icons/xpweekly.png';
                       if (lower.includes('stat') || lower.includes('reroll')) return '/icons/stat.png';
                       if (lower.includes('invasion') || lower.includes('fast')) return '/icons/fastinv.png';
-                      return '/icons/quest.png';
+                      return '/icons/quest.png'; // Alapértelmezett tartalék ikon
                     };
 
                     if (rotationList.length > 0) {
@@ -619,32 +595,31 @@ export default function TokenCall() {
               )}
             </section>
 
-            {/* Biomes */}
-            <section
-              id="biomes"
-              className="td-card"
-              ref={(el) => (sectionRefs.current.biomes = el)}
-            >
-              <div className="td-card-header">
-                <div className="td-card-title">
-                  <img 
-                    src="/icons/rotation.png" 
-                    alt="Biome Rotation" 
-                    className="td-card-title-icon" 
-                    onError={(e) => {
-                      e.target.style.display = 'none';
-                      if (e.target.parentNode) {
-                        const span = document.createElement('span');
-                        span.className = 'td-card-icon';
-                        span.innerText = '❖';
-                        e.target.parentNode.insertBefore(span, e.target);
-                      }
-                    }}
-                  />
-                  Biome Rotation
+              <section
+                id="biomes"
+                className="td-card"
+                ref={(el) => (sectionRefs.current.biomes = el)}
+              >
+                <div className="td-card-header">
+                  <div className="td-card-title">
+                    <img 
+                      src="/icons/rotation.png" 
+                      alt="Biome Rotation" 
+                      className="td-card-title-icon" 
+                      onError={(e) => {
+                        e.target.style.display = 'none';
+                        if (e.target.parentNode) {
+                          const span = document.createElement('span');
+                          span.className = 'td-card-icon';
+                          span.innerText = '❖';
+                          e.target.parentNode.insertBefore(span, e.target);
+                        }
+                      }}
+                    />
+                    Biome Rotation
+                  </div>
+                  <StatusBadge state={sectionState('biomes')} />
                 </div>
-                <StatusBadge state={sectionState('biomes')} />
-              </div>
 
               {biomes?.current ? (
                 <>
@@ -662,6 +637,7 @@ export default function TokenCall() {
                                   alt={biome?.name || 'Biome'} 
                                   className="td-biome-chip-img"
                                   onError={(e) => {
+                                    // Ha a generált fájlnév mégsem létezne az Aallyn szerverén
                                     e.target.style.display = 'none';
                                     if (e.target.parentNode && !e.target.parentNode.querySelector('.td-biome-fallback-icon')) {
                                       const badge = document.createElement('span');
@@ -745,6 +721,7 @@ export default function TokenCall() {
 
               {records ? (
                 <div className="td-record-list">
+                  {/* Trove Mastery Record */}
                   {records?.trove_mastery && (
                     <div className="td-record-card">
                       <div className="td-record-icon-wrapper">
@@ -770,6 +747,7 @@ export default function TokenCall() {
                     </div>
                   )}
 
+                  {/* Geode Mastery Record */}
                   {records?.geode_mastery && (
                     <div className="td-record-card">
                       <div className="td-record-icon-wrapper">
@@ -796,6 +774,7 @@ export default function TokenCall() {
                     </div>
                   )}
 
+                  {/* Power Rank Record */}
                   {records?.power_rank && (
                     <div className="td-record-card">
                       <div className="td-record-icon-wrapper">
