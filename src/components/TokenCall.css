@@ -1,221 +1,275 @@
 :root {
-  --bg-main: #0b0f19;
-  --bg-card: #111827;
-  --bg-hover: #1f2937;
-  --border-color: #1f2937;
-  --accent-gold: #f59e0b;
-  --accent-cyan: #38bdf8;
-  --text-primary: #f9fafb;
-  --text-muted: #9ca3af;
+  --btt-bg-body: #070a12;
+  --btt-bg-card: #0f172a;
+  --btt-bg-card-hover: #162036;
+  --btt-border: #1e293b;
+  --btt-border-glow: #2563eb;
+  --btt-accent-blue: #38bdf8;
+  --btt-accent-green: #22c55e;
+  --btt-accent-gold: #fbbf24;
+  --btt-accent-purple: #c084fc;
+  --btt-text-main: #f8fafc;
+  --btt-text-muted: #94a3b8;
 }
 
-.trove-dashboard {
-  max-width: 1200px;
-  margin: 20px auto;
+.btt-dashboard {
+  max-width: 1280px;
+  margin: 0 auto;
   padding: 16px;
-  background-color: var(--bg-main);
-  color: var(--text-primary);
-  font-family: system-ui, -apple-system, sans-serif;
-  border-radius: 16px;
-  border: 1px solid var(--border-color);
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+  background-color: var(--btt-bg-body);
+  color: var(--btt-text-main);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  min-height: 100vh;
 }
 
-.trove-header {
+/* Top Header & Search */
+.btt-topbar {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  border-bottom: 1px solid var(--border-color);
-  padding-bottom: 16px;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
-@media (min-width: 640px) {
-  .trove-header {
+@media (min-width: 768px) {
+  .btt-topbar {
     flex-direction: row;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
   }
 }
 
-.trove-title {
-  font-size: 1.5rem;
-  font-weight: 800;
-  color: var(--accent-gold);
-  margin: 0;
-}
-
-.trove-subtitle {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  margin-top: 4px;
-}
-
-.trove-refresh-btn {
-  background-color: var(--accent-gold);
-  color: #000;
-  border: none;
-  padding: 10px 18px;
-  font-weight: 700;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.2s ease;
+.btt-search-box {
+  display: flex;
+  align-items: center;
+  background: var(--btt-bg-card);
+  border: 1px solid var(--btt-border);
+  border-radius: 14px;
+  padding: 6px 12px;
   width: 100%;
+  max-width: 480px;
 }
 
-@media (min-width: 640px) {
-  .trove-refresh-btn {
-    width: auto;
-  }
+.btt-search-input {
+  background: transparent;
+  border: none;
+  color: var(--btt-text-main);
+  padding: 8px 12px;
+  width: 100%;
+  outline: none;
+  font-size: 0.95rem;
 }
 
-.trove-refresh-btn:hover {
-  filter: brightness(1.1);
-  transform: translateY(-1px);
+.btt-search-btn {
+  background: #3b82f6;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
 }
 
-.trove-refresh-btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
+.btt-search-btn:hover {
+  background: #2563eb;
 }
 
-.trove-error {
-  background-color: #450a0a;
-  border: 1px solid #ef4444;
-  color: #fca5a5;
-  padding: 12px 16px;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  font-size: 0.9rem;
-}
-
-/* Responsive Grid Layout */
-.trove-grid {
+/* Main Layout Grid */
+.btt-grid {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-@media (min-width: 768px) {
-  .trove-grid {
+@media (min-width: 1024px) {
+  .btt-grid {
     display: grid;
-    grid-template-columns: 240px 1fr;
+    grid-template-columns: 260px 1fr;
   }
 }
 
-.trove-sidebar {
+/* Sidebar */
+.btt-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.btt-timer-card {
+  background: var(--btt-bg-card);
+  border: 1px solid var(--btt-border);
+  border-radius: 18px;
+  padding: 20px;
+  text-align: center;
+}
+
+.btt-timer-title {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--btt-text-muted);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.btt-timer-clock {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--btt-accent-blue);
+  font-family: monospace;
+}
+
+.btt-nav-list {
   display: flex;
   flex-direction: row;
   overflow-x: auto;
-  gap: 8px;
+  gap: 6px;
   padding-bottom: 8px;
 }
 
-@media (min-width: 768px) {
-  .trove-sidebar {
+@media (min-width: 1024px) {
+  .btt-nav-list {
     flex-direction: column;
     overflow-x: visible;
-    padding-bottom: 0;
   }
 }
 
-.trove-nav-btn {
+.btt-nav-btn {
   background: transparent;
-  border: 1px solid var(--border-color);
-  color: var(--text-muted);
-  padding: 10px 14px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 0.875rem;
-  font-weight: 600;
-  white-space: nowrap;
-  transition: all 0.2s;
-  text-align: left;
-}
-
-.trove-nav-btn:hover {
-  background-color: var(--bg-hover);
-  color: var(--text-primary);
-}
-
-.trove-nav-btn.active {
-  background-color: var(--bg-card);
-  color: var(--accent-gold);
-  border-color: var(--accent-gold);
-}
-
-.trove-content-box {
-  background-color: var(--bg-card);
-  border: 1px solid var(--border-color);
+  border: none;
+  color: var(--btt-text-muted);
+  padding: 12px 16px;
   border-radius: 12px;
-  padding: 20px;
-  min-height: 300px;
-}
-
-.trove-section-title {
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: var(--accent-cyan);
-  margin-top: 0;
-  margin-bottom: 16px;
-}
-
-.trove-card {
-  background-color: var(--bg-main);
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  padding: 16px;
-  margin-bottom: 12px;
-}
-
-.trove-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 0;
-  border-bottom: 1px solid var(--border-color);
   font-size: 0.9rem;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
 }
 
-.trove-row:last-child {
-  border-bottom: none;
+.btt-nav-btn:hover {
+  background: var(--btt-bg-card);
+  color: var(--btt-text-main);
 }
 
-.trove-badge {
-  background-color: #1e293b;
-  color: var(--accent-gold);
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-family: monospace;
-  font-size: 0.85rem;
+.btt-nav-btn.active {
+  background: var(--btt-bg-card);
+  color: var(--btt-accent-blue);
+  border: 1px solid var(--btt-border);
 }
 
-.trove-item-preview {
+/* Content Area */
+.btt-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.btt-status-row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.btt-status-card {
+  background: var(--btt-bg-card);
+  border: 1px solid var(--btt-border);
+  border-radius: 16px;
+  padding: 16px 20px;
   display: flex;
   align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 200px;
+}
+
+.btt-dot-online {
+  width: 12px;
+  height: 12px;
+  background-color: var(--btt-accent-green);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--btt-accent-green);
+}
+
+/* Card Section Grid */
+.btt-cards-grid {
+  display: grid;
+  grid-template-columns: 1fr;
   gap: 16px;
 }
 
-.trove-item-img {
-  width: 56px;
-  height: 56px;
-  object-fit: contain;
-  background-color: var(--bg-main);
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  padding: 4px;
+@media (min-width: 640px) {
+  .btt-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
-.trove-buff-list {
-  list-style: disc;
-  padding-left: 20px;
-  margin: 6px 0;
+@media (min-width: 1280px) {
+  .btt-cards-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.btt-module-card {
+  background: var(--btt-bg-card);
+  border: 1px solid var(--btt-border);
+  border-radius: 18px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.btt-module-card:hover {
+  border-color: #334155;
+  transform: translateY(-2px);
+}
+
+.btt-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.btt-card-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+}
+
+.btt-badge-tag {
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 4px 8px;
+  border-radius: 6px;
+  text-transform: uppercase;
+}
+
+.btt-badge-green {
+  background: rgba(34, 197, 94, 0.15);
+  color: var(--btt-accent-green);
+}
+
+.btt-badge-gold {
+  background: rgba(251, 191, 36, 0.15);
+  color: var(--btt-accent-gold);
+}
+
+.btt-buff-item {
   font-size: 0.85rem;
-  color: #d1d5db;
+  color: var(--btt-text-muted);
+  margin-bottom: 6px;
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
 }
 
-.trove-loading {
-  text-align: center;
-  color: var(--text-muted);
-  padding: 60px 0;
+.btt-buff-item span {
+  color: var(--btt-accent-green);
 }
