@@ -304,11 +304,16 @@ export default function TokenCall() {
                 <>
               <div className="td-chaos-hero">
                 <div className="td-chaos-icon">
-                  {chaosChest.item?.image_url ? (
+                  {chaosChest.item?.image_url && chaosChest.item.image_url.trim() !== '' ? (
                     <img 
                       src={chaosChest.item.image_url} 
                       alt={chaosChest.item?.name || 'Chaos Item'} 
                       style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                      onError={(e) => {
+                        // Ha a kép letöltése meghiúsul (404/hibás URL), elrejtjük a képet és kirakjuk a szimbólumot
+                        e.target.style.display = 'none';
+                        e.target.parentNode.innerText = '◆';
+                      }}
                     />
                   ) : (
                     '◆'
@@ -363,20 +368,26 @@ export default function TokenCall() {
                     <div className="td-biome-block-label">Current Biomes</div>
                     <div className="td-biome-list">
                       {Array.isArray(biomes.current?.biomes) && biomes.current.biomes.length > 0 ? (
-                        biomes.current.biomes.map((biome, i) => (
-                          <span className="td-biome-chip" key={i}>
-                            {biome?.icon || biome?.image_url ? (
-                              <img 
-                                src={biome.icon || biome.image_url} 
-                                alt={biome?.name || 'Biome'} 
-                                className="td-biome-chip-img"
-                              />
-                            ) : (
-                              <span className="td-biome-chip-icon" />
-                            )}
-                            {biome?.final_name ?? biome?.name ?? 'Unknown biome'}
-                          </span>
-                        ))
+                        biomes.current.biomes.map((biome, i) => {
+                          const imgUrl = biome?.icon || biome?.image_url;
+                          return (
+                            <span className="td-biome-chip" key={i}>
+                              {imgUrl && imgUrl.trim() !== '' ? (
+                                <img 
+                                  src={imgUrl} 
+                                  alt={biome?.name || 'Biome'} 
+                                  className="td-biome-chip-img"
+                                  onError={(e) => {
+                                    e.target.style.display = 'none';
+                                  }}
+                                />
+                              ) : (
+                                <span className="td-biome-chip-icon" />
+                              )}
+                              {biome?.final_name ?? biome?.name ?? 'Unknown biome'}
+                            </span>
+                          );
+                        })
                       ) : (
                         <span className="td-empty">No biome data.</span>
                       )}
@@ -390,12 +401,26 @@ export default function TokenCall() {
                       </div>
                       <div className="td-biome-list">
                         {Array.isArray(biomes.upcoming[0]?.biomes) &&
-                          biomes.upcoming[0].biomes.map((biome, i) => (
-                            <span className="td-biome-chip" key={i}>
-                              <span className="td-biome-chip-icon" />
-                              {biome?.final_name ?? biome?.name ?? 'Unknown biome'}
-                            </span>
-                          ))}
+                          biomes.upcoming[0].biomes.map((biome, i) => {
+                            const imgUrl = biome?.icon || biome?.image_url;
+                            return (
+                              <span className="td-biome-chip" key={i}>
+                                {imgUrl && imgUrl.trim() !== '' ? (
+                                  <img 
+                                    src={imgUrl} 
+                                    alt={biome?.name || 'Biome'} 
+                                    className="td-biome-chip-img"
+                                    onError={(e) => {
+                                      e.target.style.display = 'none';
+                                    }}
+                                  />
+                                ) : (
+                                  <span className="td-biome-chip-icon" />
+                                )}
+                                {biome?.final_name ?? biome?.name ?? 'Unknown biome'}
+                              </span>
+                            );
+                          })}
                       </div>
                     </div>
                   )}
