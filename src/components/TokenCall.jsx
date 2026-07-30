@@ -500,7 +500,6 @@ async function loadData(forPlayer) {
               {weeklyBuffs ? (
                 <div className="td-weekly-bonus-list">
                   {(() => {
-                    // A rotációs lista lekérése
                     const rotationList = Array.isArray(weeklyBuffs.rotation) 
                       ? weeklyBuffs.rotation 
                       : Array.isArray(weeklyBuffs) 
@@ -511,28 +510,37 @@ async function loadData(forPlayer) {
                       ? weeklyBuffs.current?.name 
                       : weeklyBuffs.current;
 
-                    // Kiszámoljuk a heti resetig hátralévő másodperceket
                     const weeklyResetAt = serverTime?.weekly_reset_at;
                     const secondsToReset = weeklyResetAt && nowTick ? Math.max(0, weeklyResetAt - nowTick) : 0;
                     const ONE_WEEK_SEC = 7 * 24 * 3600;
 
+                    // Segédfüggvény a megadott ikonok hozzárendeléséhez
+                    const getBonusIcon = (name) => {
+                      const lower = (name || '').toLowerCase();
+                      if (lower.includes('star')) return '/icons/star.png';
+                      if (lower.includes('xp') || lower.includes('experience')) return '/icons/xpweek.png';
+                      if (lower.includes('stat') || lower.includes('reroll')) return '/icons/stat.png';
+                      if (lower.includes('invasion') || lower.includes('fast')) return '/icons/fastinv.png';
+                      return '/icons/quest.png'; // Alapértelmezett tartalék ikon
+                    };
+
                     if (rotationList.length > 0) {
-                      // Megkeressük a jelenleg aktív elem indexét
                       let activeIndex = rotationList.findIndex(
                         (item) => item.name?.toLowerCase() === currentName?.toLowerCase()
                       );
-                      if (activeIndex === -1) activeIndex = 0; // fallback, ha nem találja a nevet
+                      if (activeIndex === -1) activeIndex = 0;
 
                       return rotationList.map((item, i) => {
                         const isActive = i === activeIndex;
 
-                        // Kiszámoljuk hány hét múlva lesz aktív ez a bónusz
                         let weeksUntil = (i - activeIndex + rotationList.length) % rotationList.length;
                         let totalSecondsOffset = 0;
 
                         if (!isActive) {
                           totalSecondsOffset = secondsToReset + (weeksUntil - 1) * ONE_WEEK_SEC;
                         }
+
+                        const iconSrc = getBonusIcon(item.name);
 
                         return (
                           <div 
@@ -541,7 +549,12 @@ async function loadData(forPlayer) {
                           >
                             <div className="td-weekly-bonus-header">
                               <div className="td-weekly-bonus-title">
-                                <span className="td-weekly-bonus-emoji">{item.emoji || '✦'}</span>
+                                <img 
+                                  src={iconSrc} 
+                                  alt={item.name} 
+                                  className="td-weekly-bonus-icon"
+                                  onError={(e) => { e.target.style.display = 'none'; }}
+                                />
                                 <span className="td-weekly-bonus-name">{item.name}</span>
                               </div>
 
@@ -554,7 +567,6 @@ async function loadData(forPlayer) {
                               </div>
                             </div>
 
-                            {/* Leírás (melyik heti bónusz mit csinál) */}
                             <div className="td-weekly-bonus-desc">
                               {Array.isArray(item.buffs) 
                                 ? item.buffs.join(' ') 
