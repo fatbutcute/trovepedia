@@ -361,7 +361,6 @@ function DashboardNews() {
                       loading="lazy" 
                       onError={(e) => { e.target.src = '/guideimages/default-news.webp'; }} 
                     />
-                    <div className="td-news-card-overlay"><span>Read ↗</span></div>
                   </div>
                   <div className="td-news-card-content">
                     <span className="td-news-date">{pubDate}</span>
