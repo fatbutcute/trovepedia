@@ -489,42 +489,80 @@ async function loadData(forPlayer) {
                     className="td-card-title-icon" 
                     onError={(e) => { e.target.style.display = 'none'; }}
                   />
-                  Weekly Buffs
+                  Weekly bonus rotation
                 </div>
-                <StatusBadge state={weeklyBuffs ? 'ok' : sectionState('weeklyBuffs')} />
               </div>
 
               {weeklyBuffs ? (
-                <div className="td-weekly-buff-container">
-                  {/* Jelenleg aktív napi buff kiemelése */}
-                  {weeklyBuffs.current && (
-                    <div className="td-weekly-event-banner">
-                      <div className="td-weekly-event-label">Today's Main Focus</div>
-                      <div className="td-weekly-event-title">
-                        ✦ {typeof weeklyBuffs.current === 'object' ? weeklyBuffs.current.name : weeklyBuffs.current}
-                      </div>
-                    </div>
-                  )}
+                <div className="td-weekly-bonus-list">
+                  {(() => {
+                    // A rotációs lista lekérése
+                    const rotationList = Array.isArray(weeklyBuffs.rotation) 
+                      ? weeklyBuffs.rotation 
+                      : Array.isArray(weeklyBuffs) 
+                        ? weeklyBuffs 
+                        : [];
 
-                  {/* A heti rotáció elemei szép listába rendezve */}
-                  <div className="td-tag-row">
-                    {Array.isArray(weeklyBuffs.rotation) ? (
-                      weeklyBuffs.rotation.map((item, i) => (
-                        <div className="td-weekly-buff-item" key={i}>
-                          <span className="td-weekly-buff-label">{item.weekday || `Day ${i + 1}`}:</span>
-                          <span className="td-weekly-buff-value">{item.name}</span>
-                        </div>
-                      ))
-                    ) : Array.isArray(weeklyBuffs.buffs) ? (
-                      weeklyBuffs.buffs.map((buff, i) => (
-                        <span className="td-tag premium" key={i}>
-                          ✦ {typeof buff === 'string' ? buff : buff?.name}
-                        </span>
-                      ))
-                    ) : (
-                      <div className="td-empty">No weekly rotation data found.</div>
-                    )}
-                  </div>
+                    const currentName = typeof weeklyBuffs.current === 'object' 
+                      ? weeklyBuffs.current?.name 
+                      : weeklyBuffs.current;
+
+                    // Kiszámoljuk a heti resetig hátralévő másodperceket
+                    const weeklyResetAt = serverTime?.weekly_reset_at;
+                    const secondsToReset = weeklyResetAt && nowTick ? Math.max(0, weeklyResetAt - nowTick) : 0;
+                    const ONE_WEEK_SEC = 7 * 24 * 3600;
+
+                    if (rotationList.length > 0) {
+                      // Megkeressük a jelenleg aktív elem indexét
+                      let activeIndex = rotationList.findIndex(
+                        (item) => item.name?.toLowerCase() === currentName?.toLowerCase()
+                      );
+                      if (activeIndex === -1) activeIndex = 0; // fallback, ha nem találja a nevet
+
+                      return rotationList.map((item, i) => {
+                        const isActive = i === activeIndex;
+
+                        // Kiszámoljuk hány hét múlva lesz aktív ez a bónusz
+                        let weeksUntil = (i - activeIndex + rotationList.length) % rotationList.length;
+                        let totalSecondsOffset = 0;
+
+                        if (!isActive) {
+                          totalSecondsOffset = secondsToReset + (weeksUntil - 1) * ONE_WEEK_SEC;
+                        }
+
+                        return (
+                          <div 
+                            key={i} 
+                            className={`td-weekly-bonus-card${isActive ? ' active' : ''}`}
+                          >
+                            <div className="td-weekly-bonus-header">
+                              <div className="td-weekly-bonus-title">
+                                <span className="td-weekly-bonus-emoji">{item.emoji || '✦'}</span>
+                                <span className="td-weekly-bonus-name">{item.name}</span>
+                              </div>
+
+                              <div className={`td-weekly-bonus-status${isActive ? ' active-text' : ''}`}>
+                                {isActive ? (
+                                  'Active now'
+                                ) : (
+                                  `in ${formatDuration(totalSecondsOffset)}`
+                                )}
+                              </div>
+                            </div>
+
+                            {/* Leírás (melyik heti bónusz mit csinál) */}
+                            <div className="td-weekly-bonus-desc">
+                              {Array.isArray(item.buffs) 
+                                ? item.buffs.join(' ') 
+                                : item.description || item.buff || 'Special weekly bonus active during this week.'}
+                            </div>
+                          </div>
+                        );
+                      });
+                    }
+
+                    return <div className="td-empty">No weekly bonus rotation data.</div>;
+                  })()}
                 </div>
               ) : (
                 <div className="td-empty">Weekly buffs are unavailable right now.</div>
