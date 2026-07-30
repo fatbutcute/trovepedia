@@ -89,7 +89,7 @@ export default async function handler(req, res) {
     }
   });
 
-// --- AKTIVITÁS DEDIKÁLT SZERVEROLDALI FETCH (A te új, pontos URL-eddel!) ---
+  // --- AZ ÁLTALAD MEGTALÁLT PONTOS CÉL-ENDPOINTHOZ KÉSZÜLT KÉRÉS ---
   try {
     const actRes = await fetch('https://api.aallyn.net/site/leaderboards/activity/series?period=1m', {
       headers: {
