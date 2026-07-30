@@ -1442,6 +1442,20 @@
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
+/* Trials Tracker pozicionálása: Új sor, Bal oldal, 2 oszlop széles */
+#trials.td-card.span-2 {
+  grid-column: 1 / span 2 !important;
+  grid-row: 2 !important;
+  width: 100%;
+}
+
+/* Ha mobilon/tableten nézik (ahol kevesebb az oszlop), automatikusan illeszkedjen */
+@media (max-width: 1400px) {
+  #trials.td-card.span-2 {
+    grid-column: 1 / -1 !important; /* Teljes szélesség kisebb kijelzőn */
+  }
+}
+
 /* Ha mobilon nézik, húzza össze 1 oszloposra */
 @media (max-width: 900px) {
   #trials.td-card.span-2 {
