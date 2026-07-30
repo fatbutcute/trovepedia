@@ -94,20 +94,6 @@ export default function TokenCall() {
   const [searchValue, setSearchValue] = useState('');
   const [playerQuery, setPlayerQuery] = useState('');
 
-  const [isBuffModalOpen, setIsBuffModalOpen] = useState(false);
-
-const DAY_COLORS = [
-  '#9500d1',
-  '#5cffeb',
-  '#ef3ca5',
-  '#fbda83',
-  '#ab023c',
-  '#15ef7b',
-  '#ff9900'
-];
-
-const currentDayColor = todayWeekday !== null ? DAY_COLORS[todayWeekday] || '#5cffeb' : '#5cffeb';
-
   const sectionRefs = useRef({});
 
   // --- Data fetching -------------------------------------------------
@@ -417,7 +403,6 @@ async function loadData(forPlayer) {
           )}
 
           <div className="td-grid">
-            
           <section
             id="buffs"
             className="td-card span-2"
