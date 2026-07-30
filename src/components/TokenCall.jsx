@@ -224,7 +224,7 @@ function TrialsTracker() {
               />
             </div>
             <div className="mini-calc-input">
-              <label>Qty</label>
+              <label>Quantity</label>
               <input 
                 type="number" 
                 value={produceCount} 
