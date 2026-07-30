@@ -134,8 +134,25 @@ export default async function handler(req, res) {
     }
   });
 
-  // Optional player lookup, e.g. /api/player?player=SomeName
-  // Uses the public, tokenless player-profile endpoint.
+  // --- ÚJ: Játékosaktivitás lekérése közvetlenül a szerverről (CORS mentesen) ---
+  try {
+    const activityRes = await fetch('https://api.aallyn.net/site/leaderboards/activity', {
+      headers: {
+        'Accept': 'application/json',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
+        'Referer': 'https://trove.aallyn.net/'
+      }
+    });
+    if (activityRes.ok) {
+      data.playerActivity = await activityRes.json();
+    } else {
+      data.playerActivity = null;
+    }
+  } catch (err) {
+    data.playerActivity = null;
+  }
+
+  // Optional player lookup...
   const playerQuery = typeof req.query?.player === 'string' ? req.query.player.trim() : '';
   if (playerQuery) {
     const profileResult = await fetchEndpoint(
@@ -150,8 +167,6 @@ export default async function handler(req, res) {
     }
   }
 
-  // Short edge cache so a burst of visitors doesn't hammer the upstream API,
-  // while still keeping the dashboard "live" (data refreshes every 15s).
   res.setHeader('Cache-Control', 's-maxage=15, stale-while-revalidate=45');
 
   return res.status(200).json({

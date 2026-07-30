@@ -310,32 +310,13 @@ async function loadData(forPlayer) {
         ? `/api/player?player=${encodeURIComponent(forPlayer)}`
         : '/api/player';
       
-      const [res, weeklyRes, activityRes] = await Promise.allSettled([
+      const [res, weeklyRes] = await Promise.allSettled([
         fetch(url).then((r) => r.json()),
         fetch('https://trove.aallyn.net/static/assets/data/weekly_buffs.json').then((r) => r.json()),
-        fetch('https://api.aallyn.net/site/leaderboards/activity', {
-          headers: {
-            'accept': 'application/json',
-            'accept-language': 'en-US,en;q=0.9,hu;q=0.8',
-            'priority': 'u=1, i',
-            'sec-ch-ua': '"Not=A?Brand";v="99", "Google Chrome";v="151", "Chromium";v="151"',
-            'sec-ch-ua-mobile': '?0',
-            'sec-ch-ua-platform': '"Windows"',
-            'sec-fetch-dest': 'empty',
-            'sec-fetch-mode': 'cors',
-            'sec-fetch-site': 'same-site'
-          },
-          referrer: 'https://trove.aallyn.net/',
-          body: null,
-          method: 'GET',
-          mode: 'cors',
-          credentials: 'omit'
-        }).then((r) => r.json())
       ]);
 
       let mainJson = res.status === 'fulfilled' ? res.value : null;
       let staticWeekly = weeklyRes.status === 'fulfilled' ? weeklyRes.value : null;
-      let activityData = activityRes.status === 'fulfilled' ? activityRes.value : null;
 
       if (!mainJson || mainJson.error) {
         throw new Error(mainJson?.error?.message || 'Request failed');
@@ -345,10 +326,6 @@ async function loadData(forPlayer) {
 
       if (staticWeekly) {
         mainJson.data.weeklyBuffsStatic = staticWeekly;
-      }
-
-      if (activityData) {
-        mainJson.data.playerActivity = activityData;
       }
 
       setPayload(mainJson);
@@ -479,25 +456,23 @@ async function loadData(forPlayer) {
               </div>
             </div>
           </div>
-
+          
           {/* --- Player Activity Kártya --- */}
           <div className="td-sidebar-card glow-green">
             <div className="td-card-header">
               <div className="td-card-title">
                 <span className="td-card-icon" style={{ color: '#4ade80' }}>●</span> Active Players
               </div>
-              <StatusBadge 
-                state={playerActivity ? 'ok' : 'loading'} 
-                label="LIVE" 
-                customClass="badge-green" 
-              />
+              <StatusBadge state={playerActivity ? 'ok' : 'loading'} label="LIVE" customClass="badge-green" />
             </div>
 
             <div className="td-activity-content">
               <div className="td-activity-count">
-                {typeof playerActivity === 'number'
-                  ? playerActivity
-                  : playerActivity?.active_players ?? playerActivity?.count ?? playerActivity?.total ?? playerActivity?.players ?? '--'}
+                {playerActivity !== null && playerActivity !== undefined
+                  ? (typeof playerActivity === 'object' 
+                      ? (playerActivity.active_players ?? playerActivity.count ?? playerActivity.total ?? JSON.stringify(playerActivity))
+                      : playerActivity)
+                  : '--'}
               </div>
               <div className="td-activity-sub">players online right now</div>
             </div>
