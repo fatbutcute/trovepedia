@@ -1213,7 +1213,7 @@
 .trials-credit-names {
   display: flex;
   gap: 15px;
-  font-size: 1rem;
+  font-size: 0.85rem;
   color: #99adc9;
   font-family: 'Quicksand', serif;
   font-weight: 700;
@@ -1499,7 +1499,7 @@
   background: rgba(183, 0, 61, 0.08);
   border: 1px solid rgba(183, 0, 61, 0.3);
   border-radius: var(--radius-md);
-  padding: 15px 20px;
+  padding: 10px 15px;
   display: flex;
   flex-direction: column;
   gap: 6px;
