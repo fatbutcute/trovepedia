@@ -469,26 +469,16 @@ async function loadData(forPlayer) {
               <div className="td-activity-content">
                 <div className="td-activity-count">
                   {(() => {
-                    if (!playerActivity) return '--';
-
-                    // 1. Ha a válaszban benne van a 'series' tömb (pl. { series: [{ active_players: 837 }, ...] })
-                    if (playerActivity.series && Array.isArray(playerActivity.series) && playerActivity.series.length > 0) {
-                      const lastPoint = playerActivity.series[playerActivity.series.length - 1];
-                      return lastPoint?.active_players ?? lastPoint?.count ?? '--';
+                    if (!playerActivity) return "--";
+                    if (Number.isFinite(playerActivity.latest)) {
+                      return Math.round(playerActivity.latest).toLocaleString();
                     }
-
-                    // 2. Ha közvetlenül a tömb jön vissza
-                    if (Array.isArray(playerActivity) && playerActivity.length > 0) {
-                      const lastPoint = playerActivity[playerActivity.length - 1];
-                      return lastPoint?.active_players ?? lastPoint?.count ?? '--';
-                    }
-
-                    // 3. Ha sima objektumként érkezne
-                    if (typeof playerActivity === 'object') {
-                      return playerActivity.active_players ?? playerActivity.count ?? '--';
-                    }
-
-                    return '--';
+                    const last = Array.isArray(playerActivity.points)
+                      ? playerActivity.points[playerActivity.points.length - 1]
+                      : null;
+                    return Number.isFinite(last?.active)
+                      ? Math.round(last.active).toLocaleString()
+                      : "--";
                   })()}
                 </div>
                 <div className="td-activity-sub">players online right now</div>
