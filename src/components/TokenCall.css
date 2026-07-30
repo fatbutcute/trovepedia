@@ -603,20 +603,25 @@
 
 .td-biome-list {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column; /* EGYSMÁS ALÁ RENDEZI A CHIPEKET */
+  align-items: flex-start;
   gap: 8px;
+  margin-top: 8px;
 }
 
 .td-biome-chip {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 6px;
-  background: rgba(148, 163, 184, 0.07);
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  padding: 5px 11px;
-  font-size: 0.75rem;
-  font-family: Quicksand;
+  gap: 8px;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid var(--border-strong);
+  border-radius: 999px; /* Lekerekített kapszula forma */
+  padding: 6px 14px;
+  font-size: 0.82rem;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 600;
+  color: var(--text);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .td-biome-chip-icon {
@@ -629,10 +634,19 @@
 }
 
 .td-biome-chip-img {
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   object-fit: contain;
-  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.td-biome-fallback-icon {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--accent-strong);
+  box-shadow: 0 0 8px var(--accent-glow);
+  display: inline-block;
   flex-shrink: 0;
 }
 

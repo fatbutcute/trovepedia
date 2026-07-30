@@ -349,86 +349,97 @@ export default function TokenCall() {
               )}
             </section>
 
-            {/* Biomes */}
-            <section
-              id="biomes"
-              className="td-card"
-              ref={(el) => (sectionRefs.current.biomes = el)}
-            >
-              <div className="td-card-header">
-                <div className="td-card-title">
-                  <span className="td-card-icon">❖</span> Biome Rotation
-                </div>
-                <StatusBadge state={sectionState('biomes')} />
-              </div>
-
-              {biomes?.current ? (
-                <>
-                  <div className="td-biome-block">
-                    <div className="td-biome-block-label">Current Biomes</div>
-                    <div className="td-biome-list">
-                      {Array.isArray(biomes.current?.biomes) && biomes.current.biomes.length > 0 ? (
-                        biomes.current.biomes.map((biome, i) => {
-                          const imgUrl = biome?.icon || biome?.image_url;
-                          return (
-                            <span className="td-biome-chip" key={i}>
-                              {imgUrl && imgUrl.trim() !== '' ? (
-                                <img 
-                                  src={imgUrl} 
-                                  alt={biome?.name || 'Biome'} 
-                                  className="td-biome-chip-img"
-                                  onError={(e) => {
-                                    e.target.style.display = 'none';
-                                  }}
-                                />
-                              ) : (
-                                <span className="td-biome-chip-icon" />
-                              )}
-                              {biome?.final_name ?? biome?.name ?? 'Unknown biome'}
-                            </span>
-                          );
-                        })
-                      ) : (
-                        <span className="td-empty">No biome data.</span>
-                      )}
-                    </div>
+              {/* Biomes */}
+              <section
+                id="biomes"
+                className="td-card"
+                ref={(el) => (sectionRefs.current.biomes = el)}
+              >
+                <div className="td-card-header">
+                  <div className="td-card-title">
+                    <span className="td-card-icon">❖</span> Biome Rotation
                   </div>
+                  <StatusBadge state={sectionState('biomes')} />
+                </div>
 
-                  {Array.isArray(biomes?.upcoming) && biomes.upcoming.length > 0 && (
+                {biomes?.current ? (
+                  <>
                     <div className="td-biome-block">
-                      <div className="td-biome-block-label">
-                        Next ({formatCountdown(biomes.upcoming[0]?.starts_at, nowTick) ?? '--'})
-                      </div>
+                      <div className="td-biome-block-label">Current Biomes</div>
                       <div className="td-biome-list">
-                        {Array.isArray(biomes.upcoming[0]?.biomes) &&
-                          biomes.upcoming[0].biomes.map((biome, i) => {
-                            const imgUrl = biome?.icon || biome?.image_url;
+                        {Array.isArray(biomes.current?.biomes) && biomes.current.biomes.length > 0 ? (
+                          biomes.current.biomes.map((biome, i) => {
+                            const imgUrl = biome?.icon || biome?.image_url || biome?.banner;
                             return (
-                              <span className="td-biome-chip" key={i}>
-                                {imgUrl && imgUrl.trim() !== '' ? (
+                              <div className="td-biome-chip" key={i}>
+                                {imgUrl && typeof imgUrl === 'string' && imgUrl.trim() !== '' ? (
                                   <img 
                                     src={imgUrl} 
                                     alt={biome?.name || 'Biome'} 
                                     className="td-biome-chip-img"
                                     onError={(e) => {
+                                      // Ha nem tudja letölteni a képet, kicseréljük egy kis jelvényre
                                       e.target.style.display = 'none';
+                                      if (e.target.parentNode) {
+                                        const badge = document.createElement('span');
+                                        badge.className = 'td-biome-fallback-icon';
+                                        e.target.parentNode.insertBefore(badge, e.target);
+                                      }
                                     }}
                                   />
                                 ) : (
-                                  <span className="td-biome-chip-icon" />
+                                  <span className="td-biome-fallback-icon" />
                                 )}
-                                {biome?.final_name ?? biome?.name ?? 'Unknown biome'}
-                              </span>
+                                <span>{biome?.final_name ?? biome?.name ?? 'Unknown biome'}</span>
+                              </div>
                             );
-                          })}
+                          })
+                        ) : (
+                          <span className="td-empty">No biome data.</span>
+                        )}
                       </div>
                     </div>
-                  )}
-                </>
-              ) : (
-                <div className="td-empty">Biome rotation is unavailable right now.</div>
-              )}
-            </section>
+
+                    {Array.isArray(biomes?.upcoming) && biomes.upcoming.length > 0 && (
+                      <div className="td-biome-block" style={{ marginTop: '16px' }}>
+                        <div className="td-biome-block-label">
+                          Next ({formatCountdown(biomes.upcoming[0]?.starts_at, nowTick) ?? '--'})
+                        </div>
+                        <div className="td-biome-list">
+                          {Array.isArray(biomes.upcoming[0]?.biomes) &&
+                            biomes.upcoming[0].biomes.map((biome, i) => {
+                              const imgUrl = biome?.icon || biome?.image_url || biome?.banner;
+                              return (
+                                <div className="td-biome-chip" key={i}>
+                                  {imgUrl && typeof imgUrl === 'string' && imgUrl.trim() !== '' ? (
+                                    <img 
+                                      src={imgUrl} 
+                                      alt={biome?.name || 'Biome'} 
+                                      className="td-biome-chip-img"
+                                      onError={(e) => {
+                                        e.target.style.display = 'none';
+                                        if (e.target.parentNode) {
+                                          const badge = document.createElement('span');
+                                          badge.className = 'td-biome-fallback-icon';
+                                          e.target.parentNode.insertBefore(badge, e.target);
+                                        }
+                                      }}
+                                    />
+                                  ) : (
+                                    <span className="td-biome-fallback-icon" />
+                                  )}
+                                  <span>{biome?.final_name ?? biome?.name ?? 'Unknown biome'}</span>
+                                </div>
+                              );
+                            })}
+                        </div>
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <div className="td-empty">Biome rotation is unavailable right now.</div>
+                )}
+              </section>
 
             {/* Leaderboard Records */}
             <section
