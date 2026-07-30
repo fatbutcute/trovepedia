@@ -372,6 +372,7 @@ export default function TokenCall() {
   const weeklyBuffs = data?.weeklyBuffsStatic || data?.weeklyBuffs;
   const corruxion = data?.corruxion;
   const fluxion = data?.fluxion;
+  const playerActivity = data?.playerActivity;
 
   const todayWeekday = useMemo(() => {
     if (!Number.isFinite(serverTime?.trove_day)) return null;
@@ -452,6 +453,23 @@ export default function TokenCall() {
                 <span>Weekly reset in</span>
                 <span>{formatCountdown(serverTime?.weekly_reset_at, nowTick) ?? '--'}</span>
               </div>
+            </div>
+          </div>
+
+          {/* --- Player Activity Kártya az Óra alatt --- */}
+          <div className="td-sidebar-card glow-green">
+            <div className="td-card-header">
+              <div className="td-card-title">
+                <span className="td-card-icon" style={{ color: '#4ade80' }}>●</span> Active Players
+              </div>
+              <StatusBadge state={playerActivity ? 'ok' : sectionState('playerActivity')} label="LIVE" customClass="badge-green" />
+            </div>
+
+            <div className="td-activity-content">
+              <div className="td-activity-count">
+                {playerActivity?.active_players ?? playerActivity?.count ?? playerActivity?.total ?? '--'}
+              </div>
+              <div className="td-activity-sub">players online right now</div>
             </div>
           </div>
 

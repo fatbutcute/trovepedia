@@ -42,6 +42,7 @@ const ENDPOINTS = {
   leaderboardRecords: '/v1/leaderboards/records',
   corruxion: '/v1/rotations/corruxion',
   fluxion: '/v1/rotations/fluxion',
+  playerActivity: '/v1/leaderboards/activity',
 };
 
 const REQUEST_TIMEOUT_MS = 8000;

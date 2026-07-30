@@ -529,7 +529,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 6px;
+  gap: 10px;
   font-family: 'Quicksand', sans-serif;
 }
 
@@ -1447,7 +1447,6 @@
   grid-column: 1 / span 2 !important;
   grid-row: 2 !important;
   width: 100%;
-  min-height: 830px; 
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -1499,7 +1498,7 @@
   background: rgba(183, 0, 61, 0.08);
   border: 1px solid rgba(183, 0, 61, 0.3);
   border-radius: var(--radius-md);
-  padding: 8px 14px;
+  padding: 15px 20px;
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -1587,6 +1586,54 @@
   color: #ff0077;
   font-family: 'Quicksand', sans-serif;
   text-shadow: 0 0 8px rgba(255, 0, 119, 0.5);
+}
+
+/* Active Players Zöld Glow Kártya */
+.td-sidebar-card.glow-green {
+  border-color: rgba(74, 222, 128, 0.25);
+  box-shadow: 0 0 12px rgba(74, 222, 128, 0.08);
+}
+
+.td-sidebar-card.glow-green:hover {
+  border-color: rgba(74, 222, 128, 0.6);
+  box-shadow: 0 0 20px rgba(74, 222, 128, 0.25);
+}
+
+.td-badge.badge-green {
+  background: rgba(74, 222, 128, 0.15);
+  color: #4ade80;
+  border: 1px solid rgba(74, 222, 128, 0.3);
+  box-shadow: 0 0 8px rgba(74, 222, 128, 0.2);
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+}
+
+.td-activity-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 0;
+  text-align: center;
+}
+
+.td-activity-count {
+  font-size: 2rem;
+  font-weight: 900;
+  color: #4ade80;
+  font-family: 'Quicksand', sans-serif;
+  text-shadow: 0 0 12px rgba(74, 222, 128, 0.4);
+  line-height: 1;
+}
+
+.td-activity-sub {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 600;
+  margin-top: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 /* Mobil beállítások */
