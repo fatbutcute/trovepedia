@@ -241,26 +241,59 @@ export default function TokenCall() {
             </div>
           </div>
 
-          <nav className="td-nav">
-            <div className="td-nav-label">Navigate</div>
-            {NAV_SECTIONS.map((section) => (
-              <button
-                key={section.id}
-                type="button"
-                className={`td-nav-item${activeSection === section.id ? ' active' : ''}`}
-                onClick={() => handleNavClick(section.id)}
-              >
-                <span className="td-nav-dot" />
-                {section.icon} {section.label}
-              </button>
-            ))}
-          </nav>
+          {/* Chaos Chest átrakva ide a Sidebarba */}
+          <div className="td-sidebar-card">
+            <div className="td-card-header">
+              <div className="td-card-title">
+                <span className="td-card-icon">◆</span> Chaos Chest
+              </div>
+              <StatusBadge state={sectionState('chaosChest')} />
+            </div>
 
+            {chaosChest?.item ? (
+              <div className="td-sidebar-chaos">
+                <div className="td-chaos-hero">
+                  <div className="td-chaos-icon">
+                    {chaosChest.item?.image_url && chaosChest.item.image_url.trim() !== '' ? (
+                      <img 
+                        src={chaosChest.item.image_url} 
+                        alt={chaosChest.item?.name || 'Chaos Item'} 
+                        style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                        onError={(e) => {
+                          e.target.style.display = 'none';
+                          if (e.target.parentNode) e.target.parentNode.innerText = '◆';
+                        }}
+                      />
+                    ) : (
+                      '◆'
+                    )}
+                  </div>
+                  <div>
+                    <div className="td-chaos-name">{chaosChest.item?.name ?? 'Mystery item'}</div>
+                    {chaosChest.item?.blueprint && (
+                      <div className="td-chaos-blueprint">{chaosChest.item.blueprint}</div>
+                    )}
+                  </div>
+                </div>
+
+                <div className="td-sidebar-chaos-time">
+                  <div className="td-countdown">
+                    {formatCountdown(
+                      serverTime?.now_unix + (chaosChest?.seconds_remaining ?? 0),
+                      nowTick
+                    ) ?? formatDuration(chaosChest?.seconds_remaining)}
+                  </div>
+                  <div className="td-countdown-label">until reset</div>
+                </div>
+              </div>
+            ) : (
+              <div className="td-empty">No Chaos Chest data.</div>
+            )}
+          </div>
+
+          {/* Sidebar Footer */}
           <div className="td-sidebar-footer">
             Data via the Kiwi API (aallyn.net). Auto-refreshes every 30s.
-            {payload?.tokenConfigured === false && (
-              <> Running without an API token — public rate limits apply.</>
-            )}
           </div>
         </aside>
 
@@ -343,67 +376,77 @@ export default function TokenCall() {
               )}
             </section>
 
-            <section
-              id="weekly-buffs"
-              className="td-card"
-              ref={(el) => (sectionRefs.current.weeklyBuffs = el)}
-            >
-              <div className="td-card-header">
-                <div className="td-card-title">
-                  <img 
-                    src="/icons/quest.png" 
-                    alt="Weekly Buffs" 
-                    className="td-card-title-icon" 
-                    onError={(e) => { e.target.style.display = 'none'; }}
-                  />
-                  Weekly Buffs
+              <section
+                id="weekly-buffs"
+                className="td-card"
+                ref={(el) => (sectionRefs.current.weeklyBuffs = el)}
+              >
+                <div className="td-card-header">
+                  <div className="td-card-title">
+                    <img 
+                      src="/icons/quest.png" 
+                      alt="Weekly Buffs" 
+                      className="td-card-title-icon" 
+                      onError={(e) => { e.target.style.display = 'none'; }}
+                    />
+                    Weekly Buffs
+                  </div>
+                  <StatusBadge state={sectionState('weeklyBuffs')} />
                 </div>
-                <StatusBadge state={sectionState('weeklyBuffs')} />
-              </div>
 
-              {weeklyBuffs ? (
-                <div className="td-weekly-buff-list">
-                  {/* 1. Ha van megnevezett Event */}
-                  {weeklyBuffs.event && (
-                    <div className="td-weekly-buff-item">
-                      <span className="td-weekly-buff-label">Current Event</span>
-                      <span className="td-weekly-buff-value">
-                        {typeof weeklyBuffs.event === 'object' 
-                          ? weeklyBuffs.event.name || weeklyBuffs.event.title 
-                          : weeklyBuffs.event}
-                      </span>
-                    </div>
-                  )}
+                {weeklyBuffs ? (
+                  <div className="td-weekly-buff-list">
+                    {/* Debug kiíratás a konzolra, ha meg akarod nézni a nyers szerkezetet */}
+                    {console.log('Weekly Buffs API raw data:', weeklyBuffs)}
 
-                  {/* 2. Buffok tömbjének dinamikus renderelése */}
-                  {(() => {
-                    // Megpróbáljuk kinyerni a buffok tömbjét bármilyen néven jön az API-ból
-                    const buffArray = weeklyBuffs.buffs || weeklyBuffs.weekly_buffs || weeklyBuffs.normal_buffs || weeklyBuffs.current;
+                    {/* 1. Ha van esemény neve */}
+                    {(weeklyBuffs.event || weeklyBuffs.event_name || weeklyBuffs.name) && (
+                      <div className="td-weekly-buff-item">
+                        <span className="td-weekly-buff-label">Event:</span>
+                        <span className="td-weekly-buff-value">
+                          {typeof weeklyBuffs.event === 'object'
+                            ? weeklyBuffs.event?.name || weeklyBuffs.event?.title
+                            : weeklyBuffs.event || weeklyBuffs.event_name || weeklyBuffs.name}
+                        </span>
+                      </div>
+                    )}
 
-                    if (Array.isArray(buffArray) && buffArray.length > 0) {
-                      return buffArray.map((buff, i) => (
-                        <div className="td-tag premium" key={i}>
-                          ✦ {typeof buff === 'string' ? buff : buff?.name || buff?.description || 'Weekly Bonus'}
-                        </div>
-                      ));
-                    }
+                    {/* 2. Buffok kigyűjtése minden lehetséges API mezőnévből */}
+                    {(() => {
+                      const rawList = 
+                        weeklyBuffs.buffs || 
+                        weeklyBuffs.weekly_buffs || 
+                        weeklyBuffs.active_buffs || 
+                        weeklyBuffs.normal_buffs || 
+                        weeklyBuffs.current ||
+                        weeklyBuffs.items ||
+                        (Array.isArray(weeklyBuffs) ? weeklyBuffs : null);
 
-                    // Ha a válasz maga egy sima szöveg/objektum tömb helyett
-                    if (typeof weeklyBuffs === 'string') {
-                      return <div className="td-tag premium">✦ {weeklyBuffs}</div>;
-                    }
+                      if (Array.isArray(rawList) && rawList.length > 0) {
+                        return rawList.map((buff, i) => (
+                          <div className="td-tag premium" key={i}>
+                            ✦ {typeof buff === 'string' ? buff : buff?.name || buff?.description || buff?.title || 'Weekly Bonus'}
+                          </div>
+                        ));
+                      }
 
-                    if (!weeklyBuffs.event) {
+                      // Ha a válasz egy egybefüggő szöveg
+                      if (typeof weeklyBuffs === 'string') {
+                        return <div className="td-tag premium">✦ {weeklyBuffs}</div>;
+                      }
+
+                      // Ha van event, de külön buff lista nincs
+                      if (weeklyBuffs.event || weeklyBuffs.event_name) {
+                        return null;
+                      }
+
                       return <div className="td-empty">No active weekly buffs found.</div>;
-                    }
-
-                    return null;
-                  })()}
-                </div>
-              ) : (
-                <div className="td-empty">Weekly buffs are unavailable right now.</div>
-              )}
-            </section>
+                    })()}
+                  </div>
+                ) : (
+                  <div className="td-empty">Weekly buffs are unavailable right now.</div>
+                )}
+              </section>
 
             {/* Chaos Chest */}
             <section

@@ -888,6 +888,35 @@
   border-color: rgba(56, 189, 248, 0.25);
 }
 
+/* Sidebarba illesztett kártya stílusa */
+.td-sidebar-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.td-sidebar-chaos {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.td-sidebar-chaos-time {
+  background: var(--card-alt);
+  padding: 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  text-align: center;
+}
+
+.td-sidebar-chaos-time .td-countdown {
+  font-size: 1.1rem;
+}
+
 /* ---------- Responsive ---------- */
 
 @media (max-width: 860px) {
