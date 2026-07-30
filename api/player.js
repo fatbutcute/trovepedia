@@ -152,7 +152,7 @@ export default async function handler(req, res) {
     data.playerActivity = null;
   }
 
-  // Optional player lookup...
+
   const playerQuery = typeof req.query?.player === 'string' ? req.query.player.trim() : '';
   if (playerQuery) {
     const profileResult = await fetchEndpoint(

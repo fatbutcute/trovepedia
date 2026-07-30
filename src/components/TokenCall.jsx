@@ -456,8 +456,7 @@ async function loadData(forPlayer) {
               </div>
             </div>
           </div>
-          
-          {/* --- Player Activity Kártya --- */}
+
           <div className="td-sidebar-card glow-green">
             <div className="td-card-header">
               <div className="td-card-title">
@@ -468,11 +467,24 @@ async function loadData(forPlayer) {
 
             <div className="td-activity-content">
               <div className="td-activity-count">
-                {playerActivity !== null && playerActivity !== undefined
-                  ? (typeof playerActivity === 'object' 
-                      ? (playerActivity.active_players ?? playerActivity.count ?? playerActivity.total ?? JSON.stringify(playerActivity))
-                      : playerActivity)
-                  : '--'}
+                {(() => {
+                  if (!playerActivity) return '--';
+                  
+                  // Ha tömb érkezik vissza az API-ból (ahogy a képen látszik)
+                  if (Array.isArray(playerActivity)) {
+                    // Összeadjuk a tömbben található active_players értékeket, vagy kivesszük az elsőt
+                    const totalActive = playerActivity.reduce((acc, curr) => acc + (curr.active_players || 0), 0);
+                    return totalActive > 0 ? totalActive : (playerActivity[0]?.active_players ?? '--');
+                  }
+                  
+                  // Ha sima objektum
+                  if (typeof playerActivity === 'object') {
+                    return playerActivity.active_players ?? playerActivity.count ?? playerActivity.total ?? '--';
+                  }
+
+                  // Ha sima szám
+                  return playerActivity;
+                })()}
               </div>
               <div className="td-activity-sub">players online right now</div>
             </div>
