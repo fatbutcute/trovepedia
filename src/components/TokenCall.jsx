@@ -22,9 +22,13 @@ function formatClock(unixSeconds) {
 function formatDuration(seconds) {
   if (!Number.isFinite(seconds)) return '--';
   const s = Math.max(0, Math.floor(seconds));
-  const h = Math.floor(s / 3600);
+  
+  const d = Math.floor(s / (3600 * 24));
+  const h = Math.floor((s % (3600 * 24)) / 3600);
   const m = Math.floor((s % 3600) / 60);
   const sec = s % 60;
+
+  if (d > 0) return `${d}d ${h}h`;
   if (h > 0) return `${h}h ${m}m`;
   if (m > 0) return `${m}m ${sec}s`;
   return `${sec}s`;
