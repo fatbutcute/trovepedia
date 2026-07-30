@@ -471,21 +471,16 @@ async function loadData(forPlayer) {
                 {(() => {
                   if (!playerActivity) return '--';
                   
-                  // 1. Ha az API a fő objektumban küldi a valódi online játékosszámot
-                  if (typeof playerActivity === 'object' && !Array.isArray(playerActivity)) {
-                    if (playerActivity.active_players !== undefined) return playerActivity.active_players;
-                    if (playerActivity.total_active !== undefined) return playerActivity.total_active;
-                    if (playerActivity.online !== undefined) return playerActivity.online;
-                  }
-
-                  // 2. Ha tömb érkezik, kizárólag a legelső elem 'active_players' értékét vesszük ki 
-                  // (Aallyn-nél az első elem jelöli az összegzett online játékosszámot, nem adjuk össze a kategóriákat!)
+                  // Ha tömb érkezik az /v1/leaderboards/activity végpontról
                   if (Array.isArray(playerActivity) && playerActivity.length > 0) {
-                    return playerActivity[0]?.active_players ?? playerActivity[0]?.count ?? '--';
+                    // Kivesszük a legelső (fő) objektumból az active_players számot
+                    return playerActivity[0]?.active_players ?? '--';
                   }
 
-                  // 3. Ha sima szám
-                  if (typeof playerActivity === 'number') return playerActivity;
+                  // Ha sima objektumként jönne
+                  if (typeof playerActivity === 'object') {
+                    return playerActivity.active_players ?? playerActivity.total_active ?? '--';
+                  }
 
                   return '--';
                 })()}
