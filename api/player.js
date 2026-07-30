@@ -89,9 +89,9 @@ export default async function handler(req, res) {
     }
   });
 
-  // --- AKTIVITÁS DEDIKÁLT SZERVEROLDALI FETCH (Tokenmentes) ---
+// --- AKTIVITÁS DEDIKÁLT SZERVEROLDALI FETCH (A te új, pontos URL-eddel!) ---
   try {
-    const actRes = await fetch('https://api.aallyn.net/site/leaderboards/activity', {
+    const actRes = await fetch('https://api.aallyn.net/site/leaderboards/activity/series?period=1m', {
       headers: {
         'Accept': 'application/json',
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',

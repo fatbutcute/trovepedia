@@ -457,39 +457,43 @@ async function loadData(forPlayer) {
             </div>
           </div>
 
-            {/* --- Player Activity Kártya --- */}
-            <div className="td-sidebar-card glow-green">
-              <div className="td-card-header">
-                <div className="td-card-title">
-                  <span className="td-card-icon" style={{ color: '#4ade80' }}>●</span> Active Players
-                </div>
-                <StatusBadge state={playerActivity ? 'ok' : 'loading'} label="LIVE" customClass="badge-green" />
+          {/* --- Player Activity Kártya --- */}
+          <div className="td-sidebar-card glow-green">
+            <div className="td-card-header">
+              <div className="td-card-title">
+                <span className="td-card-icon" style={{ color: '#4ade80' }}>●</span> Active Players
               </div>
-
-              <div className="td-activity-content">
-                <div className="td-activity-count">
-                  {(() => {
-                    if (playerActivity === null || playerActivity === undefined) return '--';
-                    
-                    // Ha közvetlenül egy szám jön vissza
-                    if (typeof playerActivity === 'number') return playerActivity;
-
-                    // Ha objektum
-                    if (typeof playerActivity === 'object' && !Array.isArray(playerActivity)) {
-                      return playerActivity.active_players ?? playerActivity.total_active ?? playerActivity.count ?? '--';
-                    }
-
-                    // Ha tömb
-                    if (Array.isArray(playerActivity) && playerActivity.length > 0) {
-                      return playerActivity[0]?.active_players ?? '--';
-                    }
-
-                    return '--';
-                  })()}
-                </div>
-                <div className="td-activity-sub">players online right now</div>
-              </div>
+              <StatusBadge state={playerActivity ? 'ok' : 'loading'} label="LIVE" customClass="badge-green" />
             </div>
+
+            <div className="td-activity-content">
+              <div className="td-activity-count">
+                {(() => {
+                  if (!playerActivity) return '--';
+
+                  // 1. Ha az adat egy tömbként jön vissza (Idősor) -> Kivesszük az utolsó, legfrissebb pontot!
+                  if (Array.isArray(playerActivity) && playerActivity.length > 0) {
+                    const latestPoint = playerActivity[playerActivity.length - 1];
+                    return latestPoint?.active_players ?? latestPoint?.count ?? latestPoint?.value ?? '--';
+                  }
+
+                  // 2. Ha az objektumon belül van 'series' vagy 'data' tömb
+                  if (playerActivity.series && Array.isArray(playerActivity.series) && playerActivity.series.length > 0) {
+                    const latestPoint = playerActivity.series[playerActivity.series.length - 1];
+                    return latestPoint?.active_players ?? latestPoint?.count ?? latestPoint?.value ?? '--';
+                  }
+
+                  // 3. Ha sima objektumként érkezik
+                  if (typeof playerActivity === 'object') {
+                    return playerActivity.active_players ?? playerActivity.current ?? '--';
+                  }
+
+                  return '--';
+                })()}
+              </div>
+              <div className="td-activity-sub">players online right now</div>
+            </div>
+          </div>
 
           {/* 1. Chaos Chest */}
           <div className="td-sidebar-card glow-blue">
