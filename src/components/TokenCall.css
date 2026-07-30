@@ -1098,151 +1098,38 @@
   margin-top: -3.5px;
 }
 
-/* Interaktív Today's Buffs Kártya (Rácsban) */
-.td-buff-interactive-card {
-  cursor: pointer;
-  border-color: rgba(255, 255, 255, 0.1);
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3), 0 0 10px var(--buff-glow-color, rgba(92, 255, 235, 0.15));
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
-              box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
-              border-color 0.3s ease;
+/* Ha a CSS-ben véletlenül bent maradt volna a span-2 szabály erre a kártyára, töröld, vagy biztosítsd, hogy 1 oszlopos legyen */
+#buffs.td-card {
+  grid-column: span 1 !important;
 }
 
-.td-buff-interactive-card:hover {
-  transform: scale(1.025);
-  border-color: var(--buff-glow-color);
-  box-shadow: 0 0 25px var(--buff-glow-color), 0 0 50px var(--buff-glow-color);
-}
-
-.td-buff-click-hint {
-  font-size: 0.75rem;
-  color: var(--text-dim);
-  font-family: 'Quicksand', sans-serif;
-  opacity: 0.7;
-  transition: opacity 0.2s ease;
-}
-
-.td-buff-interactive-card:hover .td-buff-click-hint {
-  opacity: 1;
-  color: var(--text);
-}
-
+/* Kiemelt kompakt blokk a kártyán belül */
 .td-buff-hero-compact {
   display: flex;
   align-items: center;
-  gap: 14px;
-  padding: 8px 0;
-}
-
-/* --- POPUP MODAL STÍLUSOK (Glassmorphism & Fade Scale) --- */
-
-.td-modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(10, 15, 28, 0.75);
-  backdrop-filter: blur(12px); /* Elmosott háttér */
-  -webkit-backdrop-filter: blur(12px);
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  animation: tdFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-.td-modal-content {
-  background: rgba(18, 24, 40, 0.95);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: var(--radius-lg);
-  width: 100%;
-  max-width: 650px;
-  max-height: 85vh;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
-  animation: tdScaleUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  overflow: hidden;
-}
-
-.td-modal-header {
-  padding: 16px 20px;
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.td-modal-close {
-  background: transparent;
-  border: none;
-  color: var(--text-dim);
-  font-size: 1.2rem;
-  cursor: pointer;
-  padding: 4px 8px;
-  border-radius: var(--radius-sm);
-  transition: color 0.2s, background 0.2s;
-}
-
-.td-modal-close:hover {
-  color: var(--text);
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.td-modal-body {
-  padding: 20px;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.td-modal-day-card {
+  gap: 16px;
+  padding: 16px 12px;
   background: var(--card-alt);
-  border: 1px solid var(--day-color);
+  border: 1px solid var(--border);
   border-radius: var(--radius-md);
-  padding: 12px 16px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2), inset 0 0 15px var(--day-color);
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  margin-top: 4px;
 }
 
-.td-modal-day-card.today-highlight {
-  border-width: 2px;
-  box-shadow: 0 0 15px var(--day-color);
+.td-buff-hero-compact .td-buff-emoji {
+  font-size: 2.2rem;
+  line-height: 1;
 }
 
-.td-modal-day-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-weight: 700;
+.td-buff-hero-compact .td-buff-name {
   font-family: 'Quicksand', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 800;
 }
 
-.td-modal-day-icon {
-  width: 22px;
-  height: 22px;
-  object-fit: contain;
-}
-
-.td-tag.custom-colored {
-  border-color: var(--day-color) !important;
-  color: #fff;
-  background: rgba(255, 255, 255, 0.05);
-}
-
-@keyframes tdFadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes tdScaleUp {
-  from { opacity: 0; transform: scale(0.92); }
-  to { opacity: 1; transform: scale(1); }
+.td-buff-hero-compact .td-buff-weekday {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  margin-top: 2px;
 }
 
 /* ---------- Responsive ---------- */

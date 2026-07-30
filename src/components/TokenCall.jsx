@@ -403,9 +403,15 @@ async function loadData(forPlayer) {
           )}
 
           <div className="td-grid">
+
+          {/* Today's Buffs */}
           <section
             id="buffs"
-            className="td-card span-2"
+            className="td-card td-buff-interactive-card"
+            style={{
+              '--buff-glow-color': currentDayColor
+            }}
+            onClick={() => setIsBuffModalOpen(true)}
             ref={(el) => (sectionRefs.current.buffs = el)}
           >
             <div className="td-card-header">
@@ -417,62 +423,25 @@ async function loadData(forPlayer) {
                 />
                 Today's Buffs
               </div>
-              <StatusBadge state={sectionState('dailyBuffs')} />
+              <span className="td-buff-click-hint">Click for full schedule ↗</span>
             </div>
 
-              {dailyBuffs?.current ? (
-                <>
-                  <div className="td-buff-hero">
-                    <span className="td-buff-emoji">{dailyBuffs.current?.emoji ?? '🎁'}</span>
-                    <div>
-                      <div className="td-buff-name">{dailyBuffs.current?.name ?? 'Unknown buff'}</div>
-                      <div className="td-buff-weekday">{dailyBuffs.current?.weekday ?? ''}</div>
-                    </div>
+            {dailyBuffs?.current ? (
+              <div className="td-buff-hero-compact">
+                <span className="td-buff-emoji">{dailyBuffs.current?.emoji ?? '🎁'}</span>
+                <div>
+                  <div className="td-buff-name" style={{ color: currentDayColor }}>
+                    {dailyBuffs.current?.name ?? 'Unknown buff'}
                   </div>
-
-                  <div className="td-tag-row">
-                    {Array.isArray(dailyBuffs.current?.normal_buffs) &&
-                      dailyBuffs.current.normal_buffs.map((buff, i) => (
-                        <span className="td-tag" key={`normal-${i}`}>
-                          {typeof buff === 'string' ? buff : buff?.name ?? 'Buff'}
-                        </span>
-                      ))}
-                    {Array.isArray(dailyBuffs.current?.premium_buffs) &&
-                      dailyBuffs.current.premium_buffs.map((buff, i) => (
-                        <span className="td-tag premium" key={`premium-${i}`}>
-                          {typeof buff === 'string' ? buff : buff?.name ?? 'Premium buff'}
-                        </span>
-                      ))}
+                  <div className="td-buff-weekday">
+                    {dailyBuffs.current?.weekday ?? WEEKDAY_LABELS[todayWeekday]} · Active Today
                   </div>
-
-                  {Array.isArray(dailyBuffs?.week) && dailyBuffs.week.length > 0 && (
-                    <div className="td-week-strip">
-                      {dailyBuffs.week.map((day, i) => (
-                        <div
-                          key={i}
-                          className={`td-week-day${
-                            todayWeekday !== null && i === todayWeekday ? ' today' : ''
-                          }`}
-                          title={day?.name ?? ''}
-                        >
-                          <img 
-                            src={WEEKLY_ICONS[i]} 
-                            alt={WEEKDAY_LABELS[i]} 
-                            className="td-week-icon"
-                            onError={(e) => {
-                              e.target.style.display = 'none';
-                            }}
-                          />
-                          <div>{WEEKDAY_LABELS[i] ?? ''}</div>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </>
-              ) : (
-                <div className="td-empty">Buff rotation is unavailable right now.</div>
-              )}
-            </section>
+                </div>
+              </div>
+            ) : (
+              <div className="td-empty">Buff rotation is unavailable right now.</div>
+            )}
+          </section>
 
             {/* Weekly Buffs */}
             <section
@@ -488,7 +457,7 @@ async function loadData(forPlayer) {
                     className="td-card-title-icon" 
                     onError={(e) => { e.target.style.display = 'none'; }}
                   />
-                  Weekly bonus rotation
+                  Weekly Bonus Rotation
                 </div>
               </div>
 
