@@ -331,7 +331,6 @@
 }
 
 .td-sidebar-footer {
-  margin-bottom: 60px;
   margin-top: auto;
   font-size: 1rem;
   color: var(--text-faint);
@@ -391,6 +390,7 @@
   object-fit: contain;
   display: inline-block;
   flex-shrink: 0;
+  margin-top: -4px;
 }
 
 /* Weekly Buffs kártya stílusai */

@@ -458,18 +458,31 @@ export default function TokenCall() {
               )}
             </section>
 
-              {/* Biomes */}
-            <section
-              id="biomes"
-              className="td-card"
-              ref={(el) => (sectionRefs.current.biomes = el)}
-            >
-              <div className="td-card-header">
-                <div className="td-card-title">
-                  <span className="td-card-icon">❖</span> Biome Rotation
+              <section
+                id="biomes"
+                className="td-card"
+                ref={(el) => (sectionRefs.current.biomes = el)}
+              >
+                <div className="td-card-header">
+                  <div className="td-card-title">
+                    <img 
+                      src="/icons/rotation.png" 
+                      alt="Biome Rotation" 
+                      className="td-card-title-icon" 
+                      onError={(e) => {
+                        e.target.style.display = 'none';
+                        if (e.target.parentNode) {
+                          const span = document.createElement('span');
+                          span.className = 'td-card-icon';
+                          span.innerText = '❖';
+                          e.target.parentNode.insertBefore(span, e.target);
+                        }
+                      }}
+                    />
+                    Biome Rotation
+                  </div>
+                  <StatusBadge state={sectionState('biomes')} />
                 </div>
-                <StatusBadge state={sectionState('biomes')} />
-              </div>
 
               {biomes?.current ? (
                 <>
