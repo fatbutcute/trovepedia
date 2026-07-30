@@ -1639,13 +1639,43 @@
 }
 
 /* =========================================
-   TROVE NEWS - 2 OSZLOPOS SZEKCIÓ A DATORON
+   TROVE NEWS - 2 OSZLOPOS + BELSŐ GÖRGETÉS
 ========================================= */
 
 #td-news.td-card.span-2 {
   grid-column: 3 / span 2 !important;
   grid-row: 2 !important;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Görgethető belső konténer fix magassággal */
+.td-news-scroll-container {
+  max-height: 480px; /* Megfelelő magasság a belső görgetéshez */
+  overflow-y: auto;
+  padding-right: 6px; /* Hely a görgetősávnak */
+  margin-top: 4px;
+}
+
+/* Egyedi, letisztult görgetősáv stílus */
+.td-news-scroll-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.td-news-scroll-container::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+.td-news-scroll-container::-webkit-scrollbar-thumb {
+  background: rgba(232, 184, 75, 0.3);
+  border-radius: 10px;
+  transition: background 0.2s ease;
+}
+
+.td-news-scroll-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(232, 184, 75, 0.7);
 }
 
 .td-news-loader {
@@ -1684,7 +1714,7 @@
 
 .td-news-card-image {
   width: 100%;
-  height: 120px;
+  height: 110px;
   position: relative;
   overflow: hidden;
   background: rgba(0, 0, 0, 0.4);
@@ -1746,7 +1776,7 @@
 .td-news-title {
   color: var(--text);
   font-family: 'Quicksand', sans-serif;
-  font-size: 0.88rem;
+  font-size: 0.85rem;
   font-weight: 700;
   line-height: 1.3;
   margin: 0 0 6px 0;
@@ -1771,19 +1801,6 @@
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-}
-
-/* Responsiveness mobilra/tabletre */
-@media (max-width: 1200px) {
-  .td-news-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 1400px) {
-  #td-news.td-card.span-2 {
-    grid-column: 1 / -1 !important;
-  }
 }
 
 /* Mobil beállítások */

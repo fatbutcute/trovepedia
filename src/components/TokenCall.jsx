@@ -289,7 +289,7 @@ function TrialsTracker() {
   );
 }
 
-/* --- ÚJ: Trove News Dashboard Komponens (2 oszlopos) --- */
+/* --- Trove News Dashboard Komponens (9 hír + görgethető) --- */
 function DashboardNews() {
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -333,42 +333,45 @@ function DashboardNews() {
       ) : error ? (
         <div className="td-empty" style={{ color: '#f87171' }}>Could not load news articles.</div>
       ) : (
-        <div className="td-news-grid">
-          {news.slice(0, 3).map((item, index) => {
-            const title = item.title || "Trove Update";
-            const excerpt = item.excerpt || "";
-            const link = item.url || "https://mystic-cave.com/";
-            const imageUrl = item.image || '/guideimages/default-news.webp';
-            
-            const pubDate = item.date ? new Date(item.date).toLocaleDateString('en-US', {
-              month: 'short', day: 'numeric', year: 'numeric'
-            }) : 'Recent';
+        /* GÖRGETHETŐ KONTÉNER HÍREKKEL */
+        <div className="td-news-scroll-container">
+          <div className="td-news-grid">
+            {news.slice(0, 9).map((item, index) => {
+              const title = item.title || "Trove Update";
+              const excerpt = item.excerpt || "";
+              const link = item.url || "https://mystic-cave.com/";
+              const imageUrl = item.image || '/guideimages/default-news.webp';
+              
+              const pubDate = item.date ? new Date(item.date).toLocaleDateString('en-US', {
+                month: 'short', day: 'numeric', year: 'numeric'
+              }) : 'Recent';
 
-            return (
-              <a 
-                href={link} 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="td-news-card" 
-                key={item.id || index}
-              >
-                <div className="td-news-card-image">
-                  <img 
-                    src={imageUrl} 
-                    alt={title} 
-                    loading="lazy" 
-                    onError={(e) => { e.target.src = '/guideimages/default-news.webp'; }} 
-                  />
-                  <div className="td-news-card-overlay"><span>Read ↗</span></div>
-                </div>
-                <div className="td-news-card-content">
-                  <span className="td-news-date">{pubDate}</span>
-                  <h4 className="td-news-title">{title}</h4>
-                  <p className="td-news-excerpt">{excerpt}</p>
-                </div>
-              </a>
-            );
-          })}
+              return (
+                <a 
+                  href={link} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="td-news-card" 
+                  key={item.id || index}
+                >
+                  <div className="td-news-card-image">
+                    <img 
+                      src={imageUrl} 
+                      alt={title} 
+                      loading="lazy" 
+                      onError={(e) => { e.target.src = '/guideimages/default-news.webp'; }} 
+                    />
+                    <div className="td-news-card-overlay"><span>Read ↗</span></div>
+                  </div>
+                  <div className="td-news-card-content">
+                    <span className="td-news-date">{pubDate}</span>
+                    <h4 className="td-news-title">{title}</h4>
+                    <p className="td-news-excerpt">{excerpt}</p>
+                  </div>
+                </a>
+              );
+            })}
+          </div>
         </div>
       )}
     </section>
