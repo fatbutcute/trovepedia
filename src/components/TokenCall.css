@@ -999,6 +999,7 @@
   color: #38bdf8;
   border: 1px solid rgba(56, 189, 248, 0.3);
   box-shadow: 0 0 8px rgba(56, 189, 248, 0.2);
+  font-family: Quicksand;
 }
 
 .td-badge.badge-purple {
@@ -1013,6 +1014,7 @@
   color: #f59e0b;
   border: 1px solid rgba(245, 158, 11, 0.3);
   box-shadow: 0 0 8px rgba(245, 158, 11, 0.2);
+  font-family: Quicksand;
 }
 
 /* ---------- Responsive ---------- */

@@ -373,11 +373,6 @@ async function loadData(forPlayer) {
 
           {fluxion ? (
             <div className="td-sidebar-chaos">
-              <div className="td-chaos-hero">
-                <div className="td-chaos-name">
-                  {fluxion.state || (fluxion.active ? 'Voting Active' : 'Voting Closed')}
-                </div>
-              </div>
               <div className="td-sidebar-chaos-time">
                 <div className="td-countdown" style={{ color: '#f59e0b' }}>
                   {formatCountdown(
