@@ -35,10 +35,14 @@ function formatCountdown(targetUnix, nowUnix) {
   return formatDuration(targetUnix - nowUnix);
 }
 
-function StatusBadge({ state, okLabel = 'Live', errorLabel = 'Unavailable' }) {
-  if (state === 'ok') return <span className="td-badge live">{okLabel}</span>;
-  if (state === 'error') return <span className="td-badge error">{errorLabel}</span>;
-  return <span className="td-badge muted">Loading</span>;
+function StatusBadge({ state, label, customClass }) {
+  if (state === 'error') return <span className="td-badge error">Unavailable</span>;
+  if (state === 'loading') return <span className="td-badge muted">Loading</span>;
+  if (label) {
+    return <span className={`td-badge ${customClass || 'live'}`}>{label}</span>;
+  }
+
+  return null;
 }
 
 function getBiomeImageUrl(biome) {
@@ -263,7 +267,11 @@ async function loadData(forPlayer) {
             <div className="td-card-title">
               <span className="td-card-icon">◆</span> Chaos Chest
             </div>
-            <StatusBadge state={sectionState('chaosChest')} />
+            <StatusBadge 
+              state={sectionState('chaosChest')} 
+              label={chaosChest?.active ? 'Active' : 'Live'} 
+              customClass="badge-blue" 
+            />
           </div>
 
           {chaosChest?.item ? (
@@ -313,7 +321,11 @@ async function loadData(forPlayer) {
             <div className="td-card-title">
               <span className="td-card-icon" style={{ color: '#c084fc' }}>✦</span> Corruxion
             </div>
-            <StatusBadge state={sectionState('corruxion')} />
+            <StatusBadge 
+              state={sectionState('corruxion')} 
+              label={corruxion?.active ? 'Active' : 'Away'} 
+              customClass={corruxion?.active ? 'badge-purple' : 'muted'} 
+            />
           </div>
 
           {corruxion ? (
@@ -346,7 +358,17 @@ async function loadData(forPlayer) {
             <div className="td-card-title">
               <span className="td-card-icon" style={{ color: '#f59e0b' }}>◈</span> Fluxion
             </div>
-            <StatusBadge state={sectionState('fluxion')} />
+            <StatusBadge 
+              state={sectionState('fluxion')} 
+              label={
+                fluxion?.state 
+                  ? fluxion.state 
+                  : fluxion?.active 
+                    ? 'Active' 
+                    : 'Voting'
+              } 
+              customClass="badge-amber" 
+            />
           </div>
 
           {fluxion ? (
@@ -458,6 +480,7 @@ async function loadData(forPlayer) {
               )}
             </section>
 
+            {/* Weekly Buffs */}
             <section
               id="weekly-buffs"
               className="td-card"
@@ -478,56 +501,34 @@ async function loadData(forPlayer) {
 
               {weeklyBuffs ? (
                 <div className="td-weekly-buff-container">
-                  {/* 1. Esemény fejléc (ha van aktív Event) */}
-                  {(weeklyBuffs.event || weeklyBuffs.event_name) && (
+                  {/* Jelenleg aktív napi buff kiemelése */}
+                  {weeklyBuffs.current && (
                     <div className="td-weekly-event-banner">
-                      <div className="td-weekly-event-label">Active Event</div>
+                      <div className="td-weekly-event-label">Today's Main Focus</div>
                       <div className="td-weekly-event-title">
-                        ✦ {typeof weeklyBuffs.event === 'object' 
-                            ? weeklyBuffs.event.name || weeklyBuffs.event.title 
-                            : weeklyBuffs.event || weeklyBuffs.event_name}
+                        ✦ {typeof weeklyBuffs.current === 'object' ? weeklyBuffs.current.name : weeklyBuffs.current}
                       </div>
                     </div>
                   )}
 
-                  {/* 2. Heti bónuszok listája */}
+                  {/* A heti rotáció elemei szép listába rendezve */}
                   <div className="td-tag-row">
-                    {(() => {
-                      // Kigyűjtjük a buffokat a JSON tömbjeiből
-                      const buffsList = 
-                        weeklyBuffs.buffs || 
-                        weeklyBuffs.weekly_buffs || 
-                        weeklyBuffs.active_buffs || 
-                        (Array.isArray(weeklyBuffs) ? weeklyBuffs : []);
-
-                      if (Array.isArray(buffsList) && buffsList.length > 0) {
-                        return buffsList.map((buff, i) => (
-                          <span className="td-tag premium" key={i}>
-                            {typeof buff === 'string' ? buff : buff?.name || buff?.description || 'Weekly Bonus'}
-                          </span>
-                        ));
-                      }
-
-                      // Ha az adatok kulcs-értékként vannak strukturálva a JSON-ban
-                      if (typeof weeklyBuffs === 'object') {
-                        const entries = Object.entries(weeklyBuffs).filter(
-                          ([key]) => !['event', 'event_name', 'starts_at', 'ends_at'].includes(key)
-                        );
-
-                        if (entries.length > 0) {
-                          return entries.map(([key, val], i) => (
-                            <div className="td-weekly-buff-item" key={i}>
-                              <span className="td-weekly-buff-label">{key.replace(/_/g, ' ')}:</span>
-                              <span className="td-weekly-buff-value">
-                                {typeof val === 'object' ? val?.name || JSON.stringify(val) : String(val)}
-                              </span>
-                            </div>
-                          ));
-                        }
-                      }
-
-                      return <div className="td-empty">No active weekly buffs listed.</div>;
-                    })()}
+                    {Array.isArray(weeklyBuffs.rotation) ? (
+                      weeklyBuffs.rotation.map((item, i) => (
+                        <div className="td-weekly-buff-item" key={i}>
+                          <span className="td-weekly-buff-label">{item.weekday || `Day ${i + 1}`}:</span>
+                          <span className="td-weekly-buff-value">{item.name}</span>
+                        </div>
+                      ))
+                    ) : Array.isArray(weeklyBuffs.buffs) ? (
+                      weeklyBuffs.buffs.map((buff, i) => (
+                        <span className="td-tag premium" key={i}>
+                          ✦ {typeof buff === 'string' ? buff : buff?.name}
+                        </span>
+                      ))
+                    ) : (
+                      <div className="td-empty">No weekly rotation data found.</div>
+                    )}
                   </div>
                 </div>
               ) : (

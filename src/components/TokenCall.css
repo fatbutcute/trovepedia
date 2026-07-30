@@ -207,7 +207,7 @@
 /* ---------- Sidebar ---------- */
 
 .td-sidebar {
-  width: 260px;
+  width: 300px;
   flex-shrink: 0;
   padding: 20px 16px;
   border-right: 1px solid var(--border);
@@ -991,6 +991,28 @@
 .td-sidebar-card.glow-amber:hover {
   border-color: rgba(245, 158, 11, 0.6);
   box-shadow: 0 0 20px rgba(245, 158, 11, 0.25);
+}
+
+/* Dinamikus színes jelvények a kártyák jobb felső sarkában */
+.td-badge.badge-blue {
+  background: rgba(56, 189, 248, 0.15);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  box-shadow: 0 0 8px rgba(56, 189, 248, 0.2);
+}
+
+.td-badge.badge-purple {
+  background: rgba(192, 132, 252, 0.15);
+  color: #c084fc;
+  border: 1px solid rgba(192, 132, 252, 0.3);
+  box-shadow: 0 0 8px rgba(192, 132, 252, 0.2);
+}
+
+.td-badge.badge-amber {
+  background: rgba(245, 158, 11, 0.15);
+  color: #f59e0b;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  box-shadow: 0 0 8px rgba(245, 158, 11, 0.2);
 }
 
 /* ---------- Responsive ---------- */
