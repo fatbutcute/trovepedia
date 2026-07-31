@@ -849,3 +849,8 @@ footer {
   font-family: 'Goldman';
   src: url('./fonts/Goldman-Bold.ttf') format('truetype');
 }
+
+@font-face {
+  font-family: 'ProductSans';
+  src: url('./fonts/Product-Sans-Regular.ttf') format('truetype');
+}
