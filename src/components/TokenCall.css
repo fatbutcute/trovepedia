@@ -1860,18 +1860,19 @@
   grid-row: 2 !important;
   width: 100%;
   position: relative;
-  overflow: hidden;
+  overflow: hidden !important;
+  box-sizing: border-box;
   background-image: url('/images/trialsofluxion.webp');
   background-size: cover;
   background-position: center;
-  border-color: #26303e;
+  border-color: rgba(245, 158, 11, 0.35);
   box-shadow: 0 0 20px rgba(245, 158, 11, 0.1);
 }
 
-/* Sötét átmenetes overlay, hogy a szövegek kiemelkedjenek */
 .td-luxion-overlay {
   position: absolute;
   inset: 0;
+  border-radius: inherit;
   background: linear-gradient(
     135deg, 
     rgba(7, 10, 18, 0.92) 0%, 
