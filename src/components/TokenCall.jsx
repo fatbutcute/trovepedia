@@ -82,147 +82,8 @@ function getBiomeImageUrl(biome) {
   return null;
 }
 
-/* --- Parallax Full Guide Modal Komponens --- */
-function LuxionGuideModal({ isOpen, onClose }) {
-  const modalScrollRef = useRef(null);
-  const [scrollY, setScrollY] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (modalScrollRef.current) {
-        setScrollY(modalScrollRef.current.scrollTop);
-      }
-    };
-    const el = modalScrollRef.current;
-    if (el) el.addEventListener('scroll', handleScroll);
-    return () => {
-      if (el) el.removeEventListener('scroll', handleScroll);
-    };
-  }, [isOpen]);
-
-  if (!isOpen) return null;
-
-  return (
-    <div className="luxion-modal-overlay" onClick={onClose}>
-      <div 
-        className="luxion-modal-container" 
-        onClick={(e) => e.stopPropagation()}
-        ref={modalScrollRef}
-      >
-        {/* Parallax Hero Header */}
-        <div 
-          className="luxion-parallax-hero"
-          style={{ transform: `translateY(${scrollY * 0.35}px)` }}
-        >
-          <div className="luxion-hero-overlay" />
-          <div className="luxion-hero-content">
-            <span className="luxion-hero-tag">Official Trove Event Guide</span>
-            <h1 className="luxion-hero-title">TRIALS OF LUXION</h1>
-            <p className="luxion-hero-subtitle">
-              Master the deadliest dragon trials, claim Venturine, and unlock legendary treasures.
-            </p>
-          </div>
-        </div>
-
-        <button className="luxion-modal-close-btn" onClick={onClose}>
-          ✕
-        </button>
-
-        {/* Dynamic Content Sections */}
-        <div className="luxion-guide-body">
-          <section className="luxion-guide-card glow-amber">
-            <div className="guide-card-icon">🐉</div>
-            <h2>Introduction &amp; Event Overview</h2>
-            <p>
-              By royal decree of the mighty and opulent dragon <strong>Luxion</strong>, his residence in the Hub has concluded as he returns to rule his domain. However, he invites all worthy Trovians to prove their strength and fortune in a recurring monthly challenge: <strong>The Trials of Luxion</strong>.
-            </p>
-            <p>
-              Running for <strong>one full week each month</strong>, this event challenges players to earn <strong>Venturine</strong>—a special currency used to craft unique mounts, styles, and dragon-themed rewards from Luxion’s hoard.
-            </p>
-          </section>
-
-          <section className="luxion-guide-card glow-purple">
-            <div className="guide-card-icon">📜</div>
-            <h2>Portal Access &amp; Luxion’s Pact</h2>
-            <p>
-              Access is strictly restricted to the strongest Trovians! To enter the Trials:
-            </p>
-            <ul className="guide-bullet-list">
-              <li>Enter via the <strong>Trials of Luxion Portal</strong> located in <strong>Light’s Den</strong> in the Hub during active weeks.</li>
-              <li>You must craft <strong>Luxion’s Pact</strong> at the <em>Luxion’s Pact Register</em>.</li>
-              <li>Crafting requires an <strong>Unfortunate Soul</strong>. The Flux cost increases per craft daily (resets every 24 hours). Unfortunate Souls can also be purchased from <em>Soul-Reckoner Suri</em> for Cubits or Credits.</li>
-              <li>New players should check their Adventures UI (Default PC Key: <code>I</code>) to initiate the introductory questline.</li>
-            </ul>
-          </section>
-
-          <section className="luxion-guide-card glow-blue">
-            <div className="guide-card-icon">⚔️</div>
-            <h2>Ring Quests &amp; Progression System</h2>
-            <p>
-              Upon entering <strong>The Venture Capitol</strong>, consult <strong>Lord Primalux</strong> to accept three sequential trial adventures:
-            </p>
-            <div className="guide-steps-grid">
-              <div className="guide-step-box">
-                <span className="step-num">01</span>
-                <h4>Inner Ring</h4>
-                <p>Defeat inner ring foes to start earning Venturine.</p>
-              </div>
-              <div className="guide-step-box">
-                <span className="step-num">02</span>
-                <h4>Middle Ring</h4>
-                <p>Escalate combat against stronger enemies.</p>
-              </div>
-              <div className="guide-step-box">
-                <span className="step-num">03</span>
-                <h4>Outer Ring</h4>
-                <p>Complete the final ring to seal your progress option.</p>
-              </div>
-            </div>
-            <div className="guide-choice-box">
-              <h4>After the Outer Ring: Your Choice</h4>
-              <p><strong>Complete Trials of Luxion:</strong> Fulfills the pact for a massive Venturine payout and exits you after 10 seconds.</p>
-              <p><strong>Progress Trials of Luxion:</strong> Yields no immediate reward, but upgrades your Pact to the next difficulty level (from <em>Moonless Dark 10</em> up to <em>Long Shade 15</em>) for exponentially higher future rewards!</p>
-            </div>
-          </section>
-
-          <section className="luxion-guide-card glow-amber">
-            <div className="guide-card-icon">💎</div>
-            <h2>Venturine Forge, Signets &amp; Favor</h2>
-            <p>
-              Use the <strong>Venturine Forge</strong> in the Venture Capitol to combine Venturine into <strong>Venturine Signets</strong>. Every 4 Signets crafted increases the Venturine cost by 1 (resets daily).
-            </p>
-            <p>
-              All previous collectibles sold by Luxion rotate in availability at the Forge. Additionally, Loot Collecting Unfortunate Souls gives <em>Fragments of an Unfortunate Soul</em>, which can be spent to gain <strong>Luxion’s Favor</strong> temporary buffs (only 1 active at a time).
-            </p>
-          </section>
-
-          <section className="luxion-guide-card glow-red">
-            <div className="guide-card-icon">⚠️</div>
-            <h2>Strict Rules, Long Shots &amp; Item Expiration</h2>
-            <div className="guide-warning-grid">
-              <div className="warning-item">
-                <strong>Stat Caps &amp; Restrictions:</strong> Movement Speed and Jump are capped inside the Trials. Build Mode, block destruction, and player invites/joins are strictly disabled.
-              </div>
-              <div className="warning-item">
-                <strong>Death Penalty:</strong> Dying inside the Trials deducts Venturine directly from your inventory. No risk, no reward!
-              </div>
-              <div className="warning-item">
-                <strong>Luxion’s Long Shots:</strong> Donate daily items or Venturine at the gambling table for a chance at Venturine Stashes or extra Venturine.
-              </div>
-              <div className="warning-item danger">
-                <strong>USE OR LOSE IT:</strong> All Venturine, Signets, and Venturine Stashes disappear from your inventory when the event ends! Open and spend everything in time!
-              </div>
-            </div>
-          </section>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/* --- Luxion / Trials of Luxion Tracker Komponens --- */
+/* --- Luxion / Trials of Luxion Tracker Komponens (2 oszlopos, háttérképpel) --- */
 function LuxionTracker({ luxion, serverTime, nowTick }) {
-  const [isGuideOpen, setIsGuideOpen] = useState(false);
   const isActive = luxion?.active;
   const secondsRemaining = luxion?.seconds_remaining ?? 0;
   const targetTime = serverTime?.now_unix && secondsRemaining > 0 
@@ -230,72 +91,53 @@ function LuxionTracker({ luxion, serverTime, nowTick }) {
     : null;
 
   return (
-    <>
-      <section id="luxion-tracker" className="td-card span-2 glow-amber td-luxion-card-bg">
-        {/* Sötét overlay a háttérkép felett */}
-        <div className="td-luxion-overlay" />
+    <section id="luxion-tracker" className="td-card span-2 glow-amber td-luxion-card-bg">
+      {/* Sötét overlay a háttérkép felett */}
+      <div className="td-luxion-overlay" />
 
-        <div className="td-luxion-content">
-          <div className="td-card-header">
-            <div className="td-card-title">
-              <span className="td-title-mark" style={{ background: '#f59e0b', boxShadow: '0 0 12px 2px rgba(245, 158, 11, 0.5)' }}></span>
-              <span style={{ color: '#fbbf24', fontWeight: 'bold', fontSize: '1.25rem', marginLeft: '4px', fontFamily: 'Comfortaa, sans-serif' }}>
-                Trials of Luxion
-              </span>
+      <div className="td-luxion-content">
+        <div className="td-card-header">
+          <div className="td-card-title">
+            <span className="td-title-mark" style={{ background: '#f59e0b', boxShadow: '0 0 12px 2px rgba(245, 158, 11, 0.5)' }}></span>
+            <span style={{ color: '#fbbf24', fontWeight: 'bold', fontSize: '1.25rem', marginLeft: '4px', fontFamily: 'Comfortaa, sans-serif' }}>
+              Trials of Luxion
+            </span>
+          </div>
+          <StatusBadge 
+            state={luxion ? 'ok' : 'loading'} 
+            label={isActive ? 'ACTIVE IN HUB' : 'AWAY'} 
+            customClass={isActive ? 'badge-amber' : 'muted'} 
+          />
+        </div>
+
+        <div className="td-luxion-body">
+          <div className="td-luxion-hero-card">
+            <div className="td-luxion-status-info">
+              <p className="td-luxion-desc">
+                {isActive 
+                  ? 'Luxion the Golden Dragon has landed in the Hub! Visit his shop to exchange Dragon Coins for exclusive mounts, allies, styles, and special items before he departs.'
+                  : 'Trials of Luxion is a special recurring event in Trove. Luxion visits the Hub periodically to offer rare dragon-themed rewards, styles, and collectibles in exchange for Dragon Coins.'}
+              </p>
             </div>
-            <StatusBadge 
-              state={luxion ? 'ok' : 'loading'} 
-              label={isActive ? 'ACTIVE IN HUB' : 'AWAY'} 
-              customClass={isActive ? 'badge-amber' : 'muted'} 
-            />
           </div>
 
-          <div className="td-luxion-body">
-            <div className="td-luxion-hero-card">
-              <div className="td-luxion-status-info">
-                <p className="td-luxion-desc">
-                  {isActive 
-                    ? 'Luxion the Golden Dragon has landed in the Hub! Visit his shop to exchange Dragon Coins for exclusive mounts, allies, styles, and special items before he departs.'
-                    : 'Trials of Luxion is a special recurring event in Trove. Luxion visits the Hub periodically to offer rare dragon-themed rewards, styles, and collectibles in exchange for Dragon Coins.'}
-                </p>
-              </div>
+          <div className="td-luxion-timer-box">
+            <div className="td-luxion-timer-label">
+              {isActive ? 'Leaves the Hub in' : 'Next arrival'}
             </div>
-
-            <div className="td-luxion-bottom-row">
-              <div className="td-luxion-timer-box">
-                <div className="td-luxion-timer-label">
-                  {isActive ? 'Leaves the Hub in' : 'Next arrival'}
-                </div>
-                <div className="td-luxion-timer-value">
-                  {isActive 
-                    ? (targetTime ? (formatCountdown(targetTime, nowTick) ?? formatDuration(secondsRemaining)) : formatDuration(secondsRemaining))
-                    : (secondsRemaining > 0 ? formatDuration(secondsRemaining) : 'Schedule TBA')}
-                </div>
-              </div>
-
-              {/* Jobb alsó sarokban elhelyezett Full Guide gomb */}
-              <button 
-                className="luxion-full-guide-btn" 
-                onClick={() => setIsGuideOpen(true)}
-              >
-                <span>Full Luxion Guide</span>
-                <span className="btn-icon">➔</span>
-              </button>
+            <div className="td-luxion-timer-value">
+              {isActive 
+                ? (targetTime ? (formatCountdown(targetTime, nowTick) ?? formatDuration(secondsRemaining)) : formatDuration(secondsRemaining))
+                : (secondsRemaining > 0 ? formatDuration(secondsRemaining) : 'Schedule TBA')}
             </div>
           </div>
         </div>
-      </section>
-
-      {/* Guide Modal megjelenítés */}
-      <LuxionGuideModal 
-        isOpen={isGuideOpen} 
-        onClose={() => setIsGuideOpen(false)} 
-      />
-    </>
+      </div>
+    </section>
   );
 }
 
-/* --- Trove News Dashboard Komponens --- */
+/* --- Trove News Dashboard Komponens (9 hír + görgethető) --- */
 function DashboardNews() {
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -1104,14 +946,14 @@ export default function TokenCall() {
               )}
             </section>
             
-            {/* Luxion Tracker kártya Full Guide gombbal */}
+            {/* 2. Sor 1-2. oszlop: Luxion Tracker */}
             <LuxionTracker 
               luxion={luxion} 
               serverTime={serverTime} 
               nowTick={nowTick} 
             />
 
-            {/* Trove News */}
+            {/* 2. Sor 3-4. oszlop: Trove News */}
             <DashboardNews />
             
           </div>
