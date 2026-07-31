@@ -1865,7 +1865,7 @@
   background-image: url('/images/trialsofluxion.webp');
   background-size: cover;
   background-position: center;
-  border-color: #8a7416;
+  border-color: rgba(148, 163, 184, .12);
   box-shadow: 0 0 20px rgba(245, 158, 11, 0.1);
 }
 
