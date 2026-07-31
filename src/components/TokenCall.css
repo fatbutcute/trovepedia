@@ -1865,14 +1865,13 @@
   background-image: url('/images/trialsofluxion.webp');
   background-size: cover;
   background-position: center;
-  border-color: rgba(245, 158, 11, 0.35);
+  border-color: #8a7416;
   box-shadow: 0 0 20px rgba(245, 158, 11, 0.1);
 }
 
 .td-luxion-overlay {
   position: absolute;
   inset: 0;
-  border-radius: inherit;
   background: linear-gradient(
     135deg, 
     rgba(7, 10, 18, 0.92) 0%, 
@@ -1911,7 +1910,7 @@
 
 .td-luxion-desc {
   font-family: 'Quicksand', sans-serif;
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   color: #e2e8f0;
   line-height: 1.5;
   margin: 0;
@@ -1980,7 +1979,7 @@
 .td-luxion-subtitle {
   color: #fbbf24;
   font-family: 'Comfortaa', 'Quicksand', sans-serif;
-  font-size: 0.92rem;
+  font-size: 1.1rem;
   font-weight: 700;
   margin: 0 0 4px 0;
   letter-spacing: 0.02em;
