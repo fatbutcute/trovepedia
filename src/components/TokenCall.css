@@ -1946,6 +1946,337 @@
   text-shadow: 0 0 12px rgba(245, 158, 11, 0.5);
 }
 
+/* =========================================
+   TRIALS OF LUXION - ALSÓ SÁV & GUIDE GOMB
+========================================= */
+
+.td-luxion-bottom-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 4px;
+}
+
+.td-luxion-bottom-row .td-luxion-timer-box {
+  flex: 1;
+}
+
+/* Full Luxion Guide Gomb a jobb alsó sarokban */
+.luxion-full-guide-btn {
+  background: linear-gradient(135deg, #f59e0b 0%, #b45309 100%);
+  color: #fff;
+  border: 1px solid rgba(251, 191, 36, 0.4);
+  border-radius: var(--radius-md);
+  padding: 14px 20px;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 800;
+  font-size: 0.92rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.25);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  height: 100%;
+}
+
+.luxion-full-guide-btn .btn-icon {
+  font-size: 1.1rem;
+  transition: transform 0.3s ease;
+}
+
+.luxion-full-guide-btn:hover {
+  transform: translateY(-2px) scale(1.02);
+  background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
+  box-shadow: 0 0 25px rgba(245, 158, 11, 0.45);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.luxion-full-guide-btn:hover .btn-icon {
+  transform: translateX(4px);
+}
+
+.luxion-full-guide-btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* =========================================
+   PARALLAX LUXION GUIDE MODAL OVERLAY
+========================================= */
+
+.luxion-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(4, 7, 15, 0.85);
+  backdrop-filter: blur(12px);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  animation: fadeInModal 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeInModal {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.luxion-modal-container {
+  width: 100%;
+  max-width: 900px;
+  max-height: 85vh;
+  background: #0a0e1a;
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  border-radius: 24px;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(245, 158, 11, 0.15);
+  scroll-behavior: smooth;
+}
+
+/* Custom Scrollbar a Modalhoz */
+.luxion-modal-container::-webkit-scrollbar {
+  width: 8px;
+}
+.luxion-modal-container::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+}
+.luxion-modal-container::-webkit-scrollbar-thumb {
+  background: rgba(245, 158, 11, 0.4);
+  border-radius: 10px;
+}
+
+/* Parallax Hero Fejléc */
+.luxion-parallax-hero {
+  position: relative;
+  height: 240px;
+  background-image: url('/images/trialsofluxion.webp');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: flex-end;
+  padding: 30px;
+  overflow: hidden;
+  will-change: transform;
+}
+
+.luxion-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10, 14, 26, 0.3) 0%, rgba(10, 14, 26, 0.95) 100%);
+}
+
+.luxion-hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+.luxion-hero-tag {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #fbbf24;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  background: rgba(245, 158, 11, 0.15);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  padding: 4px 12px;
+  border-radius: 999px;
+  display: inline-block;
+  margin-bottom: 8px;
+}
+
+.luxion-hero-title {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: #fff;
+  margin: 0;
+  font-family: 'Comfortaa', sans-serif;
+  text-shadow: 0 0 15px rgba(245, 158, 11, 0.5);
+}
+
+.luxion-hero-subtitle {
+  color: #94a3b8;
+  font-size: 0.95rem;
+  margin: 6px 0 0 0;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.luxion-modal-close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.luxion-modal-close-btn:hover {
+  background: rgba(239, 68, 68, 0.8);
+  border-color: #ef4444;
+  transform: scale(1.1);
+}
+
+/* Modal Body & Kártyák */
+.luxion-guide-body {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.luxion-guide-card {
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  position: relative;
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.luxion-guide-card:hover {
+  border-color: rgba(245, 158, 11, 0.4);
+  transform: translateY(-2px);
+}
+
+.guide-card-icon {
+  font-size: 1.8rem;
+  margin-bottom: 8px;
+}
+
+.luxion-guide-card h2 {
+  font-size: 1.25rem;
+  color: #fbbf24;
+  margin: 0 0 12px 0;
+  font-family: 'Comfortaa', sans-serif;
+}
+
+.luxion-guide-card p {
+  color: #cbd5e1;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  margin: 0 0 10px 0;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.guide-bullet-list {
+  color: #cbd5e1;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  padding-left: 20px;
+  margin: 0;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.guide-bullet-list li {
+  margin-bottom: 8px;
+}
+
+.guide-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 16px 0;
+}
+
+.guide-step-box {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+  text-align: center;
+}
+
+.step-num {
+  font-size: 0.75rem;
+  font-weight: 900;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.1);
+  padding: 2px 8px;
+  border-radius: 999px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+
+.guide-step-box h4 {
+  color: #fff;
+  margin: 4px 0;
+  font-size: 0.95rem;
+}
+
+.guide-step-box p {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  margin: 0;
+}
+
+.guide-choice-box {
+  background: rgba(167, 139, 250, 0.08);
+  border: 1px solid rgba(167, 139, 250, 0.25);
+  border-radius: 12px;
+  padding: 16px;
+  margin-top: 12px;
+}
+
+.guide-choice-box h4 {
+  color: #c084fc;
+  margin: 0 0 8px 0;
+  font-size: 0.95rem;
+}
+
+.guide-warning-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.warning-item {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-size: 0.85rem;
+  color: #cbd5e1;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.warning-item.danger {
+  grid-column: span 2;
+  background: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.35);
+  color: #fca5a5;
+}
+
+/* Responsive beállítások a modalhoz */
+@media (max-width: 768px) {
+  .td-luxion-bottom-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .luxion-full-guide-btn {
+    justify-content: center;
+  }
+  .guide-steps-grid, .guide-warning-grid {
+    grid-template-columns: 1fr;
+  }
+  .warning-item.danger {
+    grid-column: span 1;
+  }
+}
+
 /* Mobil beállítások */
 @media (max-width: 600px) {
   .trials-header {
