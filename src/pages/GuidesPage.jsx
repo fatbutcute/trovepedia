@@ -23,7 +23,7 @@ export default function GuidesPage() {
 
   // A teljes képernyős háttérstílus, kiegészítve a Hero-féle áttűnéssel és elmosással
   const mainGuidesBgStyle = {
-    background: rgba(7, 8, 15, 0.85),
+    background: 'rgba(7, 8, 15, 0.85)',
     backgroundSize: 'cover',
     backgroundPosition: 'center top',
     backgroundAttachment: 'fixed',
