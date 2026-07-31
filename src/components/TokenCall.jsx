@@ -82,114 +82,6 @@ function getBiomeImageUrl(biome) {
   return null;
 }
 
-/* --- Luxion Trials Guide (fullscreen) Komponens --- */
-function LuxionGuideModal({ panelRef, onClose }) {
-  return (
-    <div className="td-lg-overlay" role="presentation" onMouseDown={(e) => { if (e.target === e.currentTarget) onClose(); }}>
-      <div
-        ref={panelRef}
-        className="td-lg-panel"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="luxion-guide-title"
-      >
-        <div className="td-lg-header">
-          <div className="td-lg-header-title">
-            <span className="td-title-mark" style={{ background: '#f59e0b', boxShadow: '0 0 12px 2px rgba(245, 158, 11, 0.5)' }}></span>
-            <h2 id="luxion-guide-title">The Trials of Luxion — Full Guide</h2>
-          </div>
-          <button type="button" className="td-lg-close" onClick={onClose} aria-label="Close guide">
-            <span aria-hidden="true">✕</span>
-          </button>
-        </div>
-
-        <div className="td-lg-body">
-          <section className="td-lg-section td-lg-intro">
-            <p>
-              The powerful dragon <strong>Luxion</strong> has left the Hub to reclaim his realm, inviting only the
-              bravest Trovians to test their strength in a recurring, month-long event. Active for one week each
-              month, this deadly gameplay mode challenges players to collect <strong>Venturine</strong> — a
-              temporary currency used to craft exclusive rewards from Luxion's hoard — while facing strict
-              limitations, suppressed combat stats, and a penalty of lost Venturine upon death.
-            </p>
-          </section>
-
-          <section className="td-lg-section">
-            <h3><span className="td-lg-num">1</span> Getting Started &amp; Entering the Realm</h3>
-            <ul className="td-lg-list">
-              <li>Use the portal in <strong>Light's Den</strong> within the Hub to join.</li>
-              <li>
-                Access requires crafting a <strong>Luxion's Pact</strong> at the Luxion's Pact Register using an
-                <strong> Unfortunate Soul</strong>.
-              </li>
-              <li>
-                Unfortunate Souls can be crafted (with daily escalating Flux costs) or bought with Credits and
-                Cubits from <strong>Soul-Reckoner Suri</strong>.
-              </li>
-              <li>New players can follow the dedicated questline in the Adventures UI (press <kbd>I</kbd>) to get started.</li>
-            </ul>
-          </section>
-
-          <section className="td-lg-section">
-            <h3><span className="td-lg-num">2</span> Trial Progression &amp; Scaling Difficulty</h3>
-            <p>
-              Inside <strong>The Venture Capitol</strong>, players encounter <strong>Lord Primalux</strong>, who
-              offers three sequential quest lines to defeat enemies in the Inner, Middle, and Outer rings. Upon
-              completion, players choose their path:
-            </p>
-            <div className="td-lg-choice-grid">
-              <div className="td-lg-choice td-lg-choice-complete">
-                <div className="td-lg-choice-label">Complete the Trials</div>
-                <p>Satisfies the Pact for a massive Venturine payout and exits the instance after 10 seconds.</p>
-              </div>
-              <div className="td-lg-choice td-lg-choice-progress">
-                <div className="td-lg-choice-label">Progress the Trials</div>
-                <p>
-                  No instant reward, but upgrades the Pact to the next difficulty rank — from
-                  <strong> Moonless Dark 10</strong> to <strong>Long Shade 15</strong> — increasing future rewards.
-                </p>
-              </div>
-            </div>
-          </section>
-
-          <section className="td-lg-section">
-            <h3><span className="td-lg-num">3</span> Rewards, Mechanics &amp; Risks</h3>
-            <ul className="td-lg-list">
-              <li>Use the <strong>Venturine Forge</strong> to convert currency into Venturine Signets and unlock Luxion's cycling hoard of collectibles.</li>
-              <li>Loot Collecting Unfortunate Souls grants temporary <strong>Luxion's Favor</strong> buffs.</li>
-              <li>Test your luck at <strong>Luxion's Long Shots</strong> by donating items for extra Venturine and rare Stashes.</li>
-            </ul>
-          </section>
-
-          <section className="td-lg-section td-lg-warning">
-            <h3><span className="td-lg-num-warn">!</span> Important Notes</h3>
-            <div className="td-lg-warning-grid">
-              <div className="td-lg-warning-card">
-                <div className="td-lg-warning-title">Rules of the Realm</div>
-                <ul className="td-lg-list">
-                  <li>Jump and Movement Speed are capped.</li>
-                  <li>Build Mode and block destruction are disabled.</li>
-                  <li>Social features (joining or inviting) are unavailable.</li>
-                </ul>
-              </div>
-              <div className="td-lg-warning-card">
-                <div className="td-lg-warning-title">Use It or Lose It</div>
-                <ul className="td-lg-list">
-                  <li>Death deducts Venturine from your inventory.</li>
-                  <li>
-                    All Venturine, Signets, and Stashes disappear when the event ends — spend and open
-                    everything before time runs out!
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </section>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 /* --- Luxion / Trials of Luxion Tracker Komponens (2 oszlopos, háttérképpel) --- */
 function LuxionTracker({ luxion, serverTime, nowTick }) {
   const isActive = luxion?.active;
@@ -198,112 +90,50 @@ function LuxionTracker({ luxion, serverTime, nowTick }) {
     ? serverTime.now_unix + secondsRemaining 
     : null;
 
-  const [guideOpen, setGuideOpen] = useState(false);
-  const guidePanelRef = useRef(null);
-
-  const openGuide = () => {
-    setGuideOpen(true);
-    // Ask the browser for a true fullscreen takeover of the guide panel.
-    // If the Fullscreen API is unavailable or denied, the CSS overlay still
-    // covers the whole viewport, so the guide reads as fullscreen either way.
-    requestAnimationFrame(() => {
-      const el = guidePanelRef.current;
-      if (!el) return;
-      const request = el.requestFullscreen || el.webkitRequestFullscreen;
-      if (request) request.call(el).catch?.(() => {});
-    });
-  };
-
-  const closeGuide = () => {
-    if (document.fullscreenElement || document.webkitFullscreenElement) {
-      const exit = document.exitFullscreen || document.webkitExitFullscreen;
-      exit?.call(document)?.catch?.(() => {});
-    }
-    setGuideOpen(false);
-  };
-
-  useEffect(() => {
-    if (!guideOpen) return;
-
-    const onKeyDown = (e) => {
-      if (e.key === 'Escape') closeGuide();
-    };
-    const onFullscreenChange = () => {
-      if (!document.fullscreenElement && !document.webkitFullscreenElement) {
-        setGuideOpen(false);
-      }
-    };
-
-    document.addEventListener('keydown', onKeyDown);
-    document.addEventListener('fullscreenchange', onFullscreenChange);
-    document.addEventListener('webkitfullscreenchange', onFullscreenChange);
-    const prevOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-
-    return () => {
-      document.removeEventListener('keydown', onKeyDown);
-      document.removeEventListener('fullscreenchange', onFullscreenChange);
-      document.removeEventListener('webkitfullscreenchange', onFullscreenChange);
-      document.body.style.overflow = prevOverflow;
-    };
-  }, [guideOpen]);
-
   return (
-    <>
-      <section id="luxion-tracker" className="td-card span-2 glow-amber td-luxion-card-bg">
-        {/* Sötét overlay a háttérkép felett */}
-        <div className="td-luxion-overlay" />
+    <section id="luxion-tracker" className="td-card span-2 glow-amber td-luxion-card-bg">
+      {/* Sötét overlay a háttérkép felett */}
+      <div className="td-luxion-overlay" />
 
-        <div className="td-luxion-content">
-          <div className="td-card-header">
-            <div className="td-card-title">
-              <span className="td-title-mark" style={{ background: '#f59e0b', boxShadow: '0 0 12px 2px rgba(245, 158, 11, 0.5)' }}></span>
-              <span style={{ color: '#fbbf24', fontWeight: 'bold', fontSize: '1.25rem', marginLeft: '4px', fontFamily: 'Comfortaa, sans-serif' }}>
-                Trials of Luxion
-              </span>
-            </div>
-            <div className="td-luxion-header-actions">
-              <button type="button" className="td-luxion-guide-btn" onClick={openGuide}>
-                <span className="td-luxion-guide-btn-icon" aria-hidden="true">⛶</span>
-                Full Guide
-              </button>
-              <StatusBadge 
-                state={luxion ? 'ok' : 'loading'} 
-                label={isActive ? 'ACTIVE IN HUB' : 'AWAY'} 
-                customClass={isActive ? 'badge-amber' : 'muted'} 
-              />
+      <div className="td-luxion-content">
+        <div className="td-card-header">
+          <div className="td-card-title">
+            <span className="td-title-mark" style={{ background: '#f59e0b', boxShadow: '0 0 12px 2px rgba(245, 158, 11, 0.5)' }}></span>
+            <span style={{ color: '#fbbf24', fontWeight: 'bold', fontSize: '1.25rem', marginLeft: '4px', fontFamily: 'Comfortaa, sans-serif' }}>
+              Trials of Luxion
+            </span>
+          </div>
+          <StatusBadge 
+            state={luxion ? 'ok' : 'loading'} 
+            label={isActive ? 'ACTIVE IN HUB' : 'AWAY'} 
+            customClass={isActive ? 'badge-amber' : 'muted'} 
+          />
+        </div>
+
+        <div className="td-luxion-body">
+          <div className="td-luxion-hero-card">
+            <div className="td-luxion-status-info">
+              <p className="td-luxion-desc">
+                {isActive 
+                  ? 'Luxion the Golden Dragon has landed in the Hub! Visit his shop to exchange Dragon Coins for exclusive mounts, allies, styles, and special items before he departs.'
+                  : 'Trials of Luxion is a special recurring event in Trove. Luxion visits the Hub periodically to offer rare dragon-themed rewards, styles, and collectibles in exchange for Dragon Coins.'}
+              </p>
             </div>
           </div>
 
-          <div className="td-luxion-body">
-            <div className="td-luxion-hero-card">
-              <div className="td-luxion-status-info">
-                <p className="td-luxion-desc">
-                  {isActive 
-                    ? 'Luxion the Golden Dragon has landed in the Hub! Visit his shop to exchange Dragon Coins for exclusive mounts, allies, styles, and special items before he departs.'
-                    : 'Trials of Luxion is a special recurring event in Trove. Luxion visits the Hub periodically to offer rare dragon-themed rewards, styles, and collectibles in exchange for Dragon Coins.'}
-                </p>
-              </div>
+          <div className="td-luxion-timer-box">
+            <div className="td-luxion-timer-label">
+              {isActive ? 'Leaves the Hub in' : 'Next arrival'}
             </div>
-
-            <div className="td-luxion-timer-box">
-              <div className="td-luxion-timer-label">
-                {isActive ? 'Leaves the Hub in' : 'Next arrival'}
-              </div>
-              <div className="td-luxion-timer-value">
-                {isActive 
-                  ? (targetTime ? (formatCountdown(targetTime, nowTick) ?? formatDuration(secondsRemaining)) : formatDuration(secondsRemaining))
-                  : (secondsRemaining > 0 ? formatDuration(secondsRemaining) : 'Schedule TBA')}
-              </div>
+            <div className="td-luxion-timer-value">
+              {isActive 
+                ? (targetTime ? (formatCountdown(targetTime, nowTick) ?? formatDuration(secondsRemaining)) : formatDuration(secondsRemaining))
+                : (secondsRemaining > 0 ? formatDuration(secondsRemaining) : 'Schedule TBA')}
             </div>
           </div>
         </div>
-      </section>
-
-      {guideOpen && (
-        <LuxionGuideModal panelRef={guidePanelRef} onClose={closeGuide} />
-      )}
-    </>
+      </div>
+    </section>
   );
 }
 
