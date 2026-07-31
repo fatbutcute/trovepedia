@@ -112,12 +112,53 @@ function LuxionTracker({ luxion, serverTime, nowTick }) {
 
         <div className="td-luxion-body">
           <div className="td-luxion-hero-card">
-            <div className="td-luxion-status-info">
-              <p className="td-luxion-desc">
-                {isActive 
-                  ? 'Luxion the Golden Dragon has landed in the Hub! Visit his shop to exchange Dragon Coins for exclusive mounts, allies, styles, and special items before he departs.'
-                  : 'Trials of Luxion is a special recurring event in Trove. Luxion visits the Hub periodically to offer rare dragon-themed rewards, styles, and collectibles in exchange for Dragon Coins.'}
-              </p>
+            <div className="td-luxion-status-info td-luxion-scroll-content">
+              
+              {/* Overview Section */}
+              <div className="td-luxion-section">
+                <h4 className="td-luxion-subtitle">The Trials of Luxion: Overview</h4>
+                <p className="td-luxion-desc">
+                  The powerful dragon Luxion has left the Hub to reclaim his realm, inviting only the bravest Trovians to test their strength in a recurring, month-long event: <strong>The Trials of Luxion</strong>. Active for one week each month, this deadly new gameplay mode challenges players to collect <strong>Venturine</strong>—a temporary currency used to craft exclusive rewards from Luxion’s hoard—while facing strict limitations, suppressed combat stats, and a penalty of lost Venturine upon death.
+                </p>
+              </div>
+
+              {/* Getting Started Section */}
+              <div className="td-luxion-section">
+                <h4 className="td-luxion-subtitle">Getting Started &amp; Entering the Realm</h4>
+                <p className="td-luxion-desc">
+                  To join, eligible Trovians must use the portal in <strong>Light’s Den</strong> within the Hub. Access requires crafting a <strong>Luxion’s Pact</strong> at the Luxion’s Pact Register using an <em>Unfortunate Soul</em>, which can be crafted (with daily escalating Flux costs) or bought via Credits and Cubits from <em>Soul-Reckoner Suri</em>. New players can follow the dedicated questline in their Adventures UI (default PC key: <code>I</code>) to get started.
+                </p>
+              </div>
+
+              {/* Progression Section */}
+              <div className="td-luxion-section">
+                <h4 className="td-luxion-subtitle">Trial Progression &amp; Scaling Difficulty</h4>
+                <p className="td-luxion-desc">
+                  Inside <strong>The Venture Capitol</strong>, players encounter Lord Primalux, who offers three sequential quest lines to defeat enemies in the Inner, Middle, and Outer rings. Upon completion, players can choose their path:
+                </p>
+                <ul className="td-luxion-list">
+                  <li><strong>Complete the Trials:</strong> Satisfies the Pact for a massive Venturine payout and exits the instance after 10 seconds.</li>
+                  <li><strong>Progress the Trials:</strong> Gives no instant reward, but upgrades the Pact to the next difficulty rank (ranging from Moonless Dark 10 to Long Shade 15), increasing future rewards.</li>
+                </ul>
+              </div>
+
+              {/* Rewards & Mechanics Section */}
+              <div className="td-luxion-section">
+                <h4 className="td-luxion-subtitle">Rewards, Mechanics &amp; Risks</h4>
+                <p className="td-luxion-desc">
+                  Players can use the <strong>Venturine Forge</strong> to convert currency into <strong>Venturine Signets</strong> to unlock Luxion’s cycling hoard of collectibles. Players can also obtain temporary <em>Luxion’s Favor</em> buffs by Loot Collecting Unfortunate Souls, or test their luck at <em>Luxion’s Long Shots</em> by donating items for extra Venturine and rare Stashes.
+                </p>
+              </div>
+
+              {/* Important Notes Section */}
+              <div className="td-luxion-section td-luxion-alert-box">
+                <h4 className="td-luxion-subtitle alert-title">⚠️ Important Notes</h4>
+                <ul className="td-luxion-list">
+                  <li><strong>Rules of the Realm:</strong> Jump and Movement Speed are capped, Build Mode and block destruction are disabled, and social features (joining or inviting) are unavailable.</li>
+                  <li><strong>Use It or Lose It:</strong> Death deducts Venturine from your inventory. Furthermore, all Venturine, Signets, and Stashes <strong>disappear when the event ends</strong>, so be sure to spend and open everything before time runs out!</li>
+                </ul>
+              </div>
+
             </div>
           </div>
 

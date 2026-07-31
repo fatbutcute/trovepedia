@@ -1946,279 +1946,84 @@
   text-shadow: 0 0 12px rgba(245, 158, 11, 0.5);
 }
 
-/* ==========================================================================
-   Trials of Luxion — "Full Guide" button + fullscreen guide modal
-   Append this block to TokenCall.css. Built on the same design tokens
-   (--bg-card, --bg-line, --text, --radius, --ease-out, etc.) already
-   defined in style_min.css, plus the amber accent used elsewhere in the
-   Luxion tracker (#f59e0b / #fbbf24).
-   ========================================================================== */
-
-.td-luxion-header-actions{
-  display:flex;
-  align-items:center;
-  gap:10px;
+/* Görgethető tartalom konténer stílusai */
+.td-luxion-scroll-content {
+  max-height: 280px;
+  overflow-y: auto;
+  padding-right: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 
-.td-luxion-guide-btn{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  padding:8px 16px;
-  border-radius:999px;
-  border:1px solid rgba(245,158,11,.4);
-  background:rgba(245,158,11,.12);
-  color:#fbbf24;
-  font:600 .85rem 'Inter',system-ui,sans-serif;
-  cursor:pointer;
-  white-space:nowrap;
-  transition:background .15s var(--ease-out,ease),border-color .15s var(--ease-out,ease),transform .15s var(--ease-out,ease);
-}
-.td-luxion-guide-btn:hover{
-  background:rgba(245,158,11,.22);
-  border-color:rgba(245,158,11,.7);
-  transform:translateY(-1px);
-}
-.td-luxion-guide-btn:active{ transform:translateY(0); }
-.td-luxion-guide-btn-icon{ font-size:1rem; line-height:1; }
-
-/* --- Fullscreen overlay --- */
-.td-lg-overlay{
-  position:fixed;
-  inset:0;
-  z-index:9500;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:clamp(12px,3vw,32px);
-  background:rgba(6,8,13,.78);
-  backdrop-filter:blur(10px) saturate(140%);
-  -webkit-backdrop-filter:blur(10px) saturate(140%);
-  animation:td-lg-fade .18s var(--ease-out,ease);
-}
-@keyframes td-lg-fade{ from{ opacity:0; } to{ opacity:1; } }
-
-/* The panel itself is what receives requestFullscreen(); give it its own
-   solid background so it looks correct whether shown as a centered overlay
-   or as a true OS-level fullscreen surface. */
-.td-lg-panel{
-  width:min(920px,100%);
-  height:min(88vh,900px);
-  max-height:100%;
-  display:flex;
-  flex-direction:column;
-  background:var(--bg-deep,#0a0e14);
-  border:1px solid rgba(245,158,11,.35);
-  border-radius:var(--radius-lg,28px);
-  box-shadow:0 30px 90px rgba(0,0,0,.55),0 0 0 1px rgba(245,158,11,.08) inset;
-  overflow:hidden;
-  animation:td-lg-rise .22s var(--ease-spring,cubic-bezier(.34,1.56,.64,1));
-}
-/* When actually in browser fullscreen, fill the entire screen edge-to-edge */
-.td-lg-panel:fullscreen,
-.td-lg-panel:-webkit-full-screen{
-  width:100vw;
-  height:100vh;
-  max-height:none;
-  border-radius:0;
-  border:0;
-}
-@keyframes td-lg-rise{
-  from{ opacity:0; transform:translateY(18px) scale(.98); }
-  to{ opacity:1; transform:translateY(0) scale(1); }
+/* Egyedi letisztult görgetősáv */
+.td-luxion-scroll-content::-webkit-scrollbar {
+  width: 5px;
 }
 
-.td-lg-header{
-  flex:0 0 auto;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:16px;
-  padding:18px 22px;
-  border-bottom:1px solid var(--bg-line,#1f2733);
-  background:linear-gradient(180deg,rgba(245,158,11,.10),transparent);
-}
-.td-lg-header-title{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  min-width:0;
-}
-.td-lg-header-title h2{
-  font-family:'Space Grotesk','Inter',system-ui,sans-serif;
-  font-size:1.15rem;
-  font-weight:700;
-  color:#fbbf24;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-.td-lg-close{
-  flex:0 0 auto;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  width:36px;
-  height:36px;
-  border-radius:10px;
-  border:1px solid var(--bg-line,#1f2733);
-  background:var(--bg-card,#131922);
-  color:var(--text,#e6edf3);
-  font-size:1rem;
-  cursor:pointer;
-  transition:background .15s,border-color .15s,color .15s;
-}
-.td-lg-close:hover{
-  background:rgba(248,81,73,.14);
-  border-color:rgba(248,81,73,.5);
-  color:#f85149;
+.td-luxion-scroll-content::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
 }
 
-.td-lg-body{
-  flex:1 1 auto;
-  overflow-y:auto;
-  padding:22px clamp(16px,3vw,32px) 36px;
-  display:grid;
-  gap:22px;
-  color:var(--text-mute,#9aa4b2);
+.td-luxion-scroll-content::-webkit-scrollbar-thumb {
+  background: rgba(245, 158, 11, 0.4);
+  border-radius: 4px;
 }
 
-.td-lg-section h3{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  font-family:'Space Grotesk','Inter',system-ui,sans-serif;
-  font-size:1.02rem;
-  color:var(--text,#e6edf3);
-  margin-bottom:10px;
-}
-.td-lg-num{
-  display:inline-grid;
-  place-items:center;
-  width:24px;
-  height:24px;
-  flex:0 0 auto;
-  border-radius:8px;
-  background:rgba(245,158,11,.18);
-  border:1px solid rgba(245,158,11,.4);
-  color:#fbbf24;
-  font-size:.8rem;
-  font-weight:700;
-}
-.td-lg-num-warn{
-  display:inline-grid;
-  place-items:center;
-  width:24px;
-  height:24px;
-  flex:0 0 auto;
-  border-radius:8px;
-  background:rgba(248,81,73,.16);
-  border:1px solid rgba(248,81,73,.45);
-  color:#f85149;
-  font-size:.85rem;
-  font-weight:800;
+.td-luxion-scroll-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(245, 158, 11, 0.8);
 }
 
-.td-lg-intro p{
-  font-size:1rem;
-  line-height:1.65;
-  color:var(--text,#e6edf3);
-  padding:16px 18px;
-  border-radius:var(--radius,18px);
-  background:rgba(245,158,11,.06);
-  border:1px solid rgba(245,158,11,.22);
+/* Alcímek (Subtitles) */
+.td-luxion-subtitle {
+  color: #fbbf24;
+  font-family: 'Comfortaa', 'Quicksand', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+  margin: 0 0 4px 0;
+  letter-spacing: 0.02em;
 }
 
-.td-lg-list{
-  display:grid;
-  gap:8px;
-  list-style:none;
-  padding-left:0;
-}
-.td-lg-list li{
-  position:relative;
-  padding-left:20px;
-  font-size:.94rem;
-  line-height:1.55;
-}
-.td-lg-list li::before{
-  content:'';
-  position:absolute;
-  left:2px;
-  top:.55em;
-  width:6px;
-  height:6px;
-  border-radius:50%;
-  background:#f59e0b;
-}
-.td-lg-list li strong,
-.td-lg-section p strong{
-  color:var(--text,#e6edf3);
-}
-.td-lg-list kbd{
-  padding:1px 7px;
-  border-radius:6px;
-  border:1px solid var(--bg-line,#1f2733);
-  background:var(--bg-card,#131922);
-  color:var(--text,#e6edf3);
-  font-size:.82em;
-  font-family:SFMono-Regular,Consolas,monospace;
+.td-luxion-subtitle.alert-title {
+  color: #f87171;
 }
 
-.td-lg-choice-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:14px;
-  margin-top:14px;
-}
-.td-lg-choice{
-  padding:16px 18px;
-  border-radius:var(--radius,18px);
-  background:var(--bg-card,#131922);
-  border:1px solid var(--bg-line,#1f2733);
-}
-.td-lg-choice-label{
-  font-weight:700;
-  font-size:.95rem;
-  margin-bottom:6px;
-  color:var(--text,#e6edf3);
-}
-.td-lg-choice p{ font-size:.9rem; line-height:1.5; }
-.td-lg-choice-complete{ border-color:rgba(63,185,80,.35); }
-.td-lg-choice-complete .td-lg-choice-label{ color:#3fb950; }
-.td-lg-choice-progress{ border-color:rgba(88,166,255,.35); }
-.td-lg-choice-progress .td-lg-choice-label{ color:#58a6ff; }
-
-.td-lg-warning{
-  padding:16px 18px 18px;
-  border-radius:var(--radius,18px);
-  background:rgba(248,81,73,.06);
-  border:1px solid rgba(248,81,73,.28);
-}
-.td-lg-warning-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:14px;
-  margin-top:10px;
-}
-.td-lg-warning-card{
-  padding:14px 16px;
-  border-radius:14px;
-  background:var(--bg-card,#131922);
-  border:1px solid var(--bg-line,#1f2733);
-}
-.td-lg-warning-title{
-  font-weight:700;
-  font-size:.92rem;
-  color:#f85149;
-  margin-bottom:8px;
+/* Szöveg- és listabeállítások */
+.td-luxion-desc {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 0.85rem;
+  color: #cbd5e1;
+  line-height: 1.5;
+  margin: 0;
 }
 
-@media(max-width:640px){
-  .td-lg-choice-grid,
-  .td-lg-warning-grid{ grid-template-columns:1fr; }
-  .td-lg-header-title h2{ font-size:1rem; }
-  .td-luxion-guide-btn{ padding:7px 12px; font-size:.8rem; }
+.td-luxion-desc code {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 1px 5px;
+  border-radius: 4px;
+  color: #fbbf24;
+}
+
+.td-luxion-list {
+  margin: 4px 0 0 0;
+  padding-left: 18px;
+  color: #cbd5e1;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 0.83rem;
+  line-height: 1.5;
+}
+
+.td-luxion-list li {
+  margin-bottom: 4px;
+}
+
+/* Figyelmeztető kiemelt doboz a dobozban */
+.td-luxion-alert-box {
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  border-radius: 10px;
+  padding: 10px 12px;
 }
 
 /* Mobil beállítások */
