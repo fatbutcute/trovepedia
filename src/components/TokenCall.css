@@ -1646,20 +1646,19 @@
   grid-column: 3 / span 2 !important;
   grid-row: 2 !important;
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
 }
 
-/* 
-  Görgethető belső konténer magassága: 
-  Tökéletesen belefér 3 teljes sor hír elvágás nélkül (~660px)!
-  Ha ennél több hír van (vagy alacsonyabb a képernyő), finoman görgethetővé válik.
-*/
 .td-news-scroll-container {
-  max-height: 660px; 
-  overflow-y: auto;
-  padding-right: 6px; /* Hely a gördítősávnak, hogy ne takarja a kártyákat */
-  margin-top: 4px;
+  max-height: none !important;
+  overflow: visible !important;
+  padding-right: 0;
+  margin-top: 8px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Egyedi, letisztult görgetősáv stílus */
@@ -1686,6 +1685,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 14px;
+  height: 100%;
 }
 
 .td-news-card {
@@ -1696,6 +1696,7 @@
   text-decoration: none;
   display: flex;
   flex-direction: column;
+  height: 100%;
   transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
