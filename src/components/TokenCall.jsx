@@ -11,15 +11,34 @@ const NAV_SECTIONS = [
   { id: 'player', label: 'Player Lookup', icon: '⌕' },
 ];
 
-const DAILY_BUFF_ICONS = [
-  '/icons/pickaxe.png',                 
-  '/icons/fish.png',                   
-  '/icons/sparkling-diamond.png',       
-  '/icons/quest.png',                 
-  '/icons/dragon.png',                  
-  '/icons/xp.png',                      
-  '/icons/lootbag.png'                  
-];
+// Ikon választó függvény a nap neve vagy a buff típusa alapján
+function getDailyBuffIcon(buffData) {
+  if (!buffData) return '/icons/power.png';
+
+  // Megnézzük a nap nevét (pl. "Monday", "Sunday") vagy a buff nevét
+  const weekday = (buffData.weekday || '').toLowerCase();
+  const buffName = (buffData.name || '').toLowerCase();
+
+  // 1. Keresés a HÉT NAPJAI alapján:
+  if (weekday.includes('mon')) return '/icons/pickaxe.png';                     // Hétfő
+  if (weekday.includes('tue')) return '/icons/fish.png';                        // Kedd
+  if (weekday.includes('wed')) return '/icons/icons8-sparkling-diamond-80.png';// Szerda
+  if (weekday.includes('thu')) return '/icons/quest.png';                       // Csütörtök
+  if (weekday.includes('fri')) return '/icons/dragon.png';                      // Péntek
+  if (weekday.includes('sat')) return '/icons/xp.png';                          // Szombat
+  if (weekday.includes('sun')) return '/icons/lootbag.png';                     // Vasárnap
+
+  // 2. Tartalék (fallback) keresés a BUFF NEVE alapján (ha a weekday hiányozna):
+  if (buffName.includes('mining') || buffName.includes('gathering')) return '/icons/pickaxe.png';
+  if (buffName.includes('fish')) return '/icons/fish.png';
+  if (buffName.includes('gem')) return '/icons/icons8-sparkling-diamond-80.png';
+  if (buffName.includes('adventure') || buffName.includes('quest')) return '/icons/quest.png';
+  if (buffName.includes('dragon')) return '/icons/dragon.png';
+  if (buffName.includes('xp') || buffName.includes('experience')) return '/icons/xp.png';
+  if (buffName.includes('loot') || buffName.includes('karma')) return '/icons/lootbag.png';
+
+  return '/icons/power.png';
+}
 
 const WEEKDAY_LABELS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
@@ -655,34 +674,29 @@ export default function TokenCall() {
               {dailyBuffs?.current ? (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                   <div className="td-buff-hero" style={{ padding: '12px', background: 'var(--card-alt)', borderRadius: 'var(--radius-md)' }}>
-                    
-                    {/* --- ÚJ IKON RÉSZLET (Hétfőtől Vasárnapig dinamikusan) --- */}
                     <div className="td-buff-icon-wrapper" style={{ width: '42px', height: '42px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                      <img 
-                        src={todayWeekday !== null && todayWeekday !== undefined 
-                          ? DAILY_BUFF_ICONS[todayWeekday] 
-                          : '/icons/power.png'} 
-                        alt={dailyBuffs.current?.name ?? 'Daily Buff'} 
-                        style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-                        onError={(e) => {
-                          // Ha nem találja a fájlt, visszaáll emojira vagy alap ikonra
-                          e.target.style.display = 'none';
-                          if (e.target.parentNode) {
-                            e.target.parentNode.innerText = dailyBuffs.current?.emoji ?? '🎁';
-                          }
-                        }}
-                      />
-                    </div>
+                        <img 
+                          src={getDailyBuffIcon(dailyBuffs.current)} 
+                          alt={dailyBuffs.current?.name ?? 'Daily Buff'} 
+                          style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                          onError={(e) => {
+                            e.target.style.display = 'none';
+                            if (e.target.parentNode) {
+                              e.target.parentNode.innerText = dailyBuffs.current?.emoji ?? '🎁';
+                            }
+                          }}
+                        />
+                      </div>
 
-                    <div>
-                      <div className="td-buff-name" style={{ fontSize: '1.05rem', fontWeight: '700' }}>
-                        {dailyBuffs.current?.name ?? 'Unknown buff'}
-                      </div>
-                      <div className="td-buff-weekday" style={{ fontSize: '0.8rem', color: 'var(--text-dim)' }}>
-                        {dailyBuffs.current?.weekday ?? (todayWeekday !== null ? WEEKDAY_LABELS[todayWeekday] : '')}
+                      <div>
+                        <div className="td-buff-name" style={{ fontSize: '1.05rem', fontWeight: '700' }}>
+                          {dailyBuffs.current?.name ?? 'Unknown buff'}
+                        </div>
+                        <div className="td-buff-weekday" style={{ fontSize: '0.8rem', color: 'var(--text-dim)' }}>
+                          {dailyBuffs.current?.weekday ?? (todayWeekday !== null ? WEEKDAY_LABELS[todayWeekday] : '')}
+                        </div>
                       </div>
                     </div>
-                  </div>
 
                   <div className="td-tag-row">
                     {Array.isArray(dailyBuffs.current?.normal_buffs) &&
