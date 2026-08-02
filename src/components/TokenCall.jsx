@@ -674,7 +674,7 @@ export default function TokenCall() {
               {dailyBuffs?.current ? (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                   <div className="td-buff-hero" style={{ padding: '12px', background: 'var(--card-alt)', borderRadius: 'var(--radius-md)' }}>
-                    <div className="td-buff-icon-wrapper" style={{ width: '42px', height: '42px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <div className="td-buff-icon-wrapper" style={{ width: '30px', height: '30px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                         <img 
                           src={getDailyBuffIcon(dailyBuffs.current)} 
                           alt={dailyBuffs.current?.name ?? 'Daily Buff'} 
