@@ -87,9 +87,9 @@ export default function CalculatorsPage() {
           ← HOME
         </button>
 
-        <h1 className="guides-title" style={{ opacity: 1, transform: 'translateY(0)' }}>Calculators</h1>
-        <p className="guide-desc" style={{ opacity: 1, textAlign: 'center', maxWidth: '800px', margin: '0 auto 50px' }}>
-          Optimize your gameplay. From Power Rank to daily Cubits, calculate exactly what you need to reach your goals in Trove.
+        <h1 className="calc-title">Calculators</h1>
+        <p className="calc-desc">
+          Optimize your gameplay. From Power Rank to daily Cubits, calculate exactly what you need.
         </p>
 
         <div className="calc-grid">
