@@ -49,7 +49,7 @@ export default function GuidesPage() {
       <section 
         style={{ 
           width: '100%', 
-          maxWidth: '1200px', 
+          maxWidth: '1300px', 
           margin: '0 auto', 
           padding: '40px 20px',
           ...contentAnimationStyle // Rádobjuk a finom felúszást a teljes tartalomra
@@ -62,11 +62,6 @@ export default function GuidesPage() {
         >
           ← HOME
         </button>
-        <p className="guide-label">Community Content</p>
-        <h1 className="guides-title" style={{ opacity: 1 }}>Guides</h1>
-        <p className="guide-desc" style={{ opacity: 1, textAlign: 'center' }}>
-          Community-written, up-to-date guides for all important Trove mechanics.
-        </p>
         <GuidesList />
       </section>
     </div>

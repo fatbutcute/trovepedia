@@ -1,307 +1,408 @@
+/* ==========================================================================
+   ALAP BEÁLLÍTÁSOK & HÁTTÉR
+   ========================================================================== */
 .guides-detail-page {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 40px 20px 80px 20px; /* Alap padding a széleknek mobilon is */
+  padding: 40px 20px 100px 20px;
+  background: rgba(7, 8, 15, 1);
+  color: #e6edf3;
+  font-family: 'Inter', 'Quicksand', sans-serif;
+  overflow: hidden; /* clips the parallax layer, which intentionally overshoots the viewport */
 }
 
 .gd-container {
+  position: relative;
+  z-index: 1; /* sits above .gd-hero-bg-wrap */
   width: 100%;
-  max-width: 1000px;
+  max-width: 930px; /* Kicsit keskenyebb a jobb olvashatóságért */
   display: flex;
   flex-direction: column;
-  animation: slideInFromLeft 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-  margin-top: 40px;
+  margin-top: 20px;
 }
 
+/* ==========================================================================
+   PARALLAX HÁTTÉR (JS-driven, replaces the old background-attachment: fixed —
+   this version also works correctly on mobile Safari/Chrome)
+   ========================================================================== */
+.gd-hero-bg-wrap {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.gd-hero-bg-parallax {
+  position: absolute;
+  inset: -120px 0; /* overshoot so the drifting image never reveals an edge */
+  height: calc(100% + 240px);
+}
+
+.gd-hero-bg-image {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.gd-hero-bg-fade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(7, 8, 15, 0.95) 0%,
+    rgba(7, 8, 15, 0.98) 60%
+  );
+}
+
+/* ==========================================================================
+   VISSZA GOMB (Megtartva, de letisztítva)
+   ========================================================================== */
 .gd-back-btn {
   position: fixed;
-  top: 200px;
-  left: 200px;
+  top: 150px;
+  left: 100px;
   z-index: 100;
-  width: 55px;
-  height: 55px;
-  display: flex !important;
+  width: 50px;
+  height: 50px;
+  display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
+  border-radius: 14px; /* Kör helyett modern lekerekített négyzet */
   padding: 0;
   cursor: pointer;
-  background: rgba(7, 8, 15, 0.75) !important;
-  border: 1px solid rgba(123, 66, 245, 0.3) !important;
-  color: rgba(255, 255, 255, 0.8) !important;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-  animation: gdCircleSlideUp 0.6s cubic-bezier(0.25, 1, 0.25, 1) forwards;
-  transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), 
-              border-color 0.5s ease, 
-              background 0.5s ease, 
-              color 0.5s ease,
-              box-shadow 0.5s ease;
+  background: rgba(255, 255, 255, 0.03) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: rgba(255, 255, 255, 0.6) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .gd-back-btn:hover {
-  transform: scale(1.2) !important; 
+  transform: translateX(-5px) !important; 
   color: #fff !important;
-  background: rgba(123, 66, 245, 0.2) !important;
-  border-color: rgba(123, 66, 245, 0.6) !important;
-  box-shadow: 0 0 15px rgba(123, 66, 245, 0.4);
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
 }
 
+/* ==========================================================================
+   HEADER RÉSZ (Cím, Tag, Meta)
+   ========================================================================== */
 .gd-header {
-  margin-bottom: 30px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  padding-bottom: 24px;
+  margin-bottom: 40px;
+  text-align: left;
 }
 
 .gd-tag-wrapper {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 16px;
+  gap: 8px;
+  margin-bottom: 20px;
+  background: rgba(123, 66, 245, 0.1);
+  border: 1px solid rgba(123, 66, 245, 0.25);
+  padding: 6px 14px;
+  border-radius: 999px;
+  backdrop-filter: blur(5px);
 }
 
 .gd-icon {
-  font-size: 1.4rem;
-  color: var(--accent, #7b42f5);
+  font-size: 1.1rem;
+  color: #a371f7;
 }
 
 .gd-tag {
-  background: rgba(123, 66, 245, 0.1);
-  color: #c9cbe7;
-  padding: 6px 16px;
-  border-radius: 20px;
-  font-size: 0.85rem;
-  font-weight: 800;
+  color: #d2a8ff;
+  font-size: 0.8rem;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 1.5px;
-  font-family: 'Comfortaa', sans-serif;
-  backdrop-filter: blur(5px);
-  border: 1px solid rgba(123, 66, 245, 0.3);
+  letter-spacing: 1px;
 }
 
 .gd-title {
-  font-family: 'Gordita', sans-serif;
-  font-size: clamp(2rem, 5vw, 3.2rem); /* Dinamikus betűméret! Mobilon kisebb lesz */
-  font-weight: 500;
-  color: #fff;
-  line-height: 1.2;
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.15;
   margin-bottom: 15px;
-  text-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  letter-spacing: -0.02em;
 }
 
 .gd-meta {
-  color: #9499c3;
-  font-size: 1.15rem;
+  color: #af9ab2;
+  font-size: 0.95rem;
+  font-weight: 500;
   font-family: 'Quicksand', sans-serif;
 }
 
 .gd-meta strong {
-  color: #7b42f5;
-  font-weight: 700;
+  color: #e6edf3;
+  font-weight: 600;
+  font-family: 'Comfortaa', sans-serif;
 }
 
-/* ── Cikk Törzse (Olvasó zóna) ── */
+.gd-meta span {
+  margin: 0 8px;
+  opacity: 0.5;
+}
+
+/* ==========================================================================
+   TARTALMI DOBOZ (Sleek Card Style)
+   ========================================================================== */
 .gd-content-box {
-  background: rgba(0, 0, 0, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  padding: 50px;
-  border-radius: 16px;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
-  max-width: 100%;
-  box-sizing: border-box;
+  background: transparent; /* Nincs külső nagy doboz háttere, a szakaszok maguk lesznek dobozok */
+  width: 100%;
 }
 
 .gd-body {
-  font-family: 'Quicksand', sans-serif;
-  font-size: 1.15rem;
-  color: #c9cbe7;
-  line-height: 1.8;
-  max-width: 100%;
-  overflow-wrap: break-word;
-  word-break: break-word;
+  font-family: 'Blinker', 'Comfortaa', sans-serif;
+  font-size: 1.1rem;
+  color: #9aa4b2; /* Letisztult szürke szöveg a képeken látható módon */
+  line-height: 1.7;
 }
 
-/* ==========================================================================
-   RESZPONZÍV (MOBIL) BEÁLLÍTÁSOK
-   ========================================================================== */
-
-@media (max-width: 768px) {
-  .guides-detail-page {
-    padding: 20px 15px 60px 15px;
-  }
-  
-  .gd-content-box {
-    padding: 30px 20px; /* Mobilon kisebb belső margó, hogy a szöveg elférjen */
-  }
-
-  .gd-body {
-    font-size: 1.05rem; /* Picit kisebb betűméret mobilon a kényelemért */
-  }
-}
-
-@media (max-width: 480px) {
-  .gd-tag-wrapper {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  
-  .gd-back-btn {
-    width: 100%;
-    text-align: center;
-    justify-content: center;
-  }
-}
-
-/* ── Markdown Formázások a cikk belsejében ── */
-
-.gd-body h1 {
-  font-family: 'Comfortaa', sans-serif;
-  font-size: 2.2rem;
-  color: var(--gold, #e8b84b);
-  margin: 35px 0 15px 0;
-  border-bottom: 1px solid rgba(232, 184, 75, 0.1);
-  padding-bottom: 8px;
-  font-weight: 600;
-}
-
-.gd-body h2 {
-  font-family: 'Comfortaa', sans-serif;
-  font-size: 2rem;
-  color: var(--gold, #e8b84b);
-  margin: 35px 0 15px 0;
-  border-bottom: 1px solid rgba(232, 184, 75, 0.1);
-  padding-bottom: 8px;
+/* ── CÍMSOROK ── */
+.gd-body h1, .gd-body h2 {
+  font-family: 'Quicksand', 'Comfortaa', sans-serif;
+  font-size: 1.8rem;
+  color: #ffffff;
+  margin: 50px 0 20px 0;
+  font-weight: 700;
+  letter-spacing: -0.01em;
 }
 
 .gd-body h3 {
-  font-family: 'Comfortaa', sans-serif;
-  font-size: 1.6rem;
-  color: #fff;
-  margin: 25px 0 12px 0;
-  font-weight: 400;
+  font-family: 'Blinker', 'Comfortaa', sans-serif;
+  font-size: 1.3rem;
+  color: #e6edf3;
+  margin: 35px 0 15px 0;
+  font-weight: 600;
 }
 
 .gd-body h4 {
-  font-family: 'Comfortaa', sans-serif;
-  font-size: 1.4rem;
-  color: #fff;
-  margin: 25px 0 12px 0;
-  font-weight: 400;
-  padding-bottom: 6px;
-  width: fit-content;
-  border-bottom: 1px solid rgba(232, 184, 75, 0.2);
+  font-family: 'Quicksand', 'Comfortaa', sans-serif;
+  font-size: 1.1rem;
+  color: #f7ffc9;
+  margin: 0px 0 10px 0;
+  font-weight: 600;
 }
 
 .gd-body h5 {
-  font-family: 'Comfortaa', sans-serif;
-  font-size: 1.2rem;
-  color: #fff;
-  margin: 25px 0 12px 0;
-  font-weight: 400;
-  padding-bottom: 6px;
+  font-family: 'Quicksand', 'Comfortaa', sans-serif;
+  font-size: 1rem;
+  color: #cccccc;
+  margin: 25px 0 8px 0;
+  font-weight: 600;
 }
 
+/* ── BEKEZDÉSEK & LISTÁK ── */
 .gd-body p {
-  margin-bottom: 20px; /* Sorköz a bekezdések között */
-  font-family: 'Quicksand', sans-serif;
-  font-size: 1.05rem;
+  margin-bottom: 24px;
+  font-family: 'Quicksand', 'Comfortaa', sans-serif;
+}
+
+.gd-body strong {
+  color: #ffffff;
+  font-weight: 600;
 }
 
 .gd-body ul, .gd-body ol {
-  margin: 0 0 25px 25px;
+  margin: 0 0 30px 20px;
+  padding: 0;
 }
 
 .gd-body li {
-  margin-bottom: 8px;
-  font-size: 1.05rem;
+  margin-bottom: 12px;
+  position: relative;
+  padding-left: 5px;
   font-family: 'Quicksand', sans-serif;
 }
 
-/* KÉPEK AUTOMATIKUS RESZPONZIVITÁSA (Hogy mobilon se lógjon ki!) */
-/* ── SPECIÁLIS KÉPKONTÉNER A HOVER EFFEKTNEK ── */
-/* ── JAVÍTVA: TISZTA KERET-ANIMÁCIÓ TRÜKKÖS NÉGYZETEK NÉLKÜL ── */
-/* ==========================================================================
-   LETISZTULT FADELŐDŐ ARANY NEON KERET EFFEKT
-   ========================================================================== */
+/* ── EGYEDI DOBOZOK (Bento / Kártya stílus a képek alapján) ── */
+.gd-info-box {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-left: 4px solid #58a6ff; /* Kék akcentus */
+  border-radius: 12px;
+  padding: 24px;
+  margin: 35px 0;
+}
+
+.gd-info-title {
+  color: #ffffff;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 10px 0;
+  font-family: 'Blinker', 'Comfortaa', sans-serif;
+}
+
+.gd-info-box p {
+  margin: 0;
+  font-size: 1rem;
+}
 
 .gd-image-container {
   position: relative;
-  max-width: 70%;
-  margin: 35px auto;
-  border-radius: 12px;
-  background: rgba(7, 8, 15, 0.5);
+  width: fit-content; 
+  max-width: 100%;
+  margin: 30px auto;
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.05);
   cursor: pointer;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
-              box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-  display: block;
-  padding: 2px; 
+  padding: 4px; 
   box-sizing: border-box;
+  transition: border-color 0.3s ease;
+  display: block;
 }
 
-/* Maga a kép a konténeren belül */
+.gd-images-grid {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  margin: 30px 0;
+  width: 100%;
+}
+
 .gd-image-container img {
+  width: auto; 
+  max-width: 100%;
+  height: auto;
+  max-height: 450px;
+  display: block;
+  border-radius: 12px;
+  object-fit: contain;
+  margin: 0 auto;
+}
+
+.gd-image-container:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.gd-flex-row {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin: 35px 0;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  padding: 24px;
+}
+
+.gd-flex-text {
+  flex: 3;
+}
+
+.gd-flex-image-wrap .gd-image-container {
+  margin: 0;
+  width: 100%;
+}
+
+.gd-flex-text p:last-child,
+.gd-flex-text ul:last-child {
+  margin-bottom: 0;
+}
+
+.gd-flex-image-wrap {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.gd-flex-image-wrap2 {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.gd-flex-image-wrap2 .gd-image-container2 {
+  margin: 0;
+  width: 100%;
+  cursor: pointer;
+}
+
+.gd-image-container2 {
+  position: relative;
+  width: fit-content;
+  max-width: 200px; /* Megszünteti a széles üres fekete dobozt a kép körül */
+  margin: 0 auto;
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+  padding: 4px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+  display: block;
+}
+
+.gd-image-container2 img {
   width: 100%;
   height: auto;
+  max-height: 500px;
   display: block;
   border-radius: 10px;
-  z-index: 2;
-  position: relative;
+  object-fit: contain;
 }
 
-/* Az arany neon keret, ami alapból teljesen láthatatlan (opacity: 0) */
-.gd-image-glow-border {
-  position: absolute;
-  inset: 0;
-  border-radius: 12px;
-  z-index: 1;
-  pointer-events: none;
-  border: 2px solid #ffffff;
-  opacity: 0;
-  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+.gd-image-container2:hover {
+  border-color: rgba(255, 255, 255, 0.3);
 }
 
-/* ── HOVER ÁLLAPOTOK ── */
-.gd-image-container:hover {
-  transform: scale(1.03);
+.gd-images-grid .gd-image-container {
+  flex: 1;
+  margin: 0;
+  max-width: 40%;
 }
 
-.gd-image-container:hover .gd-image-glow-border {
-  opacity: 1;
+/* ── LINKEK ── */
+.gd-body a {
+  color: #58a6ff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
 }
 
+.gd-body a:hover {
+  color: #79b8ff;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* ── KIEMELT SZÖVEG SZÍNEK (A guideban használt span classokhoz) ── */
+.text-cyan { color: #58a6ff; font-weight: 600; }
+.text-gold { color: #d2a8ff; font-weight: 600; }
+
+/* ==========================================================================
+   LIGHTBOX (Képnézegető)
+   ========================================================================== */
 .gd-lightbox-overlay {
   position: fixed;
   inset: 0;
-  z-index: 9999; /* Minden felett jelenjen meg */
-  background: rgba(2, 2, 8, 0.92);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  z-index: 9999;
+  background: rgba(4, 5, 10, 0.95);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 40px;
   cursor: zoom-out;
-  animation: gdFadeIn 0.3s ease-out forwards;
-}
-
-.gd-lightbox-overlay.closing {
-  animation: gdFadeOut 0.25s ease-in forwards;
+  /* enter/exit animation now handled by Framer Motion's AnimatePresence */
 }
 
 .gd-lightbox-content {
   position: relative;
   max-width: 1200px;
-  max-height: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   cursor: default;
-  margin-top: 100px;
 }
 
 .gd-lightbox-content img {
@@ -310,149 +411,66 @@
   object-fit: contain;
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.8), 0 0 50px rgba(123, 66, 245, 0.1);
-  animation: gdScaleUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.8);
 }
 
-.gd-lightbox-overlay.closing .gd-lightbox-content img {
-  animation: gdScaleDown 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-/* Bezáró X gomb */
 .gd-lightbox-close {
   position: absolute;
-  top: -50px;
+  top: -45px;
   right: 0;
-  background: none;
-  border: none;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   color: #fff;
-  font-size: 2.5rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
   cursor: pointer;
-  opacity: 0.6;
-  transition: opacity 0.2s, transform 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  transition: all 0.2s ease;
 }
 
 .gd-lightbox-close:hover {
-  opacity: 1;
+  background: rgba(255, 255, 255, 0.2);
   transform: scale(1.1);
 }
 
-.gd-flex-row {
-  display: flex;
-  align-items: center;
-  gap: 40px;
-  margin: 35px 0;
-  width: 100%;
-}
-
-.gd-flex-text {
-  flex: 1;
-  width: 200px;
-}
-
-.gd-flex-image-wrap {
-  flex: 1;
-  max-width: 40%;
-  margin-top: -40px;
-}
-
-.gd-flex-image-wrap .gd-image-container {
-  margin: 0 auto;
-  max-width: 50%;
-}
-
-.gd-body a {
-  color: #b535ff;
-  text-decoration: none;
-  position: relative;
-  font-weight: 400;
-  display: inline-block;
-  transition: color 0.3s ease;
-  font-size: 1rem;
-  font-family: 'Blinker', sans-serif;
-}
-
-.gd-body a::after {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 1px;
-  bottom: -1px;
-  left: 0;
-  background-color: var(--gold, #e8b84b);
-  transform: scaleX(0);
-  transform-origin: bottom left;
-  transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-.gd-body a:hover {
-  color: #ffa114;
-}
-
-.gd-body a:hover::after {
-  transform: scaleX(1);
+/* ==========================================================================
+   RESZPONZIVITÁS
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .gd-back-btn {
+    top: 20px;
+    left: 20px;
+  }
 }
 
 @media (max-width: 768px) {
-  .gd-flex-row {
-    flex-direction: column;
-    gap: 20px;
+  .guides-detail-page {
+    padding: 80px 15px 60px 15px; /* Hely a fix gombnak */
   }
   
-  .gd-flex-image-wrap {
-    max-width: 100%;
-    width: 100%;
-  }
-}
-
-@media (max-width: 1250px) {
   .gd-back-btn {
     position: relative;
     top: 0;
     left: 0;
     margin-bottom: 25px;
-    background: rgba(123, 66, 245, 0.1) !important;
+  }
+
+  .gd-flex-row {
+    flex-direction: column;
+    padding: 20px;
+  }
+  
+  .gd-flex-image-wrap {
+    width: 100%;
+  }
+
+  .gd-body h1, .gd-body h2 {
+    font-size: 1.5rem;
+    font-family: 'Blinker', 'Comfortaa', sans-serif;
   }
 }
 
-@keyframes gdFadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes gdFadeOut {
-  from { opacity: 1; }
-  to { opacity: 0; }
-}
-
-@keyframes gdScaleUp {
-  from { transform: scale(0.95); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
-}
-
-@keyframes gdScaleDown {
-  from { transform: scale(1); opacity: 1; }
-  to { transform: scale(0.95); opacity: 0; }
-}
-
-@keyframes gdCircleSlideUp {
-  from {
-    opacity: 0;
-    top: 230px;
-  }
-  to {
-    opacity: 1;
-    top: 200px;
-  }
-}
-
-@media (max-width: 768px) {
-  .gd-lightbox-overlay {
-    padding: 15px;
-  }
-  .gd-lightbox-close {
-    top: -45px;
-    right: 10px;
-    font-size: 2rem;
-  }
-}

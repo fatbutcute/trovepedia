@@ -1,7 +1,11 @@
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './GuidesList.css';
 import { Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
+import { motion } from 'framer-motion';
+import { fadeUp, staggerContainer, defaultViewport } from '../lib/motionVariants';
+import { useCardDrift } from '../lib/useCardDrift';
 
 export const GUIDES_DATA = [
   { 
@@ -10,7 +14,7 @@ export const GUIDES_DATA = [
     desc: 'Learn how to optimize your skill chart and rune anvil.', 
     icon: 'ri-bar-chart-box-line', 
     slug: 'crafting-paths',
-    bgImage: '/guidebg/skillchart.webp',
+    /*bgImage: '/guidebg/skillchart.webp',*/
     author: 'Hellfire191 - Arsyn',
     date: '2026-07-02',
     
@@ -21,18 +25,26 @@ The Star Chart is a crucial system in Trove that enhances your character’s pow
 
 This setup is widely used in the current endgame and benefits both magic and physical damage classes. It also maximizes the Light stat, which is essential for dealing with high-tier enemies.
 
-## Node Colors & Their Effects
-Green Nodes: Provide Light (Total: 250).  
-Red Nodes: Increase Physical Damage,  
-Blue Nodes: Increase Magic Damage,  
-Purple Nodes: Increase both Magic and Physical Damage.
+<div class="gd-flex-row">
+  <div class="gd-flex-text">
+    
+### Node Colors & Their Effects
+* **Green Nodes:** Provide Light (Total: 250).
+* **Red Nodes:** Increase Physical Damage.
+* **Blue Nodes:** Increase Magic Damage.
+* **Purple Nodes:** Increase both Magic and Physical Damage.
 
-<div class="gd-image-container">
-  <div class="gd-image-glow-border"></div>
-  <img src="/guideimages/arsynskillchart.webp" alt="Skill Chart Layout" />
+  </div>
+  
+  <div class="gd-flex-image-wrap">
+    <div class="gd-image-container">
+      <img src="/guideimages/arsynskillchart.webp" alt="Skill Chart Layout" />
+    </div>
+  </div>
 </div>
 
-Additionally, some nodes provide special buffs, such as increased damage for four hours after defeating 5-star bosses in the Sundered Uplands or flask-related buffs. Also there are nodes that provide attack speed, magic find for loots, and many more bonuses for your gameplays.  
+<span class="chartdesc">Additionally, some nodes provide special buffs, such as increased damage for four hours after defeating 5-star bosses in the Sundered Uplands or flask-related buffs. Also there are nodes that provide attack speed, magic find for loots, and many more bonuses for your gameplays.  
+</span>
 ## Essential Resources for the Star Chart
 ### To progress through the Star Chart, you need three key resources:  
 #### Astral Echoes  
@@ -61,35 +73,43 @@ Required to unlock Major Nodes. Can be purchased with 1,300 Cubits from the stor
   </div>
   
   <div class="gd-flex-image-wrap">
-    <div class="gd-image-container">
-      <div class="gd-image-glow-border"></div>
+    <div class="gd-image-container2">
       <img src="/guideimages/astralechoesalmanac.webp" alt="Astral Echoes Almanac" />
     </div>
   </div>
 </div>
 
-###  Resetting the Star Chart
+### Resetting the Star Chart
+
+<div class="gd-flex-row">
+  <div class="gd-flex-text">
+
 * You can reset your Star Chart at any time using one Constellation Key at the center node,
 * Celestial Spheres will be refunded upon reset,
 * Constellation Keys will not be refunded, but previously unlocked Major Nodes remain unlocked permanently.
 
-<div class="gd-image-container">
-  <div class="gd-image-glow-border"></div>
-  <img src="/guideimages/startchartreset.webp" alt="Resetting the Star Chart" />
-</div>  
+  </div>
+  
+  <div class="gd-flex-image-wrap">
+    <div class="gd-image-container2">
+      <img src="/guideimages/startchartreset.webp" alt="Resetting the Star Chart" />
+    </div>
+  </div>
+</div>
 By following this guide, you can efficiently progress through the Star Chart and enhance your character’s strength.  
 If you wish to see the best build for your class, check out this spreadsheet:
   
 <a href="https://docs.google.com/spreadsheets/d/1Q2xdqeoHLafC9se5cy_Gpc54KnmpaQez7TGsc5C1Lqw/edit?usp=sharing" target="_blank" rel="noreferrer">Check out the classes spreadsheet!</a>
 
 ## Recommended Anvil Upgrade Path
-<div class="gd-image-container">
-  <div class="gd-image-glow-border"></div>
-  <img src="/guideimages/anvil1.webp" alt="Resetting the Star Chart" />
-</div>
-<div class="gd-image-container">
-  <div class="gd-image-glow-border"></div>
-  <img src="/guideimages/anvil2.webp" alt="Resetting the Star Chart" />
+
+<div class="gd-images-grid">
+  <div class="gd-image-container">
+    <img src="/guideimages/anvil1.webp" alt="Anvil Upgrade Path 1" />
+  </div>
+  <div class="gd-image-container">
+    <img src="/guideimages/anvil2.webp" alt="Anvil Upgrade Path 2" />
+  </div>
 </div>
 `
   },
@@ -99,7 +119,7 @@ If you wish to see the best build for your class, check out this spreadsheet:
     desc: 'This guide shows you how to maximize your light.', 
     icon: 'ri-sun-line', 
     slug: 'maximize-light',
-    bgImage: '/guidebg/cosmic.webp',
+    /*bgImage: '/guidebg/cosmic.webp',*/
     author: 'Losiqn - Arsyn',
     date: '2026-07-15',
     content: `## How to get max light?
@@ -256,8 +276,9 @@ Each dragon gives a significant amount of light, and the total light from dragon
 </div>
 
 ## And now everything added up!
-<span classname="crystalgear">C5 Gear: 13271 Light - using 400 light Ally.</span>\n
-<span classname="mysticgear">Mystic Gear: 13796 Light - using 400 light Ally.</span>\n
+<span classname="crystalgear">C5 Gear: 13271 Light - using 400 light Ally.</span>  
+
+<span classname="mysticgear">Mystic Gear: 13796 Light - using 400 light Ally.</span>
 ###
 ###\n\n
 <span classname="light">Absolute Max Light can be 14730 - with (450 Light) Ally + Berserk Battler (we count the Berserk Battler's proc as plus light.)</span>
@@ -325,7 +346,7 @@ Each dragon gives a significant amount of light, and the total light from dragon
     desc: 'The end game guide for mystic gear.', 
     icon: 'ri-sparkling-line', 
     slug: 'mystic-gear',
-    bgImage: '/guidebg/mysticgear.webp',
+    /*bgImage: '/guidebg/mysticgear.webp',*/
     bgPosition: 'center top',
     author: 'Rocket__, Fayysal - Arsyn',
     date: '2026-07-09',
@@ -407,7 +428,7 @@ By organizing your farm schedules around Monday's Soul lockouts and Tuesday's De
     desc: 'Best strategies to farm them, wave management and more...', 
     icon: 'ri-signal-tower-line', 
     slug: 'towers-ships',
-    bgImage: '/guidebg/shipandtower.webp',
+    /*bgImage: '/guidebg/shipandtower.webp',*/
     bgPosition: 'center center',
     author: 'ChrisNeverGiveUp, YoloNico - Arsyn',
     date: '2026-07-26',
@@ -453,11 +474,17 @@ The best time to do this is usually on **Mondays**, when most players are farmin
 
 ## Towers (D14 Phoenix Motes Farming)
 
-Towers are primarily used for farming **Phoenix Motes**, a key crafting resource at the Sundered Uplands crafting bench. They are typically run in Difficulty 14, where waves are harder and shorter.
+<div class="gd-flex-row">
+  <div class="gd-flex-text">
 
-<div class="gd-image-container">
-  <div class="gd-image-glow-border"></div>
-  <img src="/guideimages/tower.webp" alt="Tower Dungeon in Sundered Uplands" />
+The primary purpose of running Towers is to farm Phoenix Motes, a crucial crafting resource used at the Sundered Uplands crafting bench. Players typically tackle this mode on Difficulty 14; while the enemy waves on this level are significantly tougher, they are also much shorter, making the overall farming process far more efficient.
+  </div>
+  
+  <div class="gd-flex-image-wrap">
+    <div class="gd-image-container2">
+      <img src="/guideimages/tower.webp" alt="Tower Dungeon in Sundered Uplands" />
+    </div>
+  </div>
 </div>
 
 ### Objective
@@ -466,7 +493,14 @@ Farm **Phoenix Motes**, which:
 * **Mini-Boss Drop:** Secondary, occasional drops awarded when clearing mini-bosses found throughout the different rooms of the tower.
 
 ### Requirements
-* **1 or more players** with <span class="text-cyan">12,500+ Light</span>.
+
+<div class="gd-info-box">
+  <div class="gd-info-box-content">
+    <p>
+      <strong>1 or more players</strong> with <span class="text-cyan">12,500+ Light</span>.
+    </p>
+  </div>
+</div>
 
 ### Optimization Tips
 * Assign players to **specific rooms** once the tower begins.
@@ -489,39 +523,99 @@ Farm **Phoenix Motes**, which:
   },
 ];
 
+// Column index (0/1/2) drives the drift speed so neighbouring cards in a row
+// move at slightly different rates as you scroll — same auto-fill grid CSS,
+// just re-computed on resize so it still tracks correctly at any breakpoint.
+function useColumnIndex(gridRef, index) {
+  const [columns, setColumns] = useState(1);
+
+  useEffect(() => {
+    if (!gridRef.current) return;
+    const el = gridRef.current;
+
+    const recompute = () => {
+      const style = window.getComputedStyle(el);
+      const count = style.gridTemplateColumns.split(' ').filter(Boolean).length;
+      setColumns(count || 1);
+    };
+
+    recompute();
+    const observer = new ResizeObserver(recompute);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [gridRef]);
+
+  return index % columns;
+}
+
+function GuideCard({ tag, title, desc, icon, slug, index, gridRef }) {
+  const columnIndex = useColumnIndex(gridRef, index);
+  // Outer element: pure scroll-linked drift (a raw motion value, always "on").
+  const { ref, y: driftY } = useCardDrift(columnIndex);
+
+  return (
+    <motion.div ref={ref} style={{ y: driftY }}>
+      {/* Inner element: the one-time scroll-triggered entrance + hover lift.
+          Kept separate so it can own the "y" transform via variants without
+          fighting the drift value above. */}
+      <motion.div
+        variants={fadeUp}
+        whileHover={{ y: -8, transition: { duration: 0.25, ease: [0.2, 0.8, 0.2, 1] } }}
+      >
+        <Link to={`/guides/${slug}`} className={`guide-card ${slug}`}>
+          <div className="card-icon">
+            <i className={icon}></i>
+          </div>
+          <div className="card-body">
+            <div className="tag">{tag}</div>
+            <h3>{title}</h3>
+            <p>{desc}</p>
+          </div>
+        </Link>
+      </motion.div>
+    </motion.div>
+  );
+}
+
 export default function GuidesList({ limit }) {
   const navigate = useNavigate();
   const guides = limit ? GUIDES_DATA.slice(0, limit) : GUIDES_DATA;
+  const gridRef = useRef(null);
 
   return (
     <div className="guides-wrapper">
-      <header className="guides-header">
+      <motion.header
+        className="guides-header"
+        initial={{ opacity: 0, y: -20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={defaultViewport}
+        transition={{ duration: 0.6, ease: [0.2, 0.8, 0.2, 1] }}
+      >
         <h1>Guides</h1>
         <p>Community-written, up-to-date guides for all important Trove mechanics.</p>
-      </header>
+      </motion.header>
 
-      <div className="guides-grid">
+      <motion.div
+        className="guides-grid"
+        ref={gridRef}
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.1 }}
+      >
         {guides.map(({ tag, title, desc, icon, slug }, index) => (
-          /* JAVÍTVA: div helyett Link komponenst használunk az egyedi slug útvonallal */
-          <Link
-            to={`/guides/${slug}`}
+          <GuideCard
             key={slug}
-            className={`guide-card ${slug}`}
-            style={{ 
-                animationDelay: `${index * 0.08}s` 
-            }}
-          >
-            <div className="card-icon">
-              <i className={icon}></i>
-            </div>
-            <div className="card-body">
-              <div className="tag">{tag}</div>
-              <h3>{title}</h3>
-              <p>{desc}</p>
-            </div>
-          </Link>
+            tag={tag}
+            title={title}
+            desc={desc}
+            icon={icon}
+            slug={slug}
+            index={index}
+            gridRef={gridRef}
+          />
         ))}
-      </div>
+      </motion.div>
     </div>
   );
 }
