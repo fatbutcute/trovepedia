@@ -11,6 +11,16 @@ const NAV_SECTIONS = [
   { id: 'player', label: 'Player Lookup', icon: '⌕' },
 ];
 
+const DAILY_BUFF_ICONS = [
+  '/icons/pickaxe.png',                 
+  '/icons/fish.png',                   
+  '/icons/sparkling-diamond.png',       
+  '/icons/quest.png',                 
+  '/icons/dragon.png',                  
+  '/icons/xp.png',                      
+  '/icons/lootbag.png'                  
+];
+
 const WEEKDAY_LABELS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
 function formatClock(unixSeconds) {
@@ -645,9 +655,25 @@ export default function TokenCall() {
               {dailyBuffs?.current ? (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                   <div className="td-buff-hero" style={{ padding: '12px', background: 'var(--card-alt)', borderRadius: 'var(--radius-md)' }}>
-                    <span className="td-buff-emoji" style={{ fontSize: '1.8rem' }}>
-                      {dailyBuffs.current?.emoji ?? '🎁'}
-                    </span>
+                    
+                    {/* --- ÚJ IKON RÉSZLET (Hétfőtől Vasárnapig dinamikusan) --- */}
+                    <div className="td-buff-icon-wrapper" style={{ width: '42px', height: '42px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                      <img 
+                        src={todayWeekday !== null && todayWeekday !== undefined 
+                          ? DAILY_BUFF_ICONS[todayWeekday] 
+                          : '/icons/power.png'} 
+                        alt={dailyBuffs.current?.name ?? 'Daily Buff'} 
+                        style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                        onError={(e) => {
+                          // Ha nem találja a fájlt, visszaáll emojira vagy alap ikonra
+                          e.target.style.display = 'none';
+                          if (e.target.parentNode) {
+                            e.target.parentNode.innerText = dailyBuffs.current?.emoji ?? '🎁';
+                          }
+                        }}
+                      />
+                    </div>
+
                     <div>
                       <div className="td-buff-name" style={{ fontSize: '1.05rem', fontWeight: '700' }}>
                         {dailyBuffs.current?.name ?? 'Unknown buff'}
