@@ -1,0 +1,236 @@
+/* src/components/guides/GemsGuide.module.css */
+
+.container {
+  width: 100%;
+  max-width: 950px;
+  margin: 0 auto;
+  color: #f1f5f9;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  margin-top: 10rem;
+}
+
+/* Hero Section */
+.hero {
+  background: linear-gradient(135deg, rgba(8, 6, 41, 0.8) 0%, rgba(0, 0, 2, 0.8) 100%);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  border-radius: 20px;
+  padding: 3rem 2rem;
+  text-align: center;
+  backdrop-filter: blur(12px);
+}
+
+.badge {
+  display: inline-block;
+  background: rgba(129, 140, 248, 0.15);
+  color: #9381f8;
+  border: 1px solid rgba(129, 140, 248, 0.3);
+  padding: 0.35rem 0.85rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #f8fafc;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.02em;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.description {
+  font-size: 1.05rem;
+  color: #c7d2fe;
+  max-width: 680px;
+  margin: 0 auto;
+  line-height: 1.6;
+  font-family: 'Quicksand', sans-serif;
+}
+
+/* Section Common */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.sectionTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #e8f8ff;
+  letter-spacing: -0.01em;
+  font-family: 'Ubuntu', sans-serif;
+}
+
+/* Grid Cards */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
+}
+
+.card {
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/*.card:hover {
+  border-color: rgba(255, 230, 0, 0.4);
+  box-shadow: 0 10px 25px -5px rgba(251, 255, 5, 0.12);
+}*/
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.stepNum {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #c1d417;
+  background: rgba(251, 255, 5, 0.1);
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.cardHeader h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #f1f5f9;
+  margin: 0;
+  font-family: 'Blinker', sans-serif;
+}
+
+.card p {
+  font-size: 0.925rem;
+  color: #94a3b8;
+  line-height: 1.55;
+  margin: 0;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.card strong {
+  color: #e2e8f0;
+}
+
+.card em {
+  color: #fbbf24;
+  font-style: normal;
+}
+
+/* Tabs & Stat List */
+.tabContainer {
+  display: flex;
+  gap: 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 0.5rem;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.tab {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.tab:hover {
+  color: #f1f5f9;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.activeTab {
+  color: #ba53ff;
+  background: rgba(186, 83, 255, 0.12);
+  font-family: 'Quicksand', sans-serif;
+}
+
+.tabContent {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 1.25rem;
+}
+
+.statList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.statItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background: rgba(30, 41, 59, 0.5);
+  border-radius: 8px;
+}
+
+.statName {
+  font-weight: 600;
+  color: #e2e8f0;
+  font-family: 'Comfortaa', sans-serif;
+}
+
+.statPriority {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #ba53ff;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-family: 'Quicksand', sans-serif;
+}
+
+/* Pro Tip Box */
+.proTip {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+  background: rgba(36, 32, 26, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.411);
+  border-radius: 20px;
+  padding: 1.5rem;
+}
+
+.tipIcon {
+  font-size: 1.75rem;
+  line-height: 1;
+}
+
+.proTip h4 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #9b9b9b;
+  margin: 0 0 0.35rem 0;
+  font-family: 'Comfortaa', sans-serif;
+}
+
+.proTip p {
+  font-size: 0.925rem;
+  color: #d1d5db;
+  line-height: 1.55;
+  margin: 0;
+  font-family: 'Quicksand', sans-serif;
+}

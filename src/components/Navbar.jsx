@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
+import { AnimatedBackground } from './core/animated-background'
 
 const NAV_ITEMS = [
   { label: 'Guides',      path: '/guides' },
@@ -37,6 +38,9 @@ export default function Navbar() {
 
   const goHome = () => navigate('/')
 
+  // Megkeressük az aktuálisan aktív menüpontot
+  const activeTab = NAV_ITEMS.find(item => item.path === location.pathname)?.path
+
   return (
     <>
       <nav>
@@ -50,17 +54,31 @@ export default function Navbar() {
         </button>
 
         {/* Desktop links */}
-        <ul className="nav-links">
-          {NAV_ITEMS.map(({ label, path }) => (
-            <li key={path}>
+        <ul className="nav-links flex flex-row">
+          <AnimatedBackground
+            defaultValue={activeTab}
+            className="rounded-sm bg-indigo-500/15 border border-indigo-500/30 shadow-[0_0_15px_rgba(124,92,252,0.15)]"
+            transition={{
+              type: 'spring',
+              bounce: 0.25,
+              duration: 0.5,
+            }}
+            enableHover
+          >
+            {NAV_ITEMS.map(({ label, path }) => (
               <button
-                className={location.pathname === path ? 'active' : ''}
+                key={path}
+                data-id={path}
+                type="button"
+                className={`px-3 py-1.5 transition-colors duration-300 ${
+                  location.pathname === path ? 'active text-zinc-950 dark:text-zinc-50' : 'text-zinc-600 dark:text-zinc-400'
+                }`}
                 onClick={() => navigate(path)}
               >
                 {label}
               </button>
-            </li>
-          ))}
+            ))}
+          </AnimatedBackground>
         </ul>
 
         {/* Hamburger — mobile only */}

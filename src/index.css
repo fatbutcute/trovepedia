@@ -1,3 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import "tailwindcss";
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 *, *::before, *::after {
@@ -26,7 +31,7 @@
 html { scroll-behavior: smooth; }
 
 body {
-  background: linear-gradient(to bottom right, #070d2b, #000312 100%);
+  background: linear-gradient(to bottom right, #0e0c0c, #020413 100%);
   color: var(--text);
   font-family: 'Rajdhani', sans-serif;
   font-size: 17px;
@@ -150,11 +155,12 @@ nav {
 .nav-links a:hover,
 .nav-links button:hover {
   color: var(--gold);
-  background: rgba(232,184,75,0.08);
+  background: transparent;
 }
 .nav-links a.active,
 .nav-links button.active {
   color: var(--gold);
+  background: transparent;
 }
 
 .nav-cta {
@@ -719,14 +725,6 @@ footer {
   opacity: 1;
   transform: none;
   transform: translateY(-5px);
-}
-
-*, *::before, *::after {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
 }
 
 @media (max-width: 900px) {
