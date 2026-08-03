@@ -31,7 +31,7 @@ const GEM_TIERS = [
     rollBonus: '210',
     description: 'Solid foundation for high-tier farming. Essential for reaching Uber 10 before upgrading to Crystal.',
     converter: {
-      name: 'Crystal Converter',
+      name: 'Crystal Gem Converter',
       cost: '1,000 Credits or 10,000 Cubits',
       note: 'Keeps gem level & stat augments intact!',
       fromIcon: '/gemtiers/stellar.png',
@@ -52,7 +52,7 @@ const GEM_TIERS = [
     rollBonus: '280',
     description: 'Where serious end-game power begins. High PR per level and required for Uber 11+ progression.',
     converter: {
-      name: 'Mystic Converter',
+      name: 'Mystic Gem Converter',
       cost: '1,500 Credits or 15,000 Cubits',
       note: 'Keeps gem level & stat augments intact!',
       fromIcon: '/gemtiers/crystal.png',

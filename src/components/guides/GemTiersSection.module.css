@@ -116,6 +116,7 @@
 .gaugeSvg {
   width: 100%;
   height: 100%;
+  margin-top: -5px;
 }
 
 /* Uiverse kód alapján az animált feltöltődő gyűrű */
@@ -131,16 +132,16 @@
 }
 
 .gemIcon {
-  position: absolute;
-  /* Kicsit lejjebb toljuk a képet, hogy a félkör pontosan körbeölelje */
-  top: 60%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 35px;
-  height: 35px;
-  object-fit: contain;
-  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.6));
-  transition: transform 0.3s ease;
+    position: absolute;
+    top: 60%;
+    left: 52.5%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.6));
+    transition: transform 0.3s ease;
+    margin-top: 5px;
 }
 
 .card:hover .gemIcon {
