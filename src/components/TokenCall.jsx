@@ -523,7 +523,7 @@ export default function TokenCall() {
           <div className="td-sidebar-card glow-blue">
             <div className="td-card-header">
               <div className="td-card-title">
-                <span className="td-card-icon">◆</span> Chaos Mega-Core
+                <span className="td-card-icon">◆</span> Chaos Weekly
               </div>
               <StatusBadge 
                 state={sectionState('chaosChest')} 
