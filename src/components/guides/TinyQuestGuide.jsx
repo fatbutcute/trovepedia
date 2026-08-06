@@ -63,6 +63,7 @@ export default function TinyQuestGuide() {
     <div className={styles.guideWrapper}>
       
       {/* HERO HEADER SECTION */}
+{/* HERO HEADER SECTION */}
       <header className={styles.heroSection}>
         <div className={styles.imageContainer}>
           <img 
@@ -71,6 +72,19 @@ export default function TinyQuestGuide() {
             className={styles.heroBanner}
           />
           <div className={styles.heroOverlay} />
+
+          {/* ◄ ÚJ: CREDIT BADGE A JOBB FELSŐ SAROKBAN */}
+          <div className={styles.creditBadge}>
+            Guide content by:{' '}
+            <a 
+              href="https://www.youtube.com/@CashinClean" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className={styles.creditLink}
+            >
+              CashinClean
+            </a>
+          </div>
         </div>
 
         <div className={styles.heroContent}>
