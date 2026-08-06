@@ -62,39 +62,38 @@ export default function TinyQuestGuide() {
   return (
     <div className={styles.guideWrapper}>
       
-      {/* HERO HEADER SECTION */}
-{/* HERO HEADER SECTION */}
-      <header className={styles.heroSection}>
-        <div className={styles.imageContainer}>
-          <img 
-            src="/guideimages/maxresdefault.webp" 
-            alt="Trove Tiny Quest Update Thumbnail Banner" 
-            className={styles.heroBanner}
-          />
-          <div className={styles.heroOverlay} />
+        {/* HERO HEADER SECTION */}
+            <header className={styles.heroSection}>
+                <div className={styles.imageContainer}>
+                <img 
+                    src="/guideimages/maxresdefault.webp" 
+                    alt="Trove Tiny Quest Update Thumbnail Banner" 
+                    className={styles.heroBanner}
+                />
+                <div className={styles.heroOverlay} />
 
-          {/* ◄ ÚJ: CREDIT BADGE A JOBB FELSŐ SAROKBAN */}
-          <div className={styles.creditBadge}>
-            Guide content by:{' '}
-            <a 
-              href="https://www.youtube.com/@CashinClean" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className={styles.creditLink}
-            >
-              CashinClean
-            </a>
-          </div>
-        </div>
+                {/* ◄ ÚJ: CREDIT BADGE A JOBB FELSŐ SAROKBAN */}
+                <div className={styles.creditBadge}>
+                    Guide content by:{' '}
+                    <a 
+                    href="https://www.youtube.com/@CashinClean" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className={styles.creditLink}
+                    >
+                    CashinClean
+                    </a>
+                </div>
+                </div>
 
-        <div className={styles.heroContent}>
-          <span className={styles.badge}>Tiny Quest Update Guide</span>
-          <h1 className={styles.mainTitle}>Tiny Quest & Ally Mastery Guide</h1>
-          <p className={styles.subTitle}>
-            Everything you need to know about the Tiny Quest update, leveling allies to level 30, expedition mechanics, and optimal progression routes.
-          </p>
-        </div>
-      </header>
+                <div className={styles.heroContent}>
+                <span className={styles.badge}>Tiny Quest Update Guide</span>
+                <h1 className={styles.mainTitle}>Tiny Quest & Ally Mastery Guide</h1>
+                <p className={styles.subTitle}>
+                    Everything you need to know about the Tiny Quest update, leveling allies to level 30, expedition mechanics, and optimal progression routes.
+                </p>
+                </div>
+            </header>
 
       {/* SECTION 1: ALLY LEVELING & STAT SCALER */}
       <section className={styles.sectionContainer}>
@@ -319,7 +318,7 @@ export default function TinyQuestGuide() {
               Shorter timers require significantly fewer Insta-Complete Tokens. Reserve tokens strictly for quests under 20–25 minutes to stretch your resources.
             </p>
             <div className={styles.tipBox}>
-              <strong>Pro Tip:</strong> As the natural timer gets closer to 0, the token cost dynamically drops!
+              <strong>Note:</strong> As the natural timer gets closer to 0, the token cost dynamically drops!
             </div>
           </div>
         </div>
