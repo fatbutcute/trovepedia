@@ -852,3 +852,8 @@ footer {
   font-family: 'ProductSans';
   src: url('./fonts/Product-Sans-Regular.ttf') format('truetype');
 }
+
+@font-face {
+  font-family: 'Buendia';
+  src: url('./fonts/Buendia-medium.ttf') format('truetype');
+}

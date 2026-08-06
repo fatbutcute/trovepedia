@@ -1,0 +1,325 @@
+/* src/components/guides/GemBasicsScrolly.module.css */
+
+.scrollySection {
+  --gem-color: #38bdf8;
+  max-width: 1500px;
+  margin: 4rem auto;
+  padding: 0 1.5rem;
+}
+
+.header {
+  margin-bottom: 12rem;
+  max-width: 700px;
+}
+
+.eyebrow {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gem-color);
+  transition: color 0.5s ease;
+  margin-bottom: 0.75rem;
+}
+
+.mainTitle {
+  font-family: 'Dosis', sans-serif;
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: #f4f6fb;
+  margin-bottom: 0.6rem;
+  letter-spacing: -0.01em;
+}
+
+.subTitle {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: #8892a6;
+}
+
+/* ============ LAYOUT ============ */
+.gridContainer {
+  display: grid;
+  grid-template-columns: 40px 380px 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+/* ============ CUT-LINE RAIL ============ */
+.railColumn {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.railTrack {
+  position: relative;
+  width: 2px;
+  height: min(60vh, 520px);
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 2px;
+  display: none;
+}
+
+.railFill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(180deg, var(--gem-color), transparent);
+  border-radius: 2px;
+  transition: height 0.5s cubic-bezier(0.22, 1, 0.36, 1), background 0.5s ease;
+}
+
+.railMarker {
+  position: absolute;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  transform: translate(-50%, -50%) rotate(45deg);
+  background: #0b0f1a;
+  border: 2px solid rgba(255, 255, 255, 0.18);
+  transition: background 0.4s ease, border-color 0.4s ease, transform 0.4s ease;
+}
+
+.railMarker.railMarkerActive {
+  background: var(--marker-color, var(--gem-color));
+  border-color: var(--marker-color, var(--gem-color));
+  transform: translate(-50%, -50%) rotate(45deg) scale(1.35);
+}
+
+/* ============ STICKY GEM CARD ============ */
+.stickyColumn {
+  position: sticky;
+  top: 50vh;
+  transform: translateY(-50%);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.previewCard {
+  width: 100%;
+  max-width: 280px;
+  background: rgba(11, 15, 26, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 22px;
+  padding: 2rem;
+  backdrop-filter: blur(14px);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.gemDisplay {
+  height: 200px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  isolation: isolate; 
+}
+
+.glowBg {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  border-radius: 10%;
+  background: var(--gem-color);
+  filter: blur(35px);
+  opacity: 0.35;
+  transition: background 0.5s ease;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.gemImg {
+  width: 110px;
+  height: 110px;
+  object-fit: contain;
+  position: relative;
+  z-index: 2; /* Szigorúan a glow FELETT van */
+  filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.7));
+}
+
+/* Signature element: faceted hexagonal gem, built from stacked clip-path
+   layers so it reads as a cut stone rather than a flat icon or photo. */
+.gemFacet {
+  position: relative;
+  width: 128px;
+  height: 128px;
+  z-index: 2;
+  clip-path: polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%);
+  background: linear-gradient(155deg, color-mix(in srgb, var(--gem-color) 85%, white 15%) 0%, var(--gem-color) 45%, color-mix(in srgb, var(--gem-color) 60%, black 40%) 100%);
+  transition: background 0.5s ease;
+  filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.6));
+  animation: facetDrift 9s ease-in-out infinite;
+}
+
+.gemFacet::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, rgba(255, 255, 255, 0.55) 0%, transparent 30%, transparent 70%, rgba(0, 0, 0, 0.35) 100%);
+  mix-blend-mode: overlay;
+}
+
+.gemFacet::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.35);
+}
+
+@keyframes facetDrift {
+  0%, 100% { transform: rotate(-2deg) scale(1); }
+  50% { transform: rotate(2deg) scale(1.03); }
+}
+
+.specsTable {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 0.9rem;
+}
+
+.specRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding-bottom: 0.45rem;
+  opacity: 0;
+  transform: translateY(4px);
+  animation: specIn 0.4s ease forwards;
+}
+
+@keyframes specIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.specLabel {
+  color: #64748b;
+  font-weight: 600;
+}
+
+.specValue {
+  color: #e2e8f0;
+  font-weight: 700;
+  transition: color 0.5s ease;
+}
+
+/* ============ SCROLLING STEPS ============ */
+.scrollColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 12rem;
+  padding-top: 1rem;
+  padding-bottom: 20vh;
+}
+
+.stepBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  font-family: 'Quicksand', sans-serif;
+  opacity: 0.28;
+  filter: blur(1px);
+  transition: opacity 0.35s ease, filter 0.35s ease, transform 0.35s ease;
+}
+
+.activeBlock {
+  opacity: 1;
+  filter: blur(0px);
+  transform: translateX(6px);
+}
+
+.stepHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.stepTier {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--step-color, #64748b);
+  padding: 0.2rem 0.6rem;
+  border: 1px solid var(--step-color, #64748b);
+  border-radius: 999px;
+  margin-left: -5px;
+}
+
+.stepTitle {
+  font-family: 'Dosis', sans-serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #f8fafc;
+  margin: 0;
+}
+
+.stepDescription {
+  font-size: 1.05rem;
+  color: #cbd5e1;
+  line-height: 1.7;
+  margin: 0;
+  max-width: 700px;
+}
+
+/* ============ MOBILE ============ */
+@media (max-width: 800px) {
+  .header {
+    margin-bottom: 3rem;
+  }
+
+  .gridContainer {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .railColumn {
+    display: none;
+  }
+
+  .stickyColumn {
+    position: relative;
+    top: 0;
+    transform: none;
+  }
+
+  .previewCard {
+    max-width: none;
+  }
+
+  .scrollColumn {
+    gap: 4rem;
+    padding-bottom: 4rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gemFacet {
+    animation: none;
+  }
+  .specRow {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}

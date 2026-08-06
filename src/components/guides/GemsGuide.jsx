@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import styles from './GemsGuide.module.css';
 import GemTiersSection from './GemTiersSection';
 import { GemsGuideDock } from "./GemsGuideDock";
+import GemBasicsScrolly from './GemBasicsScrolly';
 
 const scrollFadeInVariants = {
   hidden: { opacity: 0, y: 35 },
@@ -19,9 +20,8 @@ export default function GemsGuide() {
 
   return (
     <>
+      {/* 1. FELSŐ KONTÉNER (Csak a Hero szekciónak) */}
       <div className={styles.container}>
-        
-        {/* Hero Header */}
         <motion.header 
           className={styles.hero}
           initial={{ opacity: 0, y: 20 }}
@@ -34,8 +34,16 @@ export default function GemsGuide() {
             A complete walkthrough on optimizing your Empowered and Lesser Gems, rerolling stats, moving boosts, and augmenting to reach maximum Power Rank and Light.
           </p>
         </motion.header>
+      </div>
 
-        {/* 1. Szekció: Rerolling & Moving Stats */}
+      {/* 2. SCROLLYTELLING SZEKCIÓ: Teljesen külön, motion wrapper nélkül! 
+          Így tökéletesen működik a 'position: sticky' és megkapja az 1500px-es teret. */}
+      <GemBasicsScrolly />
+
+      {/* 3. ALSÓ KONTÉNER (A többi tartalomnak) */}
+      <div className={styles.container} style={{ marginTop: '0' }}>
+        
+        {/* Rerolling & Moving Stats */}
         <motion.section 
           className={styles.section}
           initial="hidden"
@@ -43,7 +51,7 @@ export default function GemsGuide() {
           viewport={{ once: true, amount: 0.2 }}
           variants={scrollFadeInVariants}
         >
-          <h2 className={styles.sectionTitle}>1. Rerolling & Moving Stats</h2>
+          <h2 className={styles.sectionTitle}>Rerolling & Moving Stats</h2>
           <div className={styles.grid}>
             <motion.div className={styles.card} whileHover={{ scale: 1.05}}>
               <div className={styles.cardHeader}>
@@ -77,7 +85,7 @@ export default function GemsGuide() {
           </div>
         </motion.section>
 
-        {/* 2. Szekció: Optimal Stat Distribution */}
+        {/* Optimal Stat Distribution */}
         <motion.section 
           className={styles.section}
           initial="hidden"
@@ -85,7 +93,7 @@ export default function GemsGuide() {
           viewport={{ once: true, amount: 0.2 }}
           variants={scrollFadeInVariants}
         >
-          <h2 className={styles.sectionTitle}>2. Optimal Stat Distribution</h2>
+          <h2 className={styles.sectionTitle}>Optimal Stat Distribution</h2>
           
           <div className={styles.tabContainer}>
             <button
@@ -170,9 +178,67 @@ export default function GemsGuide() {
           <GemTiersSection />
         </motion.section>
 
+        {/* Converters Grid */}
+        <motion.section
+          className={styles.section}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={scrollFadeInVariants}
+        >
+          <h2 className={styles.sectionTitle}>Mystic and Crystal Gem Converter</h2>
+          
+          <div className={styles.converterGrid}>
+            {/* Bal oldal: Crystal Converter */}
+            <motion.div 
+              className={`${styles.converterCard} ${styles.crystalCard}`}
+              whileHover={{ y: -3 }}
+              transition={{ duration: 0.15, ease: 'easeOut' }}
+            >
+              <h3 className={styles.converterCardTitle}>Crystal Gem Converter</h3>
+              <div className={styles.converterCardBody}>
+                <div className={styles.converterImgWrapper}>
+                  <img 
+                    src="/gemtiers/crystalconv.webp" 
+                    alt="Crystal Gem Converter" 
+                    className={styles.converterImg}
+                  />
+                </div>
+                <p className={styles.converterCardText}>
+                  Upgrades a maxed <strong>Stellar Gem</strong> directly into a <strong>Crystal Gem</strong>. It retains all existing stat rolls, level progression, and focus augments so you don't have to restart your gem build from scratch.
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Jobb oldal: Mystic Converter */}
+            <motion.div 
+              className={`${styles.converterCard} ${styles.mysticCard}`}
+              whileHover={{ y: -3 }}
+              transition={{ duration: 0.1, ease: 'easeOut' }}
+            >
+              <h3 className={styles.converterCardTitle}>Mystic Gem Converter</h3>
+              <div className={styles.converterCardBody}>
+                <div className={styles.converterImgWrapper}>
+                  <img 
+                    src="/gemtiers/mysticconv.webp" 
+                    alt="Mystic Gem Converter" 
+                    className={styles.converterImg}
+                  />
+                </div>
+                <p className={styles.converterCardText}>
+                  Upgrades a maxed <strong>Crystal Gem</strong> to the pinnacle <strong>Mystic Tier</strong>. Perfect for endgame players aiming for the absolute maximum Light and Power Rank caps without sacrificing stat investments.
+                </p>
+              </div>
+            </motion.div>
+          </div>
+
+          <p className={styles.note}>
+            <strong>Note:</strong> Converters aren't mandatory, but they have a specific use case. While high-tier gems can drop naturally in higher difficulty worlds, converters are best used when you already have a fully maxed gem and want to upgrade it to the next tier without losing its stats or augments.
+          </p>
+        </motion.section>
+
       </div>
 
-      {/* A Dock teljesen függetlenül áll a konténeren kívül */}
       <GemsGuideDock />
     </>
   );

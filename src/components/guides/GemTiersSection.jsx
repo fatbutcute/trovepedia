@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useId } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import styles from './GemTiersSection.module.css';
+import SectionDivider from '../common/SectionDivider';
 
 const MAX_PR = 3601;
 
@@ -92,6 +93,7 @@ export default function GemTiersSection() {
 
   return (
     <div className={styles.wrapper}>
+        <SectionDivider />
       {/* Fejléc */}
       <div className={styles.header}>
         <h2 className={styles.mainTitle}>The tiers among the gems</h2>

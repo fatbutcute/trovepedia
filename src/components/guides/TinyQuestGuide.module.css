@@ -1,0 +1,566 @@
+/* src/components/guides/TinyQuestGuide.module.css */
+
+.guideWrapper {
+  max-width: 1350px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+  font-family: 'Quicksand', sans-serif;
+  color: #f8fafc;
+}
+
+/* ==========================================================================
+   HERO FEJLÉC (30px Lekerekítéssel & Bannerrel)
+   ========================================================================== */
+
+.heroSection {
+  position: relative;
+  border-radius: 30px; /* Szigorúan 30px lekerekítés */
+  overflow: hidden;
+  margin-bottom: 5rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+}
+
+.imageContainer {
+  position: relative;
+  width: 100%;
+  height: 380px;
+}
+
+.heroBanner {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.3) 0%, rgba(15, 23, 42, 0.95) 100%);
+}
+
+.heroContent {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.badge {
+  align-self: flex-start;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.15);
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.mainTitle {
+  font-family: 'Dosis', sans-serif;
+  font-size: 3rem;
+  font-weight: 800;
+  margin: 0;
+  color: #ffffff;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.subTitle {
+  font-size: 1.1rem;
+  color: #cbd5e1;
+  max-width: 800px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ==========================================================================
+   SZEKCIÓ 1: LEVELING & STAT SCALER
+   ========================================================================== */
+
+.sectionContainer {
+  margin-bottom: 6rem;
+}
+
+.sectionHeader {
+  margin-bottom: 2.5rem;
+}
+
+.sectionStep {
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  color: #62d0ff;
+  text-transform: uppercase;
+}
+
+.sectionTitle {
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 400;
+  margin: 0.3rem 0;
+}
+
+.sectionDesc {
+  color: #94a3b8;
+  font-size: 1.05rem;
+  max-width: 750px;
+}
+
+.scalerGrid {
+  display: grid;
+  grid-template-columns: 480px 1fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+/* INTERAKTÍV KÁRTYA */
+.interactiveCard {
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 2rem;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cardHeader h3 {
+  font-family: 'Dosis', sans-serif;
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.levelBadge {
+  font-size: 0.85rem;
+  font-weight: 800;
+  padding: 0.3rem 0.7rem;
+  border-radius: 12px;
+  color: #0f172a;
+}
+
+.allySelector {
+  display: flex;
+  gap: 0.5rem;
+  background: rgba(30, 41, 59, 0.6);
+  padding: 0.3rem;
+  border-radius: 14px;
+}
+
+.allyTab {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  padding: 0.6rem;
+  font-weight: 700;
+  font-size: 0.85rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.activeTab {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.sliderControl {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.rangeInput {
+  width: 100%;
+  accent-color: #38bdf8;
+  cursor: pointer;
+}
+
+.sliderTicks {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+.statPreviewGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.statBox {
+  background: rgba(30, 41, 59, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.statLabel {
+  font-size: 0.8rem;
+  color: #64748b;
+  font-weight: 700;
+}
+
+.statValue {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 800;
+}
+
+.allyPerkText {
+  font-size: 0.9rem;
+  color: #cbd5e1;
+  margin: 0;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 0.8rem;
+  border-radius: 12px;
+}
+
+/* JOBB OLDALI ALLY KÁRTYÁK */
+.allyCardsColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.allyInfoCard {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 1.2rem;
+  display: flex;
+  gap: 1.2rem;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.allyInfoCard:hover, .selectedCard {
+  background: rgba(30, 41, 59, 0.8);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateX(6px);
+}
+
+.allyIconWrapper {
+  width: 70px;
+  height: 70px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.allyImg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.fallbackIcon {
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  border: 2px dashed #64748b;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Dosis', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #e2e8f0;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.allyDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  flex: 1;
+}
+
+.allyTitleRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.allyName {
+  font-family: 'Dosis', sans-serif;
+  font-size: 1.3rem;
+  margin: 0;
+}
+
+.tierTag {
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  padding: 0.15rem 0.5rem;
+  border-radius: 10px;
+  border: 1px solid;
+}
+
+.allyDesc {
+  font-size: 0.88rem;
+  color: #cbd5e1;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.maxStatsRow {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 0.8rem;
+  color: #64748b;
+  margin-top: 0.2rem;
+  font-weight: 400;
+}
+
+.maxStatsRow strong {
+  color: #f8fafc;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .scalerGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================================================
+   MODULE 02 STYLES
+   ========================================================================== */
+
+.mechanicsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.mechanicCard {
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  backdrop-filter: blur(12px);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.mechanicCard:hover {
+  transform: translateY(-4px);
+  border-color: rgba(56, 189, 248, 0.3);
+}
+
+.mechanicHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.mechanicNum {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.1);
+  padding: 0.2rem 0.6rem;
+  border-radius: 10px;
+}
+
+.mechanicHeader h4 {
+  font-family: 'Dosis', sans-serif;
+  font-size: 1.3rem;
+  margin: 0;
+  color: #f8fafc;
+}
+
+.mechanicText {
+  font-size: 0.9rem;
+  color: #94a3b8;
+  line-height: 1.5;
+  margin: 0;
+  flex: 1;
+}
+
+.imagePlaceholderBox {
+  width: 100%;
+  height: 160px; /* Vagy ízlés szerint 140px-180px */
+  background: rgba(30, 41, 59, 0.4);
+  border-radius: 14px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* KÉP KITÖLTÉSE: Teljesen kitölti a dobozt */
+.mechanicImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Szépen kitölti a teret vágás nélkül/torzítás nélkül */
+  display: block;
+}
+
+/* FALLBACK SZÖVEG: Csak akkor jelenik meg, ha a kép nem található */
+.placeholderLabel {
+  font-size: 0.8rem;
+  color: #64748b;
+  font-weight: 600;
+  text-align: center;
+  padding: 0.5rem;
+  border: 1px dashed rgba(255, 255, 255, 0.15);
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.placeholderLabel {
+  font-size: 0.8rem;
+  color: #64748b;
+  font-weight: 600;
+  text-align: center;
+  padding: 0.5rem;
+}
+
+.badgeRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.infoBadge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.1);
+  padding: 0.3rem 0.6rem;
+  border-radius: 8px;
+  border: 1px solid rgba(56, 189, 248, 0.2);
+}
+
+.tipBox {
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  color: #fbbf24;
+  padding: 0.75rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+/* ==========================================================================
+   EXPAND ICON & LIGHTBOX MODAL STYLES
+   ========================================================================== */
+
+/* Kurzort megváltoztatjuk, hogy látszódjon, rákattintható */
+.imagePlaceholderBox {
+  cursor: pointer;
+}
+
+/* Expand ikon konténere a kép jobb felső sarkában */
+.expandIconWrapper {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+  transition: transform 0.2s ease, background 0.2s ease;
+  z-index: 5;
+}
+
+.imagePlaceholderBox:hover .expandIconWrapper {
+  transform: scale(1.15);
+  background: rgba(15, 23, 42, 0.75);
+}
+
+.expandIcon {
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+}
+
+/* LIGHTBOX MODAL SÖTÉT HÁTTÉR */
+.lightboxOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.lightboxContent {
+  position: relative;
+  max-width: 90vw;
+  max-height: 85vh;
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.9);
+}
+
+.lightboxImg {
+  width: 100%;
+  height: 100%;
+  max-height: 85vh;
+  object-fit: contain;
+  display: block;
+}
+
+.lightboxCloseBtn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  border-radius: 50%;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+  z-index: 10;
+}
+
+.lightboxCloseBtn:hover {
+  background: rgba(239, 68, 68, 0.8);
+}
