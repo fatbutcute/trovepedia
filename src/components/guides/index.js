@@ -13,7 +13,7 @@ export const GUIDES_DATA = {
   'tiny-quest': {
     id: 'tiny-quest',
     title: 'Tiny Quest & Ally Mastery',
-    subtitle: 'Update Guide',
+    subtitle: 'Tiny Quest Update Guide',
     description: 'Master Ally leveling, expedition strategies, voucher farming, and more.',
     bannerImg: '/guideimages/maxresdefault.webp',
     component: lazy(() => import('./TinyQuestGuide')),
