@@ -607,6 +607,12 @@
   flex-shrink: 0;
 }
 
+.td-chaos-icon img {
+  width: 40px;  /* vagy kívánt szélesség */
+  height: 40px; /* vagy kívánt magasság */
+  object-fit: contain;
+}
+
 .td-chaos-name {
   font-weight: 700;
   font-size: 1rem;
