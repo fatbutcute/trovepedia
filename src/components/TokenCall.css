@@ -608,9 +608,9 @@
 }
 
 .td-chaos-icon img {
-  width: 40px;  /* vagy kívánt szélesség */
-  height: 40px; /* vagy kívánt magasság */
-  object-fit: contain;
+    width: 40px !important;
+    height: 40px !important;
+    object-fit: contain !important;
 }
 
 .td-chaos-name {
