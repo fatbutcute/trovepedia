@@ -4,6 +4,16 @@ import { motion, AnimatePresence } from 'framer-motion';
 import styles from './TinyQuestGuide.module.css';
 import SectionDivider from '../common/SectionDivider';
 
+// ◄ A GEMS GUIDE-BÓL MÁSOLT PONTOS VARIÁNS ÉS BEÁLLÍTÁSOK
+const scrollFadeInVariants = {
+  hidden: { opacity: 0, y: 35 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: { duration: 0.5, ease: [0.25, 1, 0.5, 1] }
+  }
+};
+
 // Ally data derived from the transcript
 const ALLIES = [
   {
@@ -62,41 +72,52 @@ export default function TinyQuestGuide() {
   return (
     <div className={styles.guideWrapper}>
       
-        {/* HERO HEADER SECTION */}
-            <header className={styles.heroSection}>
-                <div className={styles.imageContainer}>
-                <img 
-                    src="/guideimages/maxresdefault.webp" 
-                    alt="Trove Tiny Quest Update Thumbnail Banner" 
-                    className={styles.heroBanner}
-                />
-                <div className={styles.heroOverlay} />
+      {/* HERO HEADER SECTION */}
+      <motion.header 
+        className={styles.heroSection}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+      >
+        <div className={styles.imageContainer}>
+          <img 
+            src="/guideimages/maxresdefault.webp" 
+            alt="Trove Tiny Quest Update Thumbnail Banner" 
+            className={styles.heroBanner}
+          />
+          <div className={styles.heroOverlay} />
 
-                {/* ◄ ÚJ: CREDIT BADGE A JOBB FELSŐ SAROKBAN */}
-                <div className={styles.creditBadge}>
-                    Guide content by:{' '}
-                    <a 
-                    href="https://www.youtube.com/@CashinClean" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className={styles.creditLink}
-                    >
-                    CashinClean
-                    </a>
-                </div>
-                </div>
+          {/* CREDIT BADGE A JOBB FELSŐ SAROKBAN */}
+          <div className={styles.creditBadge}>
+            Guide content by:{' '}
+            <a 
+              href="https://www.youtube.com/@CashinClean" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className={styles.creditLink}
+            >
+              CashinClean
+            </a>
+          </div>
+        </div>
 
-                <div className={styles.heroContent}>
-                <span className={styles.badge}>Tiny Quest Update Guide</span>
-                <h1 className={styles.mainTitle}>Tiny Quest & Ally Mastery Guide</h1>
-                <p className={styles.subTitle}>
-                    Everything you need to know about the Tiny Quest update, leveling allies to level 30, expedition mechanics, and optimal progression routes.
-                </p>
-                </div>
-            </header>
+        <div className={styles.heroContent}>
+          <span className={styles.badge}>Tiny Quest Update Guide</span>
+          <h1 className={styles.mainTitle}>Tiny Quest & Ally Mastery Guide</h1>
+          <p className={styles.subTitle}>
+            Everything you need to know about the Tiny Quest update, leveling allies to level 30, expedition mechanics, and optimal progression routes.
+          </p>
+        </div>
+      </motion.header>
 
-      {/* SECTION 1: ALLY LEVELING & STAT SCALER */}
-      <section className={styles.sectionContainer}>
+      {/* SECTION 1: ALLY LEVELING & STAT SCALER (Most már pontosan mint a Gems Guide!) */}
+      <motion.section 
+        className={styles.sectionContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={scrollFadeInVariants}
+      >
         <div className={styles.sectionHeader}>
           <span className={styles.sectionStep}>01</span>
           <h2 className={styles.sectionTitle}>Level 30 Allies & Stat Scaling</h2>
@@ -209,15 +230,15 @@ export default function TinyQuestGuide() {
           </div>
 
         </div>
-      </section>
+      </motion.section>
 
-      {/* SECTION 2: EXPEDITION MECHANICS & VOUCHER STRATEGY */}
+      {/* SECTION 2: EXPEDITION MECHANICS & VOUCHER STRATEGY (Ugyanaz a scrollFadeInVariants!) */}
       <motion.section 
         className={styles.sectionContainer}
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        initial="hidden"
+        whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.6 }}
+        variants={scrollFadeInVariants}
       >
         <SectionDivider />
         <div className={styles.sectionHeader}>
