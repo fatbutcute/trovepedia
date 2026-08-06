@@ -14,7 +14,7 @@ export const GUIDES_DATA = {
     id: 'tiny-quest',
     title: 'Tiny Quest & Ally Mastery',
     subtitle: 'Update Guide',
-    description: 'Master Ally leveling up to Lvl 30, Expedition strategies, Voucher farming, and optimal routes.',
+    description: 'Master Ally leveling, expedition strategies, voucher farming, and more.',
     bannerImg: '/guideimages/maxresdefault.webp',
     component: lazy(() => import('./TinyQuestGuide')),
   },

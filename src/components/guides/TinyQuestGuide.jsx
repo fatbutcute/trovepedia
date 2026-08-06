@@ -16,7 +16,7 @@ const ALLIES = [
     baseDamage: '10%',
     maxDamage: '11%',
     perk: 'Extra Experience Gain + High Light',
-    description: 'Obtainable from the Tiny Treasure Team pack or by crafting[cite: 1]. Currently provides the highest Light stat in the game at level 30[cite: 1].',
+    description: 'Obtainable from the Tiny Treasure Team pack or by crafting. Currently provides the highest Light stat in the game at level 30.',
     color: '#38bdf8'
   },
   {
@@ -29,7 +29,7 @@ const ALLIES = [
     baseDamage: '10%',
     maxDamage: '11%',
     perk: 'Physical & Magic Damage Boost',
-    description: 'Previously offered the top Light stat before the update[cite: 1]. As you level it up, both Light and damage scale steadily[cite: 1].',
+    description: 'Previously offered the top Light stat before the update. As you level it up, both Light and damage scale steadily.',
     color: '#c084fc'
   },
   {
@@ -42,7 +42,7 @@ const ALLIES = [
     baseDamage: '25%',
     maxDamage: '29%',
     perk: 'Massive Raw Damage Increase',
-    description: 'A powerful damage-oriented ally that also grants up to 400 Light stat at level 30 alongside its 29% physical and magic damage boost[cite: 1].',
+    description: 'A powerful damage-oriented ally that also grants up to 400 Light stat at level 30 alongside its 29% physical and magic damage boost.',
     color: '#f59e0b'
   }
 ];
@@ -77,7 +77,7 @@ export default function TinyQuestGuide() {
           <span className={styles.badge}>Tiny Quest Update Guide</span>
           <h1 className={styles.mainTitle}>Tiny Quest & Ally Mastery Guide</h1>
           <p className={styles.subTitle}>
-            Everything you need to know about the Tiny Quest update, leveling allies to level 30, expedition mechanics, and optimal progression routes[cite: 1].
+            Everything you need to know about the Tiny Quest update, leveling allies to level 30, expedition mechanics, and optimal progression routes.
           </p>
         </div>
       </header>
@@ -88,7 +88,7 @@ export default function TinyQuestGuide() {
           <span className={styles.sectionStep}>01</span>
           <h2 className={styles.sectionTitle}>Level 30 Allies & Stat Scaling</h2>
           <p className={styles.sectionDesc}>
-            Allies can now be leveled up from Level 1 all the way to Level 30 (around 65,000 total XP)[cite: 1]. Noticeable stat increases trigger every 5 levels[cite: 1].
+            Allies can now be leveled up from Level 1 all the way to Level 30 (around 65,000 total XP). Noticeable stat increases trigger every 5 levels.
           </p>
         </div>
 
@@ -211,7 +211,7 @@ export default function TinyQuestGuide() {
           <span className={styles.sectionStep}>02</span>
           <h2 className={styles.sectionTitle}>Expedition Mechanics & Voucher Strategy</h2>
           <p className={styles.sectionDesc}>
-            Understand how expedition slots work, why breaking chests can ruin your interact prompt, and how to convert unwanted long timers into key vouchers[cite: 1].
+            Understand how expedition slots work, why breaking chests can ruin your interact prompt, and how to convert unwanted long timers into key vouchers.
           </p>
         </div>
 
@@ -223,7 +223,7 @@ export default function TinyQuestGuide() {
               <h4>Dungeon Spawns & Chest Tip</h4>
             </div>
             <p className={styles.mechanicText}>
-              After completing a dungeon, a quest station spawns[cite: 1]. Avoid breaking the loot chest right away, as scattered loot makes it much harder to press your interact key (`E`)[cite: 1].
+              After completing a dungeon, a quest station spawns. Avoid breaking the loot chest right away, as scattered loot makes it much harder to press your interact key (`E`).
             </p>
             {/* CARD 1 IMAGE BOX WITH EXPAND */}
             <div 
@@ -255,7 +255,7 @@ export default function TinyQuestGuide() {
               <h4>3 Max Expedition Limit</h4>
             </div>
             <p className={styles.mechanicText}>
-              You can only run up to 3 active expeditions simultaneously[cite: 1]. Timers continue ticking down in real time even if you log out or close Trove[cite: 1].
+              You can only run up to 3 active expeditions simultaneously. Timers continue ticking down in real time even if you log out or close Trove.
             </p>
             <div className={styles.badgeRow}>
               <span className={styles.infoBadge}>Max Active: 3 Allies</span>
@@ -270,7 +270,7 @@ export default function TinyQuestGuide() {
               <h4>"Get Voucher" Skip Method</h4>
             </div>
             <p className={styles.mechanicText}>
-              If a quest features an excessively long timer, skip it by selecting "Get Voucher Instead"[cite: 1]. Accumulating 100 vouchers allows you to craft a <strong>Simple Tiny Key</strong>[cite: 1].
+              If a quest features an excessively long timer, skip it by selecting "Get Voucher Instead". Accumulating 100 vouchers allows you to craft a <strong>Simple Tiny Key</strong>.
             </p>
             {/* CARD 3 IMAGE BOX WITH EXPAND */}
             <div 
@@ -302,10 +302,10 @@ export default function TinyQuestGuide() {
               <h4>Insta-Complete Token Usage</h4>
             </div>
             <p className={styles.mechanicText}>
-              Shorter timers require significantly fewer Insta-Complete Tokens[cite: 1]. Reserve tokens strictly for quests under 20–25 minutes to stretch your resources[cite: 1].
+              Shorter timers require significantly fewer Insta-Complete Tokens. Reserve tokens strictly for quests under 20–25 minutes to stretch your resources.
             </p>
             <div className={styles.tipBox}>
-              <strong>Pro Tip:</strong> As the natural timer gets closer to 0, the token cost dynamically drops[cite: 1]!
+              <strong>Pro Tip:</strong> As the natural timer gets closer to 0, the token cost dynamically drops!
             </div>
           </div>
         </div>

@@ -103,6 +103,7 @@ nav {
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  margin-top: -7px;
 }
 
 .nav-logo .diamond {
