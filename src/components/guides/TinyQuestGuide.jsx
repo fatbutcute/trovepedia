@@ -286,13 +286,13 @@ export default function TinyQuestGuide() {
           <div className={styles.mechanicCard}>
             <div className={styles.mechanicHeader}>
               <span className={styles.mechanicNum}>02</span>
-              <h4>3 Max Expedition Limit</h4>
+              <h4>6 Max Expedition Limit</h4>
             </div>
             <p className={styles.mechanicText}>
-              You can only run up to 3 active expeditions simultaneously. Timers continue ticking down in real time even if you log out or close Trove.
+              You can only run up to 6 active expeditions simultaneously. Timers continue ticking down in real time even if you log out or close Trove.
             </p>
             <div className={styles.badgeRow}>
-              <span className={styles.infoBadge}>Max Active: 3 Allies</span>
+              <span className={styles.infoBadge}>Max Active: 6 Allies</span>
               <span className={styles.infoBadge}>Offline Progress: YES</span>
             </div>
           </div>
