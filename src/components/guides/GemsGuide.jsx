@@ -5,6 +5,7 @@ import styles from './GemsGuide.module.css';
 import GemTiersSection from './GemTiersSection';
 import { GemsGuideDock } from "./GemsGuideDock";
 import GemBasicsScrolly from './GemBasicsScrolly';
+import SectionDivider from '../common/SectionDivider'; // ◄ ITT VOLT A HIÁNYZÓ IMPORT!
 
 const scrollFadeInVariants = {
   hidden: { opacity: 0, y: 35 },
@@ -36,13 +37,14 @@ export default function GemsGuide() {
         </motion.header>
       </div>
 
-      {/* 2. SCROLLYTELLING SZEKCIÓ: Teljesen külön, motion wrapper nélkül! 
-          Így tökéletesen működik a 'position: sticky' és megkapja az 1500px-es teret. */}
+      {/* 2. SCROLLYTELLING SZEKCIÓ */}
       <GemBasicsScrolly />
 
       {/* 3. ALSÓ KONTÉNER (A többi tartalomnak) */}
       <div className={styles.container} style={{ marginTop: '0' }}>
         
+        {/* LESSER VS EMPOWERED GEMS SECTION (Áttéve a konténeren belülre) */}
+
         {/* Rerolling & Moving Stats */}
         <motion.section 
           className={styles.section}
@@ -238,6 +240,187 @@ export default function GemsGuide() {
         </motion.section>
 
       </div>
+
+      {/* LESSER VS EMPOWERED GEMS SECTION - FRISSÍTVE MOTION.SECTION-RE */}
+        <motion.section 
+          className={styles.section} 
+          id="lesser-empowered"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={scrollFadeInVariants}
+        >
+          <SectionDivider />
+          <h2 className={styles.sectionTitle}>Lesser vs. Empowered Gems</h2>
+          <p className={styles.note}>
+            Gems in Trove are split into two fundamental categories. While Lesser Gems form your stat foundation, Empowered Gems define your build with game-changing abilities.
+          </p>
+
+          <div className={styles.compareGrid}>
+            {/* BAL OLDALI KÁRTYA: LESSER GEM (Alulról vagy balról beúszás) */}
+            <motion.div
+              className={`${styles.compareCard} ${styles.lesserCard}`}
+              initial={{ opacity: 0, y: 25 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.5, ease: [0.25, 1, 0.5, 1] }}
+            >
+              <div className={styles.compareHeader}>
+                <div className={styles.gemIconWrapper}>
+                  <img
+                    src="/gemtiers/air.png"
+                    alt="Lesser Gem"
+                    className={styles.compareGemImg}
+                  />
+                </div>
+                <div className={styles.compareTitleGroup}>
+                  <span className={styles.compareTag}>COMMON - RESTRICTED</span>
+                  <h3>Lesser Gem</h3>
+                </div>
+              </div>
+
+              <p className={styles.compareIntro}>
+                Lesser gems are common gems. They are locked to a single damage school and have no special ability - but since you equip many of them, their combined stats add up.
+              </p>
+
+              <ul className={styles.compareList}>
+                <li>
+                  <strong>Restriction:</strong> Fierce gems roll Physical stats, while Arcane gems roll Magic stats.
+                </li>
+                <li>
+                  <strong>Stat Rolls:</strong> Comes with two or three stats, each rolled at a random strength.
+                </li>
+                <li>
+                  <strong>Augmenting:</strong> Improve and focus the stats to close the gap toward the perfect 100%.
+                </li>
+              </ul>
+            </motion.div>
+
+            {/* JOBB OLDALI KÁRTYA: EMPOWERED GEM (Alulról vagy jobbról beúszás) */}
+            <motion.div
+              className={`${styles.compareCard} ${styles.empoweredCard}`}
+              initial={{ opacity: 0, y: 25 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.5, ease: [0.25, 1, 0.5, 1], delay: 0.1 }}
+            >
+              <div className={styles.compareHeader}>
+                <div className={`${styles.gemIconWrapper} ${styles.empoweredGlow}`}>
+                  <img
+                    src="/gemtiers/empair.png"
+                    alt="Empowered Gem"
+                    className={styles.compareGemImg}
+                  />
+                </div>
+                <div className={styles.compareTitleGroup}>
+                  <span className={styles.compareTag} style={{ color: '#f59e0b', borderColor: 'rgba(245, 158, 11, 0.3)' }}>
+                    "UNRESTRICTED" & RARE
+                  </span>
+                  <h3 style={{ color: '#f59e0b' }}>Empowered Gem</h3>
+                </div>
+              </div>
+
+              <p className={styles.compareIntro}>
+                Empowered gems are more powerful and more rare to get. It removes the damage-school restriction, rolls within a higher stat range, and comes with a special ability.
+              </p>
+
+              <ul className={styles.compareList}>
+                <li>
+                  <strong>Unique Ability:</strong> Grants a special ability, or a class ability on Class Gems.
+                </li>
+                <li>
+                  <strong>One of a Kind:</strong> Every ability is unique - two equipped gems can never have the same ability.
+                </li>
+                <li>
+                  <strong>Higher Base Stats:</strong> Rolls within a higher stat range and starts with +100 Power Rank.
+                </li>
+                <li>
+                  <strong>High Impact:</strong> You only equip a few - each one is a major upgrade.
+                </li>
+              </ul>
+            </motion.div>
+            
+          </div>
+
+          {/* HOW TO OBTAIN LESSER GEMS SUBSECTION */}
+          <div className={styles.obtainContainer}>
+            <h3 className={styles.obtainTitle}>How do you obtain Lesser Gems?</h3>
+            
+            <div className={styles.obtainGrid}>
+              {/* BAL OLDAL: FROM UBER WORLDS */}
+              <div className={styles.obtainCard}>
+                <div className={styles.obtainHeader}>
+                  <div className={styles.obtainIconWrapper}>
+                    <img 
+                      src="/icons/earth.png" 
+                      alt="Uber Worlds" 
+                      className={styles.obtainIcon} 
+                    />
+                  </div>
+                  <h4>Uber Worlds</h4>
+                </div>
+
+                <div className={styles.tierStripList}>
+                  <div className={`${styles.tierStrip} ${styles.radiantStrip}`}>
+                    <span className={styles.stripTier}>Radiant</span>
+                    <span className={styles.stripUber}>Uber 12</span>
+                  </div>
+                  <div className={`${styles.tierStrip} ${styles.stellarStrip}`}>
+                    <span className={styles.stripTier}>Stellar</span>
+                    <span className={styles.stripUber}>Uber 13</span>
+                  </div>
+                  <div className={`${styles.tierStrip} ${styles.crystalStrip}`}>
+                    <span className={styles.stripTier}>Crystal</span>
+                    <span className={styles.stripUber}>Uber 14</span>
+                  </div>
+                  <div className={`${styles.tierStrip} ${styles.mysticStrip}`}>
+                    <span className={styles.stripTier}>Mystic</span>
+                    <span className={styles.stripUber}>Uber 15</span>
+                  </div>
+            </div>
+                          <div className={styles.noteBox}>
+              <p className={styles.noteText}>
+                {/* Ide írhatod majd a szövegedet */}
+                In Uber Worlds you obtain lesser gems based on the world difficulty. <br />
+                Uber Worlds are more restricted, because they need specified light requirements to enter.
+              </p>
+                </div>
+              </div>
+
+              {/* JOBB OLDAL: FROM DELVES */}
+              <div className={styles.obtainCard}>
+                <div className={styles.obtainHeader}>
+                  <div className={styles.obtainIconWrapper}>
+                    <img 
+                      src="/icons/pickaxe.png" 
+                      alt="Delves" 
+                      className={styles.obtainIcon} 
+                    />
+                  </div>
+                  <h4>Delves</h4>
+                </div>
+
+                <div className={styles.delveInfoBox}>
+                  <p>
+                    Delves above depth 160: <span className={styles.delvetext}>Completing 160+ delves letting you to get the same gem boxes you would get from D15 Uber Worlds.</span><br />
+                    <strong className={styles.prStrong}>15,000</strong> Power Rank: <span className={styles.delvetext}>Required to access certain delve areas. If you want to go into 160+ delves, you gotta hit 15.000 Power Rank.</span><br />
+                    No Light requirement: <span className={styles.delvetext}>Delves are not resctricting your light.</span>
+                  </p>
+                </div>
+                {/* NOTE BOX PLACEHOLDER */}
+            <div className={styles.noteBox}>
+              <p className={styles.noteText}>
+                {/* Ide írhatod majd a szövegedet */}
+                Delves are just shortcut to mystic gems. Completing <strong className={styles.noteStrong}>165+ delves</strong> is the same as doing D15 Uber worlds, but with lesser and lower restrictions. Delves are pretty useful if you want to skip Stellar and Crystal gems.
+              </p>
+            </div>
+          </div>
+              </div>
+            </div>
+
+
+
+        </motion.section>
 
       <GemsGuideDock />
     </>

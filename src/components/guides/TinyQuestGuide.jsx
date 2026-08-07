@@ -286,13 +286,13 @@ export default function TinyQuestGuide() {
           <div className={styles.mechanicCard}>
             <div className={styles.mechanicHeader}>
               <span className={styles.mechanicNum}>02</span>
-              <h4>6 Max Expedition Limit</h4>
+              <h4>3 Max Expedition Limit</h4>
             </div>
             <p className={styles.mechanicText}>
-              You can only run up to 6 active expeditions simultaneously. Timers continue ticking down in real time even if you log out or close Trove.
+              You can only run up to 3 (eventually 6 when you get the expanders) active expeditions simultaneously. Timers continue ticking down in real time even if you log out or close Trove.
             </p>
             <div className={styles.badgeRow}>
-              <span className={styles.infoBadge}>Max Active: 6 Allies</span>
+              <span className={styles.infoBadge}>Max Active: 3 Allies</span>
               <span className={styles.infoBadge}>Offline Progress: YES</span>
             </div>
           </div>
@@ -439,46 +439,60 @@ export default function TinyQuestGuide() {
           <span className={styles.sectionStep}>04</span>
           <h2 className={styles.sectionTitle}>Crafting & Key Recipes</h2>
           <p className={styles.sectionDesc}>
-            Everything you need to craft at the Tiny Bench. Convert your saved Vouchers and materials into keys to unlock high-tier expedition rewards.
+            Everything you need to craft at the Tiny Bench. Convert your saved Vouchers and materials into keys and frogs to unlock new allies and expedition rewards.
           </p>
         </div>
 
         {/* CRAFTING CARDS GRID */}
         <div className={styles.craftingGrid}>
-          {/* RECIPE 1 */}
+          {/* RECIPE 1: SIMPLE TINY KEY */}
           <div className={styles.recipeCard}>
             <div className={styles.recipeHeader}>
-              <span className={styles.recipeTag}>BASIC KEY</span>
-              <h4>Simple Tiny Key</h4>
+              <span className={styles.recipeTag}>EXPEDITION KEY</span>
+              <div className={styles.recipeTitleRow}>
+                <h4>Simple Tiny Key</h4>
+                <img 
+                  src="/tinyquestkeys/tinykey.png" 
+                  alt="Simple Tiny Key" 
+                  className={styles.recipeHeaderIcon} 
+                />
+              </div>
             </div>
             <p className={styles.recipeDesc}>
-              Used to open basic expedition reward caches. Essential for early progression.
+              Used to open basic expedition reward caches and claim your earned rewards.
             </p>
             <div className={styles.ingredientList}>
               <div className={styles.ingredientItem}>
                 <span>Vouchers Required</span>
-                100x Expedition Vouchers
+                <strong>100x Expedition Vouchers</strong>
               </div>
             </div>
           </div>
 
-          {/* RECIPE 2 */}
+          {/* RECIPE 2: GILDEN RANA */}
           <div className={styles.recipeCard}>
             <div className={styles.recipeHeader}>
-              <span className={styles.recipeTag} style={{ color: '#c084fc', borderColor: '#c084fc' }}>ADVANCED KEY</span>
-              <h4>Gilded Tiny Key</h4>
+              <span className={styles.recipeTag} style={{ color: '#c084fc', borderColor: '#c084fc' }}>ALLY CRAFTING</span>
+              <div className={styles.recipeTitleRow}>
+                <h4>Gilden Rana</h4>
+                <img 
+                  src="/tinyquestkeys/gildedrana.png" 
+                  alt="Gilden Rana" 
+                  className={styles.recipeHeaderIcon} 
+                />
+              </div>
             </div>
             <p className={styles.recipeDesc}>
-              Unlocks higher-tier expedition chests containing rare ally leveling resources and materials.
+              Special crafting material used as a core ingredient to craft new, powerful allies at the Tadpole Tours Kiosk.
             </p>
             <div className={styles.ingredientList}>
               <div className={styles.ingredientItem}>
                 <span>Key Base</span>
-                1x Simple Tiny Key
+                <strong>1x Simple Tiny Key</strong>
               </div>
               <div className={styles.ingredientItem}>
                 <span>Bonus Material</span>
-                Extra Rare Materials
+                <strong>Extra Rare Materials</strong>
               </div>
             </div>
           </div>

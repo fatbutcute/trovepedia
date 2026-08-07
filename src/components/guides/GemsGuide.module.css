@@ -351,3 +351,306 @@
     align-items: flex-start;
   }
 }
+
+/* ==========================================================================
+   LESSER VS EMPOWERED COMPARISON GRID
+   ========================================================================== */
+
+.compareGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.75rem;
+  margin-top: 1rem;
+}
+
+.compareCard {
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  backdrop-filter: blur(12px);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.lesserCard {
+  border-color: rgba(56, 189, 248, 0.2);
+}
+
+.empoweredCard {
+  border-color: rgba(245, 158, 11, 0.25);
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(30, 25, 15, 0.6) 100%);
+}
+
+.compareHeader {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.gemIconWrapper {
+  width: 64px;
+  height: 64px;
+  background: rgba(30, 41, 59, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: 0.4rem;
+}
+
+.empoweredGlow {
+  border-color: rgba(245, 158, 11, 0.3);
+  box-shadow: 0 0 15px rgba(245, 158, 11, 0.15);
+}
+
+.compareGemImg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.6));
+}
+
+.compareTitleGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.compareTag {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: #38bdf8;
+  letter-spacing: 0.08em;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  padding: 0.15rem 0.5rem;
+  border-radius: 6px;
+  width: fit-content;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.compareTitleGroup h3 {
+  font-family: 'Dosis', sans-serif;
+  font-size: 1.6rem;
+  margin: 0;
+  color: #f8fafc;
+}
+
+.compareIntro {
+  font-size: 0.95rem;
+  color: #cbd5e1;
+  line-height: 1.6;
+  margin: 0;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.compareList {
+  margin: 0;
+  padding-left: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  color: #94a3b8;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.compareList li {
+  position: relative;
+  padding-left: 0.1rem;
+  font-family: 'Quicksand', sans-serif;
+
+}
+
+.compareList strong {
+  color: #f8fafc;
+}
+
+/* ==========================================================================
+   HOW TO OBTAIN LESSER GEMS
+   ========================================================================== */
+
+.obtainContainer {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.obtainTitle {
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #f8fafc;
+  margin: 0;
+}
+
+.obtainGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .obtainGrid {
+    grid-template-columns: 1fr; /* Mobilra egymás alá rakja őket */
+  }
+}
+
+.obtainCard {
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  backdrop-filter: blur(12px);
+}
+
+.obtainHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.obtainIconWrapper {
+  width: 44px;
+  height: 44px;
+  background: rgba(30, 41, 59, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.obtainIcon {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+}
+
+.obtainHeader h4 {
+  font-family: 'Dosis', sans-serif;
+  font-size: 1.35rem;
+  color: #f8fafc;
+  margin: 0;
+}
+
+/* UBER STRIPS */
+.tierStripList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.tierStrip {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  background: rgba(30, 41, 59, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.radiantStrip {
+  color: #e2e8f0;
+  border-left: 3px solid #e2e8f0;
+}
+
+.stellarStrip {
+  color: #f59e0b;
+  border-left: 3px solid #f59e0b;
+}
+
+.crystalStrip {
+  color: #2effee;
+  border-left: 3px solid #2effee;
+}
+
+.mysticStrip {
+  color: #c084fc;
+  border-left: 3px solid #c084fc;
+}
+
+.stripUber {
+  color: #94a3b8;
+  font-size: 0.85rem;
+}
+
+/* DELVE INFO BOX */
+.delveInfoBox {
+  background: rgba(30, 41, 59, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 1.25rem;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.delveInfoBox p {
+  margin: 0;
+  color: #cbd5e1;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  font-family: 'Quicksand', sans-serif;
+  border-left: 3px solid #b700ff;
+  padding-left: 0.75rem;
+  border-radius: 10px;
+}
+
+.delvetext {
+  color: #94a3b8;
+  font-size: 0.85rem;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.prStrong {
+  color: #b700ff;
+  font-weight: 700;
+}
+
+/* NOTE BOX */
+.noteBox {
+  margin-left: 1.3rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.noteLabel {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #bd29ca;
+  background: rgba(74, 9, 82, 0.3);
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+  letter-spacing: 0.05em;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.noteText {
+  margin: 0;
+  color: #94a3b8;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.noteStrong {
+  color: #b700ff;
+  font-weight: 700;
+}
