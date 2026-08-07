@@ -635,10 +635,14 @@ function HorizontalRevealGrid() {
             delay: index * 0.12, // Lépcsőzetes reveal
             ease: [0.25, 1, 0.5, 1]
           }}
-          whileHover={{ 
+            whileHover={{ 
             y: -8, 
-            transition: { duration: 0.25, ease: "easeOut" } 
-          }}
+            }}
+            transition={{ 
+            type: "tween",
+            duration: 0.3,
+            ease: [0.25, 1, 0.5, 1]
+            }}
         >
           <div className={styles.revealCardHeader}>
             <div className={styles.revealCardTitleGroup}>
