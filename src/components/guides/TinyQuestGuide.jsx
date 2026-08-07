@@ -345,6 +345,168 @@ export default function TinyQuestGuide() {
         </div>
       </motion.section>
 
+      {/* SECTION 3: LEVELING ROUTE & WORLD PROGRESSION CHART */}
+      <motion.section 
+        className={styles.sectionContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={scrollFadeInVariants}
+      >
+        <SectionDivider />
+        <div className={styles.sectionHeader}>
+          <span className={styles.sectionStep}>03</span>
+          <h2 className={styles.sectionTitle}>Leveling Route & World Progression</h2>
+          <p className={styles.sectionDesc}>
+            Maximize your Ally XP efficiency by completing quests in higher difficulty worlds. As you ascend tiers, expedition duration increases alongside XP rewards.
+          </p>
+        </div>
+
+        {/* PROGRESSION TABLE */}
+        <div className={styles.tableWrapper}>
+          <table className={styles.progressionTable}>
+            <thead>
+              <tr>
+                <th>World Difficulty</th>
+                <th>Quest Tier</th>
+                <th>Avg. Duration</th>
+                <th>Ally XP Yield</th>
+                <th>Recommended Strategy</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span className={styles.worldTag} style={{ color: '#94a3b8' }}>Novice – Uber 5</span></td>
+                <td>Tier 1–2</td>
+                <td>5 – 15 Mins</td>
+                <td>Low (100–300 XP)</td>
+                <td>Fast cycles. Great for burning excess Insta-Complete Tokens.</td>
+              </tr>
+              <tr>
+                <td><span className={styles.worldTag} style={{ color: '#38bdf8' }}>Uber 6 – Uber 9</span></td>
+                <td>Tier 3–4</td>
+                <td>30 Mins – 2 Hours</td>
+                <td>Medium (500–1,200 XP)</td>
+                <td>Balanced route for mid-game players pushing towards max level.</td>
+              </tr>
+              <tr>
+                <td><span className={styles.worldTag} style={{ color: '#fbbf24' }}>Uber 10 – Uber 11</span></td>
+                <td>Tier 5–6</td>
+                <td>3 – 8 Hours</td>
+                <td>High (2,000–5,000 XP)</td>
+                <td>Set active before logging off to gain passive offline XP progress.</td>
+              </tr>
+              <tr>
+                <td><span className={styles.worldTag} style={{ color: '#c084fc' }}>Uber 12 (Endgame)</span></td>
+                <td>Max Tier</td>
+                <td>12 – 24 Hours</td>
+                <td>Massive (8,000+ XP)</td>
+                <td>Best XP-to-quest ratio. Use "Get Voucher" if timers are too long.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+
+        {/* STRATEGY CARDS */}
+        <div className={styles.strategyGrid}>
+          <div className={styles.strategyCard}>
+            <h4>XP Scaling Mechanics</h4>
+            <p>
+              Allies require roughly <strong>65,000 total XP</strong> to reach level 30. Stat boosts scale progressively, with major power spikes occurring every 5 levels.
+            </p>
+          </div>
+
+          <div className={styles.strategyCard}>
+            <h4>Active vs. Offline Farming</h4>
+            <p>
+              Short quests (under 20 mins) are ideal for active play sessions. For long quests (8+ hours), queue them right before closing the game so timers tick while offline.
+            </p>
+          </div>
+        </div>
+      </motion.section>
+
+      {/* SECTION 4: CRAFTING, KEY RECIPES & BENCHMARKS */}
+      <motion.section 
+        className={styles.sectionContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={scrollFadeInVariants}
+      >
+        <SectionDivider />
+        <div className={styles.sectionHeader}>
+          <span className={styles.sectionStep}>04</span>
+          <h2 className={styles.sectionTitle}>Crafting & Key Recipes</h2>
+          <p className={styles.sectionDesc}>
+            Everything you need to craft at the Tiny Bench. Convert your saved Vouchers and materials into keys to unlock high-tier expedition rewards.
+          </p>
+        </div>
+
+        {/* CRAFTING CARDS GRID */}
+        <div className={styles.craftingGrid}>
+          {/* RECIPE 1 */}
+          <div className={styles.recipeCard}>
+            <div className={styles.recipeHeader}>
+              <span className={styles.recipeTag}>BASIC KEY</span>
+              <h4>Simple Tiny Key</h4>
+            </div>
+            <p className={styles.recipeDesc}>
+              Used to open basic expedition reward caches. Essential for early progression.
+            </p>
+            <div className={styles.ingredientList}>
+              <div className={styles.ingredientItem}>
+                <span>Vouchers Required</span>
+                100x Expedition Vouchers
+              </div>
+            </div>
+          </div>
+
+          {/* RECIPE 2 */}
+          <div className={styles.recipeCard}>
+            <div className={styles.recipeHeader}>
+              <span className={styles.recipeTag} style={{ color: '#c084fc', borderColor: '#c084fc' }}>ADVANCED KEY</span>
+              <h4>Gilded Tiny Key</h4>
+            </div>
+            <p className={styles.recipeDesc}>
+              Unlocks higher-tier expedition chests containing rare ally leveling resources and materials.
+            </p>
+            <div className={styles.ingredientList}>
+              <div className={styles.ingredientItem}>
+                <span>Key Base</span>
+                1x Simple Tiny Key
+              </div>
+              <div className={styles.ingredientItem}>
+                <span>Bonus Material</span>
+                Extra Rare Materials
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* BENCHMARK SUMMARY BOX */}
+        <div className={styles.benchmarkBox}>
+          <div className={styles.benchmarkHeader}>
+            <span className={styles.benchmarkBadge}>SUMMARY</span>
+            <h3>Key Takeaways & Endgame Goals</h3>
+          </div>
+          <ul className={styles.benchmarkList}>
+            <li>
+              <strong>Prioritize Light Allies:</strong> Get Tiny Trugina or Vivian to Level 30 first to max out your Light stat (563 Light ceiling).
+            </li>
+            <li>
+              <strong>Always Keep 3 Slots Running:</strong> Never leave expedition slots empty. Let long timers tick down passively while offline.
+            </li>
+            <li>
+              <strong>Voucher Optimization:</strong> Never waste time on low-value 12+ hour quests if you need quick keys — convert them directly into Vouchers!
+            </li>
+            <li>
+              <strong>Token Discipline:</strong> Only use Insta-Complete Tokens when natural timers drop under 20 minutes to get maximum efficiency per token.
+            </li>
+          </ul>
+        </div>
+      </motion.section>
+
       {/* LIGHTBOX MODAL */}
       <AnimatePresence>
         {activeLightboxImage && (

@@ -599,3 +599,214 @@
   color: #ff4b4b; /* Vagy ha ciánkékebbet szeretnél: #38bdf8 */
   text-shadow: 0 0 10px rgba(255, 75, 75, 0.5);
 }
+
+/* ==========================================================================
+   MODULE 03 STYLES
+   ========================================================================== */
+
+.tableWrapper {
+  width: 100%;
+  overflow-x: auto;
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  backdrop-filter: blur(12px);
+  margin-bottom: 4rem;
+}
+
+.progressionTable {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+.progressionTable th {
+  background: rgba(30, 41, 59, 0.6);
+  color: #f8fafc;
+  font-family: 'Dosis', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.progressionTable td {
+  padding: 1rem 1.25rem;
+  color: #cbd5e1;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.progressionTable tr:last-child td {
+  border-bottom: none;
+}
+
+.progressionTable tr:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.worldTag {
+  font-weight: 700;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.strategyGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.strategyCard {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.strategyCard h4 {
+  font-family: 'Dosis', sans-serif;
+  font-size: 1.25rem;
+  color: #38bdf8;
+  margin: 0;
+}
+
+.strategyCard p {
+  font-size: 0.9rem;
+  color: #94a3b8;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.strategyCard strong {
+  color: #f8fafc;
+}
+
+/* ==========================================================================
+   MODULE 04 STYLES
+   ========================================================================== */
+
+.craftingGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.recipeCard {
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  backdrop-filter: blur(12px);
+}
+
+.recipeHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.recipeTag {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #38bdf8;
+  letter-spacing: 0.05em;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  padding: 0.15rem 0.5rem;
+  border-radius: 8px;
+  width: fit-content;
+}
+
+.recipeHeader h4 {
+  font-family: 'Dosis', sans-serif;
+  font-size: 1.4rem;
+  margin: 0;
+  color: #f8fafc;
+}
+
+.recipeDesc {
+  font-size: 0.9rem;
+  color: #94a3b8;
+  line-height: 1.5;
+  margin: 0;
+  flex: 1;
+}
+
+.ingredientList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background: rgba(30, 41, 59, 0.5);
+  padding: 0.8rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.ingredientItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  font-weight: 400;
+}
+
+.ingredientItem span {
+  color: #64748b;
+}
+
+.ingredientItem strong {
+  color: #f8fafc;
+}
+
+/* BENCHMARK SUMMARY */
+.benchmarkBox {
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.6) 100%);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  border-radius: 24px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.benchmarkHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.benchmarkBadge {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #fbbf24;
+  letter-spacing: 0.1em;
+}
+
+.benchmarkHeader h3 {
+  font-family: 'Dosis', sans-serif;
+  font-size: 1.6rem;
+  margin: 0;
+  color: #f8fafc;
+}
+
+.benchmarkList {
+  margin: 0;
+  padding-left: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  color: #cbd5e1;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.benchmarkList strong {
+  color: #38bdf8;
+}
