@@ -524,7 +524,7 @@ export default function TinyQuestGuide() {
         {/* SECTION 05: HORIZONTAL SCROLL REVEAL (BEST WAY TO LEVEL YOUR ALLIES) */}
       <section className={styles.horizontalScrollSection}>
         <SectionDivider />
-        <div className={styles.sectionHeader} style={{ padding: '0 1.5rem', maxWidth: '1350px', margin: '0 auto 2rem auto' }}>
+        <div className={styles.sectionHeader}>
           <span className={styles.sectionStep}>05</span>
           <h2 className={styles.sectionTitle}>Best Way to Level your Allies</h2>
           <p className={styles.sectionDesc}>
