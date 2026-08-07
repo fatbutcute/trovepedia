@@ -2,7 +2,7 @@
 
 .container {
   width: 100%;
-  max-width: 950px;
+  max-width: 1000px;
   margin: 0 auto;
   color: #f1f5f9;
   display: flex;
@@ -550,6 +550,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  height: 200px;
 }
 
 .tierStrip {
@@ -599,12 +600,13 @@
   height: 100%;
   display: flex;
   align-items: center;
+  height: 200px;
 }
 
 .delveInfoBox p {
   margin: 0;
   color: #cbd5e1;
-  font-size: 1.1rem;
+  font-size: 0.9rem;
   line-height: 1.7;
   font-family: 'Quicksand', sans-serif;
   border-left: 3px solid #b700ff;

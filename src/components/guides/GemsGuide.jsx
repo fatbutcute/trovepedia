@@ -239,9 +239,7 @@ export default function GemsGuide() {
           </p>
         </motion.section>
 
-      </div>
-
-      {/* LESSER VS EMPOWERED GEMS SECTION - FRISSÍTVE MOTION.SECTION-RE */}
+        {/* LESSER VS EMPOWERED GEMS SECTION - FRISSÍTVE MOTION.SECTION-RE */}
         <motion.section 
           className={styles.section} 
           id="lesser-empowered"
@@ -381,8 +379,7 @@ export default function GemsGuide() {
                           <div className={styles.noteBox}>
               <p className={styles.noteText}>
                 {/* Ide írhatod majd a szövegedet */}
-                In Uber Worlds you obtain lesser gems based on the world difficulty. <br />
-                Uber Worlds are more restricted, because they need specified light requirements to enter.
+                In Uber Worlds you obtain lesser gems based on the world difficulty. Uber Worlds are more restricted, because they need specified light requirements to enter.
               </p>
                 </div>
               </div>
@@ -402,9 +399,9 @@ export default function GemsGuide() {
 
                 <div className={styles.delveInfoBox}>
                   <p>
-                    Delves above depth 160: <span className={styles.delvetext}>Completing 160+ delves letting you to get the same gem boxes you would get from D15 Uber Worlds.</span><br />
-                    <strong className={styles.prStrong}>15,000</strong> Power Rank: <span className={styles.delvetext}>Required to access certain delve areas. If you want to go into 160+ delves, you gotta hit 15.000 Power Rank.</span><br />
-                    No Light requirement: <span className={styles.delvetext}>Delves are not resctricting your light.</span>
+                    160+ Delves: <span className={styles.delvetext}>Explore Delves up to 160+ depth and earn the same Gem Boxes available from D15 Uber Worlds.</span><br />
+                    Power Rank: <span className={styles.delvetext}>A minimum of <strong className={styles.prStrong}>15,000</strong> Power Rank is required to access certain Delve depths.</span><br />
+                    No Light requirement: <span className={styles.delvetext}>Delves are not restricted by Light, allowing you to progress regardless of your current Light.</span>
                   </p>
                 </div>
                 {/* NOTE BOX PLACEHOLDER */}
@@ -421,6 +418,8 @@ export default function GemsGuide() {
 
 
         </motion.section>
+
+      </div>
 
       <GemsGuideDock />
     </>

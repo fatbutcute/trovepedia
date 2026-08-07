@@ -10,6 +10,7 @@
 .header {
   margin-bottom: 12rem;
   max-width: 700px;
+  margin-left: 3.85rem;
 }
 
 .eyebrow {
@@ -37,6 +38,7 @@
   font-size: 1.05rem;
   line-height: 1.6;
   color: #8892a6;
+  width: 600px;
 }
 
 /* ============ LAYOUT ============ */
