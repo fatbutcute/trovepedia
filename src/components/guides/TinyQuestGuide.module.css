@@ -825,3 +825,121 @@
   object-fit: contain;
   filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.5));
 }
+
+/* ==========================================================================
+   SECTION 05: 2X2 GRID SCROLL REVEAL STYLES
+   ========================================================================== */
+
+.horizontalScrollSection {
+  margin-bottom: 6rem;
+}
+
+/* PONTOSAN 2X2-ES GRID ELRENDEZÉS */
+.revealGridContainer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  padding: 0.5rem 0;
+}
+
+@media (max-width: 768px) {
+  .revealGridContainer {
+    grid-template-columns: 1fr; /* Mobilon 1 oszlop */
+  }
+}
+
+.revealCard {
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 22px;
+  padding: 1.75rem 1.5rem;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  cursor: pointer;
+}
+
+/* SMOOTH HOVER KIEMELÉS */
+.revealCard:hover {
+  border-color: rgba(56, 189, 248, 0.4);
+  background: rgba(30, 41, 59, 0.85);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+.revealCardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.revealCardTitleGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.revealStepBadge {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #e1f6ff;
+  background: rgb(32, 30, 30);
+  padding: 0.2rem 0.5rem;
+  border-radius: 8px;
+}
+
+.revealCategory {
+  font-size: 0.9rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: #cee7f1;
+  text-transform: uppercase;
+}
+
+.revealIcon {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.5));
+}
+
+.revealTitle {
+  font-family: 'Dosis', sans-serif;
+  font-size: 1.35rem;
+  font-weight: 400;
+  color: #f8fafc;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.revealDesc {
+  font-size: 0.92rem;
+  color: #cbd5e1;
+  line-height: 1.55;
+  margin: 0;
+  flex: 1;
+}
+
+.revealHighlightBox {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(182, 182, 182, 0.2);
+  color: #c3edff;
+  padding: 0.8rem;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.revealBulletList {
+  margin: 0;
+  padding-left: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  color: #cbd5e1;
+  font-size: 0.88rem;
+  line-height: 1.45;
+}

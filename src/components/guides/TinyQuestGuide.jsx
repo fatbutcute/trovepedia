@@ -521,6 +521,21 @@ export default function TinyQuestGuide() {
         </div>
       </motion.section>
 
+        {/* SECTION 05: HORIZONTAL SCROLL REVEAL (BEST WAY TO LEVEL YOUR ALLIES) */}
+      <section className={styles.horizontalScrollSection}>
+        <SectionDivider />
+        <div className={styles.sectionHeader} style={{ padding: '0 1.5rem', maxWidth: '1350px', margin: '0 auto 2rem auto' }}>
+          <span className={styles.sectionStep}>05</span>
+          <h2 className={styles.sectionTitle}>Best Way to Level your Allies</h2>
+          <p className={styles.sectionDesc}>
+            Scroll down to sequentially reveal crucial ally progression mechanics and strategy field notes.
+          </p>
+        </div>
+
+        {/* STICKY CONTAINER FOR HORIZONTAL REVEAL */}
+        <HorizontalRevealGrid />
+      </section>
+
       {/* LIGHTBOX MODAL */}
       <AnimatePresence>
         {activeLightboxImage && (
@@ -555,6 +570,102 @@ export default function TinyQuestGuide() {
         )}
       </AnimatePresence>
 
+    </div>
+  );
+}
+
+/* ==========================================================================
+   2X2 GRID SCROLL REVEAL COMPONENT WITH SMOOTH HOVER
+   ========================================================================== */
+
+const REVEAL_CARDS = [
+  {
+    id: 1,
+    step: "01",
+    category: "MECHANICS",
+    title: "Expedition Slot Expansion (Max 6)",
+    icon: "/icons/gears.png",
+    description: "By default, you start with 3 active expedition slots. Acquire Expedition Slot Expanders to unlock up to 6 total slots!",
+    highlight: "Note: Running 6 active slots simultaneously doubles your passive offline Ally XP generation."
+  },
+  {
+    id: 2,
+    step: "02",
+    category: "RESETS",
+    title: "Quest Station Spawn & Refresh",
+    icon: "/icons/reset.png",
+    description: "Quest stations spawn in dungeons after defeat. If a station offers undesirable quests or long timers, completing dungeons in different biomes cycles the available pool.",
+    bullets: [
+      "Timers tick down in real-time while offline.",
+      "Token costs dynamically drop as natural timers decrease."
+    ]
+  },
+  {
+    id: 3,
+    step: "03",
+    category: "PROGRESSION",
+    title: "Ally Leveling XP & Stat Scaling",
+    icon: "/icons/lvlup.png",
+    description: "Leveling an ally from Level 1 to 30 requires approximately 65,000 Total XP.",
+    highlight: "Stat scaling isn't linear — major power spikes trigger every 5 levels (Lvl 5, 10, 15, 20, 25, 30)."
+  },
+  {
+    id: 4,
+    step: "04",
+    category: "STRATEGY",
+    title: "Optimal Voucher Conversion",
+    icon: "/icons/voucher.png",
+    description: "Always use 'Get Voucher Instead' on 12+ hour quests unless you plan to go offline for the night.",
+    highlight: "100 Vouchers craft a Simple Tiny Key, which opens rewards immediately without waiting on long timers."
+  }
+];
+
+function HorizontalRevealGrid() {
+  return (
+    <div className={styles.revealGridContainer}>
+      {REVEAL_CARDS.map((card, index) => (
+        <motion.div
+          key={card.id}
+          className={styles.revealCard}
+          initial={{ opacity: 0, x: -40, y: 20 }}
+          whileInView={{ opacity: 1, x: 0, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{
+            duration: 0.6,
+            delay: index * 0.12, // Lépcsőzetes reveal
+            ease: [0.25, 1, 0.5, 1]
+          }}
+          whileHover={{ 
+            y: -8, 
+            transition: { duration: 0.25, ease: "easeOut" } 
+          }}
+        >
+          <div className={styles.revealCardHeader}>
+            <div className={styles.revealCardTitleGroup}>
+              <span className={styles.revealStepBadge}>{card.step}</span>
+              <span className={styles.revealCategory}>{card.category}</span>
+            </div>
+            <img src={card.icon} alt="" className={styles.revealIcon} />
+          </div>
+
+          <h3 className={styles.revealTitle}>{card.title}</h3>
+          <p className={styles.revealDesc}>{card.description}</p>
+
+          {card.highlight && (
+            <div className={styles.revealHighlightBox}>
+              {card.highlight}
+            </div>
+          )}
+
+          {card.bullets && (
+            <ul className={styles.revealBulletList}>
+              {card.bullets.map((bullet, i) => (
+                <li key={i}>{bullet}</li>
+              ))}
+            </ul>
+          )}
+        </motion.div>
+      ))}
     </div>
   );
 }
