@@ -48,11 +48,11 @@ const ALLIES = [
     tier: 'Max Damage Scaling',
     icon: '/allies/scorpius.png', // Placeholder: Image expected here
     baseLight: 400, // Frissítve a helyes alap értékre
-    maxLight: 400,  // Frissítve 400 Light-ra!
+    maxLight: 500,  // Frissítve 400 Light-ra!
     baseDamage: '25%',
     maxDamage: '29%',
     perk: 'Massive Raw Damage Increase',
-    description: 'A powerful damage-oriented ally that also grants up to 400 Light stat at level 30 alongside its 29% physical and magic damage boost.',
+    description: 'A powerful damage-oriented ally that also grants up to 500 Light stat at level 30 and 29% physical damage boost.',
     color: '#f59e0b'
   }
 ];
