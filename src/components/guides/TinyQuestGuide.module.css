@@ -934,12 +934,11 @@
 }
 
 .revealBulletList {
-  margin: 0;
-  padding-left: 1.2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-  color: #cbd5e1;
-  font-size: 0.88rem;
-  line-height: 1.45;
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(182, 182, 182, 0.2);
+    color: #c3edff;
+    padding: 0.8rem;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    line-height: 1.45;
 }
