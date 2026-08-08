@@ -116,7 +116,7 @@
 
 .scalerGrid {
   display: grid;
-  grid-template-columns: 480px 1fr;
+  grid-template-columns: 500px 1fr; /* Kicsit igazítunk a bal oszlopon */
   gap: 2.5rem;
   align-items: start;
 }
@@ -155,24 +155,31 @@
 }
 
 .allySelector {
-  display: flex;
-  gap: 0.5rem;
-  background: rgba(30, 41, 59, 0.6);
-  padding: 0.3rem;
-  border-radius: 14px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* ◄ PONTOSAN 3 EQUAL OSZLOP */
+    grid-template-rows: repeat(3, auto);    /* ◄ 2 SOR */
+    gap: 0.5rem;
+    background: rgba(30, 41, 59, 0.6);
+    padding: 0.4rem;
+    border-radius: 14px;
 }
 
 .allyTab {
-  flex: 1;
+  flex: 1 1 calc(33.333% - 0.5rem); /* A gombok szépen 3 per sor arányban töltenek ki */
+  min-width: 110px;
   background: transparent;
   border: none;
   color: #94a3b8;
-  padding: 0.6rem;
+  padding: 0.5rem 0.4rem;
   font-weight: 700;
-  font-size: 0.85rem;
+  font-size: 0.7rem;
   border-radius: 10px;
   cursor: pointer;
   transition: all 0.2s ease;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .activeTab {
@@ -223,17 +230,20 @@
 
 .statValue {
   font-family: 'Quicksand', sans-serif;
-  font-size: 1.8rem;
+  font-size: 1rem;
   font-weight: 800;
 }
 
 .allyPerkText {
-  font-size: 0.9rem;
-  color: #cbd5e1;
-  margin: 0;
-  background: rgba(255, 255, 255, 0.03);
-  padding: 0.8rem;
-  border-radius: 12px;
+    font-size: 0.9rem;
+    color: #cbd5e1;
+    margin: 0;
+    margin-top: auto; /* ◄ Ez tolja le a szülő konténer bal alsó sarkába */
+    align-self: flex-start; /* ◄ Ez tartja szigorúan a bal oldalon */
+    background: rgba(255, 255, 255, 0.03);
+    padding: 0.8rem;
+    border-radius: 12px;
+    width: fit-content;
 }
 
 /* JOBB OLDALI ALLY KÁRTYÁK */
@@ -941,4 +951,174 @@
     border-radius: 12px;
     font-size: 0.9rem;
     line-height: 1.45;
+}
+
+/* ==========================================================================
+   SECTION 01: MASTER-DETAIL DASHBOARD LAYOUT
+   ========================================================================== */
+
+.dashboardContainer {
+  display: grid;
+  grid-template-columns: 350px 1fr; /* Bal oldalt 280px sáv, jobb oldalt a nagy detail nézet */
+  gap: 1.5rem;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 1.5rem;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+@media (max-width: 850px) {
+  .dashboardContainer {
+    grid-template-columns: 1fr; /* Mobilon egymás alá esik a lista és a detail nézet */
+  }
+}
+
+.sidebarList {
+  display: flex;
+  flex-direction: column;
+  background: rgba(30, 41, 59, 0.4);
+  padding: 0.5rem;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  gap: 0.5rem;
+}
+
+.sidebarTitle {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #64748b;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+  padding-left: 0.5rem;
+}
+
+.sidebarTab {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  padding: 0.75rem 0.85rem;
+  font-weight: 700;
+  font-size: 0.85rem;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  text-align: left;
+  width: 100%;
+  z-index: 1; /* Hogy a szöveg a háttér felett legyen */
+}
+
+.sidebarTab:hover {
+  color: #f8fafc;
+}
+
+.sidebarTabContent {
+  position: relative;
+  z-index: 2; /* A tartalom mindig a csúszó pill felett marad */
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.activePillBackground {
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  z-index: 1;
+}
+
+.activeSidebarTab {
+  color: #ffffff !important;
+  font-weight: 800;
+}
+
+.sidebarTab:hover .sidebarName {
+  color: #f8fafc;
+}
+
+.activeSidebarTab .sidebarName {
+  color: #c9cc10 !important; /* Sötét betűszín az aktív színes háttéren az olvashatóságért */
+  font-weight: 800;
+}
+
+.sidebarIcon {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.sidebarName {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* JOBB OLDALI DETAIL PANEL */
+.detailViewPanel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  background: rgba(30, 41, 59, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 18px;
+  padding: 1.5rem;
+}
+
+.detailHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.detailTitleGroup {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.detailMainIcon {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.detailAllyName {
+  font-family: 'Dosis', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0 0 0.2rem 0;
+  color: #ffffff;
+}
+
+.detailTierTag {
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  padding: 0.2rem 0.6rem;
+  border-radius: 8px;
+  border: 1px solid;
+}
+
+.detailDesc {
+  font-size: 0.92rem;
+  color: #cbd5e1;
+  line-height: 1.5;
+  margin: 0;
+  width: 370px;
+}
+
+.statSubText {
+  font-size: 0.85rem;
+  color: #64748b;
+  margin-top: 0.2rem;
 }

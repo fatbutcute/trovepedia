@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import styles from './TinyQuestGuide.module.css';
 import SectionDivider from '../common/SectionDivider';
+import { AnimatedBackground } from '../core/animated-background';
 
 // ◄ A GEMS GUIDE-BÓL MÁSOLT PONTOS VARIÁNS ÉS BEÁLLÍTÁSOK
 const scrollFadeInVariants = {
@@ -14,57 +15,119 @@ const scrollFadeInVariants = {
   }
 };
 
-// Ally data derived from the transcript
+// Ally data derived from transcript and game files
 const ALLIES = [
   {
-    id: 'trudgina',
-    name: 'Tiny Trudgina',
-    tier: 'Best in Slot Light',
-    icon: '/allies/trudgina.png', // Placeholder: Image expected here
+    id: 'vivian',
+    name: 'Venturous Vivian',
+    tier: 'Max Light & Dual Dmg',
+    icon: '/allies/vivian.png',
     baseLight: 450,
-    maxLight: 563,
-    baseDamage: '10%',
-    maxDamage: '11%',
-    perk: 'Extra Experience Gain + High Light',
-    description: 'Obtainable from the Tiny Treasure Team pack or by crafting. Currently provides the highest Light stat in the game at level 30.',
-    color: '#38bdf8'
+    maxLight: 563, // 562.5 lekerekítve
+    baseDamage: '10% Phys & Magic',
+    maxDamage: '11.5% Phys & Magic',
+    perk: 'Physical & Magic Damage Boost',
+    description: 'Provides top-tier Light scaling alongside a dual Physical and Magic damage boost at level 30.',
+    color: '#c084fc',
+    stats: [
+      { name: 'Light', base: '450', upgraded: '562.5' },
+      { name: 'Physical Damage', base: '10%', upgraded: '11.5%' },
+      { name: 'Magic Damage', base: '10%', upgraded: '11.5%' }
+    ]
   },
   {
-    id: 'vivian',
-    name: 'Vivian',
-    tier: 'Former Max Light',
-    icon: '/allies/vivian.png', // Placeholder: Image expected here
+    id: 'moontouched',
+    name: 'The Moontouched of All Time',
+    tier: 'Max Light & Stability',
+    icon: '/allies/moontouched.png',
     baseLight: 450,
-    maxLight: 563,
-    baseDamage: '10%',
-    maxDamage: '11%',
-    perk: 'Physical & Magic Damage Boost',
-    description: 'Previously offered the top Light stat before the update. As you level it up, both Light and damage scale steadily.',
-    color: '#c084fc'
+    maxLight: 563, // 562.5
+    baseDamage: '10% Physical',
+    maxDamage: '11.5% Physical',
+    perk: 'Extra Stability + High Light',
+    description: 'Grants maximum Light stat along with physical damage and bonus Stability at higher levels.',
+    color: '#38bdf8',
+    stats: [
+      { name: 'Light', base: '450', upgraded: '562.5' },
+      { name: 'Physical Damage', base: '10%', upgraded: '11.5%' },
+      { name: 'Stability', base: 'N/A', upgraded: '22.5' }
+    ]
+  },
+  {
+    id: 'skyfire',
+    name: 'Starry Skyfire',
+    tier: 'Magic Damage Scaling',
+    icon: '/allies/skyfire.png',
+    baseLight: 400,
+    maxLight: 500,
+    baseDamage: '25% Magic',
+    maxDamage: '28.75% Magic',
+    perk: 'High Magic Damage Scaling',
+    description: 'High offensive ally tailored for Magic Damage classes, scaling up to 500 Light at level 30.',
+    color: '#38bdf8',
+    stats: [
+      { name: 'Light', base: '400', upgraded: '500' },
+      { name: 'Magic Damage', base: '25%', upgraded: '28.75%' }
+    ]
   },
   {
     id: 'scorpius',
     name: 'Scorpius',
-    tier: 'Max Damage Scaling',
-    icon: '/allies/scorpius.png', // Placeholder: Image expected here
-    baseLight: 400, // Frissítve a helyes alap értékre
-    maxLight: 500,  // Frissítve 400 Light-ra!
-    baseDamage: '25%',
-    maxDamage: '29%',
-    perk: 'Massive Raw Damage Increase',
-    description: 'A powerful damage-oriented ally that also grants up to 500 Light stat at level 30 and 29% physical damage boost.',
-    color: '#f59e0b'
+    tier: 'Physical Damage Scaling',
+    icon: '/allies/scorpius.png',
+    baseLight: 400,
+    maxLight: 500,
+    baseDamage: '25% Physical',
+    maxDamage: '28.75% Physical',
+    perk: 'High Physical Damage Scaling',
+    description: 'A powerful damage-oriented ally granting 500 Light alongside a massive 28.75% Physical Damage boost.',
+    color: '#f59e0b',
+    stats: [
+      { name: 'Light', base: '400', upgraded: '500' },
+      { name: 'Physical Damage', base: '25%', upgraded: '28.75%' }
+    ]
+  },
+  {
+    id: 'staruable',
+    name: 'Staruable',
+    tier: 'Speed & Light Utility',
+    icon: '/allies/staruable.png',
+    baseLight: 400,
+    maxLight: 500,
+    baseDamage: '8 Movement Speed',
+    maxDamage: '12 Movement Speed',
+    perk: 'Movement Speed Boost',
+    description: 'Ideal for speed-farming builds requiring both solid Light scaling and high Movement Speed.',
+    color: '#2effee',
+    stats: [
+      { name: 'Light', base: '400', upgraded: '500' },
+      { name: 'Movement Speed', base: '8', upgraded: '12' }
+    ]
+  },
+  {
+    id: 'heckmantis',
+    name: 'Bulbous Heckmantis',
+    tier: 'Critical Damage Focus',
+    icon: '/allies/heckmantis.png',
+    baseLight: 150,
+    maxLight: 188, // 187.5
+    baseDamage: '30% Critical Dmg',
+    maxDamage: '34.5% Critical Dmg',
+    perk: 'Massive Critical Damage Boost',
+    description: 'Specialized ally focusing heavily on Critical Damage scaling up to 34.5% at level 30.',
+    color: '#ef4444',
+    stats: [
+      { name: 'Light', base: '150', upgraded: '187.5' },
+      { name: 'Critical Damage', base: '30%', upgraded: '34.5%' }
+    ]
   }
 ];
 
 export default function TinyQuestGuide() {
   const [selectedAlly, setSelectedAlly] = useState(ALLIES[0]);
   const [currentLevel, setCurrentLevel] = useState(30);
-
-  // State a Lightbox felugró ablaknak
   const [activeLightboxImage, setActiveLightboxImage] = useState(null);
 
-  // Dynamic stat computation for the slider (simulates stat jumps roughly every 5 levels)
   const calculatedLight = Math.round(
     selectedAlly.baseLight + ((selectedAlly.maxLight - selectedAlly.baseLight) * (currentLevel / 30))
   );
@@ -110,7 +173,8 @@ export default function TinyQuestGuide() {
         </div>
       </motion.header>
 
-      {/* SECTION 1: ALLY LEVELING & STAT SCALER (Most már pontosan mint a Gems Guide!) */}
+      {/* SECTION 1: ALLY LEVELING & DETAIL SIMULATOR WITH ANIMATED TABS */}
+      {/* SECTION 1: ALLY LEVELING & DETAIL SIMULATOR */}
       <motion.section 
         className={styles.sectionContainer}
         initial="hidden"
@@ -122,112 +186,124 @@ export default function TinyQuestGuide() {
           <span className={styles.sectionStep}>01</span>
           <h2 className={styles.sectionTitle}>Level 30 Allies & Stat Scaling</h2>
           <p className={styles.sectionDesc}>
-            Allies can now be leveled up from Level 1 all the way to Level 30 (around 65,000 total XP). Noticeable stat increases trigger every 5 levels.
+            Select an ally from the sidebar to inspect its detailed stat scaling, level progression, and perks up to Level 30.
           </p>
         </div>
 
-        <div className={styles.scalerGrid}>
+        {/* MASTER-DETAIL DASHBOARD CONTAINER */}
+        <div className={styles.dashboardContainer}>
           
-          {/* LEFT COLUMN: INTERACTIVE STAT SLIDER */}
-          <div className={styles.interactiveCard}>
-            <div className={styles.cardHeader}>
-              <h3>Ally Level Simulator</h3>
-              <span className={styles.levelBadge} style={{ backgroundColor: selectedAlly.color }}>
-                LVL {currentLevel} / 30
-              </span>
-            </div>
-
-            <div className={styles.allySelector}>
+          {/* BAL OLDAL: SIDEBAR ANIMATED BACKGROUND-DDAL */}
+          <div className={styles.sidebarList}>
+            <AnimatedBackground
+              defaultValue={selectedAlly.id}
+              className="rounded-xl bg-black/30 border border-white/60 shadow-[0_0_15px_rgba(0,0,0,0.4)]"
+              transition={{
+                type: 'spring',
+                bounce: 0.2,
+                duration: 0.4,
+              }}
+              enableHover
+            >
               {ALLIES.map((ally) => (
                 <button
                   key={ally.id}
-                  className={`${styles.allyTab} ${selectedAlly.id === ally.id ? styles.activeTab : ''}`}
+                  data-id={ally.id}
+                  type="button"
+                  className={`${styles.sidebarTab} ${
+                    selectedAlly.id === ally.id ? styles.activeSidebarTab : ''
+                  }`}
                   onClick={() => setSelectedAlly(ally)}
                 >
-                  {ally.name}
-                </button>
-              ))}
-            </div>
-
-            {/* Level Slider */}
-            <div className={styles.sliderControl}>
-              <label>Adjust Ally Level: <strong>Level {currentLevel}</strong></label>
-              <input 
-                type="range" 
-                min="1" 
-                max="30" 
-                value={currentLevel} 
-                onChange={(e) => setCurrentLevel(Number(e.target.value))}
-                className={styles.rangeInput}
-              />
-              <div className={styles.sliderTicks}>
-                <span>Lvl 1 (0 XP)</span>
-                <span>Lvl 15</span>
-                <span>Lvl 30 (MAX)</span>
-              </div>
-            </div>
-
-            {/* Calculated Stats Display */}
-            <div className={styles.statPreviewGrid}>
-              <div className={styles.statBox}>
-                <span className={styles.statLabel}>Light after maxing</span>
-                <span className={styles.statValue} style={{ color: selectedAlly.color }}>
-                  +{calculatedLight}
-                </span>
-              </div>
-              <div className={styles.statBox}>
-                <span className={styles.statLabel}>Damage Boost</span>
-                <span className={styles.statValue}>
-                  {currentLevel === 30 ? selectedAlly.maxDamage : selectedAlly.baseDamage}
-                </span>
-              </div>
-            </div>
-
-            <p className={styles.allyPerkText}>
-              <strong>Special Perk:</strong> {selectedAlly.perk}
-            </p>
-          </div>
-
-          {/* RIGHT COLUMN: ALLY COMPARISON CARDS */}
-          <div className={styles.allyCardsColumn}>
-            {ALLIES.map((ally) => (
-              <div 
-                key={ally.id} 
-                className={`${styles.allyInfoCard} ${selectedAlly.id === ally.id ? styles.selectedCard : ''}`}
-                onClick={() => setSelectedAlly(ally)}
-              >
-                <div className={styles.allyIconWrapper}>
-                  {/* IMAGE PLACEHOLDER */}
                   <img 
                     src={ally.icon} 
-                    alt={`[Image Placeholder: ${ally.name} Ally Icon]`} 
-                    className={styles.allyImg}
-                    onError={(e) => {
-                      e.target.style.display = 'none';
-                      e.target.nextSibling.style.display = 'flex';
-                    }}
+                    alt={ally.name} 
+                    className={styles.sidebarIcon}
+                    onError={(e) => { e.target.style.display = 'none'; }}
                   />
-                  <div className={styles.fallbackIcon} style={{ borderColor: ally.color }}>
-                    {ally.name.charAt(0)}
+                  <span className={styles.sidebarName}>{ally.name}</span>
+                </button>
+              ))}
+            </AnimatedBackground>
+          </div>
+
+          {/* JOBB OLDAL: DETAIL PANEL FADE ANIMÁCIÓVAL */}
+          <AnimatePresence mode="wait">
+            <motion.div 
+              key={selectedAlly.id}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.25, ease: 'easeInOut' }}
+              className={styles.detailViewPanel}
+            >
+              <div className={styles.detailHeader}>
+                <div className={styles.detailTitleGroup}>
+                  <img 
+                    src={selectedAlly.icon} 
+                    alt={selectedAlly.name} 
+                    className={styles.detailMainIcon}
+                    onError={(e) => { e.target.style.display = 'none'; }}
+                  />
+                  <div>
+                    <h3 className={styles.detailAllyName}>{selectedAlly.name}</h3>
+                    <span 
+                      className={styles.detailTierTag} 
+                      style={{ color: selectedAlly.color, borderColor: selectedAlly.color }}
+                    >
+                      {selectedAlly.tier}
+                    </span>
                   </div>
                 </div>
 
-                <div className={styles.allyDetails}>
-                  <div className={styles.allyTitleRow}>
-                    <h4 className={styles.allyName}>{ally.name}</h4>
-                    <span className={styles.tierTag} style={{ color: ally.color, borderColor: ally.color }}>
-                      {ally.tier}
-                    </span>
-                  </div>
-                  <p className={styles.allyDesc}>{ally.description}</p>
-                  <div className={styles.maxStatsRow}>
-                    <span>Max Light: <strong>{ally.maxLight || 'N/A'}</strong></span>
-                    <span>Max Dmg: <strong>{ally.maxDamage}</strong></span>
-                  </div>
+                <span className={styles.levelBadge} style={{ backgroundColor: selectedAlly.color }}>
+                  LVL {currentLevel} / 30
+                </span>
+              </div>
+
+              <p className={styles.detailDesc}>{selectedAlly.description}</p>
+
+              <div className={styles.sliderControl}>
+                <label>Adjust Ally Level: <strong>Level {currentLevel}</strong></label>
+                <input 
+                  type="range" 
+                  min="1" 
+                  max="30" 
+                  value={currentLevel} 
+                  onChange={(e) => setCurrentLevel(Number(e.target.value))}
+                  className={styles.rangeInput}
+                />
+                <div className={styles.sliderTicks}>
+                  <span>Lvl 1 (0 XP)</span>
+                  <span>Lvl 15</span>
+                  <span>Lvl 30 (MAX)</span>
                 </div>
               </div>
-            ))}
-          </div>
+
+              <div className={styles.statPreviewGrid}>
+                <div className={styles.statBox}>
+                  <span className={styles.statLabel}>Light Stat</span>
+                  <span className={styles.statValue} style={{ color: selectedAlly.color }}>
+                    +{calculatedLight}
+                  </span>
+                  <span className={styles.statSubText}>Base: {selectedAlly.baseLight}</span>
+                </div>
+
+                <div className={styles.statBox}>
+                  <span className={styles.statLabel}>Damage / Speed Boost</span>
+                  <span className={styles.statValue}>
+                    {currentLevel === 30 ? selectedAlly.maxDamage : selectedAlly.baseDamage}
+                  </span>
+                  <span className={styles.statSubText}>Base: {selectedAlly.baseDamage}</span>
+                </div>
+              </div>
+
+              <p className={styles.allyPerkText}>
+                <strong>Special Perk:</strong> {selectedAlly.perk}
+              </p>
+
+            </motion.div>
+          </AnimatePresence>
 
         </div>
       </motion.section>
