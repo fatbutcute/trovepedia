@@ -355,31 +355,31 @@ export default function GemsGuide() {
                       className={styles.obtainIcon} 
                     />
                   </div>
-                  <h4>Uber Worlds</h4>
+                  <h4>Worlds</h4>
                 </div>
 
                 <div className={styles.tierStripList}>
                   <div className={`${styles.tierStrip} ${styles.radiantStrip}`}>
                     <span className={styles.stripTier}>Radiant</span>
-                    <span className={styles.stripUber}>Uber 12</span>
+                    <span className={styles.stripUber}>D12</span>
                   </div>
                   <div className={`${styles.tierStrip} ${styles.stellarStrip}`}>
                     <span className={styles.stripTier}>Stellar</span>
-                    <span className={styles.stripUber}>Uber 13</span>
+                    <span className={styles.stripUber}>D13</span>
                   </div>
                   <div className={`${styles.tierStrip} ${styles.crystalStrip}`}>
                     <span className={styles.stripTier}>Crystal</span>
-                    <span className={styles.stripUber}>Uber 14</span>
+                    <span className={styles.stripUber}>D14</span>
                   </div>
                   <div className={`${styles.tierStrip} ${styles.mysticStrip}`}>
                     <span className={styles.stripTier}>Mystic</span>
-                    <span className={styles.stripUber}>Uber 15</span>
+                    <span className={styles.stripUber}>D15</span>
                   </div>
             </div>
                           <div className={styles.noteBox}>
               <p className={styles.noteText}>
                 {/* Ide írhatod majd a szövegedet */}
-                In Uber Worlds you obtain lesser gems based on the world difficulty. Uber Worlds are more restricted, because they need specified light requirements to enter.
+                In Adventure Worlds you obtain lesser gems based on the world difficulty. Adventure Worlds are more restricted, because they need specified light requirements to enter.
               </p>
                 </div>
               </div>
@@ -399,7 +399,7 @@ export default function GemsGuide() {
 
                 <div className={styles.delveInfoBox}>
                   <p>
-                    160+ Delves: <span className={styles.delvetext}>Explore Delves up to 160+ depth and earn the same Gem Boxes available from D15 Uber Worlds.</span><br />
+                    160+ Delves: <span className={styles.delvetext}>Explore Delves up to 160+ depth and earn the same Gem Boxes available from D15 Worlds.</span><br />
                     Power Rank: <span className={styles.delvetext}>A minimum of <strong className={styles.prStrong}>15,000</strong> Power Rank is required to access certain Delve depths.</span><br />
                     No Light requirement: <span className={styles.delvetext}>Delves are not restricted by Light, allowing you to progress regardless of your current Light.</span>
                   </p>
@@ -408,7 +408,7 @@ export default function GemsGuide() {
             <div className={styles.noteBox}>
               <p className={styles.noteText}>
                 {/* Ide írhatod majd a szövegedet */}
-                Delves are just shortcut to mystic gems. Completing <strong className={styles.noteStrong}>165+ delves</strong> is the same as doing D15 Uber worlds, but with lesser and lower restrictions. Delves are pretty useful if you want to skip Stellar and Crystal gems.
+                Delves are just shortcut to mystic gems. Completing <strong className={styles.noteStrong}>165+ delves</strong> is the same as doing D15 worlds, but with lesser and lower restrictions. Delves are pretty useful if you want to skip Stellar and Crystal gems.
               </p>
             </div>
           </div>

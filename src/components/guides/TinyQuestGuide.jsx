@@ -452,28 +452,28 @@ export default function TinyQuestGuide() {
             </thead>
             <tbody>
               <tr>
-                <td><span className={styles.worldTag} style={{ color: '#94a3b8' }}>Novice – Uber 5</span></td>
+                <td><span className={styles.worldTag} style={{ color: '#94a3b8' }}>Novice – D5</span></td>
                 <td>Tier 1–2</td>
                 <td>5 – 15 Mins</td>
                 <td>Low (100–300 XP)</td>
                 <td>Fast cycles. Great for burning excess Insta-Complete Tokens.</td>
               </tr>
               <tr>
-                <td><span className={styles.worldTag} style={{ color: '#38bdf8' }}>Uber 6 – Uber 9</span></td>
+                <td><span className={styles.worldTag} style={{ color: '#38bdf8' }}>D6 – D9</span></td>
                 <td>Tier 3–4</td>
                 <td>30 Mins – 2 Hours</td>
                 <td>Medium (500–1,200 XP)</td>
                 <td>Balanced route for mid-game players pushing towards max level.</td>
               </tr>
               <tr>
-                <td><span className={styles.worldTag} style={{ color: '#fbbf24' }}>Uber 10 – Uber 11</span></td>
+                <td><span className={styles.worldTag} style={{ color: '#fbbf24' }}>D10 – D11</span></td>
                 <td>Tier 5–6</td>
                 <td>3 – 8 Hours</td>
                 <td>High (2,000–5,000 XP)</td>
                 <td>Set active before logging off to gain passive offline XP progress.</td>
               </tr>
               <tr>
-                <td><span className={styles.worldTag} style={{ color: '#c084fc' }}>Uber 12 (Endgame)</span></td>
+                <td><span className={styles.worldTag} style={{ color: '#c084fc' }}>D12 (Endgame)</span></td>
                 <td>Max Tier</td>
                 <td>12 – 24 Hours</td>
                 <td>Massive (8,000+ XP)</td>
