@@ -240,6 +240,7 @@ export default function GemsGuide() {
         </motion.section>
 
         {/* LESSER VS EMPOWERED GEMS SECTION - FRISSÍTVE MOTION.SECTION-RE */}
+        {/* LESSER VS EMPOWERED GEMS SECTION (EGYBEOVADÓ, SZELLŐS ELRENDEZÉS) */}
         <motion.section 
           className={styles.section} 
           id="lesser-empowered"
@@ -254,8 +255,9 @@ export default function GemsGuide() {
             Gems in Trove are split into two fundamental categories. While Lesser Gems form your stat foundation, Empowered Gems define your build with game-changing abilities.
           </p>
 
+          {/* COMPARISON CARDS */}
           <div className={styles.compareGrid}>
-            {/* BAL OLDALI KÁRTYA: LESSER GEM (Alulról vagy balról beúszás) */}
+            {/* BAL OLDALI KÁRTYA: LESSER GEM */}
             <motion.div
               className={`${styles.compareCard} ${styles.lesserCard}`}
               initial={{ opacity: 0, y: 25 }}
@@ -294,7 +296,7 @@ export default function GemsGuide() {
               </ul>
             </motion.div>
 
-            {/* JOBB OLDALI KÁRTYA: EMPOWERED GEM (Alulról vagy jobbról beúszás) */}
+            {/* JOBB OLDALI KÁRTYA: EMPOWERED GEM */}
             <motion.div
               className={`${styles.compareCard} ${styles.empoweredCard}`}
               initial={{ opacity: 0, y: 25 }}
@@ -337,15 +339,14 @@ export default function GemsGuide() {
                 </li>
               </ul>
             </motion.div>
-            
           </div>
 
-          {/* HOW TO OBTAIN LESSER GEMS SUBSECTION */}
+          {/* 1. HOW TO OBTAIN LESSER GEMS SUBSECTION */}
           <div className={styles.obtainContainer}>
             <h3 className={styles.obtainTitle}>How do you obtain Lesser Gems?</h3>
             
             <div className={styles.obtainGrid}>
-              {/* BAL OLDAL: FROM UBER WORLDS */}
+              {/* WORLDS */}
               <div className={styles.obtainCard}>
                 <div className={styles.obtainHeader}>
                   <div className={styles.obtainIconWrapper}>
@@ -375,16 +376,16 @@ export default function GemsGuide() {
                     <span className={styles.stripTier}>Mystic</span>
                     <span className={styles.stripUber}>D15</span>
                   </div>
-            </div>
-                          <div className={styles.noteBox}>
-              <p className={styles.noteText}>
-                {/* Ide írhatod majd a szövegedet */}
-                In Adventure Worlds you obtain lesser gems based on the world difficulty. Adventure Worlds are more restricted, because they need specified light requirements to enter.
-              </p>
+                </div>
+
+                <div className={styles.noteBox}>
+                  <p className={styles.noteText}>
+                    In Adventure Worlds you obtain lesser gems based on the world difficulty. Adventure Worlds are more restricted, because they need specified light requirements to enter.
+                  </p>
                 </div>
               </div>
 
-              {/* JOBB OLDAL: FROM DELVES */}
+              {/* DELVES */}
               <div className={styles.obtainCard}>
                 <div className={styles.obtainHeader}>
                   <div className={styles.obtainIconWrapper}>
@@ -404,18 +405,176 @@ export default function GemsGuide() {
                     No Light requirement: <span className={styles.delvetext}>Delves are not restricted by Light, allowing you to progress regardless of your current Light.</span>
                   </p>
                 </div>
-                {/* NOTE BOX PLACEHOLDER */}
-            <div className={styles.noteBox}>
-              <p className={styles.noteText}>
-                {/* Ide írhatod majd a szövegedet */}
-                Delves are just shortcut to mystic gems. Completing <strong className={styles.noteStrong}>165+ delves</strong> is the same as doing D15 worlds, but with lesser and lower restrictions. Delves are pretty useful if you want to skip Stellar and Crystal gems.
-              </p>
-            </div>
-          </div>
+
+                <div className={styles.noteBox}>
+                  <p className={styles.noteText}>
+                    Delves are just shortcut to mystic gems. Completing <strong className={styles.noteStrong}>165+ delves</strong> is the same as doing D15 worlds, but with lesser and lower restrictions. Delves are pretty useful if you want to skip Stellar and Crystal gems.
+                  </p>
+                </div>
               </div>
             </div>
+          </div>
+
+          {/* 2. HOW TO OBTAIN EMPOWERED GEMS SUBSECTION (PONTOSAN PÁRHUZAMOS MARGÓKILÉPÉSSEL) */}
+          <div className={styles.obtainContainer}>
+            <h3 className={styles.obtainTitle}>How do you obtain Empowered Gems?</h3>
+            
+            <div className={styles.empoweredObtainGrid}>
+              
+              {/* CARD 1: Empowered Gem Box */}
+              <motion.div 
+                className={styles.empObtainCard}
+                whileHover={{ y: -5 }}
+                transition={{ duration: 0.2 }}
+              >
+                <div className={styles.empCardHeader}>
+                  <div className={styles.empIconWrapper}>
+                    <img 
+                      src="/empgems/empbox.png" 
+                      alt="Empowered Gem Box" 
+                      className={styles.empBoxIcon} 
+                    />
+                  </div>
+                  <div className={styles.empTitleGroup}>
+                    <span className={styles.empTag}>CRAFT & SHADOW TOWER</span>
+                    <h4>Empowered Gem Box</h4>
+                  </div>
+                </div>
+                <p className={styles.empCardDesc}>
+                  Obtained by converting <span className={styles.lunarsouls}>Lunar Souls</span> at the Shadowy Market. Drops <span className={styles.radiant}>Radiant</span> or <span className={styles.stellar}>Stellar</span> Empowered Gems, and rarely <span className={styles.classgemkey}>Class Gem Key Fragments</span> or <span className={styles.dragonegg}>Diamond Dragon Eggs</span>.
+                </p>
+              </motion.div>
+
+              {/* CARD 2: Stellar Empowered Gem Box */}
+              <motion.div 
+                className={styles.empObtainCard}
+                whileHover={{ y: -5 }}
+                transition={{ duration: 0.2 }}
+              >
+                <div className={styles.empCardHeader}>
+                  <div className={styles.empIconWrapper}>
+                    <img 
+                      src="/empgems/empboxstellar.png" 
+                      alt="Stellar Empowered Gem Box" 
+                      className={styles.empBoxIcon} 
+                    />
+                  </div>
+                  <div className={styles.empTitleGroup}>
+                    <span className={styles.empTag} style={{ color: '#f59e0b', borderColor: 'rgba(245, 158, 11, 0.3)' }}>
+                      GUARANTEED STELLAR
+                    </span>
+                    <h4>Stellar Empowered Gem Box</h4>
+                  </div>
+                </div>
+                <p className={styles.empCardDesc}>
+                  Guarantees a <span className={styles.stellar}>Stellar</span> tier Empowered Gem upon opening. Essential for skipping lower Radiant tiers. Can be crafted at the Adventure Crafting Bench.
+                </p>
+              </motion.div>
+
+              {/* CARD 3: Empowered Gem Box Edition */}
+              <motion.div 
+                className={styles.empObtainCard}
+                whileHover={{ y: -5 }}
+                transition={{ duration: 0.2 }}
+              >
+                <div className={styles.empCardHeader}>
+                  <div className={styles.empIconWrapper}>
+                    <img 
+                      src="/empgems/empgemboxtome.png" 
+                      alt="Empowered Gem Box Edition" 
+                      className={styles.empBoxIcon} 
+                    />
+                  </div>
+                  <div className={styles.empTitleGroup}>
+                    <span className={styles.empTag} style={{ color: '#c084fc', borderColor: 'rgba(192, 132, 252, 0.3)' }}>
+                      TOME & REWARD
+                    </span>
+                    <h4>Empowered Gem Box Edition</h4>
+                  </div>
+                </div>
+                <p className={styles.empCardDesc}>
+                  Special edition box yielded passively from Empowered Gem Tome completion or high-tier events. <br />Great for consistent endgame gem progression. Can be used once per week.
+                </p>
+              </motion.div>
+
+               <motion.div 
+                className={styles.empObtainCard}
+                whileHover={{ y: -5 }}
+                transition={{ duration: 0.2 }}
+              >
+                <div className={styles.empCardHeader}>
+                  <div className={styles.empIconWrapper}>
+                    <img 
+                      src="/empgems/leaderboard.png" 
+                      alt="Empowered Gem Box Edition" 
+                      className={styles.empBoxIcon} 
+                    />
+                  </div>
+                  <div className={styles.empTitleGroup}>
+                    <span className={styles.empTag} style={{ color: '#e9ff1f', borderColor: 'rgba(192, 132, 252, 0.3)' }}>
+                      LEADERBOARD
+                    </span>
+                    <h4>Leaderboard Rewards</h4>
+                  </div>
+                </div>
+                <p className={styles.empCardDesc}>
+                  One of the easiest ways to get Empowered Gem Boxes is doing Leaderboard contests. Every week there are 3 class which have <br />to reach 125 leaderboard points to get Empowered Gem Boxes at the next reset.
+                </p>
+              </motion.div>
 
 
+               <motion.div 
+                className={styles.empObtainCard}
+                whileHover={{ y: -5 }}
+                transition={{ duration: 0.2 }}
+              >
+                <div className={styles.empCardHeader}>
+                  <div className={styles.empIconWrapper}>
+                    <img 
+                      src="/empgems/sovereign.png" 
+                      alt="Empowered Gem Box Edition" 
+                      className={styles.empBoxIcon} 
+                    />
+                  </div>
+                  <div className={styles.empTitleGroup}>
+                    <span className={styles.empTag} style={{ color: '#faffd1', borderColor: 'rgba(192, 132, 252, 0.3)' }}>
+                      RADIANT MERCHANT
+                    </span>
+                    <h4>Radiant Sovereigns</h4>
+                  </div>
+                </div>
+                <p className={styles.empCardDesc}>
+                  One of the easiest ways to get Empowered Gem Boxes is doing Leaderboard contests. Every week there are 3 class which have <br />to reach 125 leaderboard points to get Empowered Gem Boxes at the next reset.
+                </p>
+              </motion.div>
+
+               <motion.div 
+                className={styles.empObtainCard}
+                whileHover={{ y: -5 }}
+                transition={{ duration: 0.2 }}
+              >
+                <div className={styles.empCardHeader}>
+                  <div className={styles.empIconWrapper}>
+                    <img 
+                      src="/empgems/adventurebench.png" 
+                      alt="Empowered Gem Box Edition" 
+                      className={styles.empBoxIcon} 
+                    />
+                  </div>
+                  <div className={styles.empTitleGroup}>
+                    <span className={styles.empTag} style={{ color: '#bebebe', borderColor: 'rgba(192, 132, 252, 0.3)' }}>
+                      CRAFTING ANY TYPE
+                    </span>
+                    <h4>Radiant Sovereigns</h4>
+                  </div>
+                </div>
+                <p className={styles.empCardDesc}>
+                  At the Adventure Crafting Bench you craft any type of Gem Boxes, but these Gem Boxes are Mystic and the resources are more difficult to gather. Not worth in a long term.
+                </p>
+              </motion.div>
+
+            </div>
+          </div>
 
         </motion.section>
 
