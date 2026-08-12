@@ -65,7 +65,7 @@
   font-size: 1rem;
   color: #abb9cc;
   line-height: 1.6;
-  max-width: 75%;
+  max-width: 80%;
   font-family: 'Quicksand', sans-serif;
 }
 
@@ -606,7 +606,7 @@
 .delveInfoBox p {
   margin: 0;
   color: #cbd5e1;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   line-height: 1.7;
   font-family: 'Quicksand', sans-serif;
   border-left: 3px solid #b700ff;
@@ -686,8 +686,8 @@
 }
 
 .empObtainCard:hover {
-  border-color: rgba(168, 85, 247, 0.35);
-  box-shadow: 0 10px 30px rgba(168, 85, 247, 0.15);
+  border-color: rgba(225, 194, 255, 0.35);
+  box-shadow: 0 10px 30px rgba(221, 185, 255, 0.15);
 }
 
 .empCardHeader {
@@ -784,4 +784,214 @@
   font-weight: 600 !important;
   font-family: 'Quicksand', sans-serif !important;
   color: #49f3ff !important;
+}
+
+.sectionStep {
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  color: #62d0ff;
+  text-transform: uppercase;
+  font-family: Quicksand;
+}
+
+/* ==========================================================================
+   GEM TYPES SECTION STYLES
+   ========================================================================== */
+
+.gemTypesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.gemTypeCard {
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.cosmicTypeCard {
+  border-color: rgba(192, 132, 252, 0.3);
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(35, 15, 50, 0.5) 100%);
+}
+
+.gemTypeHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.gemTypeHeader h3 {
+  font-family: 'Dosis', sans-serif;
+  font-size: 1.6rem;
+  color: #f8fafc;
+  margin: 0;
+}
+
+.elementBadgeGroup {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.elementBadge {
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  padding: 0.2rem 0.6rem;
+  border-radius: 8px;
+  font-family: 'Quicksand', sans-serif;
+  border: 1px solid;
+}
+
+.waterBadge { color: #38bdf8; border-color: rgba(56, 189, 248, 0.3); background: rgba(56, 189, 248, 0.1); }
+.fireBadge  { color: #f97316; border-color: rgba(249, 115, 22, 0.3); background: rgba(249, 115, 22, 0.1); }
+.airBadge   { color: #facc15; border-color: rgba(250, 204, 21, 0.3); background: rgba(250, 204, 21, 0.1); }
+.cosmicBadge { color: #c084fc; border-color: rgba(192, 132, 252, 0.3); background: rgba(192, 132, 252, 0.1); width: fit-content; }
+
+.gemTypeDesc {
+  font-size: 0.95rem;
+  color: #cbd5e1;
+  line-height: 1.55;
+  margin: 0;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.boxLabel {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: block;
+  margin-bottom: 0.5rem;
+  font-family: 'Quicksand', sans-serif;
+  display: none;
+}
+
+.statRollsBox {
+  background: rgba(30, 41, 59, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 0.7rem;
+  border-radius: 12px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.tagsFlex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tagsFlex span {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: #e2e8f0;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.25rem 0.6rem;
+  border-radius: 8px;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.lightTag {
+  color: #2effee !important;
+  border-color: rgba(46, 255, 238, 0.3) !important;
+  background: rgba(46, 255, 238, 0.1) !important;
+}
+
+.abilitiesBox {
+  background: rgba(30, 41, 59, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 1rem;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.abilityNames {
+  font-size: 0.88rem;
+  color: #fbbf24;
+  line-height: 1.5;
+  margin: 0;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.abilityRuleNote {
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(182, 182, 182, 0.2);
+    color: #c3edff;
+    padding: 1rem;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    line-height: 1.45;
+    font-family: Quicksand;
+}
+
+.cosmicHighlightBox {
+  background: rgba(192, 132, 252, 0.1);
+  border: 1px solid rgba(192, 132, 252, 0.25);
+  padding: 1rem;
+  border-radius: 12px;
+  color: #e9d5ff;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  font-family: 'Quicksand', sans-serif;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* PRIMORDIAL DRAGONS SUMMARY BOX */
+.dragonBonusBox {
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(30, 41, 59, 0.6) 100%);
+  border: 1px solid rgba(234, 179, 8, 0.3);
+  border-radius: 20px;
+  padding: 1.5rem 1.75rem;
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.dragonHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.dragonBadge {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: #facc15;
+  letter-spacing: 0.1em;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.dragonHeader h3 {
+  font-family: 'Dosis', sans-serif;
+  font-size: 1.5rem;
+  color: #f8fafc;
+  margin: 0;
+}
+
+.dragonDesc {
+  font-size: 1rem;
+  color: #cbd5e1;
+  line-height: 1.6;
+  margin: 0;
+  font-family: 'Quicksand', sans-serif;
 }

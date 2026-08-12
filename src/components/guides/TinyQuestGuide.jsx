@@ -1,11 +1,11 @@
-// src/components/guides/TinyQuestGuide.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import styles from './TinyQuestGuide.module.css';
 import SectionDivider from '../common/SectionDivider';
 import { AnimatedBackground } from '../core/animated-background';
+import { useLanguage } from '../../context/LanguageContext';
+import { tinyQuestGuideContent } from './content/tinyQuestGuide.content';
 
-// ◄ A GEMS GUIDE-BÓL MÁSOLT PONTOS VARIÁNS ÉS BEÁLLÍTÁSOK
 const scrollFadeInVariants = {
   hidden: { opacity: 0, y: 35 },
   visible: { 
@@ -15,118 +15,36 @@ const scrollFadeInVariants = {
   }
 };
 
-// Ally data derived from transcript and game files
-const ALLIES = [
-  {
-    id: 'vivian',
-    name: 'Venturous Vivian',
-    tier: 'Max Light & Dual Dmg',
-    icon: '/allies/vivian.png',
-    baseLight: 450,
-    maxLight: 563, // 562.5 lekerekítve
-    baseDamage: '10% Phys & Magic',
-    maxDamage: '11.5% Phys & Magic',
-    perk: 'Physical & Magic Damage Boost',
-    description: 'Provides top-tier Light scaling alongside a dual Physical and Magic damage boost at level 30.',
-    color: '#c084fc',
-    stats: [
-      { name: 'Light', base: '450', upgraded: '562.5' },
-      { name: 'Physical Damage', base: '10%', upgraded: '11.5%' },
-      { name: 'Magic Damage', base: '10%', upgraded: '11.5%' }
-    ]
-  },
-  {
-    id: 'moontouched',
-    name: 'The Moontouched of All Time',
-    tier: 'Max Light & Stability',
-    icon: '/allies/moontouched.png',
-    baseLight: 450,
-    maxLight: 563, // 562.5
-    baseDamage: '10% Physical',
-    maxDamage: '11.5% Physical',
-    perk: 'Extra Stability + High Light',
-    description: 'Grants maximum Light stat along with physical damage and bonus Stability at higher levels.',
-    color: '#38bdf8',
-    stats: [
-      { name: 'Light', base: '450', upgraded: '562.5' },
-      { name: 'Physical Damage', base: '10%', upgraded: '11.5%' },
-      { name: 'Stability', base: 'N/A', upgraded: '22.5' }
-    ]
-  },
-  {
-    id: 'skyfire',
-    name: 'Starry Skyfire',
-    tier: 'Magic Damage Scaling',
-    icon: '/allies/skyfire.png',
-    baseLight: 400,
-    maxLight: 500,
-    baseDamage: '25% Magic',
-    maxDamage: '28.75% Magic',
-    perk: 'High Magic Damage Scaling',
-    description: 'High offensive ally tailored for Magic Damage classes, scaling up to 500 Light at level 30.',
-    color: '#38bdf8',
-    stats: [
-      { name: 'Light', base: '400', upgraded: '500' },
-      { name: 'Magic Damage', base: '25%', upgraded: '28.75%' }
-    ]
-  },
-  {
-    id: 'scorpius',
-    name: 'Scorpius',
-    tier: 'Physical Damage Scaling',
-    icon: '/allies/scorpius.png',
-    baseLight: 400,
-    maxLight: 500,
-    baseDamage: '25% Physical',
-    maxDamage: '28.75% Physical',
-    perk: 'High Physical Damage Scaling',
-    description: 'A powerful damage-oriented ally granting 500 Light alongside a massive 28.75% Physical Damage boost.',
-    color: '#f59e0b',
-    stats: [
-      { name: 'Light', base: '400', upgraded: '500' },
-      { name: 'Physical Damage', base: '25%', upgraded: '28.75%' }
-    ]
-  },
-  {
-    id: 'staruable',
-    name: 'Staruable',
-    tier: 'Speed & Light Utility',
-    icon: '/allies/staruable.png',
-    baseLight: 400,
-    maxLight: 500,
-    baseDamage: '8 Movement Speed',
-    maxDamage: '12 Movement Speed',
-    perk: 'Movement Speed Boost',
-    description: 'Ideal for speed-farming builds requiring both solid Light scaling and high Movement Speed.',
-    color: '#2effee',
-    stats: [
-      { name: 'Light', base: '400', upgraded: '500' },
-      { name: 'Movement Speed', base: '8', upgraded: '12' }
-    ]
-  },
-  {
-    id: 'heckmantis',
-    name: 'Bulbous Heckmantis',
-    tier: 'Critical Damage Focus',
-    icon: '/allies/heckmantis.png',
-    baseLight: 150,
-    maxLight: 188, // 187.5
-    baseDamage: '30% Critical Dmg',
-    maxDamage: '34.5% Critical Dmg',
-    perk: 'Massive Critical Damage Boost',
-    description: 'Specialized ally focusing heavily on Critical Damage scaling up to 34.5% at level 30.',
-    color: '#ef4444',
-    stats: [
-      { name: 'Light', base: '150', upgraded: '187.5' },
-      { name: 'Critical Damage', base: '30%', upgraded: '34.5%' }
-    ]
-  }
+const BASE_ALLIES = [
+  { id: 'vivian', icon: '/allies/vivian.png', baseLight: 450, maxLight: 563, baseDamage: '10% Phys & Magic', maxDamage: '11.5% Phys & Magic', color: '#c084fc' },
+  { id: 'moontouched', icon: '/allies/moontouched.png', baseLight: 450, maxLight: 563, baseDamage: '10% Physical', maxDamage: '11.5% Physical', color: '#38bdf8' },
+  { id: 'skyfire', icon: '/allies/skyfire.png', baseLight: 400, maxLight: 500, baseDamage: '25% Magic', maxDamage: '28.75% Magic', color: '#38bdf8' },
+  { id: 'scorpius', icon: '/allies/scorpius.png', baseLight: 400, maxLight: 500, baseDamage: '25% Physical', maxDamage: '28.75% Physical', color: '#f59e0b' },
+  { id: 'staruable', icon: '/allies/staruable.png', baseLight: 400, maxLight: 500, baseDamage: '8 Movement Speed', maxDamage: '12 Movement Speed', color: '#2effee' },
+  { id: 'heckmantis', icon: '/allies/heckmantis.png', baseLight: 150, maxLight: 188, baseDamage: '30% Critical Dmg', maxDamage: '34.5% Critical Dmg', color: '#ef4444' }
 ];
 
 export default function TinyQuestGuide() {
+  const { langCode } = useLanguage();
+  const c = tinyQuestGuideContent[langCode] || tinyQuestGuideContent.en;
+
+  // Hozzákötjük a nyelvi szövegeket az aliakhoz
+  const ALLIES = BASE_ALLIES.map(ally => ({
+    ...ally,
+    ...(c.alliesText[ally.id] || tinyQuestGuideContent.en.alliesText[ally.id])
+  }));
+
   const [selectedAlly, setSelectedAlly] = useState(ALLIES[0]);
   const [currentLevel, setCurrentLevel] = useState(30);
   const [activeLightboxImage, setActiveLightboxImage] = useState(null);
+
+  // 💡 EZ A LÉNYEG: Nyelvváltáskor azonnal frissíti a kiválasztott alia adatait az új nyelvre!
+  useEffect(() => {
+    const updated = ALLIES.find(a => a.id === selectedAlly.id);
+    if (updated) {
+      setSelectedAlly(updated);
+    }
+  }, [langCode]);
 
   const calculatedLight = Math.round(
     selectedAlly.baseLight + ((selectedAlly.maxLight - selectedAlly.baseLight) * (currentLevel / 30))
@@ -145,36 +63,27 @@ export default function TinyQuestGuide() {
         <div className={styles.imageContainer}>
           <img 
             src="/guideimages/maxresdefault.webp" 
-            alt="Trove Tiny Quest Update Thumbnail Banner" 
+            alt="Trove Tiny Quest Update Banner" 
             className={styles.heroBanner}
+            style={{ width: '100%', height: 'auto', aspectRatio: '16/9', objectFit: 'cover' }} // Fix képarány az ugrálás ellen
           />
           <div className={styles.heroOverlay} />
-
-          {/* CREDIT BADGE A JOBB FELSŐ SAROKBAN */}
           <div className={styles.creditBadge}>
             Guide content by:{' '}
-            <a 
-              href="https://www.youtube.com/@CashinClean" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className={styles.creditLink}
-            >
+            <a href="https://www.youtube.com/@CashinClean" target="_blank" rel="noopener noreferrer" className={styles.creditLink}>
               CashinClean
             </a>
           </div>
         </div>
 
         <div className={styles.heroContent}>
-          <span className={styles.badge}>Tiny Quest Update Guide</span>
-          <h1 className={styles.mainTitle}>Tiny Quest & Ally Mastery Guide</h1>
-          <p className={styles.subTitle}>
-            Everything you need to know about the Tiny Quest update, leveling allies to level 30, expedition mechanics, and optimal progression routes.
-          </p>
+          <span className={styles.badge}>{c.hero.badge}</span>
+          <h1 className={styles.mainTitle}>{c.hero.title}</h1>
+          <p className={styles.subTitle}>{c.hero.description}</p>
         </div>
       </motion.header>
 
-      {/* SECTION 1: ALLY LEVELING & DETAIL SIMULATOR WITH ANIMATED TABS */}
-      {/* SECTION 1: ALLY LEVELING & DETAIL SIMULATOR */}
+      {/* SECTION 1: ALLY LEVELING */}
       <motion.section 
         className={styles.sectionContainer}
         initial="hidden"
@@ -183,26 +92,17 @@ export default function TinyQuestGuide() {
         variants={scrollFadeInVariants}
       >
         <div className={styles.sectionHeader}>
-          <span className={styles.sectionStep}>01</span>
-          <h2 className={styles.sectionTitle}>Level 30 Allies & Stat Scaling</h2>
-          <p className={styles.sectionDesc}>
-            Select an ally from the sidebar to inspect its detailed stat scaling, level progression, and perks up to Level 30.
-          </p>
+          <span className={styles.sectionStep}>{c.section1.step}</span>
+          <h2 className={styles.sectionTitle}>{c.section1.title}</h2>
+          <p className={styles.sectionDesc}>{c.section1.description}</p>
         </div>
 
-        {/* MASTER-DETAIL DASHBOARD CONTAINER */}
         <div className={styles.dashboardContainer}>
-          
-          {/* BAL OLDAL: SIDEBAR ANIMATED BACKGROUND-DDAL */}
           <div className={styles.sidebarList}>
             <AnimatedBackground
               defaultValue={selectedAlly.id}
               className="rounded-xl bg-black/30 border border-white/60 shadow-[0_0_15px_rgba(0,0,0,0.4)]"
-              transition={{
-                type: 'spring',
-                bounce: 0.2,
-                duration: 0.4,
-              }}
+              transition={{ type: 'spring', bounce: 0.2, duration: 0.4 }}
               enableHover
             >
               {ALLIES.map((ally) => (
@@ -210,16 +110,15 @@ export default function TinyQuestGuide() {
                   key={ally.id}
                   data-id={ally.id}
                   type="button"
-                  className={`${styles.sidebarTab} ${
-                    selectedAlly.id === ally.id ? styles.activeSidebarTab : ''
-                  }`}
+                  className={`${styles.sidebarTab} ${selectedAlly.id === ally.id ? styles.activeSidebarTab : ''}`}
                   onClick={() => setSelectedAlly(ally)}
                 >
                   <img 
                     src={ally.icon} 
                     alt={ally.name} 
-                    className={styles.sidebarIcon}
-                    onError={(e) => { e.target.style.display = 'none'; }}
+                    className={styles.sidebarIcon} 
+                    style={{ width: '50px', height: '50px', objectFit: 'contain' }} // Fix ikonméret
+                    onError={(e) => { e.target.style.display = 'none'; }} 
                   />
                   <span className={styles.sidebarName}>{ally.name}</span>
                 </button>
@@ -227,7 +126,6 @@ export default function TinyQuestGuide() {
             </AnimatedBackground>
           </div>
 
-          {/* JOBB OLDAL: DETAIL PANEL FADE ANIMÁCIÓVAL */}
           <AnimatePresence mode="wait">
             <motion.div 
               key={selectedAlly.id}
@@ -236,21 +134,20 @@ export default function TinyQuestGuide() {
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.25, ease: 'easeInOut' }}
               className={styles.detailViewPanel}
+              style={{ minHeight: '380px' }} // Fix minimális magasság az ugrálás ellen
             >
               <div className={styles.detailHeader}>
                 <div className={styles.detailTitleGroup}>
                   <img 
                     src={selectedAlly.icon} 
                     alt={selectedAlly.name} 
-                    className={styles.detailMainIcon}
-                    onError={(e) => { e.target.style.display = 'none'; }}
+                    className={styles.detailMainIcon} 
+                    style={{ width: '48px', height: '48px', objectFit: 'contain' }} 
+                    onError={(e) => { e.target.style.display = 'none'; }} 
                   />
                   <div>
                     <h3 className={styles.detailAllyName}>{selectedAlly.name}</h3>
-                    <span 
-                      className={styles.detailTierTag} 
-                      style={{ color: selectedAlly.color, borderColor: selectedAlly.color }}
-                    >
+                    <span className={styles.detailTierTag} style={{ color: selectedAlly.color, borderColor: selectedAlly.color }}>
                       {selectedAlly.tier}
                     </span>
                   </div>
@@ -261,54 +158,43 @@ export default function TinyQuestGuide() {
                 </span>
               </div>
 
-              <p className={styles.detailDesc}>{selectedAlly.description}</p>
+              {/* Fix minimális magasság a leírásnak, hogy ne nyomja össze a csúszkát */}
+              <p className={styles.detailDesc} style={{ minHeight: '50px' }}>{selectedAlly.description}</p>
 
               <div className={styles.sliderControl}>
-                <label>Adjust Ally Level: <strong>Level {currentLevel}</strong></label>
-                <input 
-                  type="range" 
-                  min="1" 
-                  max="30" 
-                  value={currentLevel} 
-                  onChange={(e) => setCurrentLevel(Number(e.target.value))}
-                  className={styles.rangeInput}
-                />
+                <label>{c.section1.adjustLevel} <strong>Level {currentLevel}</strong></label>
+                <input type="range" min="1" max="30" value={currentLevel} onChange={(e) => setCurrentLevel(Number(e.target.value))} className={styles.rangeInput} />
                 <div className={styles.sliderTicks}>
-                  <span>Lvl 1 (0 XP)</span>
-                  <span>Lvl 15</span>
-                  <span>Lvl 30 (MAX)</span>
+                  <span>{c.section1.lvl1}</span>
+                  <span>{c.section1.lvl15}</span>
+                  <span>{c.section1.lvl30}</span>
                 </div>
               </div>
 
               <div className={styles.statPreviewGrid}>
                 <div className={styles.statBox}>
-                  <span className={styles.statLabel}>Light Stat</span>
-                  <span className={styles.statValue} style={{ color: selectedAlly.color }}>
-                    +{calculatedLight}
-                  </span>
-                  <span className={styles.statSubText}>Base: {selectedAlly.baseLight}</span>
+                  <span className={styles.statLabel}>{c.section1.lightStat}</span>
+                  <span className={styles.statValue} style={{ color: selectedAlly.color }}>+{calculatedLight}</span>
+                  <span className={styles.statSubText}>{c.section1.base} {selectedAlly.baseLight}</span>
                 </div>
 
                 <div className={styles.statBox}>
-                  <span className={styles.statLabel}>Damage / Speed Boost</span>
-                  <span className={styles.statValue}>
-                    {currentLevel === 30 ? selectedAlly.maxDamage : selectedAlly.baseDamage}
-                  </span>
-                  <span className={styles.statSubText}>Base: {selectedAlly.baseDamage}</span>
+                  <span className={styles.statLabel}>{c.section1.damageBoost}</span>
+                  <span className={styles.statValue}>{currentLevel === 30 ? selectedAlly.maxDamage : selectedAlly.baseDamage}</span>
+                  <span className={styles.statSubText}>{c.section1.base} {selectedAlly.baseDamage}</span>
                 </div>
               </div>
 
               <p className={styles.allyPerkText}>
-                <strong>Special Perk:</strong> {selectedAlly.perk}
+                <strong>{c.section1.specialPerk}</strong> {selectedAlly.perk}
               </p>
 
             </motion.div>
           </AnimatePresence>
-
         </div>
       </motion.section>
 
-      {/* SECTION 2: EXPEDITION MECHANICS & VOUCHER STRATEGY (Ugyanaz a scrollFadeInVariants!) */}
+      {/* SECTION 2: MECHANICS */}
       <motion.section 
         className={styles.sectionContainer}
         initial="hidden"
@@ -318,110 +204,32 @@ export default function TinyQuestGuide() {
       >
         <SectionDivider />
         <div className={styles.sectionHeader}>
-          <span className={styles.sectionStep}>02</span>
-          <h2 className={styles.sectionTitle}>Expedition Mechanics & Voucher Strategy</h2>
-          <p className={styles.sectionDesc}>
-            Understand how expedition slots work, why breaking chests can ruin your interact prompt, and how to convert unwanted long timers into key vouchers.
-          </p>
+          <span className={styles.sectionStep}>{c.section2.step}</span>
+          <h2 className={styles.sectionTitle}>{c.section2.title}</h2>
+          <p className={styles.sectionDesc}>{c.section2.description}</p>
         </div>
 
         <div className={styles.mechanicsGrid}>
-          {/* CARD 1 */}
-          <div className={styles.mechanicCard}>
-            <div className={styles.mechanicHeader}>
-              <span className={styles.mechanicNum}>01</span>
-              <h4>Dungeon Spawns & Chest Tip</h4>
-            </div>
-            <p className={styles.mechanicText}>
-              After completing a dungeon, a quest station spawns. Avoid breaking the loot chest right away, as scattered loot makes it much harder to press your interact key (`E`).
-            </p>
-            {/* CARD 1 IMAGE BOX WITH EXPAND */}
-            <div 
-              className={styles.imagePlaceholderBox}
-              onClick={() => setActiveLightboxImage({ src: '/questimg/station.png', alt: 'Quest Station Spawn' })}
-            >
-              <img 
-                src="/questimg/station.png" 
-                alt="Quest Station Spawn"
-                className={styles.mechanicImg}
-                onError={(e) => { 
-                  e.target.style.display = 'none'; 
-                  e.target.nextElementSibling.style.display = 'flex'; 
-                }} 
-              />
-              <span className={styles.placeholderLabel} style={{ display: 'none' }}>
-                [Image Placeholder: Quest Station Interact]
-              </span>
-              <div className={styles.expandIconWrapper}>
-                <img src="/icons/questexpand.png" alt="Expand Image" className={styles.expandIcon} />
+          {c.section2.cards.map((card, i) => (
+            <div key={i} className={styles.mechanicCard}>
+              <div className={styles.mechanicHeader}>
+                <span className={styles.mechanicNum}>{card.num}</span>
+                <h4>{card.title}</h4>
               </div>
+              <p className={styles.mechanicText} dangerouslySetInnerHTML={{ __html: card.text }} />
+              {card.badge1 && (
+                <div className={styles.badgeRow}>
+                  <span className={styles.infoBadge}>{card.badge1}</span>
+                  <span className={styles.infoBadge}>{card.badge2}</span>
+                </div>
+              )}
+              {card.note && <div className={styles.tipBox} dangerouslySetInnerHTML={{ __html: card.note }} />}
             </div>
-          </div>
-
-          {/* CARD 2 */}
-          <div className={styles.mechanicCard}>
-            <div className={styles.mechanicHeader}>
-              <span className={styles.mechanicNum}>02</span>
-              <h4>3 Max Expedition Limit</h4>
-            </div>
-            <p className={styles.mechanicText}>
-              You can only run up to 3 (eventually 6 when you get the expanders) active expeditions simultaneously. Timers continue ticking down in real time even if you log out or close Trove.
-            </p>
-            <div className={styles.badgeRow}>
-              <span className={styles.infoBadge}>Max Active: 3 Allies</span>
-              <span className={styles.infoBadge}>Offline Progress: YES</span>
-            </div>
-          </div>
-
-          {/* CARD 3 */}
-          <div className={styles.mechanicCard}>
-            <div className={styles.mechanicHeader}>
-              <span className={styles.mechanicNum}>03</span>
-              <h4>"Get Voucher" Skip Method</h4>
-            </div>
-            <p className={styles.mechanicText}>
-              If a quest features an excessively long timer, skip it by selecting "Get Voucher Instead". Accumulating 100 vouchers allows you to craft a <strong>Simple Tiny Key</strong>.
-            </p>
-            {/* CARD 3 IMAGE BOX WITH EXPAND */}
-            <div 
-              className={styles.imagePlaceholderBox}
-              onClick={() => setActiveLightboxImage({ src: '/questimg/voucher.png', alt: 'Get Voucher Instead Button' })}
-            >
-              <img 
-                src="/questimg/voucher.png" 
-                alt="Get Voucher Instead Button"
-                className={styles.mechanicImg}
-                onError={(e) => { 
-                  e.target.style.display = 'none'; 
-                  e.target.nextElementSibling.style.display = 'flex'; 
-                }} 
-              />
-              <span className={styles.placeholderLabel} style={{ display: 'none' }}>
-                [Image Placeholder: Get Voucher Option]
-              </span>
-              <div className={styles.expandIconWrapper}>
-                <img src="/icons/questexpand.png" alt="Expand Image" className={styles.expandIcon} />
-              </div>
-            </div>
-          </div>
-
-          {/* CARD 4 */}
-          <div className={styles.mechanicCard}>
-            <div className={styles.mechanicHeader}>
-              <span className={styles.mechanicNum}>04</span>
-              <h4>Insta-Complete Token Usage</h4>
-            </div>
-            <p className={styles.mechanicText}>
-              Shorter timers require significantly fewer Insta-Complete Tokens. Reserve tokens strictly for quests under 20–25 minutes to stretch your resources.
-            </p>
-            <div className={styles.tipBox}>
-              <strong>Note:</strong> As the natural timer gets closer to 0, the token cost dynamically drops!
-            </div>
-          </div>
+          ))}
         </div>
       </motion.section>
 
-      {/* SECTION 3: LEVELING ROUTE & WORLD PROGRESSION CHART */}
+      {/* SECTION 3: LEVELING ROUTE */}
       <motion.section 
         className={styles.sectionContainer}
         initial="hidden"
@@ -431,78 +239,45 @@ export default function TinyQuestGuide() {
       >
         <SectionDivider />
         <div className={styles.sectionHeader}>
-          <span className={styles.sectionStep}>03</span>
-          <h2 className={styles.sectionTitle}>Leveling Route & World Progression</h2>
-          <p className={styles.sectionDesc}>
-            Maximize your Ally XP efficiency by completing quests in higher difficulty worlds. As you ascend tiers, expedition duration increases alongside XP rewards.
-          </p>
+          <span className={styles.sectionStep}>{c.section3.step}</span>
+          <h2 className={styles.sectionTitle}>{c.section3.title}</h2>
+          <p className={styles.sectionDesc}>{c.section3.description}</p>
         </div>
 
-        {/* PROGRESSION TABLE */}
         <div className={styles.tableWrapper}>
           <table className={styles.progressionTable}>
             <thead>
               <tr>
-                <th>World Difficulty</th>
-                <th>Quest Tier</th>
-                <th>Avg. Duration</th>
-                <th>Ally XP Yield</th>
-                <th>Recommended Strategy</th>
+                {c.section3.headers.map((h, i) => <th key={i}>{h}</th>)}
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td><span className={styles.worldTag} style={{ color: '#94a3b8' }}>Novice – D5</span></td>
-                <td>Tier 1–2</td>
-                <td>5 – 15 Mins</td>
-                <td>Low (100–300 XP)</td>
-                <td>Fast cycles. Great for burning excess Insta-Complete Tokens.</td>
-              </tr>
-              <tr>
-                <td><span className={styles.worldTag} style={{ color: '#38bdf8' }}>D6 – D9</span></td>
-                <td>Tier 3–4</td>
-                <td>30 Mins – 2 Hours</td>
-                <td>Medium (500–1,200 XP)</td>
-                <td>Balanced route for mid-game players pushing towards max level.</td>
-              </tr>
-              <tr>
-                <td><span className={styles.worldTag} style={{ color: '#fbbf24' }}>D10 – D11</span></td>
-                <td>Tier 5–6</td>
-                <td>3 – 8 Hours</td>
-                <td>High (2,000–5,000 XP)</td>
-                <td>Set active before logging off to gain passive offline XP progress.</td>
-              </tr>
-              <tr>
-                <td><span className={styles.worldTag} style={{ color: '#c084fc' }}>D12 (Endgame)</span></td>
-                <td>Max Tier</td>
-                <td>12 – 24 Hours</td>
-                <td>Massive (8,000+ XP)</td>
-                <td>Best XP-to-quest ratio. Use "Get Voucher" if timers are too long.</td>
-              </tr>
+              {c.section3.rows.map((r, i) => (
+                <tr key={i}>
+                  <td><span className={styles.worldTag} style={{ color: i === 0 ? '#94a3b8' : i === 1 ? '#38bdf8' : i === 2 ? '#fbbf24' : '#c084fc' }}>{r.world}</span></td>
+                  <td>{r.tier}</td>
+                  <td>{r.duration}</td>
+                  <td>{r.xp}</td>
+                  <td>{r.strategy}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
 
-
-        {/* STRATEGY CARDS */}
         <div className={styles.strategyGrid}>
           <div className={styles.strategyCard}>
-            <h4>XP Scaling Mechanics</h4>
-            <p>
-              Allies require roughly <strong>65,000 total XP</strong> to reach level 30. Stat boosts scale progressively, with major power spikes occurring every 5 levels.
-            </p>
+            <h4>{c.section3.strategy1.title}</h4>
+            <p dangerouslySetInnerHTML={{ __html: c.section3.strategy1.text }} />
           </div>
-
           <div className={styles.strategyCard}>
-            <h4>Active vs. Offline Farming</h4>
-            <p>
-              Short quests (under 20 mins) are ideal for active play sessions. For long quests (8+ hours), queue them right before closing the game so timers tick while offline.
-            </p>
+            <h4>{c.section3.strategy2.title}</h4>
+            <p dangerouslySetInnerHTML={{ __html: c.section3.strategy2.text }} />
           </div>
         </div>
       </motion.section>
 
-      {/* SECTION 4: CRAFTING, KEY RECIPES & BENCHMARKS */}
+      {/* SECTION 4: CRAFTING */}
       <motion.section 
         className={styles.sectionContainer}
         initial="hidden"
@@ -512,104 +287,134 @@ export default function TinyQuestGuide() {
       >
         <SectionDivider />
         <div className={styles.sectionHeader}>
-          <span className={styles.sectionStep}>04</span>
-          <h2 className={styles.sectionTitle}>Crafting & Key Recipes</h2>
-          <p className={styles.sectionDesc}>
-            Everything you need to craft at the Tiny Bench. Convert your saved Vouchers and materials into keys and frogs to unlock new allies and expedition rewards.
-          </p>
+          <span className={styles.sectionStep}>{c.section4.step}</span>
+          <h2 className={styles.sectionTitle}>{c.section4.title}</h2>
+          <p className={styles.sectionDesc}>{c.section4.description}</p>
         </div>
 
-        {/* CRAFTING CARDS GRID */}
         <div className={styles.craftingGrid}>
-          {/* RECIPE 1: SIMPLE TINY KEY */}
           <div className={styles.recipeCard}>
             <div className={styles.recipeHeader}>
-              <span className={styles.recipeTag}>EXPEDITION KEY</span>
+              <span className={styles.recipeTag}>{c.section4.recipes[0].tag}</span>
               <div className={styles.recipeTitleRow}>
-                <h4>Simple Tiny Key</h4>
-                <img 
-                  src="/tinyquestkeys/tinykey.png" 
-                  alt="Simple Tiny Key" 
-                  className={styles.recipeHeaderIcon} 
-                />
+                <h4>{c.section4.recipes[0].title}</h4>
+                <img src="/tinyquestkeys/tinykey.png" alt="" className={styles.recipeHeaderIcon} style={{ width: '24px', height: '24px', objectFit: 'contain' }} />
               </div>
             </div>
-            <p className={styles.recipeDesc}>
-              Used to open basic expedition reward caches and claim your earned rewards.
-            </p>
+            <p className={styles.recipeDesc}>{c.section4.recipes[0].desc}</p>
             <div className={styles.ingredientList}>
               <div className={styles.ingredientItem}>
-                <span>Vouchers Required</span>
-                <strong>100x Expedition Vouchers</strong>
+                <span>{c.section4.recipes[0].label}</span>
+                <strong>{c.section4.recipes[0].value}</strong>
               </div>
             </div>
           </div>
 
-          {/* RECIPE 2: GILDEN RANA */}
           <div className={styles.recipeCard}>
             <div className={styles.recipeHeader}>
-              <span className={styles.recipeTag} style={{ color: '#c084fc', borderColor: '#c084fc' }}>ALLY CRAFTING</span>
+              <span className={styles.recipeTag} style={{ color: '#c084fc', borderColor: '#c084fc' }}>{c.section4.recipes[1].tag}</span>
               <div className={styles.recipeTitleRow}>
-                <h4>Gilden Rana</h4>
-                <img 
-                  src="/tinyquestkeys/gildedrana.png" 
-                  alt="Gilden Rana" 
-                  className={styles.recipeHeaderIcon} 
-                />
+                <h4>{c.section4.recipes[1].title}</h4>
+                <img src="/tinyquestkeys/gildedrana.png" alt="" className={styles.recipeHeaderIcon} style={{ width: '24px', height: '24px', objectFit: 'contain' }} />
               </div>
             </div>
-            <p className={styles.recipeDesc}>
-              Special crafting material used as a core ingredient to craft new, powerful allies at the Tadpole Tours Kiosk.
-            </p>
+            <p className={styles.recipeDesc}>{c.section4.recipes[1].desc}</p>
             <div className={styles.ingredientList}>
-              <div className={styles.ingredientItem}>
-                <span>Key Base</span>
-                <strong>1x Simple Tiny Key</strong>
-              </div>
-              <div className={styles.ingredientItem}>
-                <span>Bonus Material</span>
-                <strong>Extra Rare Materials</strong>
-              </div>
+              <div className={styles.ingredientItem}><span>{c.section4.recipes[1].label1}</span><strong>{c.section4.recipes[1].val1}</strong></div>
+              <div className={styles.ingredientItem}><span>{c.section4.recipes[1].label2}</span><strong>{c.section4.recipes[1].val2}</strong></div>
             </div>
           </div>
         </div>
 
-        {/* BENCHMARK SUMMARY BOX */}
         <div className={styles.benchmarkBox}>
           <div className={styles.benchmarkHeader}>
-            <span className={styles.benchmarkBadge}>SUMMARY</span>
-            <h3>Key Takeaways & Endgame Goals</h3>
+            <span className={styles.benchmarkBadge}>{c.section4.summary.tag}</span>
+            <h3>{c.section4.summary.title}</h3>
           </div>
           <ul className={styles.benchmarkList}>
-            <li>
-              <strong>Prioritize Light Allies:</strong> Get Tiny Trugina or Vivian to Level 30 first to max out your Light stat (563 Light ceiling).
-            </li>
-            <li>
-              <strong>Always Keep 3 Slots Running:</strong> Never leave expedition slots empty. Let long timers tick down passively while offline.
-            </li>
-            <li>
-              <strong>Voucher Optimization:</strong> Never waste time on low-value 12+ hour quests if you need quick keys — convert them directly into Vouchers!
-            </li>
-            <li>
-              <strong>Token Discipline:</strong> Only use Insta-Complete Tokens when natural timers drop under 20 minutes to get maximum efficiency per token.
-            </li>
+            {c.section4.summary.list.map((item, i) => (
+              <li key={i} dangerouslySetInnerHTML={{ __html: item }} />
+            ))}
           </ul>
         </div>
       </motion.section>
 
-        {/* SECTION 05: HORIZONTAL SCROLL REVEAL (BEST WAY TO LEVEL YOUR ALLIES) */}
+      {/* SECTION 5: REVEAL GRID */}
+{/* SECTION 5: REVEAL GRID (Véglegesen javított, eltűnésmentes highlight dobozok) */}
       <section className={styles.horizontalScrollSection}>
         <SectionDivider />
         <div className={styles.sectionHeader}>
-          <span className={styles.sectionStep}>05</span>
-          <h2 className={styles.sectionTitle}>Best Way to Level your Allies</h2>
-          <p className={styles.sectionDesc}>
-            Scroll down to sequentially reveal crucial ally progression mechanics and strategy field notes.
-          </p>
+          <span className={styles.sectionStep}>{c.section5.step}</span>
+          <h2 className={styles.sectionTitle}>{c.section5.title}</h2>
+          <p className={styles.sectionDesc}>{c.section5.description}</p>
         </div>
 
-        {/* STICKY CONTAINER FOR HORIZONTAL REVEAL */}
-        <HorizontalRevealGrid />
+        <div className={styles.revealGridContainer}>
+          {c.section5.cards.map((card, index) => {
+            // Angol tartalom lekérése biztonsági tartaléknak (fallback)
+            const enCard = tinyQuestGuideContent.en?.section5?.cards[index];
+
+            // 1. Keresünk szöveget a jelenlegi nyelv kártyájában (highlight, note, vagy bullets)
+            let highlightText = card.highlight || card.note;
+
+            if (!highlightText && card.bullets && card.bullets.length > 0) {
+              highlightText = card.bullets.join(' ');
+            }
+
+            // 2. Ha a jelenlegi nyelven MÉG MINDIG üres, lekérjük az angolból!
+            if (!highlightText && enCard) {
+              highlightText = enCard.highlight || enCard.note || (enCard.bullets ? enCard.bullets.join(' ') : '');
+            }
+
+            const descriptionText = card.desc || card.description || enCard?.desc || enCard?.description;
+
+            return (
+              <motion.div
+                key={index}
+                className={styles.revealCard}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{
+                  duration: 0.5,
+                  delay: index * 0.1,
+                  ease: [0.25, 1, 0.5, 1]
+                }}
+                whileHover={{ 
+                  y: -8, 
+                  transition: { type: 'spring', stiffness: 300, damping: 20 } 
+                }}
+                style={{ 
+                  minHeight: '260px',
+                  willChange: 'transform'
+                }}
+              >
+                <div className={styles.revealCardHeader}>
+                  <div className={styles.revealCardTitleGroup}>
+                    <span className={styles.revealStepBadge}>{card.step}</span>
+                    <span className={styles.revealCategory}>{card.category}</span>
+                  </div>
+                  <img 
+                    src={`/icons/${index === 0 ? 'gears.png' : index === 1 ? 'reset.png' : index === 2 ? 'lvlup.png' : 'voucher.png'}`} 
+                    alt="" 
+                    className={styles.revealIcon} 
+                    style={{ width: '28px', height: '28px', objectFit: 'contain' }} 
+                  />
+                </div>
+
+                <h3 className={styles.revealTitle}>{card.title}</h3>
+                <p className={styles.revealDesc}>{descriptionText}</p>
+
+                {/* HIGHLIGHT DOBOZ: Garantáltan kirajzolódik minden nyelven */}
+                {highlightText && (
+                  <div className={styles.revealHighlightBox}>
+                    {highlightText}
+                  </div>
+                )}
+              </motion.div>
+            );
+          })}
+        </div>
       </section>
 
       {/* LIGHTBOX MODAL */}
@@ -630,122 +435,13 @@ export default function TinyQuestGuide() {
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
               onClick={(e) => e.stopPropagation()}
             >
-              <button 
-                className={styles.lightboxCloseBtn}
-                onClick={() => setActiveLightboxImage(null)}
-              >
-                ✕
-              </button>
-              <img 
-                src={activeLightboxImage.src} 
-                alt={activeLightboxImage.alt} 
-                className={styles.lightboxImg}
-              />
+              <button className={styles.lightboxCloseBtn} onClick={() => setActiveLightboxImage(null)}>✕</button>
+              <img src={activeLightboxImage.src} alt={activeLightboxImage.alt} className={styles.lightboxImg} />
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
 
-    </div>
-  );
-}
-
-/* ==========================================================================
-   2X2 GRID SCROLL REVEAL COMPONENT WITH SMOOTH HOVER
-   ========================================================================== */
-
-const REVEAL_CARDS = [
-  {
-    id: 1,
-    step: "01",
-    category: "MECHANICS",
-    title: "Expedition Slot Expansion (Max 6)",
-    icon: "/icons/gears.png",
-    description: "By default, you start with 3 active expedition slots. Acquire Expedition Slot Expanders to unlock up to 6 total slots!",
-    highlight: "Note: Running 6 active slots simultaneously doubles your passive offline Ally XP generation."
-  },
-  {
-    id: 2,
-    step: "02",
-    category: "RESETS",
-    title: "Quest Station Spawn & Refresh",
-    icon: "/icons/reset.png",
-    description: "Quest stations spawn in dungeons after defeat. If a station offers undesirable quests or long timers, completing dungeons in different biomes cycles the available pool.",
-    bullets: [
-      "Timers tick down in real-time while offline.",
-      "Token costs dynamically drop as natural timers decrease."
-    ]
-  },
-  {
-    id: 3,
-    step: "03",
-    category: "PROGRESSION",
-    title: "Ally Leveling XP & Stat Scaling",
-    icon: "/icons/lvlup.png",
-    description: "Leveling an ally from Level 1 to 30 requires approximately 65,000 Total XP.",
-    highlight: "Stat scaling isn't linear — major power spikes trigger every 5 levels (Lvl 5, 10, 15, 20, 25, 30)."
-  },
-  {
-    id: 4,
-    step: "04",
-    category: "STRATEGY",
-    title: "Optimal Voucher Conversion",
-    icon: "/icons/voucher.png",
-    description: "Always use 'Get Voucher Instead' on 12+ hour quests unless you plan to go offline for the night.",
-    highlight: "100 Vouchers craft a Simple Tiny Key, which opens rewards immediately without waiting on long timers."
-  }
-];
-
-function HorizontalRevealGrid() {
-  return (
-    <div className={styles.revealGridContainer}>
-      {REVEAL_CARDS.map((card, index) => (
-        <motion.div
-          key={card.id}
-          className={styles.revealCard}
-          initial={{ opacity: 0, x: -40, y: 20 }}
-          whileInView={{ opacity: 1, x: 0, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{
-            duration: 0.6,
-            delay: index * 0.12, // Lépcsőzetes reveal
-            ease: [0.25, 1, 0.5, 1]
-          }}
-            whileHover={{ 
-            y: -8, 
-            }}
-            transition={{ 
-            type: "tween",
-            duration: 0.3,
-            ease: [0.25, 1, 0.5, 1]
-            }}
-        >
-          <div className={styles.revealCardHeader}>
-            <div className={styles.revealCardTitleGroup}>
-              <span className={styles.revealStepBadge}>{card.step}</span>
-              <span className={styles.revealCategory}>{card.category}</span>
-            </div>
-            <img src={card.icon} alt="" className={styles.revealIcon} />
-          </div>
-
-          <h3 className={styles.revealTitle}>{card.title}</h3>
-          <p className={styles.revealDesc}>{card.description}</p>
-
-          {card.highlight && (
-            <div className={styles.revealHighlightBox}>
-              {card.highlight}
-            </div>
-          )}
-
-          {card.bullets && (
-            <ul className={styles.revealBulletList}>
-              {card.bullets.map((bullet, i) => (
-                <li key={i}>{bullet}</li>
-              ))}
-            </ul>
-          )}
-        </motion.div>
-      ))}
     </div>
   );
 }

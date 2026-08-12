@@ -1,0 +1,132 @@
+{
+  "en": {
+    "nav": {
+      "logoSub": "made by community",
+      "guides": "Guides",
+      "classes": "Classes",
+      "rotations": "Rotations",
+      "hub": "Hub",
+      "calculators": "Calculators",
+      "starchart": "Star Chart",
+      "archive": "Archive",
+      "discord": "Trove - Discord",
+      "trovesaurus": "Trovesaurus",
+      "contributors": "Contributors",
+      "clubs": "Clubs",
+      "news": "News",
+      "categories": {
+        "navigation": "Navigation",
+        "tools": "Tools",
+        "community": "Community"
+      }
+    },
+    "footer": {
+      "tagline": "Trovepedia, made by the community.",
+      "copyright": "© 2026 Trovepedia - Not affiliated with Gamigo AG!"
+    }
+  },
+  "fr": {
+    "nav": {
+      "logoSub": "créé par la communauté",
+      "guides": "Guides",
+      "classes": "Classes",
+      "rotations": "Rotations",
+      "hub": "Centre",
+      "calculators": "Calculateurs",
+      "starchart": "Carte Céleste",
+      "archive": "Archives",
+      "discord": "Trove - Discord",
+      "trovesaurus": "Trovesaurus",
+      "contributors": "Contributeurs",
+      "clubs": "Clubs",
+      "news": "Nouveautés",
+      "categories": {
+        "navigation": "Navigation",
+        "tools": "Outils",
+        "community": "Communauté"
+      }
+    },
+    "footer": {
+      "tagline": "Trovepedia, créé par la communauté.",
+      "copyright": "© 2026 Trovepedia - Non affilié à Gamigo AG !"
+    }
+  },
+  "es": {
+    "nav": {
+      "logoSub": "hecho por la comunidad",
+      "guides": "Guías",
+      "classes": "Clases",
+      "rotations": "Rotaciones",
+      "hub": "Centro",
+      "calculators": "Calculadoras",
+      "starchart": "Mapa Estelar",
+      "archive": "Archivo",
+      "discord": "Trove - Discord",
+      "trovesaurus": "Trovesaurus",
+      "contributors": "Colaboradores",
+      "clubs": "Clubes",
+      "news": "Noticias",
+      "categories": {
+        "navigation": "Navegación",
+        "tools": "Herramientas",
+        "community": "Comunidad"
+      }
+    },
+    "footer": {
+      "tagline": "Trovepedia, hecha por la comunidad.",
+      "copyright": "© 2026 Trovepedia - ¡No afiliado a Gamigo AG!"
+    }
+  },
+  "ru": {
+    "nav": {
+      "logoSub": "создано сообществом",
+      "guides": "Гайды",
+      "classes": "Классы",
+      "rotations": "Ротации",
+      "hub": "Хаб",
+      "calculators": "Калькуляторы",
+      "starchart": "Звездная карта",
+      "archive": "Архив",
+      "discord": "Trove - Discord",
+      "trovesaurus": "Trovesaurus",
+      "contributors": "Авторы",
+      "clubs": "Клубы",
+      "news": "Новости",
+      "categories": {
+        "navigation": "Навигация",
+        "tools": "Инструменты",
+        "community": "Сообщество"
+      }
+    },
+    "footer": {
+      "tagline": "Trovepedia, создано сообществом.",
+      "copyright": "© 2026 Trovepedia - Не связано с Gamigo AG!"
+    }
+  },
+  "zh": {
+    "nav": {
+      "logoSub": "由社区打造",
+      "guides": "指南",
+      "classes": "职业",
+      "rotations": "轮换",
+      "hub": "主城",
+      "calculators": "计算器",
+      "starchart": "星图",
+      "archive": "归档",
+      "discord": "Trove - Discord",
+      "trovesaurus": "Trovesaurus",
+      "contributors": "贡献者",
+      "clubs": "公会",
+      "news": "新闻",
+      "categories": {
+        "navigation": "导航",
+        "tools": "工具",
+        "community": "社区"
+      }
+    },
+    "footer": {
+      "tagline": "Trovepedia，由社区打造。",
+      "copyright": "© 2026 Trovepedia - 与 Gamigo AG 无关！"
+    }
+  }
+}

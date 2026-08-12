@@ -1,15 +1,15 @@
-// src/components/guides/GemTiersSection.jsx
 import React, { useState, useEffect, useId } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import styles from './GemTiersSection.module.css';
 import SectionDivider from '../common/SectionDivider';
+import { useLanguage } from '../../context/LanguageContext';
+import { gemsGuideContent } from './content/gemsGuide.content';
 
 const MAX_PR = 3601;
 
-const GEM_TIERS = [
+const BASE_GEM_TIERS = [
   {
     id: 'radiant',
-    title: 'Radiant',
     tierNum: 'TIER 1',
     maxLevel: '23',
     color: '#e2e8f0',
@@ -17,12 +17,10 @@ const GEM_TIERS = [
     prVal: 1270,
     icon: '/gemtiers/water.png',
     rollBonus: '150',
-    description: 'Mid-game entry gems. Good for stepping into higher Uber worlds, but replaced quickly in endgame.',
     converter: null,
   },
   {
     id: 'stellar',
-    title: 'Stellar',
     tierNum: 'TIER 2',
     maxLevel: '25',
     color: '#f59e0b',
@@ -30,11 +28,8 @@ const GEM_TIERS = [
     prVal: 2251,
     icon: '/gemtiers/air.png',
     rollBonus: '210',
-    description: 'Solid foundation for high-tier farming. Essential for reaching Uber 10 before upgrading to Crystal.',
     converter: {
       name: 'Crystal Gem Converter',
-      cost: '1,000 Credits or 10,000 Cubits',
-      note: 'Keeps gem level & stat augments intact!',
       fromIcon: '/gemtiers/stellar.png',
       toIcon: '/gemtiers/crystal.png',
       converterImg: '/gemtiers/crystalconv.webp',
@@ -43,7 +38,6 @@ const GEM_TIERS = [
   },
   {
     id: 'crystal',
-    title: 'Crystal',
     tierNum: 'TIER 3',
     maxLevel: '30',
     color: '#2effee',
@@ -51,11 +45,8 @@ const GEM_TIERS = [
     prVal: 2830,
     icon: '/gemtiers/fire.png',
     rollBonus: '280',
-    description: 'Where serious end-game power begins. High PR per level and required for Uber 11+ progression.',
     converter: {
       name: 'Mystic Gem Converter',
-      cost: '1,500 Credits or 15,000 Cubits',
-      note: 'Keeps gem level & stat augments intact!',
       fromIcon: '/gemtiers/crystal.png',
       toIcon: '/gemtiers/mystic.png',
       converterImg: '/gemtiers/mysticconv.webp',
@@ -64,7 +55,6 @@ const GEM_TIERS = [
   },
   {
     id: 'mystic',
-    title: 'Mystic',
     tierNum: 'TIER 4',
     maxLevel: '35',
     color: '#c084fc',
@@ -72,7 +62,6 @@ const GEM_TIERS = [
     prVal: 3601,
     icon: '/gemtiers/cosmic.png',
     rollBonus: '350',
-    description: 'Pinnacle gem tier. Offers maximum possible Light, Power Rank, and stat ceilings in the entire game.',
     converter: null,
   },
 ];
@@ -80,6 +69,23 @@ const GEM_TIERS = [
 export default function GemTiersSection() {
   const [active, setActive] = useState(null);
   const layoutId = useId();
+  const { langCode } = useLanguage();
+
+  const c = gemsGuideContent[langCode]?.tiersSection || gemsGuideContent.en.tiersSection;
+
+  const GEM_TIERS = BASE_GEM_TIERS.map(tier => {
+    const tData = c.tiersData[tier.id] || gemsGuideContent.en.tiersSection.tiersData[tier.id];
+    return {
+      ...tier,
+      title: tData.title,
+      description: tData.desc,
+      converter: tier.converter ? {
+        ...tier.converter,
+        cost: tData.convCost,
+        note: tData.convNote
+      } : null
+    };
+  });
 
   useEffect(() => {
     if (active) {
@@ -93,13 +99,12 @@ export default function GemTiersSection() {
 
   return (
     <div className={styles.wrapper}>
-        <SectionDivider />
+      <SectionDivider />
       {/* Fejléc */}
+      <span className={styles.sectionStep}>{c.step}</span>
       <div className={styles.header}>
-        <h2 className={styles.mainTitle}>The tiers among the gems</h2>
-        <p className={styles.subTitle}>
-          While Trove features several gem tiers, only <strong style={{ color: 'rgb(226, 232, 240)' }}>Radiant</strong>, <strong style={{ color: '#f59e0b' }}>Stellar</strong>, <strong style={{ color: '#2effee' }}>Crystal</strong>, and <strong style={{ color: '#c084fc' }}>Mystic</strong> provide stats worth investing in for endgame progression. Select a card below to inspect tier ceilings, PR scaling, and converters.
-        </p>
+        <h2 className={styles.mainTitle}>{c.title}</h2>
+        <p className={styles.subTitle} dangerouslySetInnerHTML={{ __html: c.subtitle }} />
       </div>
 
       <AnimatePresence>
@@ -160,27 +165,27 @@ export default function GemTiersSection() {
               {/* Stats Grid */}
               <div className={styles.statsGrid}>
                 <div className={styles.statBox}>
-                  <span className={styles.statLabel}>MAX LEVEL</span>
+                  <span className={styles.statLabel}>{c.labels.maxLevel}</span>
                   <span className={styles.statVal} style={{ color: active.color }}>
                     {active.maxLevel}
                   </span>
-                  <span className={styles.statSub}>Level ceiling for this tier.</span>
+                  <span className={styles.statSub}>{c.labels.maxLevelSub}</span>
                 </div>
 
                 <div className={styles.statBox}>
-                  <span className={styles.statLabel}>EACH NEW ROLL</span>
+                  <span className={styles.statLabel}>{c.labels.eachRoll}</span>
                   <span className={styles.statVal} style={{ color: active.color }}>
                     +{active.rollBonus}
                   </span>
-                  <span className={styles.statSub}>Added on milestone levels (5 / 10 / 15).</span>
+                  <span className={styles.statSub}>{c.labels.eachRollSub}</span>
                 </div>        
 
                 <div className={styles.statBox}>
-                  <span className={styles.statLabel}>MAX POWER RANK</span>
+                  <span className={styles.statLabel}>{c.labels.maxPr}</span>
                   <span className={styles.statVal} style={{ color: active.color }}>
                     {active.maxPowerRank}
                   </span>
-                  <span className={styles.statSub}>Perfect maxed Empowered Gem.</span>
+                  <span className={styles.statSub}>{c.labels.maxPrSub}</span>
                 </div>
               </div>
 
@@ -189,12 +194,10 @@ export default function GemTiersSection() {
                 <div className={styles.converterSection}>
 
                   <div className={styles.visualFlow}>
-                    {/* Bal oldali kiinduló Gem */}
                     <div className={styles.gemBox}>
                       <img src={active.converter.fromIcon} alt="Source Gem" className={styles.flowGemIcon} />
                     </div>
 
-                    {/* Középső Utazási Pálya a Repülő Converterrel */}
                     <div className={styles.travelTrack}>
                       <div className={`${styles.converterImgWrapper} ${styles[active.converter.glowType + 'Glow']}`}>
                         <img 
@@ -205,7 +208,6 @@ export default function GemTiersSection() {
                       </div>
                     </div>
 
-                    {/* Jobb oldali cél Gem */}
                     <div className={styles.gemBox}>
                       <img src={active.converter.toIcon} alt="Target Gem" className={styles.flowGemIcon} />
                     </div>
@@ -264,7 +266,7 @@ export default function GemTiersSection() {
                 <span className={styles.cardTier}>{tier.tierNum}</span>
                 
                 <div className={styles.cardFooter}>
-                  <span>Level cap: <strong>{tier.maxLevel}</strong></span>
+                  <span>{c.labels.levelCap} <strong>{tier.maxLevel}</strong></span>
                 </div>
               </div>
 

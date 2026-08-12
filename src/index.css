@@ -73,6 +73,7 @@ nav {
   cursor: pointer;
   padding: 0;
   flex-shrink: 0;   /* never squish the logo */
+  margin-left: -150px;
 }
 
 .nav-logo-text {
@@ -427,7 +428,7 @@ nav {
 
 .section-title {
     font-family: Comfortaa, sans-serif;
-    font-size: 3.2rem;
+    font-size: 2.3rem;
     font-weight: 800;
     color: rgb(255, 255, 255);
     letter-spacing: 0.05em;
@@ -441,7 +442,7 @@ nav {
   color: var(--muted);
   max-width: 1020px;
   margin: 0 auto;
-  font-size: 1.35rem;
+  font-size: 1rem;
   font-family: Comfortaa, sans-serif;
   text-align: center;
   margin-bottom: 56px;
@@ -471,7 +472,7 @@ nav {
   position: relative;
   overflow: hidden;
   cursor: pointer;
-  height: 280px;
+  height: 240px;
 }
 .card::before {
   content: '';
@@ -486,7 +487,7 @@ nav {
 .card[data-accent="gold"]::before  { background: linear-gradient(90deg, var(--gold), #fbff1a); }
 .card[data-accent="cyan"]::before  { background: linear-gradient(90deg, var(--cyan), #60eeff); }
 .card[data-accent="purple"]::before { background: linear-gradient(90deg, #9500D1, #8500b9); }
-.card[data-accent="green"]::before { background: linear-gradient(90deg, #25c916, #21ad1c); }
+.card[data-accent="green"]::before { background: linear-gradient(90deg, #5fff2f, #40ff2f); }
 .card[data-accent="red"]::before   { background: linear-gradient(90deg, hsl(61, 100%, 75%), #fdff8d); }
 .card[data-accent="blue"]::before  { background: linear-gradient(90deg, #ff9d1c, #ff8800); }
 
@@ -726,6 +727,149 @@ footer {
   opacity: 1;
   transform: none;
   transform: translateY(-5px);
+}
+
+/* ==========================================================================
+   MODERN DARK GLASS NAVBAR STYLES (FROM PROVIDED SPEC)
+   ========================================================================== */
+
+:root {
+  --nav-h: 64px;
+  --bg-base: #06080d;
+  --bg-deep: #0a0e14;
+  --bg-card: #131922;
+  --bg-card-hi: #1a212c;
+  --bg-line: #1f2733;
+  --text: #e6edf3;
+  --text-mute: #9aa4b2;
+  --text-soft: #6e7785;
+  --accent-blue: #58a6ff;
+  --accent-purple: #a371f7;
+  --accent-cyan: #40d0ff;
+  --radius-sm: 10px;
+  --radius: 18px;
+  --radius-lg: 28px;
+  --shadow-soft: 0 4px 30px rgba(0, 0, 0, 0.35);
+  --shadow-glow: 0 0 0 1px color-mix(in oklab, var(--accent-blue) 35%, transparent), 
+                 0 12px 50px color-mix(in oklab, var(--accent-blue) 18%, transparent);
+  --ease-out: cubic-bezier(.22, .61, .36, 1);
+  --ease-spring: cubic-bezier(.34, 1.56, .64, 1);
+}
+
+/* Fő Navigációs Sáv */
+.custom-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--nav-h);
+  z-index: 100;
+  background: color-mix(in oklab, var(--bg-deep) 70%, transparent);
+  backdrop-filter: saturate(180%) blur(14px);
+  -webkit-backdrop-filter: saturate(180%) blur(14px);
+  border-bottom: 1px solid var(--bg-line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 24px;
+  transition: background 0.25s var(--ease-out);
+}
+
+/* Lenyíló Dropdown Panel */
+.nav-dropdown-panel-custom {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 50%;
+  width: min(240px, 90vw);
+  padding: 8px;
+  background: var(--bg-card);
+  border: 1px solid var(--bg-line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft), 0 12px 40px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 110;
+  overflow: hidden;
+}
+
+/* Dropdown Elemek */
+.nav-dropdown-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  color: var(--text-mute);
+  font-family: 'Quicksand', -apple-system, sans-serif;
+  font-size: 0.94rem;
+  font-weight: 600;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.15s ease, color 0.15s ease, transform 0.15s var(--ease-out);
+}
+
+.nav-dropdown-item:hover {
+  background: var(--bg-card-hi);
+  color: var(--text);
+  transform: translateX(2px);
+}
+
+.nav-dropdown-item.active {
+  color: var(--accent-blue);
+  background: color-mix(in oklab, var(--accent-blue) 12%, transparent);
+  border: 1px solid color-mix(in oklab, var(--accent-blue) 30%, transparent);
+}
+
+/* Aktív Pötty Indicator */
+.nav-active-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-blue);
+  box-shadow: 0 0 10px var(--accent-blue);
+}
+
+/* Nyíl doboz gomb */
+.nav-arrow-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border-radius: var(--radius-sm);
+  background: color-mix(in oklab, var(--bg-card) 60%, transparent);
+  border: 1px solid var(--bg-line);
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.nav-arrow-trigger:hover {
+  border-color: color-mix(in oklab, var(--accent-blue) 50%, var(--bg-line));
+  background: var(--bg-card-hi);
+}
+
+/* Globális font-family beállítás */
+body, button, input, select, textarea {
+  font-family: 'Quicksand', 'Noto Sans', 'Noto Sans SC', system-ui, -apple-system, sans-serif;
+}
+
+/* Ha a komponenseidben közvetlenül hivatkozol a font-['Quicksand']-re Tailwindben vagy CSS-ben */
+.font-quicksand, 
+[class*="font-['Quicksand']"] {
+  font-family: 'Quicksand', 'Noto Sans', 'Noto Sans SC', sans-serif !important;
+}
+
+/* Amikor a HTML vagy a konténer zh nyelven van */
+:lang(zh), [data-lang="zh"] {
+  font-family: 'Quicksand', 'Noto Sans SC', sans-serif;
+  letter-spacing: 0.02em; /* Kicsit szellősebb kínai írásjelek */
+}
+
+:lang(ru), [data-lang="ru"] {
+  font-family: 'Quicksand', 'Noto Sans', sans-serif;
 }
 
 @media (max-width: 900px) {

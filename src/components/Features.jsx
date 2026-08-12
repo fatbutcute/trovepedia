@@ -24,7 +24,7 @@ const FEATURES = [
   },
   {
     icon: '/icons/time.png', 
-    accent: 'green', 
+    accent: 'purple', 
     path: '/rotations',
     title: 'Rotations',
     desc:  'Current D15 rotations and a calendar of all daily/weekly events in one place.',
@@ -71,7 +71,7 @@ export default function Features() {
               <img 
                 src={icon} 
                 alt={title} 
-                style={{ width: '42px', height: '42px', objectFit: 'contain' }} 
+                style={{ width: '35px', height: '35px', objectFit: 'contain' }} 
               />
             </div>
             

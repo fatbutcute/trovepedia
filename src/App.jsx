@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom'
-import { AnimatePresence, motion } from "framer-motion";
+import { useLanguage } from './context/LanguageContext'
 
 import Navbar          from './components/Navbar'
 import Footer          from './components/Footer'
@@ -7,7 +7,6 @@ import ScrollToTop     from './components/ScrollToTop'
 import TroveArchive    from './pages/Archive/TroveArchive'
 
 import Home            from './pages/Home'
-// import GuidesPage   from './pages/GuidesPage' // <-- Ezt törölheted / kikommentelheted!
 import PlaceholderPage from './pages/PlaceholderPage'
 import RotationsPage   from './pages/RotationsPage'
 import DelvePage       from './pages/DelvePage'
@@ -19,11 +18,11 @@ import FishingPage     from './pages/FishingPage'
 import CalculatorsPage from './components/CalculatorsPage'
 import TokenCall       from './components/TokenCall'
 
-
-// AZ ÚJ CSERÉLT GUİDE COMPONENT:
 import GuideViewer     from './components/guides/GuideViewer'
 
 export default function App() {
+  const { t } = useLanguage(); // ⬅️ I18n hook behívása (ha használni szeretnéd az App.jsx-en belül)
+
   return (
     <>
       <ScrollToTop />
@@ -33,7 +32,6 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
 
-          {/* ÚJ: Most már az új GuideViewer töltődik be a /guides címen */}
           <Route path="/guides" element={<GuideViewer />} />
           <Route path="/guides/:guideId" element={<GuideViewer />} />
 
@@ -54,8 +52,8 @@ export default function App() {
             element={
               <PlaceholderPage
                 icon="🔍"
-                title="404 – Page Not Found"
-                desc="This page does not exist."
+                title={t('errors.notFoundTitle') || "404 – Page Not Found"}
+                desc={t('errors.notFoundDesc') || "This page does not exist."}
               />
             }
           />

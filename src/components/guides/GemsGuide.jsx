@@ -1,11 +1,12 @@
-// src/components/guides/GemsGuide.jsx
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import styles from './GemsGuide.module.css';
 import GemTiersSection from './GemTiersSection';
 import { GemsGuideDock } from "./GemsGuideDock";
 import GemBasicsScrolly from './GemBasicsScrolly';
-import SectionDivider from '../common/SectionDivider'; // ◄ ITT VOLT A HIÁNYZÓ IMPORT!
+import SectionDivider from '../common/SectionDivider';
+import { useLanguage } from '../../context/LanguageContext';
+import { gemsGuideContent } from './content/gemsGuide.content';
 
 const scrollFadeInVariants = {
   hidden: { opacity: 0, y: 35 },
@@ -18,10 +19,12 @@ const scrollFadeInVariants = {
 
 export default function GemsGuide() {
   const [activeTab, setActiveTab] = useState('empowered');
+  const { langCode } = useLanguage();
+  const c = gemsGuideContent[langCode] || gemsGuideContent.en;
 
   return (
     <>
-      {/* 1. FELSŐ KONTÉNER (Csak a Hero szekciónak) */}
+      {/* 1. HERO SZEKCIÓ */}
       <div className={styles.container}>
         <motion.header 
           className={styles.hero}
@@ -29,22 +32,18 @@ export default function GemsGuide() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
         >
-          <span className={styles.badge}>Endgame Progression</span>
-          <h1 className={styles.title}>Maximize Gem Stats</h1>
-          <p className={styles.description}>
-            A complete walkthrough on optimizing your Empowered and Lesser Gems, rerolling stats, moving boosts, and augmenting to reach maximum Power Rank and Light.
-          </p>
+          <span className={styles.badge}>{c.hero.badge}</span>
+          <h1 className={styles.title}>{c.hero.title}</h1>
+          <p className={styles.description}>{c.hero.description}</p>
         </motion.header>
       </div>
 
       {/* 2. SCROLLYTELLING SZEKCIÓ */}
       <GemBasicsScrolly />
 
-      {/* 3. ALSÓ KONTÉNER (A többi tartalomnak) */}
+      {/* 3. TARTALMI SZEKCIÓK */}
       <div className={styles.container} style={{ marginTop: '0' }}>
         
-        {/* LESSER VS EMPOWERED GEMS SECTION (Áttéve a konténeren belülre) */}
-
         {/* Rerolling & Moving Stats */}
         <motion.section 
           className={styles.section}
@@ -53,37 +52,18 @@ export default function GemsGuide() {
           viewport={{ once: true, amount: 0.2 }}
           variants={scrollFadeInVariants}
         >
-          <h2 className={styles.sectionTitle}>Rerolling & Moving Stats</h2>
+          <span className={styles.sectionStep}>{c.rerollSection.step}</span>
+          <h2 className={styles.sectionTitle}>{c.rerollSection.title}</h2>
           <div className={styles.grid}>
-            <motion.div className={styles.card} whileHover={{ scale: 1.05}}>
-              <div className={styles.cardHeader}>
-                <span className={styles.stepNum}>01</span>
-                <h3>Contained Chaos Spark</h3>
-              </div>
-              <p>
-                Use Chaos Sparks at the Gem Forge to <strong>reroll undesirable stats</strong> into crucial attributes like <em>Light, Physical/Magic Damage, or Critical Damage</em>.
-              </p>
-            </motion.div>
-
-            <motion.div className={styles.card} whileHover={{ scale: 1.05}}>
-              <div className={styles.cardHeader}>
-                <span className={styles.stepNum}>02</span>
-                <h3>Contained Chaos Flare</h3>
-              </div>
-              <p>
-                Use Chaos Flares to <strong>move stat boost procs</strong> (the small gems next to stats) to your most vital stat - ideally <em>Light</em> for Cosmics, or Damage/Crit Damage.
-              </p>
-            </motion.div>
-
-            <motion.div className={styles.card} whileHover={{ scale: 1.05}}>
-              <div className={styles.cardHeader}>
-                <span className={styles.stepNum}>03</span>
-                <h3>Builder's Focuses</h3>
-              </div>
-              <p>
-                Augment each stat's base percentage up to <strong>100%</strong> using Rough, Precise, and Superior Focuses to maximize total Power Rank.
-              </p>
-            </motion.div>
+            {c.rerollSection.cards.map((card) => (
+              <motion.div key={card.num} className={styles.card} whileHover={{ scale: 1.05 }}>
+                <div className={styles.cardHeader}>
+                  <span className={styles.stepNum}>{card.num}</span>
+                  <h3>{card.title}</h3>
+                </div>
+                <p dangerouslySetInnerHTML={{ __html: card.body }} />
+              </motion.div>
+            ))}
           </div>
         </motion.section>
 
@@ -95,20 +75,20 @@ export default function GemsGuide() {
           viewport={{ once: true, amount: 0.2 }}
           variants={scrollFadeInVariants}
         >
-          <h2 className={styles.sectionTitle}>Optimal Stat Distribution</h2>
+          <h2 className={styles.sectionTitle}>{c.statsSection.title}</h2>
           
           <div className={styles.tabContainer}>
             <button
               className={`${styles.tab} ${activeTab === 'empowered' ? styles.activeTab : ''}`}
               onClick={() => setActiveTab('empowered')}
             >
-              Cosmic Gems
+              {c.statsSection.tabs.empowered}
             </button>
             <button
               className={`${styles.tab} ${activeTab === 'elemental' ? styles.activeTab : ''}`}
               onClick={() => setActiveTab('elemental')}
             >
-              Elemental Gems (Water / Fire / Air)
+              {c.statsSection.tabs.elemental}
             </button>
           </div>
 
@@ -121,33 +101,21 @@ export default function GemsGuide() {
           >
             {activeTab === 'empowered' ? (
               <div className={styles.statList}>
-                <div className={styles.statItem}>
-                  <span className={styles.statName}>Stat 1: Light</span>
-                  <span className={styles.statPriority}>MUST HAVE (3x Boosts)</span>
-                </div>
-                <div className={styles.statItem}>
-                  <span className={styles.statName}>Stat 2: Physical / Magic Damage</span>
-                  <span className={styles.statPriority}>Recommended</span>
-                </div>
-                <div className={styles.statItem}>
-                  <span className={styles.statName}>Stat 3: Critical Damage</span>
-                  <span className={styles.statPriority}>Recommended</span>
-                </div>
+                {c.statsSection.cosmicStats.map((st, i) => (
+                  <div key={i} className={styles.statItem}>
+                    <span className={styles.statName}>{st.name}</span>
+                    <span className={styles.statPriority}>{st.priority}</span>
+                  </div>
+                ))}
               </div>
             ) : (
               <div className={styles.statList}>
-                <div className={styles.statItem}>
-                  <span className={styles.statName}>Stat 1: Physical / Magic Damage</span>
-                  <span className={styles.statPriority}>Core Stat</span>
-                </div>
-                <div className={styles.statItem}>
-                  <span className={styles.statName}>Stat 2: Critical Damage</span>
-                  <span className={styles.statPriority}>Core Stat</span>
-                </div>
-                <div className={styles.statItem}>
-                  <span className={styles.statName}>Stat 3: Critical Hit (until 100%)</span>
-                  <span className={styles.statPriority}>Flex Stat</span>
-                </div>
+                {c.statsSection.elementalStats.map((st, i) => (
+                  <div key={i} className={styles.statItem}>
+                    <span className={styles.statName}>{st.name}</span>
+                    <span className={styles.statPriority}>{st.priority}</span>
+                  </div>
+                ))}
               </div>
             )}
           </motion.div>
@@ -162,10 +130,8 @@ export default function GemsGuide() {
           variants={scrollFadeInVariants}
         >
           <div>
-            <h4>Keep in mind!</h4>
-            <p>
-              Always start with <strong>3-stat Stellar/Crystal gems</strong> at level 1. If a gem only drops with 2 stats, it loses 1 boost proc at level 5, capping its maximum Power Rank lower than a perfect 3-stat gem!
-            </p>
+            <h4>{c.proTip.title}</h4>
+            <p dangerouslySetInnerHTML={{ __html: c.proTip.body }} />
           </div>
         </motion.div>
 
@@ -188,59 +154,42 @@ export default function GemsGuide() {
           viewport={{ once: true, amount: 0.2 }}
           variants={scrollFadeInVariants}
         >
-          <h2 className={styles.sectionTitle}>Mystic and Crystal Gem Converter</h2>
+          <h2 className={styles.sectionTitle}>{c.convertersSection.title}</h2>
           
           <div className={styles.converterGrid}>
-            {/* Bal oldal: Crystal Converter */}
             <motion.div 
               className={`${styles.converterCard} ${styles.crystalCard}`}
               whileHover={{ y: -3 }}
               transition={{ duration: 0.15, ease: 'easeOut' }}
             >
-              <h3 className={styles.converterCardTitle}>Crystal Gem Converter</h3>
+              <h3 className={styles.converterCardTitle}>{c.convertersSection.crystal.title}</h3>
               <div className={styles.converterCardBody}>
                 <div className={styles.converterImgWrapper}>
-                  <img 
-                    src="/gemtiers/crystalconv.webp" 
-                    alt="Crystal Gem Converter" 
-                    className={styles.converterImg}
-                  />
+                  <img src="/gemtiers/crystalconv.webp" alt="Crystal Gem Converter" className={styles.converterImg} />
                 </div>
-                <p className={styles.converterCardText}>
-                  Upgrades a maxed <strong>Stellar Gem</strong> directly into a <strong>Crystal Gem</strong>. It retains all existing stat rolls, level progression, and focus augments so you don't have to restart your gem build from scratch.
-                </p>
+                <p className={styles.converterCardText} dangerouslySetInnerHTML={{ __html: c.convertersSection.crystal.text }} />
               </div>
             </motion.div>
 
-            {/* Jobb oldal: Mystic Converter */}
             <motion.div 
               className={`${styles.converterCard} ${styles.mysticCard}`}
               whileHover={{ y: -3 }}
               transition={{ duration: 0.1, ease: 'easeOut' }}
             >
-              <h3 className={styles.converterCardTitle}>Mystic Gem Converter</h3>
+              <h3 className={styles.converterCardTitle}>{c.convertersSection.mystic.title}</h3>
               <div className={styles.converterCardBody}>
                 <div className={styles.converterImgWrapper}>
-                  <img 
-                    src="/gemtiers/mysticconv.webp" 
-                    alt="Mystic Gem Converter" 
-                    className={styles.converterImg}
-                  />
+                  <img src="/gemtiers/mysticconv.webp" alt="Mystic Gem Converter" className={styles.converterImg} />
                 </div>
-                <p className={styles.converterCardText}>
-                  Upgrades a maxed <strong>Crystal Gem</strong> to the pinnacle <strong>Mystic Tier</strong>. Perfect for endgame players aiming for the absolute maximum Light and Power Rank caps without sacrificing stat investments.
-                </p>
+                <p className={styles.converterCardText} dangerouslySetInnerHTML={{ __html: c.convertersSection.mystic.text }} />
               </div>
             </motion.div>
           </div>
 
-          <p className={styles.note}>
-            <strong>Note:</strong> Converters aren't mandatory, but they have a specific use case. While high-tier gems can drop naturally in higher difficulty worlds, converters are best used when you already have a fully maxed gem and want to upgrade it to the next tier without losing its stats or augments.
-          </p>
+          <p className={styles.note} dangerouslySetInnerHTML={{ __html: c.convertersSection.note }} />
         </motion.section>
 
-        {/* LESSER VS EMPOWERED GEMS SECTION - FRISSÍTVE MOTION.SECTION-RE */}
-        {/* LESSER VS EMPOWERED GEMS SECTION (EGYBEOVADÓ, SZELLŐS ELRENDEZÉS) */}
+        {/* LESSER VS EMPOWERED GEMS SECTION */}
         <motion.section 
           className={styles.section} 
           id="lesser-empowered"
@@ -250,14 +199,12 @@ export default function GemsGuide() {
           variants={scrollFadeInVariants}
         >
           <SectionDivider />
-          <h2 className={styles.sectionTitle}>Lesser vs. Empowered Gems</h2>
-          <p className={styles.note}>
-            Gems in Trove are split into two fundamental categories. While Lesser Gems form your stat foundation, Empowered Gems define your build with game-changing abilities.
-          </p>
+          <span className={styles.sectionStep}>{c.lesserVsEmpowered.step}</span>
+          <h2 className={styles.sectionTitle}>{c.lesserVsEmpowered.title}</h2>
+          <p className={styles.note}>{c.lesserVsEmpowered.intro}</p>
 
-          {/* COMPARISON CARDS */}
           <div className={styles.compareGrid}>
-            {/* BAL OLDALI KÁRTYA: LESSER GEM */}
+            {/* LESSER GEM */}
             <motion.div
               className={`${styles.compareCard} ${styles.lesserCard}`}
               initial={{ opacity: 0, y: 25 }}
@@ -267,36 +214,22 @@ export default function GemsGuide() {
             >
               <div className={styles.compareHeader}>
                 <div className={styles.gemIconWrapper}>
-                  <img
-                    src="/gemtiers/air.png"
-                    alt="Lesser Gem"
-                    className={styles.compareGemImg}
-                  />
+                  <img src="/gemtiers/air.png" alt="Lesser Gem" className={styles.compareGemImg} />
                 </div>
                 <div className={styles.compareTitleGroup}>
-                  <span className={styles.compareTag}>COMMON - RESTRICTED</span>
-                  <h3>Lesser Gem</h3>
+                  <span className={styles.compareTag}>{c.lesserVsEmpowered.lesser.tag}</span>
+                  <h3>{c.lesserVsEmpowered.lesser.title}</h3>
                 </div>
               </div>
-
-              <p className={styles.compareIntro}>
-                Lesser gems are common gems. They are locked to a single damage school and have no special ability - but since you equip many of them, their combined stats add up.
-              </p>
-
+              <p className={styles.compareIntro}>{c.lesserVsEmpowered.lesser.intro}</p>
               <ul className={styles.compareList}>
-                <li>
-                  <strong>Restriction:</strong> Fierce gems roll Physical stats, while Arcane gems roll Magic stats.
-                </li>
-                <li>
-                  <strong>Stat Rolls:</strong> Comes with two or three stats, each rolled at a random strength.
-                </li>
-                <li>
-                  <strong>Augmenting:</strong> Improve and focus the stats to close the gap toward the perfect 100%.
-                </li>
+                {c.lesserVsEmpowered.lesser.list.map((item, i) => (
+                  <li key={i} dangerouslySetInnerHTML={{ __html: item }} />
+                ))}
               </ul>
             </motion.div>
 
-            {/* JOBB OLDALI KÁRTYA: EMPOWERED GEM */}
+            {/* EMPOWERED GEM */}
             <motion.div
               className={`${styles.compareCard} ${styles.empoweredCard}`}
               initial={{ opacity: 0, y: 25 }}
@@ -306,276 +239,158 @@ export default function GemsGuide() {
             >
               <div className={styles.compareHeader}>
                 <div className={`${styles.gemIconWrapper} ${styles.empoweredGlow}`}>
-                  <img
-                    src="/gemtiers/empair.png"
-                    alt="Empowered Gem"
-                    className={styles.compareGemImg}
-                  />
+                  <img src="/gemtiers/empair.png" alt="Empowered Gem" className={styles.compareGemImg} />
                 </div>
                 <div className={styles.compareTitleGroup}>
                   <span className={styles.compareTag} style={{ color: '#f59e0b', borderColor: 'rgba(245, 158, 11, 0.3)' }}>
-                    "UNRESTRICTED" & RARE
+                    {c.lesserVsEmpowered.empowered.tag}
                   </span>
-                  <h3 style={{ color: '#f59e0b' }}>Empowered Gem</h3>
+                  <h3 style={{ color: '#f59e0b' }}>{c.lesserVsEmpowered.empowered.title}</h3>
                 </div>
               </div>
-
-              <p className={styles.compareIntro}>
-                Empowered gems are more powerful and more rare to get. It removes the damage-school restriction, rolls within a higher stat range, and comes with a special ability.
-              </p>
-
+              <p className={styles.compareIntro}>{c.lesserVsEmpowered.empowered.intro}</p>
               <ul className={styles.compareList}>
-                <li>
-                  <strong>Unique Ability:</strong> Grants a special ability, or a class ability on Class Gems.
-                </li>
-                <li>
-                  <strong>One of a Kind:</strong> Every ability is unique - two equipped gems can never have the same ability.
-                </li>
-                <li>
-                  <strong>Higher Base Stats:</strong> Rolls within a higher stat range and starts with +100 Power Rank.
-                </li>
-                <li>
-                  <strong>High Impact:</strong> You only equip a few - each one is a major upgrade.
-                </li>
+                {c.lesserVsEmpowered.empowered.list.map((item, i) => (
+                  <li key={i} dangerouslySetInnerHTML={{ __html: item }} />
+                ))}
               </ul>
             </motion.div>
           </div>
 
-          {/* 1. HOW TO OBTAIN LESSER GEMS SUBSECTION */}
+          {/* OBTAIN LESSER GEMS */}
           <div className={styles.obtainContainer}>
-            <h3 className={styles.obtainTitle}>How do you obtain Lesser Gems?</h3>
-            
+            <h3 className={styles.obtainTitle}>{c.lesserVsEmpowered.obtainLesser.title}</h3>
             <div className={styles.obtainGrid}>
-              {/* WORLDS */}
               <div className={styles.obtainCard}>
                 <div className={styles.obtainHeader}>
                   <div className={styles.obtainIconWrapper}>
-                    <img 
-                      src="/icons/earth.png" 
-                      alt="Uber Worlds" 
-                      className={styles.obtainIcon} 
-                    />
+                    <img src="/icons/earth.png" alt="Uber Worlds" className={styles.obtainIcon} />
                   </div>
-                  <h4>Worlds</h4>
+                  <h4>{c.lesserVsEmpowered.obtainLesser.worlds.title}</h4>
                 </div>
-
                 <div className={styles.tierStripList}>
-                  <div className={`${styles.tierStrip} ${styles.radiantStrip}`}>
-                    <span className={styles.stripTier}>Radiant</span>
-                    <span className={styles.stripUber}>D12</span>
-                  </div>
-                  <div className={`${styles.tierStrip} ${styles.stellarStrip}`}>
-                    <span className={styles.stripTier}>Stellar</span>
-                    <span className={styles.stripUber}>D13</span>
-                  </div>
-                  <div className={`${styles.tierStrip} ${styles.crystalStrip}`}>
-                    <span className={styles.stripTier}>Crystal</span>
-                    <span className={styles.stripUber}>D14</span>
-                  </div>
-                  <div className={`${styles.tierStrip} ${styles.mysticStrip}`}>
-                    <span className={styles.stripTier}>Mystic</span>
-                    <span className={styles.stripUber}>D15</span>
-                  </div>
+                  <div className={`${styles.tierStrip} ${styles.radiantStrip}`}><span className={styles.stripTier}>Radiant</span><span className={styles.stripUber}>D12</span></div>
+                  <div className={`${styles.tierStrip} ${styles.stellarStrip}`}><span className={styles.stripTier}>Stellar</span><span className={styles.stripUber}>D13</span></div>
+                  <div className={`${styles.tierStrip} ${styles.crystalStrip}`}><span className={styles.stripTier}>Crystal</span><span className={styles.stripUber}>D14</span></div>
+                  <div className={`${styles.tierStrip} ${styles.mysticStrip}`}><span className={styles.stripTier}>Mystic</span><span className={styles.stripUber}>D15</span></div>
                 </div>
-
                 <div className={styles.noteBox}>
-                  <p className={styles.noteText}>
-                    In Adventure Worlds you obtain lesser gems based on the world difficulty. Adventure Worlds are more restricted, because they need specified light requirements to enter.
-                  </p>
+                  <p className={styles.noteText}>{c.lesserVsEmpowered.obtainLesser.worlds.note}</p>
                 </div>
               </div>
 
-              {/* DELVES */}
               <div className={styles.obtainCard}>
                 <div className={styles.obtainHeader}>
                   <div className={styles.obtainIconWrapper}>
-                    <img 
-                      src="/icons/pickaxe.png" 
-                      alt="Delves" 
-                      className={styles.obtainIcon} 
-                    />
+                    <img src="/icons/pickaxe.png" alt="Delves" className={styles.obtainIcon} />
                   </div>
-                  <h4>Delves</h4>
+                  <h4>{c.lesserVsEmpowered.obtainLesser.delves.title}</h4>
                 </div>
-
                 <div className={styles.delveInfoBox}>
-                  <p>
-                    160+ Delves: <span className={styles.delvetext}>Explore Delves up to 160+ depth and earn the same Gem Boxes available from D15 Worlds.</span><br />
-                    Power Rank: <span className={styles.delvetext}>A minimum of <strong className={styles.prStrong}>15,000</strong> Power Rank is required to access certain Delve depths.</span><br />
-                    No Light requirement: <span className={styles.delvetext}>Delves are not restricted by Light, allowing you to progress regardless of your current Light.</span>
-                  </p>
+                  <p dangerouslySetInnerHTML={{ __html: c.lesserVsEmpowered.obtainLesser.delves.info }} />
                 </div>
-
                 <div className={styles.noteBox}>
-                  <p className={styles.noteText}>
-                    Delves are just shortcut to mystic gems. Completing <strong className={styles.noteStrong}>165+ delves</strong> is the same as doing D15 worlds, but with lesser and lower restrictions. Delves are pretty useful if you want to skip Stellar and Crystal gems.
-                  </p>
+                  <p className={styles.noteText} dangerouslySetInnerHTML={{ __html: c.lesserVsEmpowered.obtainLesser.delves.note }} />
                 </div>
               </div>
             </div>
           </div>
 
-          {/* 2. HOW TO OBTAIN EMPOWERED GEMS SUBSECTION (PONTOSAN PÁRHUZAMOS MARGÓKILÉPÉSSEL) */}
+          {/* OBTAIN EMPOWERED GEMS */}
           <div className={styles.obtainContainer}>
-            <h3 className={styles.obtainTitle}>How do you obtain Empowered Gems?</h3>
-            
+            <h3 className={styles.obtainTitle}>{c.lesserVsEmpowered.obtainEmpowered.title}</h3>
             <div className={styles.empoweredObtainGrid}>
-              
-              {/* CARD 1: Empowered Gem Box */}
-              <motion.div 
-                className={styles.empObtainCard}
-                whileHover={{ y: -5 }}
-                transition={{ duration: 0.2 }}
-              >
-                <div className={styles.empCardHeader}>
-                  <div className={styles.empIconWrapper}>
-                    <img 
-                      src="/empgems/empbox.png" 
-                      alt="Empowered Gem Box" 
-                      className={styles.empBoxIcon} 
-                    />
+              {c.lesserVsEmpowered.obtainEmpowered.cards.map((card, i) => (
+                <motion.div key={i} className={styles.empObtainCard} whileHover={{ y: -5 }} transition={{ duration: 0.2 }}>
+                  <div className={styles.empCardHeader}>
+                    <div className={styles.empIconWrapper}>
+                      <img src={`/empgems/${i === 0 ? 'empbox.png' : i === 1 ? 'empboxstellar.png' : i === 2 ? 'empgemboxtome.png' : i === 3 ? 'leaderboard.png' : i === 4 ? 'sovereign.png' : 'adventurebench.png'}`} alt={card.title} className={styles.empBoxIcon} />
+                    </div>
+                    <div className={styles.empTitleGroup}>
+                      <span className={styles.empTag}>{card.tag}</span>
+                      <h4>{card.title}</h4>
+                    </div>
                   </div>
-                  <div className={styles.empTitleGroup}>
-                    <span className={styles.empTag}>CRAFT & SHADOW TOWER</span>
-                    <h4>Empowered Gem Box</h4>
-                  </div>
+                  <p className={styles.empCardDesc} dangerouslySetInnerHTML={{ __html: card.desc }} />
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </motion.section>
+
+        {/* GEM TYPES SECTION */}
+        <motion.section 
+          className={styles.section} 
+          id="gem-types"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={scrollFadeInVariants}
+        >
+          <SectionDivider />
+          <span className={styles.sectionStep}>{c.gemTypes.step}</span>
+          <h2 className={styles.sectionTitle}>{c.gemTypes.title}</h2>
+          <p className={styles.note}>{c.gemTypes.note}</p>
+
+          <div className={styles.gemTypesGrid}>
+            <div className={styles.gemTypeCard}>
+              <div className={styles.gemTypeHeader}>
+                <div className={styles.elementBadgeGroup}>
+                  <span className={`${styles.elementBadge} ${styles.waterBadge}`}>Water</span>
+                  <span className={`${styles.elementBadge} ${styles.fireBadge}`}>Fire</span>
+                  <span className={`${styles.elementBadge} ${styles.airBadge}`}>Air</span>
                 </div>
-                <p className={styles.empCardDesc}>
-                  Obtained by converting <span className={styles.lunarsouls}>Lunar Souls</span> at the Shadowy Market. Drops <span className={styles.radiant}>Radiant</span> or <span className={styles.stellar}>Stellar</span> Empowered Gems, and rarely <span className={styles.classgemkey}>Class Gem Key Fragments</span> or <span className={styles.dragonegg}>Diamond Dragon Eggs</span>.
-                </p>
-              </motion.div>
+                <h3>{c.gemTypes.elemental.title}</h3>
+              </div>
+              <p className={styles.gemTypeDesc}>{c.gemTypes.elemental.desc}</p>
 
-              {/* CARD 2: Stellar Empowered Gem Box */}
-              <motion.div 
-                className={styles.empObtainCard}
-                whileHover={{ y: -5 }}
-                transition={{ duration: 0.2 }}
-              >
-                <div className={styles.empCardHeader}>
-                  <div className={styles.empIconWrapper}>
-                    <img 
-                      src="/empgems/empboxstellar.png" 
-                      alt="Stellar Empowered Gem Box" 
-                      className={styles.empBoxIcon} 
-                    />
-                  </div>
-                  <div className={styles.empTitleGroup}>
-                    <span className={styles.empTag} style={{ color: '#f59e0b', borderColor: 'rgba(245, 158, 11, 0.3)' }}>
-                      GUARANTEED STELLAR
-                    </span>
-                    <h4>Stellar Empowered Gem Box</h4>
-                  </div>
+              <div className={styles.statRollsBox}>
+                <span className={styles.boxLabel}>{c.gemTypes.elemental.canRoll}</span>
+                <div className={styles.tagsFlex}>
+                  {c.gemTypes.elemental.stats.map((st, i) => <span key={i}>{st}</span>)}
                 </div>
-                <p className={styles.empCardDesc}>
-                  Guarantees a <span className={styles.stellar}>Stellar</span> tier Empowered Gem upon opening. Essential for skipping lower Radiant tiers. Can be crafted at the Adventure Crafting Bench.
-                </p>
-              </motion.div>
+              </div>
 
-              {/* CARD 3: Empowered Gem Box Edition */}
-              <motion.div 
-                className={styles.empObtainCard}
-                whileHover={{ y: -5 }}
-                transition={{ duration: 0.2 }}
-              >
-                <div className={styles.empCardHeader}>
-                  <div className={styles.empIconWrapper}>
-                    <img 
-                      src="/empgems/empgemboxtome.png" 
-                      alt="Empowered Gem Box Edition" 
-                      className={styles.empBoxIcon} 
-                    />
-                  </div>
-                  <div className={styles.empTitleGroup}>
-                    <span className={styles.empTag} style={{ color: '#c084fc', borderColor: 'rgba(192, 132, 252, 0.3)' }}>
-                      TOME & REWARD
-                    </span>
-                    <h4>Empowered Gem Box Edition</h4>
-                  </div>
+              <div className={styles.abilitiesBox}>
+                <span className={styles.boxLabel}>{c.gemTypes.elemental.abilitiesTitle}</span>
+                <p className={styles.abilityNames}>{c.gemTypes.elemental.abilities}</p>
+                <span className={styles.abilityRuleNote} dangerouslySetInnerHTML={{ __html: c.gemTypes.elemental.restriction }} />
+              </div>
+            </div>
+
+            <div className={`${styles.gemTypeCard} ${styles.cosmicTypeCard}`}>
+              <div className={styles.gemTypeHeader}>
+                <span className={`${styles.elementBadge} ${styles.cosmicBadge}`}>Cosmic</span>
+                <h3>{c.gemTypes.cosmic.title}</h3>
+              </div>
+              <p className={styles.gemTypeDesc} dangerouslySetInnerHTML={{ __html: c.gemTypes.cosmic.desc }} />
+
+              <div className={styles.cosmicHighlightBox}>
+                <p>{c.gemTypes.cosmic.highlight}</p>
+              </div>
+
+              <div className={styles.statRollsBox}>
+                <span className={styles.boxLabel}>{c.gemTypes.cosmic.uniqueFeature}</span>
+                <div className={styles.tagsFlex}>
+                  {c.gemTypes.cosmic.stats.map((st, i) => (
+                    <span key={i} className={i === 0 ? styles.lightTag : ''}>{st}</span>
+                  ))}
                 </div>
-                <p className={styles.empCardDesc}>
-                  Special edition box yielded passively from Empowered Gem Tome completion or high-tier events. <br />Great for consistent endgame gem progression. Can be used once per week.
-                </p>
-              </motion.div>
-
-               <motion.div 
-                className={styles.empObtainCard}
-                whileHover={{ y: -5 }}
-                transition={{ duration: 0.2 }}
-              >
-                <div className={styles.empCardHeader}>
-                  <div className={styles.empIconWrapper}>
-                    <img 
-                      src="/empgems/leaderboard.png" 
-                      alt="Empowered Gem Box Edition" 
-                      className={styles.empBoxIcon} 
-                    />
-                  </div>
-                  <div className={styles.empTitleGroup}>
-                    <span className={styles.empTag} style={{ color: '#e9ff1f', borderColor: 'rgba(192, 132, 252, 0.3)' }}>
-                      LEADERBOARD
-                    </span>
-                    <h4>Leaderboard Rewards</h4>
-                  </div>
-                </div>
-                <p className={styles.empCardDesc}>
-                  One of the easiest ways to get Empowered Gem Boxes is doing Leaderboard contests. Every week there are 3 class which have <br />to reach 125 leaderboard points to get Empowered Gem Boxes at the next reset.
-                </p>
-              </motion.div>
-
-
-               <motion.div 
-                className={styles.empObtainCard}
-                whileHover={{ y: -5 }}
-                transition={{ duration: 0.2 }}
-              >
-                <div className={styles.empCardHeader}>
-                  <div className={styles.empIconWrapper}>
-                    <img 
-                      src="/empgems/sovereign.png" 
-                      alt="Empowered Gem Box Edition" 
-                      className={styles.empBoxIcon} 
-                    />
-                  </div>
-                  <div className={styles.empTitleGroup}>
-                    <span className={styles.empTag} style={{ color: '#faffd1', borderColor: 'rgba(192, 132, 252, 0.3)' }}>
-                      RADIANT MERCHANT
-                    </span>
-                    <h4>Radiant Sovereigns</h4>
-                  </div>
-                </div>
-                <p className={styles.empCardDesc}>
-                  One of the easiest ways to get Empowered Gem Boxes is doing Leaderboard contests. Every week there are 3 class which have <br />to reach 125 leaderboard points to get Empowered Gem Boxes at the next reset.
-                </p>
-              </motion.div>
-
-               <motion.div 
-                className={styles.empObtainCard}
-                whileHover={{ y: -5 }}
-                transition={{ duration: 0.2 }}
-              >
-                <div className={styles.empCardHeader}>
-                  <div className={styles.empIconWrapper}>
-                    <img 
-                      src="/empgems/adventurebench.png" 
-                      alt="Empowered Gem Box Edition" 
-                      className={styles.empBoxIcon} 
-                    />
-                  </div>
-                  <div className={styles.empTitleGroup}>
-                    <span className={styles.empTag} style={{ color: '#bebebe', borderColor: 'rgba(192, 132, 252, 0.3)' }}>
-                      CRAFTING ANY TYPE
-                    </span>
-                    <h4>Radiant Sovereigns</h4>
-                  </div>
-                </div>
-                <p className={styles.empCardDesc}>
-                  At the Adventure Crafting Bench you craft any type of Gem Boxes, but these Gem Boxes are Mystic and the resources are more difficult to gather. Not worth in a long term.
-                </p>
-              </motion.div>
-
+              </div>
+              <div className={styles.abilitiesBox}>
+                <span className={styles.boxLabel}>{c.gemTypes.cosmic.abilitiesTitle}</span>
+                <p className={styles.abilityNames}>{c.gemTypes.cosmic.abilities}</p>
+              </div>
             </div>
           </div>
 
+          <div className={styles.dragonBonusBox}>
+            <div className={styles.dragonHeader}>
+              <span className={styles.dragonBadge}>{c.gemTypes.dragonBonus.badge}</span>
+              <h3>{c.gemTypes.dragonBonus.title}</h3>
+            </div>
+            <p className={styles.dragonDesc}>{c.gemTypes.dragonBonus.desc}</p>
+          </div>
         </motion.section>
 
       </div>
