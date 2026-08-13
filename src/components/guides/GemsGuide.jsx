@@ -70,7 +70,7 @@ export default function GemsGuide() {
       <GemBasicsScrolly />
 
       {/* 3. TARTALMI SZEKCIÓK */}
-      <div className={styles.container} style={{ marginTop: '0' }}>
+      <div className={styles.container} style={{ marginTop: '0' }} id="optimal">
         
         {/* Rerolling & Moving Stats */}
         <motion.section 
@@ -166,6 +166,7 @@ export default function GemsGuide() {
         {/* Gem Tiers Section */}
         <motion.section 
           className={styles.section}
+          id="tiers"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}

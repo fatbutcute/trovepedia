@@ -48,6 +48,7 @@ const FloatingDockMobile = ({
                 transition={{ delay: (items.length - 1 - idx) * 0.05 }}>
                 <a
                   href={item.href}
+                  onClick={item.onClick} /* 👈 BEKERÜLT AZ ONCLICK! */
                   key={item.title}
                   className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-50 dark:bg-neutral-900">
                   <div className="h-4 w-4">{item.icon}</div>
@@ -90,7 +91,8 @@ function IconContainer({
   mouseX,
   title,
   icon,
-  href
+  href,
+  onClick /* 👈 MÓDOSÍTVA: FOGADJA AZ ONCLICK PROPT */
 }) {
   let ref = useRef(null);
 
@@ -131,7 +133,7 @@ function IconContainer({
   const [hovered, setHovered] = useState(false);
 
   return (
-    <a href={href}>
+    <a href={href} onClick={onClick}> {/* 👈 BEKERÜLT AZ ONCLICK A LINKRE! */}
       <motion.div
         ref={ref}
         style={{ width, height }}
