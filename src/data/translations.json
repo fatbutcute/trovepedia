@@ -23,6 +23,22 @@
     "footer": {
       "tagline": "Trovepedia, made by the community.",
       "copyright": "© 2026 Trovepedia - Not affiliated with Gamigo AG!"
+    },
+    "guidesPage": {
+      "title": "Trove Guides & Tutorials",
+      "subtitle": "Browse our collection of community-crafted guides below to fast-track your endgame progression, optimize your builds, and master essential gameplay mechanics.",
+      "cards": {
+        "gems": {
+          "tag": "MAXIMIZE GEM STATS",
+          "title": "Gems",
+          "desc": "Learn the proper way to maximize your stats on your gems."
+        },
+        "tinyquest": {
+          "tag": "TINY QUEST UPDATE GUIDE",
+          "title": "Tiny Quest & Ally Mastery",
+          "desc": "Master Ally leveling, expedition strategies, voucher farming, and more."
+        }
+      }
     }
   },
   "fr": {
@@ -49,6 +65,22 @@
     "footer": {
       "tagline": "Trovepedia, créé par la communauté.",
       "copyright": "© 2026 Trovepedia - Non affilié à Gamigo AG !"
+    },
+    "guidesPage": {
+      "title": "Guides & Tutoriels Trove",
+      "subtitle": "Parcourez notre collection de guides créés par la communauté pour accélérer votre progression endgame, optimiser vos builds et maîtriser les mécaniques esssentielles.",
+      "cards": {
+        "gems": {
+          "tag": "MAXIMISER LES STATS DES GEMMES",
+          "title": "Gemmes",
+          "desc": "Apprenez la méthode idéale pour maximiser les statistiques de vos gemmes."
+        },
+        "tinyquest": {
+          "tag": "GUIDE MISE À JOUR TINY QUEST",
+          "title": "Tiny Quest & Maîtrise des Compagnons",
+          "desc": "Maîtrisez le niveau des compagnons, les expéditions, le farm de coupons et plus."
+        }
+      }
     }
   },
   "es": {
@@ -75,6 +107,22 @@
     "footer": {
       "tagline": "Trovepedia, hecha por la comunidad.",
       "copyright": "© 2026 Trovepedia - ¡No afiliado a Gamigo AG!"
+    },
+    "guidesPage": {
+      "title": "Guías y Tutoriales de Trove",
+      "subtitle": "Explora nuestra colección de guías creadas por la comunidad para acelerar tu progresión endgame, optimizar tus builds y dominar las mecánicas clave del juego.",
+      "cards": {
+        "gems": {
+          "tag": "MAXIMIZAR ESTADÍSTICAS DE GEMAS",
+          "title": "Gemas",
+          "desc": "Aprende la forma correcta de maximizar las estadísticas de tus gemas."
+        },
+        "tinyquest": {
+          "tag": "GUÍA ACTUALIZACIÓN TINY QUEST",
+          "title": "Tiny Quest y Maestría de Aliados",
+          "desc": "Domina la nivelación de aliados, estrategias de expedición, granjeo de cupones y más."
+        }
+      }
     }
   },
   "ru": {
@@ -101,6 +149,22 @@
     "footer": {
       "tagline": "Trovepedia, создано сообществом.",
       "copyright": "© 2026 Trovepedia - Не связано с Gamigo AG!"
+    },
+    "guidesPage": {
+      "title": "Гайды и Обучение Trove",
+      "subtitle": "Просмотрите нашу коллекцию гайдов от сообщества, чтобы ускорить прогресс в эндгейме, оптимизировать свои билды и освоить ключевые механики игры.",
+      "cards": {
+        "gems": {
+          "tag": "МАКСИМИЗАЦИЯ ХАРАКТЕРИСТИК",
+          "title": "Самоцветы",
+          "desc": "Узнайте, как правильно максимизировать характеристики ваших самоцветов."
+        },
+        "tinyquest": {
+          "tag": "ГАЙД ОБНОВЛЕНИЯ TINY QUEST",
+          "title": "Tiny Quest и Мастерство Союзников",
+          "desc": "Освойте прокачку союзников, стратегии экспедиций, фарм купонов и многое другое."
+        }
+      }
     }
   },
   "zh": {
@@ -127,6 +191,22 @@
     "footer": {
       "tagline": "Trovepedia，由社区打造。",
       "copyright": "© 2026 Trovepedia - 与 Gamigo AG 无关！"
+    },
+    "guidesPage": {
+      "title": "Trove 指南与教程",
+      "subtitle": "浏览下方由社区打造的指南集合，快速提升终局进度、优化你的构建，并精通核心游戏机制。",
+      "cards": {
+        "gems": {
+          "tag": "最大化宝石属性",
+          "title": "宝石",
+          "desc": "学习最大化宝石属性的正确方法。"
+        },
+        "tinyquest": {
+          "tag": "微型任务更新指南",
+          "title": "微型任务与盟友精通",
+          "desc": "精通盟友升级、远征策略、代金券刷取等丰富内容。"
+        }
+      }
     }
   }
 }

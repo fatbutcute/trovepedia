@@ -60,7 +60,7 @@ export default function Hero() {
         </h1>
 
         <p className="hero-eyebrow">
-          BY ONE AND ONLY TROVEPEDIA COMMUNITY
+          BY ONE AND ONLY TROVE COMMUNITY
         </p>
 
         <p className="hero-sub">

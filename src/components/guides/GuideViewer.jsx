@@ -43,19 +43,34 @@ export default function GuideViewer() {
             </div>
 
             <div className={styles.grid}>
-              {Object.values(GUIDES_DATA).map((guide) => (
-                <motion.div
-                  key={guide.id}
-                  className={styles.card}
-                  whileHover={{ scale: 1.05}}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={() => handleSelectGuide(guide.id)}
-                >
-                  <span className={styles.cardSubtitle}>{guide.subtitle}</span>
-                  <h3 className={styles.cardTitle}>{guide.title}</h3>
-                  <p className={styles.cardDesc}>{guide.description}</p>
-                </motion.div>
-              ))}
+              {Object.values(GUIDES_DATA).map((guide) => {
+                // 💡 Intelligens kulcskeresés (kezeli a 'tinyQuest', 'tinyquest', 'tiny_quest' stb. formátumokat is)
+                const normalizedId = guide.id ? guide.id.toLowerCase().replace(/[^a-z0-9]/g, '') : '';
+                
+                const cardText = 
+                  c.cards?.[guide.id] || 
+                  c.cards?.[normalizedId] || 
+                  (c.cards ? Object.values(c.cards).find((_, idx) => Object.keys(GUIDES_DATA)[idx] === guide.id) : null) || 
+                  {
+                    subtitle: guide.subtitle,
+                    title: guide.title,
+                    description: guide.description
+                  };
+
+                return (
+                  <motion.div
+                    key={guide.id}
+                    className={styles.card}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => handleSelectGuide(guide.id)}
+                  >
+                    <span className={styles.cardSubtitle}>{cardText.subtitle}</span>
+                    <h3 className={styles.cardTitle}>{cardText.title}</h3>
+                    <p className={styles.cardDesc}>{cardText.description || cardText.desc}</p>
+                  </motion.div>
+                );
+              })}
             </div>
           </motion.div>
         ) : (
@@ -84,7 +99,7 @@ export default function GuideViewer() {
                 strokeLinejoin="round"
               >
                 <line x1="19" y1="12" x2="5" y2="12"></line>
-                <polyline points="12 19 5 12 12 5"></polyline>
+                <polyline points="12 19 5 12 12 5" />
               </svg>
             </button>
 
