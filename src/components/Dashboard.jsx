@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import './Dashboard.css';
 import DailyWeeklyBuffs from './DailyWeeklyBuffs';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Dashboard() {
   const [now, setNow] = useState(new Date());
+  const { t } = useLanguage();
 
   useEffect(() => {
     const timer = setInterval(() => setNow(new Date()), 1000);
@@ -50,7 +52,8 @@ export default function Dashboard() {
   const weeklyProgress = ((604800000 - weeklyDiff) / 604800000) * 100;
 
   const offset = -now.getTimezoneOffset() / 60;
-  const tzLabel = `LOCAL TIME (GMT${offset >= 0 ? '+' : ''}${offset})`;
+  const localTimeText = t('dashboard.localTime') || 'LOCAL TIME';
+  const tzLabel = `${localTimeText} (GMT${offset >= 0 ? '+' : ''}${offset})`;
 
   return (
     <section className="status-outer-wrapper">
@@ -59,7 +62,7 @@ export default function Dashboard() {
         {/* CURRENT TIME - Ikonnal */}
         <div className="timer-card">
           <div className="timer-header">
-            <i className="ri-time-line"></i> CURRENT TIME
+            <i className="ri-time-line"></i> {t('dashboard.currentTime') || 'CURRENT TIME'}
           </div>
           <div className="time-val">{formatTime(now)}</div>
           <div className="meta-container">
@@ -70,7 +73,7 @@ export default function Dashboard() {
         {/* DAILY RESET - Ikonnal */}
         <div className="timer-card accent-blue">
           <div className="timer-header">
-            <i className="ri-sun-cloudy-line"></i> DAILY RESET
+            <i className="ri-sun-cloudy-line"></i> {t('dashboard.dailyReset') || 'DAILY RESET'}
           </div>
           <div className="time-val">{formatCountdown(dailyDiff)}</div>
           <div className="meta-container">
@@ -83,7 +86,7 @@ export default function Dashboard() {
         {/* WEEKLY RESET - Ikonnal */}
         <div className="timer-card accent-yellow">
           <div className="timer-header">
-            <i className="ri-calendar-todo-line"></i> WEEKLY RESET
+            <i className="ri-calendar-todo-line"></i> {t('dashboard.weeklyReset') || 'WEEKLY RESET'}
           </div>
           <div className="time-val">{formatCountdown(weeklyDiff)}</div>
           <div className="meta-container">
@@ -96,6 +99,5 @@ export default function Dashboard() {
       <DailyWeeklyBuffs />
       
     </section>
-    
   );
 }

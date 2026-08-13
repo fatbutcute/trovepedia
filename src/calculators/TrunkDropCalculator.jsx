@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useLanguage } from '../context/LanguageContext';
+import { trunkDropCalcContent } from '../components/guides/content/trunkDropCalc.content.js';
 
 export default function TrunkDropCalculator() {
   const [calcMode, setCalcMode] = useState('itemsExpected');
@@ -8,8 +10,10 @@ export default function TrunkDropCalculator() {
   const [outputs, setOutputs] = useState([]);
   const [error, setError] = useState(null);
 
+  const { langCode } = useLanguage();
+  const c = trunkDropCalcContent[langCode] || trunkDropCalcContent.en;
+
   const dropRates = { souls: 0.05, core: 0.0657, fishBone: 0.0569, runicEssence: 0.0932, depthsSand: 0.0593, zephyrEssence: 0.0853, pyricEssence: 0.0964, abyssalEssence: 0.1043, inkBladder: 0.0514 };
-  const resourceNames = { souls: 'Depths Souls', core: 'Depths Core', fishBone: 'Fish Bone', runicEssence: 'Runic Essence', depthsSand: 'Depths Sand', zephyrEssence: 'Zephyr Essence', pyricEssence: 'Pyric Essence', abyssalEssence: 'Abyssal Essence', inkBladder: 'Ink Bladder' };
 
   function phiInv(p) {
     if (p <= 0 || p >= 1) return 0;
@@ -45,20 +49,20 @@ export default function TrunkDropCalculator() {
     setOutputs([]);
 
     if (selectedResources.length === 0) {
-      setError('Please select at least one resource.');
+      setError(c.errSelectResource);
       return;
     }
 
     const inputVal = parseFloat(inputValue);
     if (isNaN(inputVal) || inputVal <= 0) {
-      setError('Please enter a positive amount.');
+      setError(c.errPositive);
       return;
     }
 
     let resultsArray = [];
     selectedResources.forEach(resKey => {
       const p = dropRates[resKey];
-      const resName = resourceNames[resKey];
+      const resName = c.resources[resKey] || resKey;
 
       if (calcMode === 'itemsExpected') {
         const expected = inputVal * p;
@@ -66,7 +70,7 @@ export default function TrunkDropCalculator() {
       } else {
         const confidence = parseFloat(confidenceVal) / 100;
         const trunksNeeded = calculateTrunksNeeded(inputVal, p, confidence);
-        const resultText = (trunksNeeded === null) ? 'No solution found' : `${trunksNeeded.toLocaleString()} Trunks`;
+        const resultText = (trunksNeeded === null) ? c.noSolution : `${trunksNeeded.toLocaleString()} ${c.trunksSuffix}`;
         resultsArray.push({ label: resName, value: resultText });
       }
     });
@@ -77,35 +81,35 @@ export default function TrunkDropCalculator() {
   return (
     <div className="react-calc-wrapper" style={{ '--calc-accent': '#7b42f5', '--calc-accent-rgb': '123,66,245' }}>
       <div className="calc-tabs">
-        <div className={`calc-tab ${calcMode === 'itemsExpected' ? 'active' : ''}`} onClick={() => { setCalcMode('itemsExpected'); setOutputs([]); }}>Expected Items</div>
-        <div className={`calc-tab ${calcMode === 'trunksNeeded' ? 'active' : ''}`} onClick={() => { setCalcMode('trunksNeeded'); setOutputs([]); }}>Trunks Needed</div>
+        <div className={`calc-tab ${calcMode === 'itemsExpected' ? 'active' : ''}`} onClick={() => { setCalcMode('itemsExpected'); setOutputs([]); }}>{c.tabExpected}</div>
+        <div className={`calc-tab ${calcMode === 'trunksNeeded' ? 'active' : ''}`} onClick={() => { setCalcMode('trunksNeeded'); setOutputs([]); }}>{c.tabNeeded}</div>
       </div>
 
       <div className="calc-toggle-grid">
-        {Object.keys(resourceNames).map(key => (
+        {Object.keys(dropRates).map(key => (
           <div
             key={key}
             className={`calc-toggle-btn ${selectedResources.includes(key) ? 'active' : ''}`}
             onClick={() => toggleResource(key)}
           >
-            {resourceNames[key]}
+            {c.resources[key] || key}
           </div>
         ))}
       </div>
 
       <div className="calc-field">
-        <label>{calcMode === 'itemsExpected' ? 'Number of Trunks' : 'Desired Amount'}</label>
+        <label>{calcMode === 'itemsExpected' ? c.inputExpected : c.inputNeeded}</label>
         <input type="number" value={inputValue} onChange={(e) => setInputValue(e.target.value)} placeholder="e.g. 100" className="calc-input" />
       </div>
 
       {calcMode === 'trunksNeeded' && (
         <div className="calc-field">
-          <label>Confidence Level (%)</label>
+          <label>{c.confidence}</label>
           <input type="number" value={confidenceVal} onChange={(e) => setConfidenceVal(e.target.value)} className="calc-input" />
         </div>
       )}
 
-      <button className="calc-submit-btn" onClick={handleCalculate} style={{ marginTop: '22px' }}>Calculate</button>
+      <button className="calc-submit-btn" onClick={handleCalculate} style={{ marginTop: '22px' }}>{c.calculate}</button>
 
       {error && <div className="calc-error">⚠ {error}</div>}
 

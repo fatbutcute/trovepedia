@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useLanguage } from '../context/LanguageContext';
+import { dragonCoinCalcContent } from '../components/guides/content/dragonCoinCalc.content.js';
 
 export default function DragonCoinCalculator() {
   const [calcMode, setCalcMode] = useState('hoursToCoins');
@@ -9,6 +11,9 @@ export default function DragonCoinCalculator() {
   const [bench, setBench] = useState(false);
   const [patron, setPatron] = useState(false);
   const [desiredCoins, setDesiredCoins] = useState('');
+
+  const { langCode } = useLanguage();
+  const c = dragonCoinCalcContent[langCode] || dragonCoinCalcContent.en;
 
   const [manualHours, setManualHours] = useState({
     monday: '', tuesday: '', wednesday: '', thursday: '', friday: '', saturday: '', sunday: ''
@@ -59,7 +64,7 @@ export default function DragonCoinCalculator() {
     setResults({
       type: 'h2c',
       estimatedCoins: Math.floor(totalCoins),
-      details: `Base: ${Math.floor(totalCoins - t1Bonus - t2Bonus - benchBonus - karmaBonus - cacheBonus)} · From Caches: +${cacheBonus} · Tomes & Bench: +${t1Bonus + t2Bonus + benchBonus} · Karma: +${karmaBonus}`
+      details: `Base: ${Math.floor(totalCoins - t1Bonus - t2Bonus - benchBonus - karmaBonus - cacheBonus)} · Caches: +${cacheBonus} · Tomes & Bench: +${t1Bonus + t2Bonus + benchBonus} · Karma: +${karmaBonus}`
     });
   };
 
@@ -67,7 +72,7 @@ export default function DragonCoinCalculator() {
     setError(null);
     const desired = parseFloat(desiredCoins) || 0;
     if (desired <= 0) {
-      setError('Please enter a valid desired amount of coins.');
+      setError(c.errCoins);
       return;
     }
 
@@ -75,7 +80,7 @@ export default function DragonCoinCalculator() {
     let remaining = desired - bonus;
 
     if (remaining <= 0) {
-      setResults({ type: 'c2h', hours: 0, details: `Bonus coins (+${bonus}) already cover the entire goal.` });
+      setResults({ type: 'c2h', hours: 0, details: c.goalCovered });
       return;
     }
 
@@ -90,40 +95,40 @@ export default function DragonCoinCalculator() {
     setResults({
       type: 'c2h',
       hours: Math.ceil(hours),
-      details: `Target: ${desired} · Bonuses: -${bonus} · Karma: -${karma} · Adjusted Target: ${Math.floor(remaining)}`
+      details: `Target: ${desired} · Bonuses: -${bonus} · Karma: -${karma}`
     });
   };
 
   return (
     <div className="react-calc-wrapper" style={{ '--calc-accent': '#ff4444', '--calc-accent-rgb': '255,68,68' }}>
       <div className="calc-tabs">
-        <div className={`calc-tab ${calcMode === 'hoursToCoins' ? 'active' : ''}`} onClick={() => { setCalcMode('hoursToCoins'); setResults(null); }}>Hours → Coins</div>
-        <div className={`calc-tab ${calcMode === 'coinsToHours' ? 'active' : ''}`} onClick={() => { setCalcMode('coinsToHours'); setResults(null); }}>Coins → Hours</div>
+        <div className={`calc-tab ${calcMode === 'hoursToCoins' ? 'active' : ''}`} onClick={() => { setCalcMode('hoursToCoins'); setResults(null); }}>{c.tabH2C}</div>
+        <div className={`calc-tab ${calcMode === 'coinsToHours' ? 'active' : ''}`} onClick={() => { setCalcMode('coinsToHours'); setResults(null); }}>{c.tabC2H}</div>
       </div>
 
       <div className="calc-options-panel">
-        <label className="calc-checkbox"><input type="checkbox" checked={tome1} onChange={(e) => setTome1(e.target.checked)} /> Legendary Tome (+15)</label>
-        <label className="calc-checkbox"><input type="checkbox" checked={tome2} onChange={(e) => setTome2(e.target.checked)} /> Dragon Coin Tome (+25)</label>
-        <label className="calc-checkbox"><input type="checkbox" checked={bench} onChange={(e) => setBench(e.target.checked)} /> Dragon Bench (+15)</label>
-        <label className="calc-checkbox"><input type="checkbox" checked={patron} onChange={(e) => setPatron(e.target.checked)} /> Patron Bonus</label>
+        <label className="calc-checkbox"><input type="checkbox" checked={tome1} onChange={(e) => setTome1(e.target.checked)} /> {c.tome1}</label>
+        <label className="calc-checkbox"><input type="checkbox" checked={tome2} onChange={(e) => setTome2(e.target.checked)} /> {c.tome2}</label>
+        <label className="calc-checkbox"><input type="checkbox" checked={bench} onChange={(e) => setBench(e.target.checked)} /> {c.bench}</label>
+        <label className="calc-checkbox"><input type="checkbox" checked={patron} onChange={(e) => setPatron(e.target.checked)} /> {c.patron}</label>
       </div>
 
       {calcMode === 'hoursToCoins' ? (
         <>
           <button type="button" className="calc-link-btn" onClick={() => setIsManual(!isManual)}>
-            {isManual ? 'Switch to Average Input' : 'Switch to Manual Daily Input'}
+            {isManual ? c.switchAverage : c.switchManual}
           </button>
 
           {!isManual ? (
             <div className="calc-field">
-              <label>Average Daily Playtime (Hours)</label>
+              <label>{c.avgPlaytime}</label>
               <input type="number" value={averageHours} onChange={(e) => setAverageHours(e.target.value)} placeholder="e.g. 3" className="calc-input" />
             </div>
           ) : (
             <div className="calc-day-grid" style={{ marginBottom: '22px' }}>
               {Object.keys(manualHours).map(day => (
                 <div className="calc-field" key={day} style={{ marginBottom: 0 }}>
-                  <label style={{ textTransform: 'capitalize' }}>{day}</label>
+                  <label>{c.days[day] || day}</label>
                   <input type="number" name={day} value={manualHours[day]} onChange={handleManualChange} placeholder="0" className="calc-input" />
                 </div>
               ))}
@@ -132,19 +137,19 @@ export default function DragonCoinCalculator() {
         </>
       ) : (
         <div className="calc-field">
-          <label>Desired Dragon Coins</label>
+          <label>{c.desiredCoins}</label>
           <input type="number" value={desiredCoins} onChange={(e) => setDesiredCoins(e.target.value)} placeholder="e.g. 300" className="calc-input" />
         </div>
       )}
 
-      <button className="calc-submit-btn" onClick={calcMode === 'hoursToCoins' ? calculateH2C : calculateC2H} style={{ marginTop: '22px' }}>Calculate</button>
+      <button className="calc-submit-btn" onClick={calcMode === 'hoursToCoins' ? calculateH2C : calculateC2H} style={{ marginTop: '22px' }}>{c.calculate}</button>
 
       {error && <div className="calc-error">⚠ {error}</div>}
 
       {results && (
         <div className="calc-result">
           <div className="calc-result-hero">
-            <span className="hero-label">{results.type === 'h2c' ? 'Estimated Dragon Coins' : 'Estimated Hours Needed'}</span>
+            <span className="hero-label">{results.type === 'h2c' ? c.estimatedCoins : c.estimatedHours}</span>
             <div className="hero-value">{results.type === 'h2c' ? results.estimatedCoins.toLocaleString() : results.hours}</div>
           </div>
           <p className="calc-result-note">{results.details}</p>

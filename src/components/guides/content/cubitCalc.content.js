@@ -1,0 +1,62 @@
+export const cubitCalcContent = {
+  en: {
+    tab1: "Days → Rewards",
+    tab2: "Rewards → Days",
+    patron: "Active Patron Status (3x)",
+    doubleStar: "Include Double Star Weeks",
+    numDays: "Number of Days",
+    desiredCubits: "Desired Cubits",
+    desiredDragonite: "Desired Dragonite",
+    calculate: "Calculate",
+    errValidDays: "Please enter a valid number of days.",
+    errValidAmount: "Please enter a desired amount.",
+    totalCubits: "Total Cubits",
+    totalDragonite: "Total Diamond Dragonite",
+    estimatedDays: "Estimated Days Needed"
+  },
+  fr: {
+    tab1: "Jours → Récompenses",
+    tab2: "Récompenses → Jours",
+    patron: "Statut Patron Actif (3x)",
+    doubleStar: "Inclure les semaines Double Étoile",
+    numDays: "Nombre de jours",
+    desiredCubits: "Cubits souhaités",
+    desiredDragonite: "Dragonites souhaitées",
+    calculate: "Calculer",
+    errValidDays: "Veuillez entrer un nombre de jours valide.",
+    errValidAmount: "Veuillez entrer un montant souhaité.",
+    totalCubits: "Total des Cubits",
+    totalDragonite: "Total des Dragonites Diamant",
+    estimatedDays: "Jours estimés nécessaires"
+  },
+  es: {
+    tab1: "Días → Recompensas",
+    tab2: "Recompensas → Días",
+    patron: "Estado de Patrón Activo (3x)",
+    doubleStar: "Incluir semanas de Doble Estrella",
+    numDays: "Número de días",
+    desiredCubits: "Cubitos deseados",
+    desiredDragonite: "Dragonitas deseadas",
+    calculate: "Calcular",
+    errValidDays: "Por favor, introduce un número de días válido.",
+    errValidAmount: "Por favor, introduce una cantidad deseada.",
+    totalCubits: "Total de Cubitos",
+    totalDragonite: "Total de Dragonita Diamante",
+    estimatedDays: "Días estimados necesarios"
+  },
+  zh: {
+    tab1: "天数 → 奖励",
+    tab2: "奖励 → 天数",
+    patron: "激活会员状态 (3倍)",
+    doubleStar: "包含双倍星号周",
+    numDays: "天数",
+    desiredCubits: "目标方块币",
+    desiredDragonite: "目标钻石龙神石",
+    calculate: "开始计算",
+    errValidDays: "请输入有效的天数。",
+    errValidAmount: "请输入有效的目标数量。",
+    totalCubits: "方块币总量",
+    totalDragonite: "钻石龙神石总量",
+    estimatedDays: "预计所需天数"
+  }
+};

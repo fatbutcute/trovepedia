@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useLanguage } from '../context/LanguageContext';
+import { cubitCalcContent } from '../components/guides/content/cubitCalc.content.js';
 
 export default function CubitCalculator() {
   const [mode, setMode] = useState('daysToRewards');
@@ -9,6 +11,9 @@ export default function CubitCalculator() {
   const [desiredDragonite, setDesiredDragonite] = useState('');
   const [results, setResults] = useState(null);
   const [error, setError] = useState(null);
+
+  const { langCode } = useLanguage();
+  const c = cubitCalcContent[langCode] || cubitCalcContent.en;
 
   const baseCubit = 900;
   const baseDragonite = 5;
@@ -21,7 +26,7 @@ export default function CubitCalculator() {
     if (mode === 'daysToRewards') {
       const days = parseInt(daysInput);
       if (isNaN(days) || days < 1) {
-        setError('Please enter a valid number of days.');
+        setError(c.errValidDays);
         return;
       }
 
@@ -38,7 +43,7 @@ export default function CubitCalculator() {
       const targetDrag = parseInt(desiredDragonite) || 0;
 
       if (targetCubit <= 0 && targetDrag <= 0) {
-        setError('Please enter a desired amount.');
+        setError(c.errValidAmount);
         return;
       }
 
@@ -63,42 +68,42 @@ export default function CubitCalculator() {
   return (
     <div className="react-calc-wrapper" style={{ '--calc-accent': '#00d2ff', '--calc-accent-rgb': '0,210,255' }}>
       <div className="calc-tabs">
-        <div className={`calc-tab ${mode === 'daysToRewards' ? 'active' : ''}`} onClick={() => { setMode('daysToRewards'); setResults(null); }}>Days → Rewards</div>
-        <div className={`calc-tab ${mode === 'rewardsToDays' ? 'active' : ''}`} onClick={() => { setMode('rewardsToDays'); setResults(null); }}>Rewards → Days</div>
+        <div className={`calc-tab ${mode === 'daysToRewards' ? 'active' : ''}`} onClick={() => { setMode('daysToRewards'); setResults(null); }}>{c.tab1}</div>
+        <div className={`calc-tab ${mode === 'rewardsToDays' ? 'active' : ''}`} onClick={() => { setMode('rewardsToDays'); setResults(null); }}>{c.tab2}</div>
       </div>
 
       <div className="calc-options-panel">
         <label className="calc-checkbox">
           <input type="checkbox" checked={patron} onChange={(e) => setPatron(e.target.checked)} />
-          Active Patron Status (3x)
+          {c.patron}
         </label>
         {mode === 'daysToRewards' && (
           <label className="calc-checkbox">
             <input type="checkbox" checked={doubleStarWeek} onChange={(e) => setDoubleStarWeek(e.target.checked)} />
-            Include Double Star Weeks
+            {c.doubleStar}
           </label>
         )}
       </div>
 
       {mode === 'daysToRewards' ? (
         <div className="calc-field">
-          <label>Number of Days</label>
+          <label>{c.numDays}</label>
           <input type="number" value={daysInput} onChange={(e) => setDaysInput(e.target.value)} placeholder="e.g. 30" className="calc-input" />
         </div>
       ) : (
         <div className="calc-grid-2">
           <div className="calc-field">
-            <label>Desired Cubits</label>
+            <label>{c.desiredCubits}</label>
             <input type="number" value={desiredCubit} onChange={(e) => setDesiredCubit(e.target.value)} placeholder="e.g. 25000" className="calc-input" />
           </div>
           <div className="calc-field">
-            <label>Desired Dragonite</label>
+            <label>{c.desiredDragonite}</label>
             <input type="number" value={desiredDragonite} onChange={(e) => setDesiredDragonite(e.target.value)} placeholder="e.g. 100" className="calc-input" />
           </div>
         </div>
       )}
 
-      <button className="calc-submit-btn" onClick={handleCalculate} style={{ marginTop: '22px' }}>Calculate</button>
+      <button className="calc-submit-btn" onClick={handleCalculate} style={{ marginTop: '22px' }}>{c.calculate}</button>
 
       {error && <div className="calc-error">⚠ {error}</div>}
 
@@ -107,17 +112,17 @@ export default function CubitCalculator() {
           {results.type === 'rewards' ? (
             <>
               <div className="calc-result-row">
-                <span className="label">Total Cubits</span>
+                <span className="label">{c.totalCubits}</span>
                 <span className="value">{results.cubit.toLocaleString()}</span>
               </div>
               <div className="calc-result-hero" style={{ marginTop: '14px' }}>
-                <span className="hero-label">Total Diamond Dragonite</span>
+                <span className="hero-label">{c.totalDragonite}</span>
                 <div className="hero-value">{results.dragonite.toLocaleString()}</div>
               </div>
             </>
           ) : (
             <div className="calc-result-hero">
-              <span className="hero-label">Estimated Days Needed</span>
+              <span className="hero-label">{c.estimatedDays}</span>
               <div className="hero-value">{results.daysNeeded}</div>
             </div>
           )}

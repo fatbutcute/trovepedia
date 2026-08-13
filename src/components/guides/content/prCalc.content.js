@@ -1,0 +1,62 @@
+export const prCalcContent = {
+  en: {
+    lvl30: "Level 30 (+450 PR)",
+    subclass: "Subclass (+90 PR)",
+    emblems: "Emblems (+150 PR)",
+    gemSetup: "Gem Levels Setup (tap to edit)",
+    dragonsUnlocked: "Primordial Dragons Unlocked (+10% Gem PR)",
+    calculate: "Calculate Power Rank",
+    totalPR: "Total Power Rank",
+    editGemTitle: "Edit Gem Levels",
+    none: "None",
+    save: "Save & Recalculate",
+    slots: { emp: "Empowered Gem Level:", lesser1: "Lesser Gem 1 Level:", lesser2: "Lesser Gem 2 Level:" },
+    inputs: { torch: "Torch", ring: "Ring", ally: "Ally", mastery: "Mastery", geode: "Geode", dragons: "Dragons", face: "Face", weapon: "Weapon", hat: "Hat" },
+    gemTypes: { water: "Water", air: "Air", fire: "Fire", cosmic: "Cosmic" }
+  },
+  fr: {
+    lvl30: "Niveau 30 (+450 PR)",
+    subclass: "Sous-classe (+90 PR)",
+    emblems: "Emblèmes (+150 PR)",
+    gemSetup: "Configuration du niveau des gemmes (appuyez pour modifier)",
+    dragonsUnlocked: "Dragons Primordiaux débloqués (+10% PR Gemmes)",
+    calculate: "Calculer le Rang de Puissance",
+    totalPR: "Rang de Puissance Total",
+    editGemTitle: "Modifier les niveaux de gemmes",
+    none: "Aucun",
+    save: "Sauvegarder & Recalculer",
+    slots: { emp: "Niveau Gemme Sublime :", lesser1: "Niveau Gemme Mineure 1 :", lesser2: "Niveau Gemme Mineure 2 :" },
+    inputs: { torch: "Torche", ring: "Anneau", ally: "Allié", mastery: "Maîtrise", geode: "Géode", dragons: "Dragons", face: "Visage", weapon: "Arme", hat: "Chapeau" },
+    gemTypes: { water: "Eau", air: "Air", fire: "Feu", cosmic: "Cosmique" }
+  },
+  es: {
+    lvl30: "Nivel 30 (+450 PR)",
+    subclass: "Subclase (+90 PR)",
+    emblems: "Emblemas (+150 PR)",
+    gemSetup: "Configuración de nivel de gemas (toca para editar)",
+    dragonsUnlocked: "Dragones Primordiales desbloqueados (+10% PR Gemas)",
+    calculate: "Calcular Rango de Poder",
+    totalPR: "Rango de Poder Total",
+    editGemTitle: "Editar niveles de gemas",
+    none: "Ninguno",
+    save: "Guardar y Recalcular",
+    slots: { emp: "Nivel Gema Facultada:", lesser1: "Nivel Gema Menor 1:", lesser2: "Nivel Gema Menor 2:" },
+    inputs: { torch: "Antorcha", ring: "Anillo", ally: "Aliado", mastery: "Maestría", geode: "Geoda", dragons: "Dragones", face: "Cara", weapon: "Arma", hat: "Sombrero" },
+    gemTypes: { water: "Agua", air: "Aire", fire: "Fuego", cosmic: "Cósmica" }
+  },
+  zh: {
+    lvl30: "等级 30 (+450 PR)",
+    subclass: "副职业 (+90 PR)",
+    emblems: "徽章 (+150 PR)",
+    gemSetup: "宝石等级设置 (点击进行修改)",
+    dragonsUnlocked: "解锁原初巨龙 (+10% 宝石 PR)",
+    calculate: "计算战力等级 (PR)",
+    totalPR: "总战力等级 (PR)",
+    editGemTitle: "修改宝石等级",
+    none: "无",
+    save: "保存并重新计算",
+    slots: { emp: "大宝石等级 (Empowered):", lesser1: "小宝石 1 等级 (Lesser 1):", lesser2: "小宝石 2 等级 (Lesser 2):" },
+    inputs: { torch: "火炬", ring: "戒指", ally: "盟友", mastery: "精通等级", geode: "地心等级", dragons: "龙数量", face: "脸部装备", weapon: "武器", hat: "帽子" },
+    gemTypes: { water: "水属性", air: "风属性", fire: "火属性", cosmic: "宇宙" }
+  }
+};

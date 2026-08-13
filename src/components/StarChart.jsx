@@ -1,52 +1,44 @@
 import { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import starChartData from "./star_chart.json";
 import "./StarChart.css";
+import { useLanguage } from "../context/LanguageContext";
+import { starChartContent } from "./guides/content/starChart.content.js";
 
 /* ═══════════════════════════════════════════════════════════════════
    CONSTANTS & CONSTELLATION CONFIG
    ═══════════════════════════════════════════════════════════════════ */
-const CX = 500, CY = 500; // Center coordinate
+const CX = 500, CY = 500;
 const MAX_NODES = 40;
-const VB0 = { x: -140, y: -50, w: 1180, h: 1200 }; // Alapból középen és kijebb zoomolva!
+const VB0 = { x: -140, y: -50, w: 1180, h: 1200 };
 const ASPECT = VB0.w / VB0.h;
 const MIN_W = 260, MAX_W = 1700;
 const GOLD = "#d8ab45";
 
-// Colors for constellations
 const COL = {
   Combat: '#d45060',
   Gathering: '#4caf7d',
   Pve: '#9b76d0',
 };
 
-const CONST_LABEL = {
-  Combat: 'Constellation of Combat',
-  Gathering: 'Constellation of Gathering',
-  Pve: 'Constellation of Cubesly',
-};
-
 const RECOMMENDED_BUILDS = [
   {
-    label: "Physical Damage / Light",
-    code: "SC:WyJjb21iYXQuYSIsImNvbWJhdC5hLjEiLCJjb21iYXQuYS4xLmEiLCJjb21iYXQuYS4xLmEuMCIsImNvbWJhdC5hLjEuYS4wLmIiLCJjb21iYXQuYS4xLmEuMC5iLjEiLCJjb21iYXQuYS4xLmEuMC5iLjEuYiIsImdhdGhlcmluZy5iIiwiZ2F0aGVyaW5nLmIuMCIsImdhdGhlcmluZy5iLjAuYiIsImdhdGhlcmluZy5iLjAuYi4wIiwiZ2F0aGVyaW5nLmIuMC5iLjAuYSIsImdhdGhlcmluZy5iLjAuYi4wLmIiLCJnYXRoZXJpbmcuYi4wLmIuMC5iLjAiLCJnYXRoZXJpbmcuYi4wLmIuMC5iLjAuYiIsImdhdGhlcmluZy5iLjAuYi4wLmIuMC5iLjAiLCJnYXRoZXJpbmcuYi4wLmIuMC5iLjAuYi4wLmEiLCJnYXRoZXJpbmcuYi4wLmIuMC5iLjAuYi4wLmIiLCJnYXRoZXJpbmcuYi4wLmIuMC5jIiwicHZlLmEiLCJwdmUuYS4wIiwicHZlLmEuMC5iIiwicHZlLmEuMC5iLjAiLCJwdmUuYiIsInB2ZS5iLjAiLCJwdmUuYi4wLmEiLCJwdmUuYi4wLmEuMCIsInB2ZS5iLjAuYS4wLmEiLCJwdmUuYi4wLmEuMC5hLjAiLCJwdmUuYi4wLmEuMSIsInB2ZS5iLjAuYS4xLmEiLCJwdmUuYi4wLmEuMS5hLjAiLCJwdmUuYi4wLmEuMS5hLjEiLCJwdmUuYi4wLmIiLCJwdmUuYi4wLmIuMCIsInB2ZS5iLjAuYi4wLmEiLCJwdmUuYi4wLmIuMC5hLjAiLCJwdmUuYi4wLmIuMSIsInB2ZS5iLjAuYi4xLmEiLCJwdmUuYi4wLmIuMS5hLjEiXQ=="
+    buildKey: "physLight",
+    code: "SC:WyJjb21iYXQuYSIsImNvbWJhdC5hLjEiLCJjb21iYXQuYS4xLmEiLCJjb21iYXQuYS4xLmEuMCIsImNvbWJhdC5hLjEuYS4wLmIiLCJjb21iYXQuYS4xLmEuMC5iLjEiLCJjb21iYXQuYS4xLmEuMC5iLjEuYiIsImdhdGhlcmluZy5iIiwiZ2F0aGVyaW5nLmIuMCIsImdhdGhlcmluZy5iLjAuYiIsImdhdGhlcmluZy5iLjAuYi4wIiwiZ2F0aGVyaW5nLmIuMC5iLjAuYSIsImdhdGhlcmluZy5iLjAuYi4wLmIiLCJnYXRoZXJpbmcuYi4wLmIuMC5iLjAiLCJnYXRoZXJpbmcuYi4wLmIuMC5iLjAuYiIsImdhdGhlcmluZy5iLjAuYi4wLmIuMC5iLjAiLCJnYXRoZXJpbmcuYi4wLmIuMC5iLjAuYi4wLmEiLCJnYXRoZXJpbmcuYi4wLmIuMC5iLjAuYi4wLmIiLCJnYXRoZXJpbmcuYi4wLmIuMC5jIiwicHZlLmEiLCJwdmUuYS4wIiwicHZlLmEuMC5iIiwicHZlLmEuMC5iLjAiLCJwdmUuYiIsInB2ZS5iLjAuYSIsInB2ZS5iLjAuYS4wIiwicHZlLmIuMC5hLjAuYSIsInB2ZS5iLjAuYS4wLmEuMCIsInB2ZS5iLjAuYS4wLmEuMC5hLjAiLCJwdmUuYi4wLmEuMSIsInB2ZS5iLjAuYS4xLmEiLCJwdmUuYi4wLmEuMS5hLjAiLCJwdmUuYi4wLmEuMS5hLjEiLCJwdmUuYi4wLmIiLCJwdmUuYi4wLmIuMCIsInB2ZS5iLjAuYi4wLmEiLCJwdmUuYi4wLmIuMC5hLjAiLCJwdmUuYi4wLmIuMSIsInB2ZS5iLjAuYi4xLmEiLCJwdmUuYi4wLmIuMS5hLjEiXQ=="
   },
   {
-    label: "Magic Damage / Light",
-    code: "SC:WyJjb21iYXQuYiIsImNvbWJhdC5iLjAiLCJjb21iYXQuYi4wLmEiLCJjb21iYXQuYi4wLmEuMSIsImNvbWJhdC5iLjAuYS4xLmIiLCJjb21iYXQuYi4wLmEuMS5iLjEiLCJjb21iYXQuYi4wLmEuMS5iLjEuYiIsImNvbWJhdC5iLjAuYS4xLmIuMS5iLjEiLCJnYXRoZXJpbmcuYiIsImdhdGhlcmluZy5iLjAiLCJnYXRoZXJpbmcuYi4wLmIiLCJnYXRoZXJpbmcuYi4wLmIuMCIsImdhdGhlcmluZy5iLjAuYi4wLmEiLCJnYXRoZXJpbmcuYi4wLmIuMC5iIiwiZ2F0aGVyaW5nLmIuMC5iLjAuYi4wIiwiZ2F0aGVyaW5nLmIuMC5iLjAuYi4wLmIiLCJnYXRoZXJpbmcuYi4wLmIuMC5iLjAuYi4wIiwiZ2F0aGVyaW5nLmIuMC5iLjAuYi4wLmIuMC5hIiwicHZlLmEiLCJwdmUuYS4wIiwicHZlLmEuMC5hIiwicHZlLmEuMC5iIiwicHZlLmEuMC5iLjAiLCJwdmUuYiIsInB2ZS5iLjAiLCJwdmUuYi4wLmEiLCJwdmUuYi4wLmEuMCIsInB2ZS5iLjAuYS4wLmEiLCJwdmUuYi4wLmEuMC5hLjAiLCJwdmUuYi4wLmEuMSIsInB2ZS5iLjAuYS4xLmEiLCJwdmUuYi4wLmEuMS5hLjAiLCJwdmUuYi4wLmEuMS5hLjEiLCJwdmUuYi4wLmIiLCJwdmUuYi4wLmIuMCIsInB2ZS5iLjAuYi4wLmEiLCJwdmUuYi4wLmIuMC5hLjAiLCJwdmUuYi4wLmIuMSIsInB2ZS5iLjAuYi4xLmEiLCJwdmUuYi4wLmIuMS5hLjEiXQ=="
+    buildKey: "magicLight",
+    code: "SC:WyJjb21iYXQuYiIsImNvbWJhdC5iLjAiLCJjb21iYXQuYi4wLmEiLCJjb21iYXQuYi4wLmEuMSIsImNvbWJhdC5iLjAuYS4xLmIiLCJjb21iYXQuYi4wLmEuMS5iLjEiLCJjb21iYXQuYi4wLmEuMS5iLjEuYiIsImNvbWJhdC5iLjAuYS4xLmIuMS5iLjEiLCJnYXRoZXJpbmcuYiIsImdhdGhlcmluZy5iLjAiLCJnYXRoZXJpbmcuYi4wIiwiaCIsImdhdGhlcmluZy5iLjAuYi4wLmEiLCJnYXRoZXJpbmcuYi4wLmIuMC5iIiwiZ2F0aGVyaW5nLmIuMC5iLjAuYi4wIiwiZ2F0aGVyaW5nLmIuMC5iLjAuYi4wLmIiLCJnYXRoZXJpbmcuYi4wLmIuMC5iLjAuYi4wIiwiZ2F0aGVyaW5nLmIuMC5iLjAuYi4wLmIuMC5hIiwicHZlLmEiLCJwdmUuYS4wIiwicHZlLmEuMC5hIiwicHZlLmEuMC5iIiwicHZlLmEuMC5iLjAiLCJwdmUuYiIsInB2ZS5iLjAuYSIsInB2ZS5iLjAuYS4wIiwicHZlLmIuMC5hLjAuYSIsInB2ZS5iLjAuYS4wLmEuMCIsInB2ZS5iLjAuYS4wLmEuMC5hLjAiLCJwdmUuYi4wLmEuMSIsInB2ZS5iLjAuYS4xLmEiLCJwdmUuYi4wLmEuMS5hLjAiLCJwdmUuYi4wLmEuMS5hLjEiLCJwdmUuYi4wLmIiLCJwdmUuYi4wLmIuMCIsInB2ZS5iLjAuYi4wLmEiLCJwdmUuYi4wLmIuMC5hLjAiLCJwdmUuYi4wLmIuMSIsInB2ZS5iLjAuYi4xLmEiLCJwdmUuYi4wLmIuMS5hLjEiXQ=="
   },
   {
-    label: "Magic Damage / Movement Speed / Light",
+    buildKey: "magicSpeedLight",
     code: "SC:WyJjb21iYXQuYiIsImNvbWJhdC5iLjAiLCJjb21iYXQuYi4wLmEiLCJjb21iYXQuYi4wLmEuMSIsImNvbWJhdC5iLjAuYS4xLmIiLCJjb21iYXQuYi4wLmEuMS5iLjAiLCJjb21iYXQuYi4wLmEuMS5iLjAuYSIsImNvbWJhdC5iLjAuYS4xLmIuMSIsImNvbWJhdC5iLjAuYS4xLmIuMS5iIiwiY29tYmF0LmIuMC5hLjEuYi4xLmIuMSIsImdhdGhlcmluZy5iIiwiZ2F0aGVyaW5nLmIuMCIsImdhdGhlcmluZy5iLjAuYiIsImdhdGhlcmluZy5iLjAuYi4wIiwiZ2F0aGVyaW5nLmIuMC5iLjAuYSIsImdhdGhlcmluZy5iLjAuYi4wLmIiLCJnYXRoZXJpbmcuYi4wLmIuMC5iLjAiLCJnYXRoZXJpbmcuYi4wLmIuMC5iLjAuYiIsImdhdGhlcmluZy5iLjAuYi4wLmIuMC5iLjAiLCJnYXRoZXJpbmcuYi4wLmIuMC5iLjAuYi4wLmEiLCJwdmUuYSIsInB2ZS5hLjAiLCJwdmUuYS4wLmEiLCJwdmUuYS4wLmEuMSIsInB2ZS5hLjAuYS4xLmEiLCJwdmUuYS4wLmEuMS5hLjAiLCJwdmUuYS4wLmEuMS5hLjAuYSIsInB2ZS5iIiwicHZlLmIuMCIsInB2ZS5iLjAuYSIsInB2ZS5iLjAuYS4xIiwicHZlLmIuMC5hLjEuYSIsInB2ZS5iLjAuYS4xLmEuMSIsInB2ZS5iLjAuYiIsInB2ZS5iLjAuYi4wIiwicHZlLmIuMC5iLjAuYSIsInB2ZS5iLjAuYi4wLmEuMCIsInB2ZS5iLjAuYi4xIiwicHZlLmIuMC5iLjEuYSIsInB2ZS5iLjAuYi4xLmEuMSJd"
   },
   {
-    label: "Physical Damage / Movement Speed / Light",
+    buildKey: "physSpeedLight",
     code: "SC:WyJjb21iYXQuYSIsImNvbWJhdC5hLjEiLCJjb21iYXQuYS4xLmEiLCJjb21iYXQuYS4xLmEuMCIsImNvbWJhdC5hLjEuYS4wLmIiLCJjb21iYXQuYS4xLmEuMC5iLjEiLCJjb21iYXQuYS4xLmEuMC5iLjEuYiIsImNvbWJhdC5iIiwiY29tYmF0LmIuMCIsImNvbWJhdC5iLjAuYSIsImNvbWJhdC5iLjAuYS4xIiwiY29tYmF0LmIuMC5hLjEuYiIsImNvbWJhdC5iLjAuYS4xLmIuMCIsImNvbWJhdC5iLjAuYS4xLmIuMC5hIiwicHZlLmEiLCJwdmUuYS4wIiwicHZlLmEuMC5hIiwicHZlLmEuMC5hLjEiLCJwdmUuYS4wLmEuMS5hIiwicHZlLmEuMC5hLjEuYS4wIiwicHZlLmEuMC5hLjEuYS4wLmEiLCJwdmUuYS4wLmIiLCJwdmUuYS4wLmIuMCIsInB2ZS5iIiwicHZlLmIuMCIsInB2ZS5iLjAuYSIsInB2ZS5iLjAuYS4wIiwicHZlLmIuMC5hLjAuYSIsInB2ZS5iLjAuYS4wLmEuMCIsInB2ZS5iLjAuYS4xIiwicHZlLmIuMC5hLjEuYSIsInB2ZS5iLjAuYS4xLmEuMCIsInB2ZS5iLjAuYS4xLmEuMSIsInB2ZS5iLjAuYiIsInB2ZS5iLjAuYi4wIiwicHZlLmIuMC5iLjAuYSIsInB2ZS5iLjAuYi4wLmEuMCIsInB2ZS5iLjAuYi4xIiwicHZlLmIuMC5iLjEuYSIsInB2ZS5iLjAuYi4xLmEuMSJd"
   }
 ];
 
-/* ═══════════════════════════════════════════════════════════════════
-   LAYOUT ALGORITHM — THE EXACT TROVE MATH
-   ═══════════════════════════════════════════════════════════════════ */
 function rotatePt([ox, oy], [px, py], a) {
   return [
     ox + Math.cos(a) * (px - ox) - Math.sin(a) * (py - oy),
@@ -82,46 +74,33 @@ function tweakBranch(by, parentPath, targetPath, angleDeg) {
   rotNode(target);
 }
 
-// Compute layout once at module level — immutable after this point
 const CHART = (() => {
   const raw = JSON.parse(JSON.stringify(starChartData));
   const nm = {}, nl = [], el = [], re = [];
-  const backs = [0, -2, -4]; // Offsets for specific branches
+  const backs = [0, -2, -4];
 
   ['Combat', 'Gathering', 'Pve'].forEach((k, i) => {
     if (!raw[k]) return;
     const root = raw[k];
-    const br = 120 * i * Math.PI / 180; // 120 degrees apart
-    const pos = [500, 425]; // Distance from center
+    const br = 120 * i * Math.PI / 180;
+    const pos = [500, 425];
 
-    // Beállítjuk a root node-ok alapértelmezett értékeit a Tooltip számára
     root.Constellation = k;
     root.ck = k;
     root.Type = "Root";
-    if (k === 'Gathering') {
-      root.Name = "Constellation of Gathering";
-      root.Description = "Increased gains in harvesting and experience.";
-    } else if (k === 'Combat') {
-      root.Name = "Constellation of Combat";
-      root.Description = "Physical & Magical damage, critical hit improvements.";
-    } else if (k === 'Pve') {
-      root.Name = "Constellation of Cubesly";
-      root.Description = "Improved flasks and dungeon/delve power.";
-    }
 
     root.Coords = rotatePt([CX, CY], pos, br);
     buildBranch(backs[i], pos, 55, root.Stars || []);
     rotBranch(root, [CX, CY], br);
-  }); // Helyretett lezárás!
+  });
 
-  // Flatting the tree and creating the node maps
   function walk(n, par) {
-    n.Path = n.Path || n.id; // Fallback to id if Path is missing
+    n.Path = n.Path || n.id;
     nm[n.Path] = n;
     n._cx = n.Coords[0];
     n._cy = n.Coords[1];
     n.parentPath = par;
-    n.ck = n.Constellation || n.ck; // Normalize constellation key
+    n.ck = n.Constellation || n.ck;
 
     nl.push(n);
 
@@ -133,7 +112,6 @@ const CHART = (() => {
         x2: n._cx, y2: n._cy,
       });
     } else {
-      // Draw line from absolute center to root node
       re.push({ id: "re-" + n.Path, x1: CX, y1: CY, x2: n._cx, y2: n._cy });
     }
 
@@ -142,7 +120,6 @@ const CHART = (() => {
 
   ['Combat', 'Gathering', 'Pve'].forEach(k => raw[k] && walk(raw[k], null));
 
-  // The Manual Tweaks for exact pixel perfection
   tweakBranch(nm, 'pve.b.0.b', 'pve.b.0.b.0', 15);
   tweakBranch(nm, 'gathering.b.0', 'gathering.b.0.a', 15);
   tweakBranch(nm, 'gathering.b.0', 'gathering.b.0.b', 10);
@@ -152,7 +129,6 @@ const CHART = (() => {
   tweakBranch(nm, 'combat.b', 'combat.b.0', 15);
   tweakBranch(nm, 'combat.b', 'combat.b.1', 35);
 
-  // Recalculate physical positions for edges after tweaking
   el.forEach(edge => {
     edge.x2 = nm[edge.pathId]._cx = nm[edge.pathId].Coords[0];
     edge.y2 = nm[edge.pathId]._cy = nm[edge.pathId].Coords[1];
@@ -162,7 +138,6 @@ const CHART = (() => {
     }
   });
 
-  // Recalculate root edges
   re.forEach(edge => {
     const rootPath = edge.id.replace('re-', '');
     if(nm[rootPath]) {
@@ -174,9 +149,6 @@ const CHART = (() => {
   return { nm, nl, el, re };
 })();
 
-/* ═══════════════════════════════════════════════════════════════════
-   COLOR UTILITIES
-   ═══════════════════════════════════════════════════════════════════ */
 function mix(a, b, w = 0.5) {
   const c1 = parseInt(a.slice(1), 16), c2 = parseInt(b.slice(1), 16) || 0xffffff;
   const r = Math.round(((c1 >> 16) * (1 - w)) + ((c2 >> 16) * w));
@@ -185,12 +157,6 @@ function mix(a, b, w = 0.5) {
   return `rgb(${r},${g},${bl})`;
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   PARTICLE BACKGROUND HOOK
-   ═══════════════════════════════════════════════════════════════════ */
-/* ═══════════════════════════════════════════════════════════════════
-   KOZMIKUS WARP DRIVE HOOK — JAVÍTOTT, GYORSAN ELTŰNŐ CSÍKOKKAL
-   ═══════════════════════════════════════════════════════════════════ */
 function useParticles(ref) {
   useEffect(() => {
     const cv = ref.current; if (!cv) return;
@@ -202,11 +168,10 @@ function useParticles(ref) {
 
     function Star() {
       this.reset = () => {
-        // Véletlenszerű elhelyezkedés a középponthoz képest
         this.x = (Math.random() - 0.5) * W;
         this.y = (Math.random() - 0.5) * H;
-        this.z = W; // Kezdő távolság (mélység)
-        this.color = Math.random() > 0.5 ? "#00aeff" : "#9b76d0"; // Trove-kék vagy kozmikus lila
+        this.z = W;
+        this.color = Math.random() > 0.5 ? "#00aeff" : "#9b76d0";
       };
       this.reset();
     }
@@ -245,6 +210,25 @@ function useParticles(ref) {
     draw();
     return () => { cancelAnimationFrame(raf); window.removeEventListener("resize", resize); };
   }, []);
+}
+
+// 🛡️ BIZTONSÁGOS TRANSLATE NÉZET: Mindig garantálja, hogy csak tiszta tömb/string típus kerül ki
+function translateNode(node, c) {
+  if (!node) return node;
+
+  const getString = (val, dict) => {
+    if (typeof val !== 'string') return '';
+    const translated = dict?.[val];
+    return typeof translated === 'string' ? translated : val;
+  };
+
+  return {
+    ...node,
+    Name: getString(node.Name, c.nodeNames),
+    Description: getString(node.Description, c.descriptions),
+    Abilities: Array.isArray(node.Abilities) ? node.Abilities.map(a => getString(a, c.abilitiesMap)) : [],
+    Obtainables: Array.isArray(node.Obtainables) ? node.Obtainables.map(o => getString(o, c.obtainablesMap)) : []
+  };
 }
 
 function SvgDefs() {
@@ -337,73 +321,75 @@ function MajorNode({ node, sel, ow, muted, onNodeClick, onEnter, onLeave }) {
   );
 }
 
-function Tooltip({ node, x, y }) {
+function Tooltip({ node, x, y, c }) {
+  const translatedNode = translateNode(node, c);
   const color = COL[node.Constellation] || '#888';
+  const constellationLabel = c[`constellation${node.Constellation}`] || node.Constellation;
+
   return (
     <div className="sc-tooltip" style={{ left: x, top: y }} id="sc-tooltip">
       <div className="sc-tt-head" style={{ borderLeftColor: color }}>
-        <span className="sc-tt-type" style={{ color: color }}>{node.Type} · {CONST_LABEL[node.Constellation]}</span>
-        <span className="sc-tt-name">{node.Name}</span>
+        <span className="sc-tt-type" style={{ color: color }}>{translatedNode.Type} · {constellationLabel}</span>
+        <span className="sc-tt-name">{translatedNode.Name}</span>
       </div>
-      {node.Description && <p className="sc-tt-desc">{node.Description}</p>}
-      {node.Stats?.length > 0 && (
+      {translatedNode.Description && <p className="sc-tt-desc">{translatedNode.Description}</p>}
+      {translatedNode.Stats?.length > 0 && (
         <div className="sc-tt-block">
-          <div className="sc-tt-label">Stats</div>
-          {node.Stats.map((s, i) => (
-            <div key={i} className="sc-tt-stat"><span>{s.name}</span><span style={{ color: color }}>+{s.value}{s.percentage ? "%" : ""}</span></div>
+          <div className="sc-tt-label">{c.stats}</div>
+          {translatedNode.Stats.map((s, i) => (
+            <div key={i} className="sc-tt-stat">
+              <span>{c.statNames?.[s.name] || s.name}</span>
+              <span style={{ color: color }}>+{s.value}{s.percentage ? "%" : ""}</span>
+            </div>
           ))}
         </div>
       )}
-      {node.Abilities?.length > 0 && (
+      {translatedNode.Abilities?.length > 0 && (
         <div className="sc-tt-block">
-          <div className="sc-tt-label">Abilities</div>
-          {node.Abilities.map((a, i) => <p key={i} className="sc-tt-ability">{a}</p>)}
+          <div className="sc-tt-label">{c.abilities}</div>
+          {translatedNode.Abilities.map((a, i) => <p key={i} className="sc-tt-ability">{a}</p>)}
         </div>
       )}
-      {node.Obtainables?.length > 0 && (
+      {translatedNode.Obtainables?.length > 0 && (
         <div className="sc-tt-block">
-          <div className="sc-tt-label">Obtainables</div>
-          {node.Obtainables.map((o, i) => <p key={i} className="sc-tt-obtainable" style={{ color: GOLD }}>✦ {o}</p>)}
+          <div className="sc-tt-label">{c.obtainables}</div>
+          {translatedNode.Obtainables.map((o, i) => <p key={i} className="sc-tt-obtainable" style={{ color: GOLD }}>✦ {o}</p>)}
         </div>
       )}
-      {node.Overwrites?.length > 0 && (
-        <div className="sc-tt-upgrades">↑ Upgrades: {node.Overwrites.map(p => CHART.nm[p]?.Name || p).join(", ")}</div>
+      {translatedNode.Overwrites?.length > 0 && (
+        <div className="sc-tt-upgrades">↑ {c.upgrades} {translatedNode.Overwrites.map(p => c.nodeNames?.[CHART.nm[p]?.Name] || CHART.nm[p]?.Name || p).join(", ")}</div>
       )}
     </div>
   );
 }
 
-function DescPanel({ open, onToggle }) {
+function DescPanel({ open, onToggle, c }) {
   return (
     <div className={`sc-desc ${open ? "sc-desc--open" : ""}`}>
       <button className="sc-desc-toggle" onClick={onToggle} aria-expanded={open}>
-        <span className="sc-desc-title">✦ &nbsp;Celestial Star Chart Simulator</span>
+        <span className="sc-desc-title">{c.titleDesc}</span>
       </button>
       {open && (
         <div className="sc-desc-body">
-          <p className="sc-desc-intro">
-            Three constellations of stars await. <strong>Click any node</strong> to select it - ancestors are selected automatically.
-            <strong> Double-click a root diamond</strong> to select its entire constellation.
-            You may unlock <strong style={{ color: GOLD }}>up to {MAX_NODES} nodes</strong> per build.
-          </p>
+          <p className="sc-desc-intro">{c.introText}</p>
         </div>
       )}
     </div>
   );
 }
 
-function SummaryPanel({ count, stats, abilities, obtainables, onClear, sections, onToggleSection, sel, onLoadCode }) {
+function SummaryPanel({ count, stats, abilities, obtainables, onClear, sections, onToggleSection, sel, onLoadCode, c }) {
   const pct = Math.round((count / MAX_NODES) * 100);
   const full = count >= MAX_NODES;
-  const [copyText, setCopyText] = useState("Copy Build Code");
+  const [copyText, setCopyText] = useState(c.copyBuildCode);
   const [codeIn, setCodeIn] = useState("");
 
   const handleCopy = () => {
     if (sel.size === 0) return;
     const code = 'SC:' + btoa(unescape(encodeURIComponent(JSON.stringify([...sel].sort()))));
     navigator.clipboard.writeText(code).catch(() => {});
-    setCopyText("✓ Copied");
-    setTimeout(() => setCopyText("Copy Build Code"), 1600);
+    setCopyText(c.copied);
+    setTimeout(() => setCopyText(c.copyBuildCode), 1600);
   };
 
   const handleLoad = () => {
@@ -415,8 +401,8 @@ function SummaryPanel({ count, stats, abilities, obtainables, onClear, sections,
   return (
     <aside className="sc-summary">
       <div className="sc-sum-header">
-        <span className="sc-sum-title">Build Summary</span>
-        <button className="sc-clear-btn" onClick={onClear} disabled={count === 0}>Clear All</button>
+        <span className="sc-sum-title">{c.buildSummary}</span>
+        <button className="sc-clear-btn" onClick={onClear} disabled={count === 0}>{c.clearAll}</button>
       </div>
 
       <div className="sc-code-box">
@@ -424,28 +410,43 @@ function SummaryPanel({ count, stats, abilities, obtainables, onClear, sections,
           <input 
             type="text" 
             className="sc-code-input" 
-            placeholder="Paste build code here..." 
+            placeholder={c.pastePlaceholder} 
             value={codeIn}
             onChange={(e) => setCodeIn(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleLoad()}
           />
-          <button className="sc-code-btn" onClick={handleLoad}>Load</button>
+          <button className="sc-code-btn" onClick={handleLoad}>{c.load}</button>
         </div>
         <button className="sc-code-copy-btn" onClick={handleCopy} disabled={count === 0}>{copyText}</button>
       </div>
 
       <div className="sc-counter">
-        <div className="sc-counter-label"><span>{count} <span style={{ opacity: 0.55 }}>/ {MAX_NODES}</span> Nodes</span>{full && <span className="sc-counter-full">Full</span>}</div>
+        <div className="sc-counter-label"><span>{count} <span style={{ opacity: 0.55 }}>/ {MAX_NODES}</span> {c.nodes}</span>{full && <span className="sc-counter-full">{c.full}</span>}</div>
         <div className="sc-counter-track"><div className="sc-counter-fill" style={{ width: `${pct}%`, background: full ? "#E64A19" : GOLD }} /></div>
       </div>
-      <SumSection icon="◈" label="Stats" id="stats" open={sections.stats} onToggle={() => onToggleSection("stats")}>
-        {stats.length === 0 ? <p className="sc-empty">No stats selected.</p> : stats.sort((a,b)=>b.value-a.value).map((s, i) => <div key={i} className="sc-stat-row"><span>{s.name}</span><span className="sc-stat-val">+{s.value}{s.percentage ? "%" : ""}</span></div>)}
+
+      <SumSection icon="◈" label={c.stats} id="stats" open={sections.stats} onToggle={() => onToggleSection("stats")}>
+        {stats.length === 0 ? <p className="sc-empty">{c.noStats}</p> : stats.sort((a,b)=>b.value-a.value).map((s, i) => (
+          <div key={i} className="sc-stat-row">
+            <span>{c.statNames?.[s.name] || s.name}</span>
+            <span className="sc-stat-val">+{s.value}{s.percentage ? "%" : ""}</span>
+          </div>
+        ))}
       </SumSection>
-      <SumSection icon="⚡" label="Abilities" id="abilities" open={sections.abilities} onToggle={() => onToggleSection("abilities")}>
-        {abilities.length === 0 ? <p className="sc-empty">No abilities selected.</p> : abilities.map((a, i) => <p key={i} className="sc-ability-item">{a}</p>)}
+
+      <SumSection icon="⚡" label={c.abilities} id="abilities" open={sections.abilities} onToggle={() => onToggleSection("abilities")}>
+        {abilities.length === 0 ? <p className="sc-empty">{c.noAbilities}</p> : abilities.map((a, i) => (
+          <p key={i} className="sc-ability-item">{typeof c.abilitiesMap?.[a] === 'string' ? c.abilitiesMap[a] : a}</p>
+        ))}
       </SumSection>
-      <SumSection icon="✦" label="Obtainables" id="obtainables" open={sections.obtainables} onToggle={() => onToggleSection("obtainables")}>
-        {obtainables.length === 0 ? <p className="sc-empty">No obtainables selected.</p> : obtainables.map((o, i) => <div key={i} className="sc-ob-row"><span className="sc-ob-icon" style={{ color: GOLD }}>✦</span><span>{o.name}{o.count > 1 ? ` ×${o.count}` : ""}</span></div>)}
+
+      <SumSection icon="✦" label={c.obtainables} id="obtainables" open={sections.obtainables} onToggle={() => onToggleSection("obtainables")}>
+        {obtainables.length === 0 ? <p className="sc-empty">{c.noObtainables}</p> : obtainables.map((o, i) => (
+          <div key={i} className="sc-ob-row">
+            <span className="sc-ob-icon" style={{ color: GOLD }}>✦</span>
+            <span>{typeof c.obtainablesMap?.[o.name] === 'string' ? c.obtainablesMap[o.name] : o.name}{o.count > 1 ? ` ×${o.count}` : ""}</span>
+          </div>
+        ))}
       </SumSection>
     </aside>
   );
@@ -454,7 +455,10 @@ function SummaryPanel({ count, stats, abilities, obtainables, onClear, sections,
 function SumSection({ icon, label, open, onToggle, children }) {
   return (
     <div className="sc-sec">
-      <button className="sc-sec-toggle" onClick={onToggle}><span>{icon} &nbsp;{label}</span><span className="sc-sec-arrow">{open ? "▲" : "▼"}</span></button>
+      <button className="sc-sec-toggle" onClick={onToggle}>
+        <span>{icon} &nbsp;{typeof label === 'string' ? label : ''}</span>
+        <span className="sc-sec-arrow">{open ? "▲" : "▼"}</span>
+      </button>
       {open && <div className="sc-sec-body">{children}</div>}
     </div>
   );
@@ -468,6 +472,9 @@ export default function StarChart() {
   const [tt, setTt] = useState({ show: false, node: null, x: 0, y: 0 });
   const [descOpen, setDescOpen] = useState(true);
   const [sections, setSections] = useState({ stats: true, abilities: true, obtainables: true });
+
+  const { langCode } = useLanguage();
+  const c = starChartContent[langCode] || starChartContent.en;
 
   useEffect(() => { vbRef.current = vb; }, [vb]);
 
@@ -565,17 +572,17 @@ export default function StarChart() {
     <div className="sc-page">
       <canvas ref={canvasRef} className="sc-canvas" />
       <div className="sc-content">
-        <DescPanel open={descOpen} onToggle={() => setDescOpen(v => !v)} />
+        <DescPanel open={descOpen} onToggle={() => setDescOpen(v => !v)} c={c} />
         <div className="sc-main">
           <div className="sc-chart-wrap">
             
             <a href="https://github.com/AallynReed/BetterTroveTools" target="_blank" rel="noopener noreferrer" className="sc-credits-link">
-              Credits: BetterTroveTools · AallynReed
+              {c.credits}
             </a>
 
             <div className="sc-recommended-dropdown">
               <button className="sc-dropdown-trigger">
-                <i className="ri-sparkling-2-line"></i> Recommended Builds ▾
+                <i className="ri-sparkling-2-line"></i> {c.recommendedBuilds}
               </button>
               <div className="sc-dropdown-menu">
                 {RECOMMENDED_BUILDS.map((build, index) => (
@@ -584,7 +591,7 @@ export default function StarChart() {
                     className="sc-dropdown-item"
                     onClick={() => loadCode(build.code)}
                   >
-                    {build.label}
+                    {c.builds[build.buildKey] || build.buildKey}
                   </button>
                 ))}
               </div>
@@ -593,15 +600,15 @@ export default function StarChart() {
             <div className="sc-lore-container">
               <div className="sc-lore-item">
                 <i className="ri-key-2-line" style={{ color: GOLD }}></i>
-                <div className="sc-lore-tt"><strong>Constellation Key</strong> Unlocks or resets branches. First 3: 250 Flux at The Celestial. Additional: 130 Credits / 1300 Cubits.</div>
+                <div className="sc-lore-tt"><strong>{c.loreKeyTitle}</strong> {c.loreKeyDesc}</div>
               </div>
               <div className="sc-lore-item">
                 <i className="ri-bubble-chart-line" style={{ color: GOLD }}></i>
-                <div className="sc-lore-tt"><strong>Celestial Sphere</strong> Unlocks one specific node. Only 40 Spheres available for 120 slots - plan carefully.</div>
+                <div className="sc-lore-tt"><strong>{c.loreSphereTitle}</strong> {c.loreSphereDesc}</div>
               </div>
               <div className="sc-lore-item">
                 <i className="ri-copper-diamond-line" style={{ color: GOLD }}></i>
-                <div className="sc-lore-tt"><strong>Astral Echoes</strong> Currency for Spheres. Earned in dungeons/delves (20-50/run), weekly Almanac tome (5000/week), Turtle Shells ×4/week, Despoiled Divinity vendor ×5/day.</div>
+                <div className="sc-lore-tt"><strong>{c.loreEchoesTitle}</strong> {c.loreEchoesDesc}</div>
               </div>
             </div>
 
@@ -614,11 +621,11 @@ export default function StarChart() {
               {CHART.nl.map(node => {
                 if (node.Type === "Root") return <RootNode key={node.Path} node={node} onRootClick={handleRootClick} onEnter={e => showTt(e, node)} onLeave={hideTt} />;
                 const isSel = sel.has(node.Path), isOw = ow.has(node.Path), isMuted = !isSel && !isOw;
-                const shared = { sel: isSel, ow: isOw, muted: isMuted, onNodeClick: handleNodeClick, onEnter: e => showTt(e, node), onLeave: hideTt };
-                return node.Type === "Major" ? <MajorNode key={node.Path} node={node} {...shared} /> : <MinorNode key={node.Path} node={node} {...shared} />;
+                const shared = { sel: isSel, ow: isOw, muted: isMuted, onNodeClick: handleNodeClick, onEnter: e => showTt(e, node) };
+                return node.Type === "Major" ? <MajorNode key={node.Path} node={node} {...shared} onLeave={hideTt} /> : <MinorNode key={node.Path} node={node} {...shared} onLeave={hideTt} />;
               })}
             </svg>
-            {tt.show && tt.node && <Tooltip node={tt.node} x={tt.x} y={tt.y} />}
+            {tt.show && tt.node && <Tooltip node={tt.node} x={tt.x} y={tt.y} c={c} />}
             <div className="sc-zoom">
               <button onClick={() => zoomBy(0.78)} title="Zoom in">+</button>
               <button onClick={() => zoomBy(1 / 0.78)} title="Zoom out">−</button>
@@ -635,6 +642,7 @@ export default function StarChart() {
             onToggleSection={k => setSections(prev => ({ ...prev, [k]: !prev[k] }))}
             sel={sel}
             onLoadCode={loadCode}
+            c={c}
           />
         </div>
       </div>

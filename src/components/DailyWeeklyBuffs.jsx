@@ -1,51 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import './DailyWeeklyBuffs.css';
+import { useLanguage } from '../context/LanguageContext';
+import { dailyWeeklyContent } from './guides/content/dailyWeeklyBuffs.content.js';
 
-// ─── BÓNUSZ ADATBÁZISOK (A SCRIPTED ALAPJÁN) ───
 const dailyColors = {
-  1: "#a855f7", // Hétfő - Lila (Delve)
-  2: "#00e5ff", // Kedd - Cián (Gathering)
-  3: "#f43f5e", // Szerda - Pink (Gem)
-  4: "#facc15", // Csütörtök - Sárga (Adventure)
-  5: "#ef4444", // Péntek - Piros (Dragon)
-  6: "#4ade80", // Szombat - Zöld (XP)
-  0: "#f97316"  // Vasárnap - Narancs (Loot)
+  1: "#a855f7", // Hétfő - Lila
+  2: "#00e5ff", // Kedd - Cián
+  3: "#f43f5e", // Szerda - Pink
+  4: "#facc15", // Csütörtök - Sárga
+  5: "#ef4444", // Péntek - Piros
+  6: "#4ade80", // Szombat - Zöld
+  0: "#f97316"  // Vasárnap - Narancs
 };
 
-const dailyBonuses = {
-  1: "Delve Day", 2: "Gathering Day", 3: "Gem Day", 4: "Adventure Day", 5: "Dragon Day", 6: "Experience Day", 0: "Loot Day"
-};
-
-const dailyDesc = {
-  1: "2x crystal, shadow shard and inert geode drops!",
-  2: "2x Radiant Shard Drops, +20% Harvest Chance, +50% Ore chance, +20% Fish Chance.",
-  3: "-10% (Dust) Upgrade Cost, +25% Gem Box Drops Chance, 3 Lustrous Gem Box / day.",
-  4: "+50% More Adventurine, 2x Chance for Adventure Boxes, 2x chance to find Talismans.",
-  5: "2x Dragon Coins from Challenges, 2x Lesser Dragon Caches from Challenges, 2x Chance for Dragon Fragments.",
-  6: "50% more Adventure Experience, 50% More Club Experience, 50% More Arena Win Experience.",
-  0: "+100 Magic Find, 2x Chance to find Flux Artifacts, increased Chaos Chest Drop Chance."
-};
-
-const patronDesc = {
-  1: "3x crystal, shadow shard and inert geode drops!",
-  2: "3x Radiant Shard Drops, +40% Harvest Chance, +100% Ore chance, +40% Fish Chance.",
-  3: "-20% (Dust) Upgrade Cost, +50% Gem Box Drops Chance, 6 Lustrous Gem Box / day.",
-  4: "+100% More Adventurine, 3x Chance for Adventure Boxes, 3x chance to find Talismans.",
-  5: "3x Dragon Coins from Challenges, 3x Lesser Dragon Caches from Challenges, 3x Chance for Dragon Fragments.",
-  6: "100% more Adventure Experience, 100% More Club Experience, 100% More Arena Win Experience.",
-  0: "+400 Magic Find, 3x Chance to find Flux Artifacts, increased Chaos Chest Drop Chance."
-};
-
-const weeklyRotation = [
-  { id: "invasion", name: "Fast Invasion Week", desc: "Invaders occur more frequently.", glow: "#a855f7" },
-  { id: "starbar", name: "Double Cubit Bar", desc: "2x Star Bar rewards.", glow: "#f97316" },
-  { id: "xp", name: "XP Week", desc: "100% Base Experience!", glow: "#4ade80" },
-  { id: "reroll", name: "Second Stat Reroll", desc: "Chaos Forge can reroll the 2nd stat.", glow: "#8b5cf6" }
+const weeklyRotationBase = [
+  { id: "invasion", glow: "#a855f7" },
+  { id: "starbar", glow: "#f97316" },
+  { id: "xp", glow: "#4ade80" },
+  { id: "reroll", glow: "#8b5cf6" }
 ];
 
 export default function DailyWeeklyBuffs() {
   const [now, setNow] = useState(new Date());
   const [isPatron, setIsPatron] = useState(false);
+
+  const { langCode } = useLanguage();
+  const c = dailyWeeklyContent[langCode] || dailyWeeklyContent.en;
 
   useEffect(() => {
     const timer = setInterval(() => setNow(new Date()), 1000);
@@ -67,13 +47,20 @@ export default function DailyWeeklyBuffs() {
     const diff = now.getTime() - startDate.getTime();
     const weeksPassed = Math.floor(diff / msInWeek);
     
-    const index = ((weeksPassed % weeklyRotation.length) + weeklyRotation.length) % weeklyRotation.length;
+    const index = ((weeksPassed % weeklyRotationBase.length) + weeklyRotationBase.length) % weeklyRotationBase.length;
+    const currentBase = weeklyRotationBase[index];
     
+    const translatedWeekly = c.weeklyRotation[currentBase.id] || dailyWeeklyContent.en.weeklyRotation[currentBase.id];
+
     const currentWeekStart = new Date(startDate.getTime() + (weeksPassed * msInWeek));
     const currentWeekEnd = new Date(currentWeekStart.getTime() + msInWeek);
     
     return {
-      bonus: weeklyRotation[index],
+      bonus: {
+        ...currentBase,
+        name: translatedWeekly.name,
+        desc: translatedWeekly.desc
+      },
       start: currentWeekStart,
       end: currentWeekEnd
     };
@@ -84,19 +71,19 @@ export default function DailyWeeklyBuffs() {
   return (
     <div className="buffs-grid-wrapper">
 
-      {/* 2. DAILY BUFF CARD */}
+      {/* DAILY BUFF CARD */}
       <div className="neon-buff-card" style={{ '--buff-glow-color': activeDailyColor }}>
         <div className="neon-card-internal-glow"></div>
         <div className="neon-buff-header">
           <div className="neon-buff-title-group">
-            <span className="neon-buff-subtitle">Current Daily Bonus</span>
-            <h2 className="neon-buff-main-title">{dailyBonuses[currentBonusDay]}</h2>
+            <span className="neon-buff-subtitle">{c.dailySubtitle}</span>
+            <h2 className="neon-buff-main-title">{c.dailyBonuses[currentBonusDay]}</h2>
           </div>
           
           {/* Patron Switcher */}
           <div className="buff-patron-toggle">
             <span className="buff-patron-text" style={{ color: isPatron ? '#fbff00' : '#64748b' }}>
-              {isPatron ? 'PATRON' : 'NORMAL'}
+              {isPatron ? c.patronOn : c.patronOff}
             </span>
             <label className="buff-switch-label">
               <input type="checkbox" checked={isPatron} onChange={(e) => setIsPatron(e.target.checked)} />
@@ -105,23 +92,22 @@ export default function DailyWeeklyBuffs() {
           </div>
         </div>
         
-            <div className="neon-buff-body">
-            <p style={{ 
-                // Itt a logika: ha isPatron igaz, akkor a szín #facc15 (sárga), különben marad a default kék/fehér
-                color: isPatron ? '#fbff00' : '#dceaff',
-                transition: 'color 0.3s ease' // Ez teszi lágyabbá a színváltást
-            }}>
-                {isPatron ? patronDesc[currentBonusDay] : dailyDesc[currentBonusDay]}
-            </p>
-            </div>
+        <div className="neon-buff-body">
+          <p style={{ 
+            color: isPatron ? '#fbff00' : '#dceaff',
+            transition: 'color 0.3s ease'
+          }}>
+            {isPatron ? c.patronDesc[currentBonusDay] : c.dailyDesc[currentBonusDay]}
+          </p>
         </div>
+      </div>
 
-      {/* 3. WEEKLY EVENT CARD */}
+      {/* WEEKLY EVENT CARD */}
       <div className="neon-buff-card" style={{ '--buff-glow-color': weeklyData.bonus.glow }}>
         <div className="neon-card-internal-glow"></div>
         <div className="neon-buff-header">
           <div className="neon-buff-title-group">
-            <span className="neon-buff-subtitle">Active Weekly Bonus</span>
+            <span className="neon-buff-subtitle">{c.weeklySubtitle}</span>
             <h2 className="neon-buff-main-title">{weeklyData.bonus.name}</h2>
           </div>
         </div>
@@ -130,14 +116,13 @@ export default function DailyWeeklyBuffs() {
           <p>{weeklyData.bonus.desc}</p>
         </div>
         <div className="weekly-date-range">
-            {/* Közös konténer az ikonnak és a szövegnek */}
-            <div className="date-row">
-              <i className="ri-calendar-event-line"></i>
-              <span>
-                {weeklyData.start.toLocaleDateString('en-US', {month:'short', day:'2-digit'})} - {weeklyData.end.toLocaleDateString('en-US', {month:'short', day:'2-digit'})}
-              </span>
-            </div>
+          <div className="date-row">
+            <i className="ri-calendar-event-line"></i>
+            <span>
+              {weeklyData.start.toLocaleDateString(langCode === 'zh' ? 'zh-CN' : 'en-US', {month:'short', day:'2-digit'})} - {weeklyData.end.toLocaleDateString(langCode === 'zh' ? 'zh-CN' : 'en-US', {month:'short', day:'2-digit'})}
+            </span>
           </div>
+        </div>
       </div>
 
     </div>

@@ -22,7 +22,7 @@ export default function Footer() {
       /* { label: 'Map', path: '/map' }, */
       { label: t('nav.calculators'), path: '/calculators' },
       { label: t('nav.starchart'), path: '/starchart' },
-      { label: t('nav.archive'), path: '/archive' },
+      /*{ label: t('nav.archive'), path: '/archive' },*/
     ],
     [t('nav.categories.community')]: [
       { label: t('nav.discord'), href: 'https://discord.com/invite/trovegame' },

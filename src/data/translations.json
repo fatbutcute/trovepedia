@@ -24,6 +24,12 @@
       "tagline": "Trovepedia, made by the community.",
       "copyright": "© 2026 Trovepedia - Not affiliated with Gamigo AG!"
     },
+    "dashboard": {
+      "currentTime": "CURRENT TIME",
+      "dailyReset": "DAILY RESET",
+      "weeklyReset": "WEEKLY RESET",
+      "localTime": "LOCAL TIME"
+    },
     "guidesPage": {
       "title": "Trove Guides & Tutorials",
       "subtitle": "Browse our collection of community-crafted guides below to fast-track your endgame progression, optimize your builds, and master essential gameplay mechanics.",
@@ -39,6 +45,10 @@
           "desc": "Master Ally leveling, expedition strategies, voucher farming, and more."
         }
       }
+    },
+    "errors": {
+      "notFoundTitle": "404 - Page Not Found",
+      "notFoundDesc": "Oops! The page you are looking for does not exist or has been moved."
     }
   },
   "fr": {
@@ -66,6 +76,12 @@
       "tagline": "Trovepedia, créé par la communauté.",
       "copyright": "© 2026 Trovepedia - Non affilié à Gamigo AG !"
     },
+    "dashboard": {
+      "currentTime": "HEURE ACTUELLE",
+      "dailyReset": "RÉINITIALISATION QUOTIDIENNE",
+      "weeklyReset": "RÉINITIALISATION HEBDOMADAIRE",
+      "localTime": "HEURE LOCALE"
+    },
     "guidesPage": {
       "title": "Guides & Tutoriels Trove",
       "subtitle": "Parcourez notre collection de guides créés par la communauté pour accélérer votre progression endgame, optimiser vos builds et maîtriser les mécaniques esssentielles.",
@@ -81,6 +97,10 @@
           "desc": "Maîtrisez le niveau des compagnons, les expéditions, le farm de coupons et plus."
         }
       }
+    },
+    "errors": {
+      "notFoundTitle": "404 - Page non trouvée",
+      "notFoundDesc": "Oups ! La page que vous recherchez n'existe pas ou a été déplacée."
     }
   },
   "es": {
@@ -108,6 +128,12 @@
       "tagline": "Trovepedia, hecha por la comunidad.",
       "copyright": "© 2026 Trovepedia - ¡No afiliado a Gamigo AG!"
     },
+    "dashboard": {
+      "currentTime": "HORA ACTUAL",
+      "dailyReset": "REINICIO DIARIO",
+      "weeklyReset": "REINICIO SEMANAL",
+      "localTime": "HORA LOCAL"
+    },
     "guidesPage": {
       "title": "Guías y Tutoriales de Trove",
       "subtitle": "Explora nuestra colección de guías creadas por la comunidad para acelerar tu progresión endgame, optimizar tus builds y dominar las mecánicas clave del juego.",
@@ -123,48 +149,10 @@
           "desc": "Domina la nivelación de aliados, estrategias de expedición, granjeo de cupones y más."
         }
       }
-    }
-  },
-  "ru": {
-    "nav": {
-      "logoSub": "создано сообществом",
-      "guides": "Гайды",
-      "classes": "Классы",
-      "rotations": "Ротации",
-      "hub": "Хаб",
-      "calculators": "Калькуляторы",
-      "starchart": "Звездная карта",
-      "archive": "Архив",
-      "discord": "Trove - Discord",
-      "trovesaurus": "Trovesaurus",
-      "contributors": "Авторы",
-      "clubs": "Клубы",
-      "news": "Новости",
-      "categories": {
-        "navigation": "Навигация",
-        "tools": "Инструменты",
-        "community": "Сообщество"
-      }
     },
-    "footer": {
-      "tagline": "Trovepedia, создано сообществом.",
-      "copyright": "© 2026 Trovepedia - Не связано с Gamigo AG!"
-    },
-    "guidesPage": {
-      "title": "Гайды и Обучение Trove",
-      "subtitle": "Просмотрите нашу коллекцию гайдов от сообщества, чтобы ускорить прогресс в эндгейме, оптимизировать свои билды и освоить ключевые механики игры.",
-      "cards": {
-        "gems": {
-          "tag": "МАКСИМИЗАЦИЯ ХАРАКТЕРИСТИК",
-          "title": "Самоцветы",
-          "desc": "Узнайте, как правильно максимизировать характеристики ваших самоцветов."
-        },
-        "tinyquest": {
-          "tag": "ГАЙД ОБНОВЛЕНИЯ TINY QUEST",
-          "title": "Tiny Quest и Мастерство Союзников",
-          "desc": "Освойте прокачку союзников, стратегии экспедиций, фарм купонов и многое другое."
-        }
-      }
+    "errors": {
+      "notFoundTitle": "404 - Página no encontrada",
+      "notFoundDesc": "¡Ups! La página que buscas no existe o ha sido movida."
     }
   },
   "zh": {
@@ -192,6 +180,12 @@
       "tagline": "Trovepedia，由社区打造。",
       "copyright": "© 2026 Trovepedia - 与 Gamigo AG 无关！"
     },
+    "dashboard": {
+      "currentTime": "当前时间",
+      "dailyReset": "每日重置",
+      "weeklyReset": "每周重置",
+      "localTime": "本地时间"
+    },
     "guidesPage": {
       "title": "Trove 指南与教程",
       "subtitle": "浏览下方由社区打造的指南集合，快速提升终局进度、优化你的构建，并精通核心游戏机制。",
@@ -207,6 +201,10 @@
           "desc": "精通盟友升级、远征策略、代金券刷取等丰富内容。"
         }
       }
+    },
+    "errors": {
+      "notFoundTitle": "404 - 页面未找到",
+      "notFoundDesc": "哎呀！您正在寻找的页面不存在或已被移动。"
     }
   }
 }

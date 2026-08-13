@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useLanguage } from '../context/LanguageContext';
+import { prCalcContent } from '../components/guides/content/prCalc.content.js';
 
 export default function PrCalculator() {
   const empoweredPRLevels = {15:2011,16:2053,17:2095,18:2137,19:2179,20:2284,21:2326,22:2368,23:2410,24:2452,25:2557,26:2599,27:2641,28:2683,29:2725,30:2830};
@@ -24,7 +26,8 @@ export default function PrCalculator() {
   const [activeModalGem, setActiveModalGem] = useState(null);
   const [totalPR, setTotalPR] = useState(0);
 
-  const inputLabels = { torch: 'Torch', ring: 'Ring', ally: 'Ally', mastery: 'Mastery', geode: 'Geode', dragons: 'Dragons', face: 'Face', weapon: 'Weapon', hat: 'Hat' };
+  const { langCode } = useLanguage();
+  const c = prCalcContent[langCode] || prCalcContent.en;
 
   const handleInputChange = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
@@ -67,24 +70,24 @@ export default function PrCalculator() {
   return (
     <div className="react-calc-wrapper" style={{ '--calc-accent': '#e8b84b', '--calc-accent-rgb': '232,184,75' }}>
       <div className="calc-options-panel">
-        <label className="calc-checkbox"><input type="checkbox" checked={level30} onChange={e => setLevel30(e.target.checked)} /> Level 30 (+450 PR)</label>
-        <label className="calc-checkbox"><input type="checkbox" checked={subclass} onChange={e => setSubclass(e.target.checked)} /> Subclass (+90 PR)</label>
-        <label className="calc-checkbox"><input type="checkbox" checked={emblems} onChange={e => setEmblems(e.target.checked)} /> Emblems (+150 PR)</label>
+        <label className="calc-checkbox"><input type="checkbox" checked={level30} onChange={e => setLevel30(e.target.checked)} /> {c.lvl30}</label>
+        <label className="calc-checkbox"><input type="checkbox" checked={subclass} onChange={e => setSubclass(e.target.checked)} /> {c.subclass}</label>
+        <label className="calc-checkbox"><input type="checkbox" checked={emblems} onChange={e => setEmblems(e.target.checked)} /> {c.emblems}</label>
       </div>
 
       <p className="calc-section-label" style={{ color: '#9499c3', fontSize: '0.8rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '10px' }}>
-        Gem Levels Setup (tap to edit)
+        {c.gemSetup}
       </p>
       <div className="calc-toggle-grid" style={{ gridTemplateColumns: 'repeat(4, 1fr)' }}>
         {Object.keys(gemCache).map(type => (
-          <div key={type} className="calc-toggle-btn" onClick={() => setActiveModalGem(type)} style={{ textTransform: 'capitalize' }}>
-             {type}
+          <div key={type} className="calc-toggle-btn" onClick={() => setActiveModalGem(type)}>
+             {c.gemTypes[type] || type}
           </div>
         ))}
       </div>
 
       <p className="calc-section-label" style={{ color: '#9499c3', fontSize: '0.8rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '10px' }}>
-        Primordial Dragons Unlocked (+10% Gem PR)
+        {c.dragonsUnlocked}
       </p>
       <div className="calc-toggle-grid" style={{ gridTemplateColumns: 'repeat(4, 1fr)' }}>
         {['water', 'air', 'fire', 'cosmic'].map(type => (
@@ -92,9 +95,8 @@ export default function PrCalculator() {
             key={type}
             className={`calc-toggle-btn ${selectedDragons.includes(type) ? 'active' : ''}`}
             onClick={() => toggleDragon(type)}
-            style={{ textTransform: 'capitalize' }}
           >
-             {type}
+             {c.gemTypes[type] || type}
           </div>
         ))}
       </div>
@@ -102,30 +104,26 @@ export default function PrCalculator() {
       <div className="calc-input-grid">
         {Object.keys(inputs).map(key => (
           <div key={key} className="calc-field" style={{ marginBottom: 0 }}>
-            <label>{inputLabels[key]}</label>
+            <label>{c.inputs[key] || key}</label>
             <input type="number" name={key} value={inputs[key]} onChange={handleInputChange} placeholder="0" className="calc-input" />
           </div>
         ))}
       </div>
 
-      <button className="calc-submit-btn" onClick={calculateTotalPR}>Calculate Power Rank</button>
+      <button className="calc-submit-btn" onClick={calculateTotalPR}>{c.calculate}</button>
 
       <div className="calc-result">
         <div className="calc-result-hero">
-          <span className="hero-label">Total Power Rank</span>
+          <span className="hero-label">{c.totalPR}</span>
           <div className="hero-value">{totalPR.toLocaleString()}</div>
         </div>
       </div>
 
-{/* ── BRUTÁLISAN MENŐ GEM SZERKESZTŐ SUB-MODAL ── */}
-{/* ✨ JAVÍTVA: A mockupod alapján teljesen újjáépített Gem szintválasztó rács ✨ */}
       {activeModalGem && (
         <div className="calc-submodal-overlay" onClick={() => setActiveModalGem(null)}>
           <div className="calc-submodal" onClick={(e) => e.stopPropagation()}>
-            
-            {/* Fejléc a bezáró gombbal */}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '25px' }}>
-              <h3 style={{ margin: 0, textTransform: 'capitalize' }}>Edit {activeModalGem} Gem Levels</h3>
+              <h3 style={{ margin: 0 }}>{c.editGemTitle} ({c.gemTypes[activeModalGem] || activeModalGem})</h3>
               <button 
                 onClick={() => setActiveModalGem(null)} 
                 style={{ background: 'none', border: 'none', color: '#9499c3', fontSize: '1.8rem', cursor: 'pointer', lineHeight: 1 }}
@@ -134,17 +132,13 @@ export default function PrCalculator() {
               </button>
             </div>
             
-            {/* A 3 darab Gem slot egymás alatt */}
             {['emp', 'lesser1', 'lesser2'].map(slot => (
               <div key={slot} className="calc-field" style={{ marginBottom: '22px' }}>
                 <label style={{ display: 'block', marginBottom: '10px', fontSize: '0.85rem', color: '#9499c3', fontWeight: '600' }}>
-                  {slot === 'emp' ? 'Empowered Gem Level:' : slot === 'lesser1' ? 'Lesser Gem 1 Level:' : 'Lesser Gem 2 Level:'}
+                  {c.slots[slot]}
                 </label>
                 
-                {/* 8 oszlopos prémium mátrix rács */}
                 <div className="calc-premium-matrix">
-                  
-                  {/* A "None" gomb beolvasztva a rács elejére */}
                   <button
                     type="button"
                     className={`matrix-item ${gemCache[activeModalGem][slot] === 0 ? 'active' : ''}`}
@@ -155,10 +149,9 @@ export default function PrCalculator() {
                       });
                     }}
                   >
-                    None
+                    {c.none}
                   </button>
                   
-                  {/* A szintek generálása 15-től 30-ig */}
                   {gemLevels.filter(lvl => lvl !== 0).map(lvl => (
                     <button
                       key={lvl}
@@ -178,9 +171,8 @@ export default function PrCalculator() {
               </div>
             ))}
             
-            {/* Alsó fő akciógomb a mentéshez */}
             <button className="calc-submit-btn" style={{ marginTop: '20px', marginBottom: 0 }} onClick={() => setActiveModalGem(null)}>
-              Save & Recalculate
+              {c.save}
             </button>
           </div>
         </div>

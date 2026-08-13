@@ -77,7 +77,7 @@ export function GemsGuideDock() {
       transition={{ duration: 0.3, ease: "easeOut" }}
       style={{
         position: 'fixed',
-        top: '140px',
+        top: '100px',
         left: '0',
         right: '0',
         marginLeft: 'auto',

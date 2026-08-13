@@ -1,86 +1,57 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
+import { useLanguage } from '../context/LanguageContext';
+import { featuresContent } from './guides/content/features.content.js';
 
-const FEATURES = [
-  {
-    icon: '/icons/bookmark.png', 
-    accent: 'gold', 
-    path: '/guides',
-    title: 'Guides',
-    desc:  'Detailed, community-written guides for advancement, farming, and understanding game mechanics.',
-  },
-  {
-    icon: '/icons/sword.png', 
-    accent: 'green', 
-    path: '/classes',
-    title: 'Classes',
-    desc:  'Discover all classes: their characteristics, best builds, and tips for effective gameplay.',
-  },
-  {
-    icon: '/icons/web.png', 
-    accent: 'cyan', 
-    path: '/starchart',
-    title: 'Star Chart',
-    desc:  'This simulator helps you plan your Star Chart progression and optimize stats.',
-  },
-  {
-    icon: '/icons/time.png', 
-    accent: 'purple', 
-    path: '/rotations',
-    title: 'Rotations',
-    desc:  'Current D15 rotations and a calendar of all daily/weekly events in one place.',
-  },
-  {
-    icon: '/icons/calendar.png', 
-    accent: 'red', 
-    path: '/event',
-    title: 'Events',
-    desc:  'Detailed event guide: find most of the events with their quest line, rewards and more... '
-  },
-  {
-    icon: '/icons/calculator.png', 
-    accent: 'blue', 
-    path: '/calculators',
-    title: 'Calculators',
-    desc:  'Precise formulas and calculation methods for determining and optimizing your true power.',
-  },
-]
+const BASE_FEATURES = [
+  { id: 'guides', icon: '/icons/bookmark.png', accent: 'gold', path: '/guides' },
+  { id: 'classes', icon: '/icons/sword.png', accent: 'green', path: '/classes' },
+  { id: 'starchart', icon: '/icons/web.png', accent: 'cyan', path: '/starchart' },
+  { id: 'rotations', icon: '/icons/time.png', accent: 'purple', path: '/rotations' },
+  { id: 'events', icon: '/icons/calendar.png', accent: 'red', path: '/event' },
+  { id: 'calculators', icon: '/icons/calculator.png', accent: 'blue', path: '/calculators' },
+];
 
 export default function Features() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const { langCode } = useLanguage();
+  
+  const c = featuresContent[langCode] || featuresContent.en;
 
   return (
     <section className='guides-landing'>
-      <p className="section-label">Navigation</p>
-      <h2 className="section-title">What do you find here?</h2>
-      <p className="section-desc">
-        Everything you need to advance in Trove - for beginners and veterans alike.
-      </p>
+      <p className="section-label">{c.sectionLabel}</p>
+      <h2 className="section-title">{c.sectionTitle}</h2>
+      <p className="section-desc">{c.sectionDesc}</p>
 
       <div className="cards">
-        {FEATURES.map(({ icon, accent, path, title, desc }) => (
-          <div
-            key={title}
-            className="card reveal"
-            data-accent={accent}
-            onClick={() => navigate(path)}
-            role="button"
-            tabIndex={0}
-            onKeyDown={(e) => e.key === 'Enter' && navigate(path)}
-          >
-            <div className="card-icon">
-              <img 
-                src={icon} 
-                alt={title} 
-                style={{ width: '35px', height: '35px', objectFit: 'contain' }} 
-              />
+        {BASE_FEATURES.map(({ id, icon, accent, path }) => {
+          const cardData = c.cards[id] || featuresContent.en.cards[id];
+
+          return (
+            <div
+              key={id}
+              className="card reveal"
+              data-accent={accent}
+              onClick={() => navigate(path)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => e.key === 'Enter' && navigate(path)}
+            >
+              <div className="card-icon">
+                <img 
+                  src={icon} 
+                  alt={cardData.title} 
+                  style={{ width: '35px', height: '35px', objectFit: 'contain' }} 
+                />
+              </div>
+              
+              <div className="card-title">{cardData.title}</div>
+              <div className="card-desc">{cardData.desc}</div>
+              <div className="card-arrow">{c.viewButton}</div>
             </div>
-            
-            <div className="card-title">{title}</div>
-            <div className="card-desc">{desc}</div>
-            <div className="card-arrow">View →</div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </section>
-  )
+  );
 }

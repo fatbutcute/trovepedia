@@ -1,29 +1,34 @@
-import { useNavigate } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useLanguage } from '../context/LanguageContext';
+import { heroContent } from './guides/content/hero.content.js';
 
 export default function Hero() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const [mouse, setMouse] = useState({ x: 0, y: 0 })
-  const [loaded, setLoaded] = useState(false)
+  const [mouse, setMouse] = useState({ x: 0, y: 0 });
+  const [loaded, setLoaded] = useState(false);
+
+  const { langCode } = useLanguage();
+  const c = heroContent[langCode] || heroContent.en;
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setLoaded(true)
-    }, 100)
-    return () => clearTimeout(timer)
-  }, [])
+      setLoaded(true);
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const handleMove = (e) => {
-      const x = (e.clientX / window.innerWidth - 0.5) * 30
-      const y = (e.clientY / window.innerHeight - 0.5) * 30
-      setMouse({ x, y })
-    }
+      const x = (e.clientX / window.innerWidth - 0.5) * 30;
+      const y = (e.clientY / window.innerHeight - 0.5) * 30;
+      setMouse({ x, y });
+    };
 
-    window.addEventListener("mousemove", handleMove)
-    return () => window.removeEventListener("mousemove", handleMove)
-  }, [])
+    window.addEventListener("mousemove", handleMove);
+    return () => window.removeEventListener("mousemove", handleMove);
+  }, []);
 
   return (
     <div className="hero">
@@ -60,11 +65,11 @@ export default function Hero() {
         </h1>
 
         <p className="hero-eyebrow">
-          BY ONE AND ONLY TROVE COMMUNITY
+          {c.eyebrow}
         </p>
 
         <p className="hero-sub">
-          Guides, classes, delve index and more - all in one place.
+          {c.sub}
         </p>
 
         <div className="hero-buttons">
@@ -72,14 +77,14 @@ export default function Hero() {
             className="btn btn-primary"
             onClick={() => navigate('/guides')}
           >
-            Guides →
+            {c.btnGuides}
           </button>
 
           <button
             className="btn btn-ghost"
             onClick={() => navigate('/classes')}
           >
-            Discover Classes
+            {c.btnClasses}
           </button>
         </div>
       </div>
@@ -98,5 +103,5 @@ export default function Hero() {
       />
 
     </div>
-  )
+  );
 }

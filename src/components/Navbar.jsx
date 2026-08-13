@@ -7,7 +7,7 @@ const LANGUAGES = [
   { code: 'en', label: 'English', flag: '🇬🇧' },
   { code: 'fr', label: 'Français', flag: '🇫🇷' },
   { code: 'es', label: 'Español', flag: '🇪🇸' },
-  { code: 'ru', label: 'Русский', flag: '🇷🇺' },
+  /*{ code: 'ru', label: 'Русский', flag: '🇷🇺' },*/
   { code: 'zh', label: '中文', flag: '🇨🇳' },
 ];
 
@@ -31,7 +31,7 @@ export default function Navbar() {
     [t('nav.categories.tools')]: [
       { label: t('nav.calculators'), path: '/calculators' },
       { label: t('nav.starchart'), path: '/starchart' },
-      { label: t('nav.archive'), path: '/archive' },
+      /*{ label: t('nav.archive'), path: '/archive' },*/
     ],
     [t('nav.categories.community')]: [
       { label: t('nav.discord'), href: 'https://discord.com/invite/trovegame' },
