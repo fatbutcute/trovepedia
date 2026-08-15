@@ -38,7 +38,7 @@ export default function Navbar() {
       { label: t('nav.trovesaurus'), href: 'https://trovesaurus.com/' },
       { label: t('nav.contributors'), path: '/contribute' },
       /*{ label: t('nav.clubs'), path: '/clubs' },*/
-      { label: t('nav.news'), path: '/news' },
+      /*{ label: t('nav.news'), path: '/news' },*/
     ],
   }), [langCode, t]);
 

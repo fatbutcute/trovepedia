@@ -29,7 +29,7 @@ export default function Footer() {
       { label: t('nav.trovesaurus'), href: 'https://trovesaurus.com/' },
       { label: t('nav.contributors'), path: '/contribute' },
       /* { label: 'Clubs', path: '/clubs' }, */
-      { label: t('nav.news'), path: '/news' },
+      /*{ label: t('nav.news'), path: '/news' },*/
       /* { label: 'Contact', path: '/contact' }, */
     ],
   }), [langCode, t])

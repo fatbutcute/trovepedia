@@ -1,34 +1,25 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import './TokenCall.css';
+import { useLanguage } from '../context/LanguageContext';
+import { dashboardContent } from './guides/content/dashboard.content';
 
 const REFRESH_INTERVAL_MS = 30_000;
-
-const NAV_SECTIONS = [
-  { id: 'buffs', label: "Today's Buffs", icon: '✦' },
-  { id: 'chaos', label: 'Chaos Chest', icon: '◆' },
-  { id: 'biomes', label: 'Biomes', icon: '❖' },
-  { id: 'records', label: 'Leaderboard Records', icon: '☰' },
-  { id: 'player', label: 'Player Lookup', icon: '⌕' },
-];
 
 // Ikon választó függvény a nap neve vagy a buff típusa alapján
 function getDailyBuffIcon(buffData) {
   if (!buffData) return '/icons/power.png';
 
-  // Megnézzük a nap nevét (pl. "Monday", "Sunday") vagy a buff nevét
   const weekday = (buffData.weekday || '').toLowerCase();
   const buffName = (buffData.name || '').toLowerCase();
 
-  // 1. Keresés a HÉT NAPJAI alapján:
-  if (weekday.includes('mon')) return '/icons/pickaxe.png';                     // Hétfő
-  if (weekday.includes('tue')) return '/icons/fish.png';                        // Kedd
-  if (weekday.includes('wed')) return '/icons/icons8-sparkling-diamond-80.png';// Szerda
-  if (weekday.includes('thu')) return '/icons/quest.png';                       // Csütörtök
-  if (weekday.includes('fri')) return '/icons/dragon.png';                      // Péntek
-  if (weekday.includes('sat')) return '/icons/xp.png';                          // Szombat
-  if (weekday.includes('sun')) return '/icons/lootbag.png';                     // Vasárnap
+  if (weekday.includes('mon')) return '/icons/pickaxe.png';
+  if (weekday.includes('tue')) return '/icons/fish.png';
+  if (weekday.includes('wed')) return '/icons/icons8-sparkling-diamond-80.png';
+  if (weekday.includes('thu')) return '/icons/quest.png';
+  if (weekday.includes('fri')) return '/icons/dragon.png';
+  if (weekday.includes('sat')) return '/icons/xp.png';
+  if (weekday.includes('sun')) return '/icons/lootbag.png';
 
-  // 2. Tartalék (fallback) keresés a BUFF NEVE alapján (ha a weekday hiányozna):
   if (buffName.includes('mining') || buffName.includes('gathering')) return '/icons/pickaxe.png';
   if (buffName.includes('fish')) return '/icons/fish.png';
   if (buffName.includes('gem')) return '/icons/icons8-sparkling-diamond-80.png';
@@ -39,8 +30,6 @@ function getDailyBuffIcon(buffData) {
 
   return '/icons/power.png';
 }
-
-const WEEKDAY_LABELS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
 function formatClock(unixSeconds) {
   if (!Number.isFinite(unixSeconds)) return '--:--:--';
@@ -68,9 +57,9 @@ function formatCountdown(targetUnix, nowUnix) {
   return formatDuration(targetUnix - nowUnix);
 }
 
-function StatusBadge({ state, label, customClass }) {
-  if (state === 'error') return <span className="td-badge error">Unavailable</span>;
-  if (state === 'loading') return <span className="td-badge muted">Loading</span>;
+function StatusBadge({ state, label, customClass, t }) {
+  if (state === 'error') return <span className="td-badge error">{t?.badges?.unavailable || 'Unavailable'}</span>;
+  if (state === 'loading') return <span className="td-badge muted">{t?.badges?.loading || 'Loading'}</span>;
   if (label) {
     return <span className={`td-badge ${customClass || 'live'}`}>{label}</span>;
   }
@@ -111,8 +100,8 @@ function getBiomeImageUrl(biome) {
   return null;
 }
 
-/* --- Luxion / Trials of Luxion Tracker Komponens (2 oszlopos, háttérképpel) --- */
-function LuxionTracker({ luxion, serverTime, nowTick }) {
+/* --- Luxion / Trials of Luxion Tracker Komponens --- */
+function LuxionTracker({ luxion, serverTime, nowTick, t }) {
   const isActive = luxion?.active;
   const secondsRemaining = luxion?.seconds_remaining ?? 0;
   const targetTime = serverTime?.now_unix && secondsRemaining > 0 
@@ -121,7 +110,6 @@ function LuxionTracker({ luxion, serverTime, nowTick }) {
 
   return (
     <section id="luxion-tracker" className="td-card span-2 glow-amber td-luxion-card-bg">
-      {/* Sötét overlay a háttérkép felett */}
       <div className="td-luxion-overlay" />
 
       <div className="td-luxion-content">
@@ -129,13 +117,14 @@ function LuxionTracker({ luxion, serverTime, nowTick }) {
           <div className="td-card-title">
             <span className="td-title-mark" style={{ background: '#f59e0b', boxShadow: '0 0 12px 2px rgba(245, 158, 11, 0.5)' }}></span>
             <span style={{ color: '#fbbf24', fontWeight: 'bold', fontSize: '1.25rem', marginLeft: '4px', fontFamily: 'Comfortaa, sans-serif' }}>
-              Trials of Luxion
+              {t.luxion.title}
             </span>
           </div>
           <StatusBadge 
             state={luxion ? 'ok' : 'loading'} 
-            label={isActive ? 'ACTIVE IN HUB' : 'AWAY'} 
+            label={isActive ? t.badges.activeInHub : t.badges.away} 
             customClass={isActive ? 'badge-amber' : 'muted'} 
+            t={t}
           />
         </div>
 
@@ -143,48 +132,35 @@ function LuxionTracker({ luxion, serverTime, nowTick }) {
           <div className="td-luxion-hero-card">
             <div className="td-luxion-status-info td-luxion-scroll-content">
               
-              {/* Overview Section */}
               <div className="td-luxion-section">
-                <h4 className="td-luxion-subtitle">The Trials of Luxion: Overview</h4>
-                <p className="td-luxion-desc">
-                  The powerful dragon Luxion has left the Hub to reclaim his realm, inviting only the bravest Trovians to test their strength in a recurring, month-long event: <strong>The Trials of Luxion</strong>. Active for one week each month, this deadly new gameplay mode challenges players to collect <strong>Venturine</strong>—a temporary currency used to craft exclusive rewards from Luxion’s hoard—while facing strict limitations, suppressed combat stats, and a penalty of lost Venturine upon death.
-                </p>
+                <h4 className="td-luxion-subtitle">{t.luxion.overviewTitle}</h4>
+                <p className="td-luxion-desc" dangerouslySetInnerHTML={{ __html: t.luxion.overviewDesc }} />
               </div>
 
-              {/* Getting Started Section */}
               <div className="td-luxion-section">
-                <h4 className="td-luxion-subtitle">Getting Started &amp; Entering the Realm</h4>
-                <p className="td-luxion-desc">
-                  To join, eligible Trovians must use the portal in <strong>Light’s Den</strong> within the Hub. Access requires crafting a <strong>Luxion’s Pact</strong> at the Luxion’s Pact Register using an <em>Unfortunate Soul</em>, which can be crafted (with daily escalating Flux costs) or bought via Credits and Cubits from <em>Soul-Reckoner Suri</em>. New players can follow the dedicated questline in their Adventures UI (default PC key: <code>I</code>) to get started.
-                </p>
+                <h4 className="td-luxion-subtitle">{t.luxion.gettingStartedTitle}</h4>
+                <p className="td-luxion-desc" dangerouslySetInnerHTML={{ __html: t.luxion.gettingStartedDesc }} />
               </div>
 
-              {/* Progression Section */}
               <div className="td-luxion-section">
-                <h4 className="td-luxion-subtitle">Trial Progression &amp; Scaling Difficulty</h4>
-                <p className="td-luxion-desc">
-                  Inside <strong>The Venture Capitol</strong>, players encounter Lord Primalux, who offers three sequential quest lines to defeat enemies in the Inner, Middle, and Outer rings. Upon completion, players can choose their path:
-                </p>
+                <h4 className="td-luxion-subtitle">{t.luxion.progressionTitle}</h4>
+                <p className="td-luxion-desc">{t.luxion.progressionDesc}</p>
                 <ul className="td-luxion-list">
-                  <li><strong>Complete the Trials:</strong> Satisfies the Pact for a massive Venturine payout and exits the instance after 10 seconds.</li>
-                  <li><strong>Progress the Trials:</strong> Gives no instant reward, but upgrades the Pact to the next difficulty rank (ranging from Moonless Dark 10 to Long Shade 15), increasing future rewards.</li>
+                  <li><strong>{t.luxion.completeTrials}</strong> {t.luxion.completeTrialsDesc}</li>
+                  <li><strong>{t.luxion.progressTrials}</strong> {t.luxion.progressTrialsDesc}</li>
                 </ul>
               </div>
 
-              {/* Rewards & Mechanics Section */}
               <div className="td-luxion-section">
-                <h4 className="td-luxion-subtitle">Rewards, Mechanics &amp; Risks</h4>
-                <p className="td-luxion-desc">
-                  Players can use the <strong>Venturine Forge</strong> to convert currency into <strong>Venturine Signets</strong> to unlock Luxion’s cycling hoard of collectibles. Players can also obtain temporary <em>Luxion’s Favor</em> buffs by Loot Collecting Unfortunate Souls, or test their luck at <em>Luxion’s Long Shots</em> by donating items for extra Venturine and rare Stashes.
-                </p>
+                <h4 className="td-luxion-subtitle">{t.luxion.rewardsTitle}</h4>
+                <p className="td-luxion-desc" dangerouslySetInnerHTML={{ __html: t.luxion.rewardsDesc }} />
               </div>
 
-              {/* Important Notes Section */}
               <div className="td-luxion-section td-luxion-alert-box">
-                <h4 className="td-luxion-subtitle alert-title">⚠️ Important Notes</h4>
+                <h4 className="td-luxion-subtitle alert-title">{t.luxion.notesTitle}</h4>
                 <ul className="td-luxion-list">
-                  <li><strong>Rules of the Realm:</strong> Jump and Movement Speed are capped, Build Mode and block destruction are disabled, and social features (joining or inviting) are unavailable.</li>
-                  <li><strong>Use It or Lose It:</strong> Death deducts Venturine from your inventory. Furthermore, all Venturine, Signets, and Stashes <strong>disappear when the event ends</strong>, so be sure to spend and open everything before time runs out!</li>
+                  <li><strong>{t.luxion.rule1Title}</strong> {t.luxion.rule1Desc}</li>
+                  <li dangerouslySetInnerHTML={{ __html: `<strong>${t.luxion.rule2Title}</strong> ${t.luxion.rule2Desc}` }} />
                 </ul>
               </div>
 
@@ -193,12 +169,12 @@ function LuxionTracker({ luxion, serverTime, nowTick }) {
 
           <div className="td-luxion-timer-box">
             <div className="td-luxion-timer-label">
-              {isActive ? 'Leaves the Hub in' : 'Next arrival'}
+              {isActive ? t.luxion.leavesHubIn : t.luxion.nextArrival}
             </div>
             <div className="td-luxion-timer-value">
               {isActive 
                 ? (targetTime ? (formatCountdown(targetTime, nowTick) ?? formatDuration(secondsRemaining)) : formatDuration(secondsRemaining))
-                : (secondsRemaining > 0 ? formatDuration(secondsRemaining) : 'Schedule TBA')}
+                : (secondsRemaining > 0 ? formatDuration(secondsRemaining) : t.luxion.scheduleTba)}
             </div>
           </div>
         </div>
@@ -207,8 +183,8 @@ function LuxionTracker({ luxion, serverTime, nowTick }) {
   );
 }
 
-/* --- Trove News Dashboard Komponens (9 hír + görgethető) --- */
-function DashboardNews() {
+/* --- Trove News Dashboard Komponens --- */
+function DashboardNews({ t }) {
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -239,29 +215,31 @@ function DashboardNews() {
       <div className="td-card-header">
         <div className="td-card-title">
           <span className="td-title-mark" style={{ background: '#e8b84b', boxShadow: '0 0 12px 2px rgba(232, 184, 75, 0.4)' }}></span>
-          <span style={{ color: '#e8b84b', fontWeight: 'bold', fontSize: '1.2rem', marginLeft: '4px', fontFamily: 'Comfortaa, sans-serif' }}>Trove News</span>
+          <span style={{ color: '#e8b84b', fontWeight: 'bold', fontSize: '1.2rem', marginLeft: '4px', fontFamily: 'Comfortaa, sans-serif' }}>
+            {t.news.title}
+          </span>
         </div>
-        <StatusBadge state={loading ? 'loading' : error ? 'error' : 'ok'} label="Updates" customClass="badge-amber" />
+        <StatusBadge state={loading ? 'loading' : error ? 'error' : 'ok'} label={t.badges.updates} customClass="badge-amber" t={t} />
       </div>
 
       {loading ? (
         <div className="td-news-loader">
-          <div className="spin">⟳</div> Loading latest news...
+          <div className="spin">⟳</div> {t.news.loading}
         </div>
       ) : error ? (
-        <div className="td-empty" style={{ color: '#f87171' }}>Could not load news articles.</div>
+        <div className="td-empty" style={{ color: '#f87171' }}>{t.news.error}</div>
       ) : (
         <div className="td-news-scroll-container">
           <div className="td-news-grid">
             {news.slice(0, 9).map((item, index) => {
-              const title = item.title || "Trove Update";
+              const title = item.title || t.news.defaultTitle;
               const excerpt = item.excerpt || "";
               const link = item.url || "https://mystic-cave.com/";
               const imageUrl = item.image || '/guideimages/default-news.webp';
               
               const pubDate = item.date ? new Date(item.date).toLocaleDateString('en-US', {
                 month: 'short', day: 'numeric', year: 'numeric'
-              }) : 'Recent';
+              }) : t.news.recent;
 
               return (
                 <a 
@@ -295,6 +273,9 @@ function DashboardNews() {
 }
 
 export default function TokenCall() {
+  const { langCode } = useLanguage();
+  const t = dashboardContent[langCode] || dashboardContent.en;
+
   const [payload, setPayload] = useState(null);
   const [loading, setLoading] = useState(true);
   const [initialOverlay, setInitialOverlay] = useState(true);
@@ -302,7 +283,7 @@ export default function TokenCall() {
   const [fetchError, setFetchError] = useState(null);
   const [clockOffsetSeconds, setClockOffsetSeconds] = useState(0);
   const [nowTick, setNowTick] = useState(() => Math.floor(Date.now() / 1000));
-  const [activeSection, setActiveSection] = useState(NAV_SECTIONS[0].id);
+  const [activeSection, setActiveSection] = useState('buffs');
   const [searchValue, setSearchValue] = useState('');
   const [playerQuery, setPlayerQuery] = useState('');
 
@@ -413,22 +394,22 @@ export default function TokenCall() {
       {initialOverlay && (
         <div className={`td-initial-loader ${fadeOut ? 'fade-out' : ''}`}>
           <div className="td-loader-spinner" />
-          <div className="td-loader-text">Loading Trove Dashboard...</div>
+          <div className="td-loader-text">{t.header.loading}</div>
         </div>
       )}
 
       <header className="td-header">
         <div className="td-title">
           <span className="td-title-mark" />
-          Trove Live Dashboard
-          <span className="td-title-sub">rotations &amp; leaderboards</span>
+          {t.header.title}
+          <span className="td-title-sub">{t.header.subtitle}</span>
         </div>
 
         <form className="td-search" onSubmit={handleSearchSubmit}>
           <span className="td-search-icon">⌕</span>
           <input
             type="text"
-            placeholder="Look up a player by name…"
+            placeholder={t.header.searchPlaceholder}
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
           />
@@ -437,7 +418,7 @@ export default function TokenCall() {
             className="td-search-submit-btn" 
             disabled={!searchValue.trim()}
           >
-            Search
+            {t.header.searchButton}
           </button>
         </form>
 
@@ -451,7 +432,7 @@ export default function TokenCall() {
             }}
           >
             <span className={loading ? 'spin' : ''}>⟳</span>
-            Refresh
+            {t.header.refresh}
           </button>
         </div>
       </header>
@@ -459,20 +440,20 @@ export default function TokenCall() {
       <div className="td-body">
         <aside className="td-sidebar">
           <div className="td-clock-card">
-            <div className="td-clock-label">Server Time (UTC)</div>
+            <div className="td-clock-label">{t.clock.serverTime}</div>
             <div className="td-clock-time">{formatClock(nowTick)}</div>
             {todayWeekday !== null && (
               <div className="td-clock-day">
-                {WEEKDAY_LABELS[todayWeekday] ?? '—'} · Trove Day {serverTime?.trove_day}
+                {t.clock.weekdays[todayWeekday] ?? '—'} · {t.clock.day} {serverTime?.trove_day}
               </div>
             )}
             <div className="td-clock-resets">
               <div className="td-reset-row">
-                <span>Daily reset in</span>
+                <span>{t.clock.dailyReset}</span>
                 <span>{formatCountdown(serverTime?.daily_reset_at, nowTick) ?? '--'}</span>
               </div>
               <div className="td-reset-row">
-                <span>Weekly reset in</span>
+                <span>{t.clock.weeklyReset}</span>
                 <span>{formatCountdown(serverTime?.weekly_reset_at, nowTick) ?? '--'}</span>
               </div>
             </div>
@@ -481,9 +462,9 @@ export default function TokenCall() {
           <div className="td-sidebar-card glow-green">
             <div className="td-card-header">
               <div className="td-card-title">
-                <span className="td-card-icon" style={{ color: '#4ade80' }}>●</span> Active Players
+                <span className="td-card-icon" style={{ color: '#4ade80' }}>●</span> {t.sidebar.activePlayers}
               </div>
-              <StatusBadge state={playerActivity ? 'ok' : 'loading'} label="LIVE" customClass="badge-green" />
+              <StatusBadge state={playerActivity ? 'ok' : 'loading'} label={t.sidebar.live} customClass="badge-green" t={t} />
             </div>
 
             <div className="td-activity-content">
@@ -516,19 +497,20 @@ export default function TokenCall() {
                   return "--";
                 })()}
               </div>
-              <div className="td-activity-sub">players online right now</div>
+              <div className="td-activity-sub">{t.sidebar.onlineSub}</div>
             </div>
           </div>
 
           <div className="td-sidebar-card glow-blue">
             <div className="td-card-header">
               <div className="td-card-title">
-                <span className="td-card-icon">◆</span> Chaos Weekly
+                <span className="td-card-icon">◆</span> {t.sidebar.chaosWeekly}
               </div>
               <StatusBadge 
                 state={sectionState('chaosChest')} 
-                label={chaosChest?.active ? 'Active' : 'Live'} 
+                label={chaosChest?.active ? t.sidebar.active : t.sidebar.live} 
                 customClass="badge-blue" 
+                t={t}
               />
             </div>
 
@@ -551,7 +533,7 @@ export default function TokenCall() {
                     )}
                   </div>
                   <div>
-                    <div className="td-chaos-name">{chaosChest.item?.name ?? 'Mystery item'}</div>
+                    <div className="td-chaos-name">{chaosChest.item?.name ?? t.sidebar.mysteryItem}</div>
                     {chaosChest.item?.blueprint && (
                       <div className="td-chaos-blueprint">{chaosChest.item.blueprint}</div>
                     )}
@@ -565,23 +547,24 @@ export default function TokenCall() {
                       nowTick
                     ) ?? formatDuration(chaosChest?.seconds_remaining)}
                   </div>
-                  <div className="td-countdown-label">until reset</div>
+                  <div className="td-countdown-label">{t.sidebar.untilReset}</div>
                 </div>
               </div>
             ) : (
-              <div className="td-empty">No Chaos Chest data.</div>
+              <div className="td-empty">{t.sidebar.noChaos}</div>
             )}
           </div>
 
           <div className="td-sidebar-card glow-purple">
             <div className="td-card-header">
               <div className="td-card-title">
-                <span className="td-card-icon" style={{ color: '#c084fc' }}>✦</span> Corruxion
+                <span className="td-card-icon" style={{ color: '#c084fc' }}>✦</span> {t.sidebar.corruxion}
               </div>
               <StatusBadge 
                 state={sectionState('corruxion')} 
-                label={corruxion?.active ? 'Active' : 'Away'} 
+                label={corruxion?.active ? t.sidebar.active : t.sidebar.away} 
                 customClass={corruxion?.active ? 'badge-purple' : 'muted'} 
+                t={t}
               />
             </div>
 
@@ -595,19 +578,19 @@ export default function TokenCall() {
                     ) ?? formatDuration(corruxion?.seconds_remaining)}
                   </div>
                   <div className="td-countdown-label">
-                    {corruxion.active ? 'leaves in' : 'arrives in'}
+                    {corruxion.active ? t.sidebar.leavesIn : t.sidebar.arrivesIn}
                   </div>
                 </div>
               </div>
             ) : (
-              <div className="td-empty">No Corruxion data.</div>
+              <div className="td-empty">{t.sidebar.noCorruxion}</div>
             )}
           </div>
 
           <div className="td-sidebar-card glow-amber">
             <div className="td-card-header">
               <div className="td-card-title">
-                <span className="td-card-icon" style={{ color: '#f59e0b' }}>◈</span> Fluxion
+                <span className="td-card-icon" style={{ color: '#f59e0b' }}>◈</span> {t.sidebar.fluxion}
               </div>
               <StatusBadge 
                 state={sectionState('fluxion')} 
@@ -615,10 +598,11 @@ export default function TokenCall() {
                   fluxion?.state 
                     ? fluxion.state 
                     : fluxion?.active 
-                      ? 'Active' 
-                      : 'Voting'
+                      ? t.sidebar.active 
+                      : t.sidebar.voting
                 } 
                 customClass="badge-amber" 
+                t={t}
               />
             </div>
 
@@ -632,24 +616,24 @@ export default function TokenCall() {
                     ) ?? formatDuration(fluxion?.seconds_remaining)}
                   </div>
                   <div className="td-countdown-label">
-                    {fluxion.active ? 'window closes in' : 'next window in'}
+                    {fluxion.active ? t.sidebar.windowCloses : t.sidebar.nextWindow}
                   </div>
                 </div>
               </div>
             ) : (
-              <div className="td-empty">No Fluxion data.</div>
+              <div className="td-empty">{t.sidebar.noFluxion}</div>
             )}
           </div>
 
           <div className="td-sidebar-footer">
-            Data via the Kiwi API (aallyn.net). Auto-refreshes every 30s.
+            {t.sidebar.footer} <br />{t.sidebar.autoRefresh}
           </div>
         </aside>
 
         <main className="td-main">
           {fetchError && (
             <div className="td-status-banner">
-              ⚠ {fetchError} — showing the last data we had, if any.
+              ⚠ {fetchError} {t.bannerError}
             </div>
           )}
 
@@ -663,12 +647,12 @@ export default function TokenCall() {
                 <div className="td-card-title">
                   <img 
                     src="/icons/power.png" 
-                    alt="Today's Buffs" 
+                    alt={t.buffs.title} 
                     className="td-card-title-icon" 
                   />
-                  Today's Buffs
+                  {t.buffs.title}
                 </div>
-                <StatusBadge state={sectionState('dailyBuffs')} label="Live" />
+                <StatusBadge state={sectionState('dailyBuffs')} label={t.badges.live} t={t} />
               </div>
 
               {dailyBuffs?.current ? (
@@ -690,10 +674,10 @@ export default function TokenCall() {
 
                       <div>
                         <div className="td-buff-name" style={{ fontSize: '1.05rem', fontWeight: '700' }}>
-                          {dailyBuffs.current?.name ?? 'Unknown buff'}
+                          {dailyBuffs.current?.name ?? t.buffs.unknown}
                         </div>
                         <div className="td-buff-weekday" style={{ fontSize: '0.8rem', color: 'var(--text-dim)' }}>
-                          {dailyBuffs.current?.weekday ?? (todayWeekday !== null ? WEEKDAY_LABELS[todayWeekday] : '')}
+                          {dailyBuffs.current?.weekday ?? (todayWeekday !== null ? t.clock.weekdays[todayWeekday] : '')}
                         </div>
                       </div>
                     </div>
@@ -714,7 +698,7 @@ export default function TokenCall() {
                   </div>
                 </div>
               ) : (
-                <div className="td-empty">Buff rotation is unavailable right now.</div>
+                <div className="td-empty">{t.buffs.unavailable}</div>
               )}
             </section>
 
@@ -727,11 +711,11 @@ export default function TokenCall() {
                 <div className="td-card-title">
                   <img 
                     src="/icons/quest.png" 
-                    alt="Weekly Buffs" 
+                    alt={t.weeklyBonus.title} 
                     className="td-card-title-icon" 
                     onError={(e) => { e.target.style.display = 'none'; }}
                   />
-                  Weekly Bonus Rotation
+                  {t.weeklyBonus.title}
                 </div>
               </div>
 
@@ -797,9 +781,9 @@ export default function TokenCall() {
 
                               <div className={`td-weekly-bonus-status${isActive ? ' active-text' : ''}`}>
                                 {isActive ? (
-                                  'Active now'
+                                  t.weeklyBonus.activeNow
                                 ) : (
-                                  `in ${formatDuration(totalSecondsOffset)}`
+                                  `${t.weeklyBonus.inTime} ${formatDuration(totalSecondsOffset)}`
                                 )}
                               </div>
                             </div>
@@ -807,18 +791,18 @@ export default function TokenCall() {
                             <div className="td-weekly-bonus-desc">
                               {Array.isArray(item.buffs) 
                                 ? item.buffs.join(' ') 
-                                : item.description || item.buff || 'Special weekly bonus active during this week.'}
+                                : item.description || item.buff || t.weeklyBonus.defaultDesc}
                             </div>
                           </div>
                         );
                       });
                     }
 
-                    return <div className="td-empty">No weekly bonus rotation data.</div>;
+                    return <div className="td-empty">{t.weeklyBonus.noData}</div>;
                   })()}
                 </div>
               ) : (
-                <div className="td-empty">Weekly buffs are unavailable right now.</div>
+                <div className="td-empty">{t.weeklyBonus.unavailable}</div>
               )}
             </section>
 
@@ -831,7 +815,7 @@ export default function TokenCall() {
                 <div className="td-card-title">
                   <img 
                     src="/icons/rotation.png" 
-                    alt="Biome Rotation" 
+                    alt={t.biomes.title} 
                     className="td-card-title-icon" 
                     onError={(e) => {
                       e.target.style.display = 'none';
@@ -843,15 +827,15 @@ export default function TokenCall() {
                       }
                     }}
                   />
-                  Biome Rotation
+                  {t.biomes.title}
                 </div>
-                <StatusBadge state={sectionState('biomes')} />
+                <StatusBadge state={sectionState('biomes')} t={t} />
               </div>
 
               {biomes?.current ? (
                 <>
                   <div className="td-biome-block">
-                    <div className="td-biome-block-label">Current Biomes</div>
+                    <div className="td-biome-block-label">{t.biomes.current}</div>
                     <div className="td-biome-list">
                       {Array.isArray(biomes.current?.biomes) && biomes.current.biomes.length > 0 ? (
                         biomes.current.biomes.map((biome, i) => {
@@ -875,12 +859,12 @@ export default function TokenCall() {
                               ) : (
                                 <span className="td-biome-fallback-icon" />
                               )}
-                              <span>{biome?.final_name ?? biome?.name ?? 'Unknown biome'}</span>
+                              <span>{biome?.final_name ?? biome?.name ?? t.biomes.unknown}</span>
                             </div>
                           );
                         })
                       ) : (
-                        <span className="td-empty">No biome data.</span>
+                        <span className="td-empty">{t.biomes.noData}</span>
                       )}
                     </div>
                   </div>
@@ -888,7 +872,7 @@ export default function TokenCall() {
                   {Array.isArray(biomes?.upcoming) && biomes.upcoming.length > 0 && (
                     <div className="td-biome-block" style={{ marginTop: '16px' }}>
                       <div className="td-biome-block-label">
-                        Next ({formatCountdown(biomes.upcoming[0]?.starts_at, nowTick) ?? '--'})
+                        {t.biomes.next} ({formatCountdown(biomes.upcoming[0]?.starts_at, nowTick) ?? '--'})
                       </div>
                       <div className="td-biome-list">
                         {Array.isArray(biomes.upcoming[0]?.biomes) &&
@@ -913,7 +897,7 @@ export default function TokenCall() {
                                 ) : (
                                   <span className="td-biome-fallback-icon" />
                                 )}
-                                <span>{biome?.final_name ?? biome?.name ?? 'Unknown biome'}</span>
+                                <span>{biome?.final_name ?? biome?.name ?? t.biomes.unknown}</span>
                               </div>
                             );
                           })}
@@ -922,7 +906,7 @@ export default function TokenCall() {
                   )}
                 </>
               ) : (
-                <div className="td-empty">Biome rotation is unavailable right now.</div>
+                <div className="td-empty">{t.biomes.unavailable}</div>
               )}
             </section>
 
@@ -935,13 +919,13 @@ export default function TokenCall() {
                 <div className="td-card-title">
                   <img 
                     src="/icons/quest.png" 
-                    alt="Leaderboard Records" 
+                    alt={t.records.title} 
                     className="td-card-title-icon" 
                     onError={(e) => { e.target.style.display = 'none'; }}
                   />
-                  Leaderboard Records
+                  {t.records.title}
                 </div>
-                <StatusBadge state={sectionState('leaderboardRecords')} />
+                <StatusBadge state={sectionState('leaderboardRecords')} t={t} />
               </div>
 
               {records ? (
@@ -960,9 +944,9 @@ export default function TokenCall() {
                         />
                       </div>
                       <div className="td-record-info">
-                        <div className="td-record-name">Trove Mastery</div>
+                        <div className="td-record-name">{t.records.troveMastery}</div>
                         <div className="td-record-holder">
-                          👑 {records.trove_mastery?.player_name || records.trove_mastery?.player || 'Unknown'}
+                          👑 {records.trove_mastery?.player_name || records.trove_mastery?.player || t.records.unknown}
                         </div>
                       </div>
                       <div className="td-record-badge">
@@ -985,9 +969,9 @@ export default function TokenCall() {
                         />
                       </div>
                       <div className="td-record-info">
-                        <div className="td-record-name">Geode Mastery</div>
+                        <div className="td-record-name">{t.records.geodeMastery}</div>
                         <div className="td-record-holder">
-                          👑 {records.geode_mastery?.player_name || records.geode_mastery?.player || 'Unknown'}
+                          👑 {records.geode_mastery?.player_name || records.geode_mastery?.player || t.records.unknown}
                         </div>
                       </div>
                       <div className="td-record-badge geode">
@@ -1011,9 +995,9 @@ export default function TokenCall() {
                         />
                       </div>
                       <div className="td-record-info">
-                        <div className="td-record-name">Power Rank</div>
+                        <div className="td-record-name">{t.records.powerRank}</div>
                         <div className="td-record-holder">
-                          👑 {records.power_rank?.player_name || records.power_rank?.player || 'Unknown'}
+                          👑 {records.power_rank?.player_name || records.power_rank?.player || t.records.unknown}
                         </div>
                       </div>
                       <div className="td-record-badge power">
@@ -1023,19 +1007,20 @@ export default function TokenCall() {
                   )}
                 </div>
               ) : (
-                <div className="td-empty">Leaderboard records are unavailable right now.</div>
+                <div className="td-empty">{t.records.unavailable}</div>
               )}
             </section>
             
-            {/* 2. Sor 1-2. oszlop: Luxion Tracker */}
+            {/* Luxion Tracker */}
             <LuxionTracker 
               luxion={luxion} 
               serverTime={serverTime} 
               nowTick={nowTick} 
+              t={t}
             />
 
-            {/* 2. Sor 3-4. oszlop: Trove News */}
-            <DashboardNews />
+            {/* Trove News */}
+            <DashboardNews t={t} />
             
           </div>
         </main>
