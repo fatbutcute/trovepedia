@@ -1002,3 +1002,18 @@ body, button, input, select, textarea {
   font-family: 'Buendia';
   src: url('./fonts/Buendia-medium.ttf') format('truetype');
 }
+
+@font-face {
+  font-family: 'JetBrainsMono';
+  src: url('./fonts/JetBrainsMono-VariableFont_wght.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Helvetica';
+  src: url('./fonts/HelveticaNeueMedium.otf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('./fonts/RobotoMono-VariableFont_wght.ttf') format('truetype');
+}

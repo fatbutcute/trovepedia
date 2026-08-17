@@ -9,6 +9,7 @@ export const gemsGuideContent = {
       tiers: "Gem Tiers",
       lesserEmpowered: "Lesser & Empowered",
       classGems: "Class Gems",
+      anatomy: "Anatomy",
       structure: "Gem Structure",
       stats: "Optimal Stats",
       leveling: "Leveling",
@@ -208,7 +209,7 @@ export const gemsGuideContent = {
         canRoll: "Can Roll Stats:",
         stats: ["Damage (Phys / Magic)", "Critical Damage", "Critical Hit", "Max Health", "Max Health %"],
         abilitiesTitle: "Shared Empowered Abilities:",
-        abilities: "Stinging Curse | Volatile Velocity | Spirit Surge | Mired Mojo Stunburst | Pyrodisc | Explosive Epilogue | Cubic Curtain",
+        abilities: "Stinging Curse | Volatile Velocity | Spirit Surge | Mired Mojo | Stunburst | Pyrodisc | Explosive Epilogue | Cubic Curtain",
         restriction: "<strong>Restriction:</strong> Only one gem with each ability can be equipped at a time. You cannot equip the same ability twice."
       },
       cosmic: {
@@ -218,7 +219,7 @@ export const gemsGuideContent = {
         uniqueFeature: "Unique Feature:",
         stats: ["Guaranteed Light Stat", "Damage", "Critical Damage"],
         abilitiesTitle: "Empowered Abilities:",
-        abilities: "Berserk Battker | Empyrean Barrier | Vampirian Vanquisher | Flower Power"
+        abilities: "Berserk Battler | Empyrean Barrier | Vampirian Vanquisher | Flower Power"
       },
       dragonBonus: {
         badge: "PASSIVE STAT BOOST",
@@ -227,63 +228,205 @@ export const gemsGuideContent = {
       }
     },
     classGemsSection: {
-  step: "05",
-  title: "Class Gems",
-  subtitle: "Build-Defining Powers",
-  intro: "Every class has a unique gem of its own. A Class Gem is a special Empowered Gem tied to a specific class that modifies one of its abilities, providing a powerful, build-defining upgrade that can be equipped like any other Empowered Gem.",
-  cards: {
-    onePerClass: {
-      title: "One per class",
-      desc: "Each class has its own unique Class Gem, and it can only be equipped by that class. Switching classes means switching to a different Class Gem."
+      step: "05",
+      title: "Class Gems",
+      subtitle: "Build-Defining Powers",
+      intro: "Every class has a unique gem of its own. A Class Gem is a special Empowered Gem tied to a specific class that modifies one of its abilities, providing a powerful, build-defining upgrade that can be equipped like any other Empowered Gem.",
+      cards: {
+        onePerClass: {
+          title: "One per class",
+          desc: "Each class has its own unique Class Gem, and it can only be equipped by that class. Switching classes means switching to a different Class Gem."
+        },
+        rewritesAbility: {
+          title: "Modifies an ability",
+          desc: "Instead of simply providing additional stats, a Class Gem modifies one of the class's abilities, often significantly changing how it works."
+        },
+        howToGet: {
+          title: "How to obtain a Class Gem",
+          desc: "Complete a Shadow Colosseum in the Shores of the Everdark. When you are done, open the vault with a class gem key to obtain a class gem."
+        }
+      },
+      selectorTitle: "Select a Class Gem to view its ability:",
+      selectedLabel: "SELECTED CLASS GEM",
+      gems: {
+        bard: { 
+          name: "Bard", 
+          ability: "Melody Master", 
+          desc: [
+            "Explosion deals 800% magic damage to nearby enemies and temporarily redirects aggro to the player. Buffs nearby allies to gain 45% Physical and Magical Damage and 45% Critical Damage.",
+            "Heals nearby allies by 45% of max health and buffs them with 15% life gain when dealing damage. Additionally, it applies stun to nearby enemies for 3 seconds.",
+            "Gain increased movement speed by 40% and max energy by 50. Buffs allies with a 50% chance to restore energy when dealing damage."
+          ] 
+        },
+        boomeranger: { 
+          name: "Boomeranger", 
+          ability: "Bawk-Bomb", 
+          desc: [
+            "Tiny Bombs become a Bawk-Bomb. These spawn chickens that attack enemies for a brief duration.",
+            "Big Bomb becomes a Bawk-Bomb. These spawn chickens that attack enemies for a brief duration."
+          ] 
+        },
+        candybarbarian: { name: "Candy Barbarian", ability: "Scoop n' Gloop", desc: "Sugar Crash now leaps 4 blocks straight up and crashes down, dealing AoE damage, vacuuming enemies within 3-4 blocks toward you, and applying a brief snare." },
+        chloromancer: { name: "Chloromancer", ability: "Plant Power", desc: "When Empowered Growth is active the Chloromancer heals nearby plants and allies. Allies are healed 10% every 1.5 second for 12 sec." },
+        dinotamer: { name: "Dino Tamer", ability: "Dino Time", desc: "Increases the duration and attack speed of Dino Mount." },
+        dracolyte: { name: "Dracolyte", ability: "Burning Ward", desc: "When a Burnt Offering detonates, it also spawns a mini Dracolyte minion that attacks enemies for a brief duration." },
+        faetrickster: { name: "Fae Trickster", ability: "Fae-go my Ego", desc: "The Fae Trickster is able to take an additional hit before Ego Blast's bonus damage is lost. Refreshes after 4s of not taking damage." },
+        gunslinger: { name: "Gunslinger", ability: "Overcharged", desc: "Run and Gun no longer increases your attack speed but instead decreases it by 25%. All shots fired are fully charged Charge Shots." },
+        icesage: { name: "Ice Sage", ability: "Pain Freeze", desc: "In addition to Coldhearted's effects, the first Basic Attack against an enemy freezes the target for 1s and enemies hit by 3 Basic Attacks explode." },
+        knight: { name: "Knight", ability: "Spirit Squire", desc: "Charge no longer propels you forward. Instead, a Spirit Squire charges forward through multiple enemies, dealing damage and stunning them for 1s." },
+        lunarlancer: { name: "Lunar Lancer", ability: "Shadow Lancer", desc: "Spear Basic Attacks have a chance to spawn a dark shadow version of you that attacks enemies. In lunarform the chance is increased." },
+        neonninja: { name: "Neon Ninja", ability: "Heuristic Haxstar", desc: "Shurikens from Shining Star are replaced with a massive buzzsaw that pierces enemies and applies Stasis Blade's root." },
+        pirate: { name: "Pirate Captain", ability: "ARR-tillery", desc: "Allows First Mate to deploy an additional turret. Both turrets will upgrade from the same Doubloons." },
+        revenant: { name: "Revenant", ability: "Aegis Assault", desc: "Bulwark Bash loses its cooldown and applies a stacking DoT effect which deals 66% PD per second." },
+        shadowhunter: { name: "Shadow Hunter", ability: "Shadow Blitz", desc: "Basic Attack becomes a rapid-fire stream of arrows." },
+        solarion: { name: "Solarion", ability: "Prismatic Link", desc: "Prismatic Blast now pulses around the Phoenix as well as the Solarion, allowing the Solarion to maintain range while attacking, and deal AOE damage around their Phoenix." },
+        tombraiser: { name: "Tomb Raiser", ability: "Beckon Banshee", desc: "Banshee's Boon also summons a banshee that heals your Skellittles and damages enemies. Additionally, when the banshee dies attract a Restless Soul." },
+        vanguardian: { name: "Vanguardian", ability: "Hero's Mantle", desc: "Every third Melee Basic Attack and every fourth Ranged Basic Attack reduces ability cooldowns by 2s." }
+      }
     },
-    rewritesAbility: {
-      title: "Modifies an ability",
-      desc: "Instead of simply providing additional stats, a Class Gem modifies one of the class's abilities, often significantly changing how it works."
+  levelingSection: {
+  step: "06",
+  title: "Gem Leveling & Power Rank Scaling",
+  subtitle: "Upgrades & Progression",
+  intro: "Infusing your gems with Gem Dust scales up their core attributes and steadily amplifies your total Power Rank. Reaching key breakthrough levels yields massive PR spikes while granting additional stat boost procs.",
+  sim: {
+    radiant: "Radiant",
+    stellar: "Stellar",
+    crystal: "Crystal",
+    mystic: "Mystic",
+    empowered: "Empowered",
+    lesser: "Lesser",
+    level: "LEVEL",
+    powerRank: "POWER RANK",
+    dragonBonus: "Primordial Dragon (+10% PR)",
+    perfectDesc: "A pristine starter gem rolls with all 3 stats active right from Level 1 (each container providing base PR). Drag the slider to preview level scaling.",
+  },
+  boosters: {
+    title: "Upgrade Luck Modifiers (Boosters)",
+    desc: "Every upgrade attempt rolls for success: advancing by one level or triggering a critical double-level jump. Gems never break on failure — only dust and flux are consumed. Utilizing luck boosters drastically improves success rates and triggers frequent double level-ups, minimizing material costs.",
+    levelUp: "Success Rate",
+    doubleLevel: "Double Up Rate",
+    strength: "Effectiveness",
+    allButMystic: "RADIANT TO CRYSTAL",
+    mysticOnly: "MYSTIC EXCLUSIVE",
+    note: "<strong>Ninth Life & Tenth Life</strong> feature identical multiplier rates but cater to different tiers: Ninth Life applies to all tiers up to Crystal, whereas Mystic gems exclusively demand Tenth Life."
+  },
+  upcycling: {
+    title: "The Gem Dust Upcycling Loop",
+    desc: "Loot collecting leveled gems yields a refund of Gem Dust. Crystal gems brought to Level 25 generate a surplus of dust compared to their upgrade cost. Combining Club Gem Fixture discounts with Patron Gem Day perks significantly maximizes your net dust yields:",
+    fixtureTitle: "Club Fixture (−20% Cost)",
+    fixtureValue: "+4,045,666",
+    fixtureSub: "net profit / 50 gems",
+    gemDayTitle: "Fixture + Gem Day (−40% Cost)",
+    gemDayValue: "+4,854,799",
+    gemDaySub: "net profit / 50 gems",
+    alertNever: "Do not waste boosters while farming dust via upcycling. The market value of the booster outweighs the refunded dust, reducing overall efficiency.",
+    alertTip: "Upgrade every spare Crystal gem to Level 25 before loot collecting. This remains the most reliable strategy to bank millions of Gem Dust for endgame augments."
+  }
+},
+strategySection: {
+      title: "The Way of Efficient Gem Upgrading (Endgame)",
+      note: "In this small section we take a look how to upgrade a mystic gem without spending unnecessary amounts of boosters.",
+      steps: [
+        {
+          tag: "01",
+          title: "Let's take a Mystic gem",
+          desc: "Mystic gems can be obtained by farming D15 adventure worlds or doing 165+ delves. Empowered gems are harder to get, but we already know how to obtain any."
+        },
+        {
+          tag: "02",
+          title: "Upgrade Lessers Gems",
+          desc: "Lets say you have a lesser gem with a lvl 30. Above lvl 30, you need to upgrade without any boosters until lvl 32. Then you go luckbug until lvl 35."
+        },
+        {
+          tag: "03",
+          title: "Upgrade Empowered Gems",
+          desc: "Empowered Gems are more booster dependent and timegated. You already start upgrading them with Luckbugs from lvl 30 until lvl 33. After reaching lvl 33, you go 1 Tenth Life (in case you get double lvl up, so you reach lvl 35), then from lvl 34 you go with Luckbug again until lvl 35."
+        },
+        {
+          tag: "04",
+          title: "Why bother doing this way?",
+          desc: "Doing this way of upgrading saves you a lot of boosters which make you able to upgrade more gems in one rotation. In Trove, upgrading gems are one of the most important fundamentals in the game, so why not doing it in a right way?"
+        },
+        {
+          tag: "05",
+          title: "How to prepare yourself for the upgrading?",
+          desc: "Farm your Gem Boxes and Gem Dust primarily on Wednesdays (Gem Day) to capitalize on double dust drops, increased box efficiency, and karma bonuses (if you have Patron its better). Also if you can, go and join Obelisk hosts which are the best way to gather Mystic Gem Shards which are mandatory resources when it comes to upgrading Mystic Gems."
+        },
+        {
+          tag: "06",
+          title: "Refining & Stat Balancing",
+          desc: "Once your gem hits max level, use Contained Chaos Sparks to swap stats and Flares to move boosts into it's desired places and Builder's Focus items to maximize them."
+        }
+      ]
     },
-    howToGet: {
-      title: "How to obtain a Class Gem",
-      desc: "Complete a Shadow Colosseum in the Shores of the Everdark. When you are done, open the vault with a class gem key to obtain a class gem."
+    perfectingSection: {
+      step: "07",
+      title: "Perfecting",
+      note: "Hitting maximum level is only the beginning. True endgame power comes from moving boosts to the right stats and maxing out their percentages using the Gem Forge.",
+      items: {
+        spark: {
+          name: "Contained Chaos Spark",
+          desc: "Randomly rerolls one of the stats on a Gem to a different stat. Critical for fixing bad rolls without losing the gem."
+        },
+        flare: {
+          name: "Contained Chaos Flare",
+          desc: "Moves one random stat boost (pearl) from a stat to another. Essential for shifting boosts onto Light or Critical Damage."
+        },
+        focus: {
+          name: "Builder's Focuses",
+          desc: "Upgrades the percentage value of a stat towards 100%. Comes in Rough, Precise, and Superior tiers."
+        }
+      },
+      bbHeading: "Bound Brilliance & Lunar Souls",
+      bbNote: "Crafting these perfecting items requires a massive amount of Bound Brilliance and Lunar Souls. Here is how you can farm them efficiently every week.",
+      sources: {
+        vaults: {
+          title: "Lunar Souls (Vaults)",
+          yield: "18 / week",
+          desc: "Starting at depth 110, Shadowy Vaults appear on every third floor. Opening a vault grants 3 Lunar Souls, capped at 6 claimed vaults (18 Souls) per week.",
+          extraLabel: "Depths:",
+          extraTags: ["112", "115", "118", "..."]
+        },
+        monday: {
+          title: "Five more, Mondays only",
+          yield: "5 / week",
+          desc: "Loot a Delve Shadowkey Fragment on a Monday to trigger a weekly quest. Clear any Delve depth and complete the quest to receive 5 bonus Lunar Souls.",
+          extraLabel: "Rule:",
+          extraTags: ["Any depth counts"]
+        },
+        tome: {
+          title: "Book of Bound Brilliance",
+          yield: "5 / week",
+          desc: "Craft this legendary tome at the Adventurer's Crafting Bench. Once equipped, charge it up by running Dungeons and Delves to trigger its weekly payout of 5 Bound Brilliance.",
+          extraLabel: "Cost:",
+          extraTags: ["2k Dusts", "10 Primordial Flame", "2 Penta-Forged Shadow Soul"]
+        },
+        bomber: {
+          title: "Burnt Coins Trade-in",
+          yield: "10 / week",
+          desc: "Earn Blast Coins in Bomber Royale which you can convert into Burnt Coins and exchange 30 of them at the mode's crafting bench for 10 Bound Brilliance. Available once per weekly reset.",
+          extraLabel: "Exchange:",
+          extraTags: ["30 Burnt Coins"]
+        },
+        leaderboard: {
+          title: "Three Boards, Every Week",
+          yield: "21 / week",
+          desc: "Place in the top 125 on the three active class Effort contest boards for 7 Brilliance each (up to 21 total). Secure your rank per class by completing 4 collection challenges or defeating 4 consecutive Delve bosses.",
+          extraLabel: "Goal:",
+          extraTags: ["Top 125", "3 Classes"]
+        },
+        events: {
+          title: "While An Event Is Running",
+          yield: "Varies",
+          desc: "Special limited-time events often feature craftable recipes to trade event currency for Bound Brilliance. Rates and weekly limits vary per event.",
+          extraLabel: "Availability:",
+          extraTags: ["Limited Time"]
+        }
+      }
     }
   },
-  selectorTitle: "Select a Class Gem to view its ability:",
-  selectedLabel: "SELECTED CLASS GEM",
-  gems: {
-    bard: { 
-      name: "Bard", 
-      ability: "Melody Master", 
-      desc: [
-        "Explosion deals 800% magic damage to nearby enemies and temporarily redirects aggro to the player. Buffs nearby allies to gain 45% Physical and Magical Damage and 45% Critical Damage.",
-        "Heals nearby allies by 45% of max health and buffs them with 15% life gain when dealing damage. Additionally, it applies stun to nearby enemies for 3 seconds.",
-        "Gain increased movement speed by 40% and max energy by 50. Buffs allies with a 50% chance to restore energy when dealing damage."
-      ] 
-    },
-    boomeranger: { 
-      name: "Boomeranger", 
-      ability: "Bawk-Bomb", 
-      desc: [
-        "Tiny Bombs Tiny Bombs becomes a Bawk-Bomb. These spawns chickens that attacks enemies for a brief duration.",
-        "Big Bomb Big Bomb becomes a Bawk-Bomb. These spawns chickens that attacks enemies for a brief duration."
-      ] 
-    },
-    candybarbarian: { name: "Candy Barbarian", ability: "Scoop n' Gloop", desc: "Sugar Crash Sugar Crash now leaps 4 blocks straight up and crashes down, dealing AoE damage, vacuuming enemies within 3-4 blocks toward you, and applying a brief snare." },
-    chloromancer: { name: "Chloromancer", ability: "Plant Power", desc: "When Empowered Growth is active the Chloromancer heals nearby plants and allies. Allies are healed 10% every 1.5 second for 12 sec." },
-    dinotamer: { name: "Dino Tamer", ability: "Dino Time", desc: "Increases the duration and attack speed of Dino Mount Dino Mount." },
-    dracolyte: { name: "Dracolyte", ability: "Burning Ward", desc: "When a Burnt Offering Burnt Offering detonates, it also spawns a mini Dracolyte minion that attacks enemies for a brief duration." },
-    faetrickster: { name: "Fae Trickster", ability: "Fae-go my Ego", desc: "The Fae Trickster is able to take an aditional hit before Ego Blast Ego Blast's bonus damage is lost. Refreshes after 4s of not taking damage." },
-    gunslinger: { name: "Gunslinger", ability: "Overcharged", desc: "Run and Gun Run and Gun no longer increases your attack speed but instead decreases it by 25%. All shots fired are fully charged Charge Shot Charge Shots." },
-    icesage: { name: "Ice Sage", ability: "Pain Freeze", desc: "In addition to Coldhearted Coldhearted's effects, the first Styles Staff Basic Attack against an enemy freezes the target for 1s and enemies hit by 3 Basic Attacks explode." },
-    knight: { name: "Knight", ability: "Spirit Squire", desc: "Charge Charge no longer propels you forward. Instead, a Spirit Squire charges forward through multiple enemies, dealing damage and stunning them for 1s." },
-    lunarlancer: { name: "Lunar Lancer", ability: "Shadow Lancer", desc: "Styles Spear Basic Attacks have a chance to spawn a dark shadow version of you that attacks enemies. In lunarform the chance is increased." },
-    neonninja: { name: "Neon Ninja", ability: "Heuristic Haxstar", desc: "Shurikens from Shining Star Shining Star are replaced with a massive buzzsaw that pierces enemies and applies Stasis Blade Stasis Blade's root." },
-    pirate: { name: "Pirate Captain", ability: "ARR-tillery", desc: "	Allows First Mate First Mate to deploy an additional turret. Both turrets will upgrade from the same Doubloons." },
-    revenant: { name: "Revenant", ability: "Aegis Assault", desc: "Bulwark Bash Bulwark Bash loses its cooldown and applies a stacking DoT effect which deals 66% PD per second." },
-    shadowhunter: { name: "Shadow Hunter", ability: "Shadow Blitz", desc: "Basic Attack becomes a rapid-fire stream of arrows." },
-    solarion: { name: "Solarion", ability: "Prismatic Link", desc: "Prismatic Blast now pulse around the Phoenix as well as the Solarion, allowing the Solarion to maintain range while attacking, and deal AOE damage around their Phoenix." },
-    tombraiser: { name: "Tomb Raiser", ability: "Beckon Banshee", desc: "Banshee's Boon Banshee's Boon also summons a banshee that heals your Skellittles and damages enemies. Adittionally, when the banshee dies attract a Restless Soul." },
-    vanguardian: { name: "Vanguardian", ability: "Hero's Mantle", desc: "Every third Styles Fist Melee Basic Attack and every fourth Styles Fist Ranged Basic Attack reduces ability cooldowns by 2s." }
-  }
-}
-  },
+
   fr: {
     hero: {
       badge: "Progression Endgame",
@@ -291,14 +434,13 @@ export const gemsGuideContent = {
       description: "Un guide complet sur l'optimisation de vos Gemmes Renforcées et Mineures, le changement de statistiques, le déplacement des boosts et l'augmentation pour atteindre le Power Rank et la Lumière maximum."
     },
     dock: {
-      tiers: "Tiers de Gemmes",
-      lesserEmpowered: "Mineures & Renforcées",
-      classGems: "Gemmes de Classe",
-      structure: "Structure",
-      stats: "Stats Optimales",
-      leveling: "Niveaux",
+      tiers: "Niveaux de gemmes",
+      lesserEmpowered: "Mineures vs Renforcées",
+      classGems: "Gemmes de classe",
+      anatomy: "Anatomie des gemmes",
+      stats: "Stats optimales",
+      leveling: "Niveaux & PR",
       perfecting: "Perfectionnement",
-      builds: "Builds de Gemmes"
     },
     scrolly: {
       title: "Apprendre les bases des gemmes",
@@ -512,60 +654,201 @@ export const gemsGuideContent = {
       }
     },
     classGemsSection: {
-  step: "05",
-  title: "Gemmes de Classe",
-  subtitle: "Pouvoirs Déterminants de Build",
-  intro: "Chaque classe possède sa propre gemme unique. Une Gemme de Classe est une Gemme Renforcée spéciale liée à une classe spécifique qui modifie l'une de ses capacités, offrant une amélioration puissante qui peut être équipée comme n'importe quelle autre Gemme Renforcée.",
-  cards: {
-    onePerClass: {
-      title: "Une par classe",
-      desc: "Chaque classe a sa propre Gemme de Classe unique, et seule cette classe peut l'équiper. Changer de classe signifie passer à une autre Gemme de Classe."
+      step: "05",
+      title: "Gemmes de Classe",
+      subtitle: "Pouvoirs Déterminants de Build",
+      intro: "Chaque classe possède sa propre gemme unique. Une Gemme de Classe est une Gemme Renforcée spéciale liée à une classe spécifique qui modifie l'une de ses capacités, offrant une amélioration puissante qui peut être équipée comme n'importe quelle autre Gemme Renforcée.",
+      cards: {
+        onePerClass: {
+          title: "Une par classe",
+          desc: "Chaque classe a sa propre Gemme de Classe unique, et seule cette classe peut l'équiper. Changer de classe signifie passer à une autre Gemme de Classe."
+        },
+        rewritesAbility: {
+          title: "Modifie une capacité",
+          desc: "Au lieu de fournir simplement des statistiques supplémentaires, une Gemme de Classe modifie l'une des capacités de la classe, changeant souvent considérablement son fonctionnement."
+        },
+        howToGet: {
+          title: "Comment l'obtenir",
+          desc: "Terminez un Colisée des Ombres dans les Rivages de l'Éternelle Obscurité. Une fois terminé, ouvrez le coffre avec une clé de gemme de classe."
+        }
+      },
+      selectorTitle: "Sélectionnez une Gemme de Classe pour voir sa capacité :",
+      selectedLabel: "GEMME DE CLASSE SÉLECTIONNÉE",
+      gems: {
+        bard: { 
+          name: "Barde", 
+          ability: "Maître de la Mélodie", 
+          desc: [
+            "L'explosion inflige 800% de dégâts magiques aux ennemis proches et redirige temporairement l'aggro. Confère aux alliés proches +45% de dégâts physiques/magiques et +45% de dégâts critiques.",
+            "Soigne les alliés proches de 45% des PV max et confère 15% de vol de vie en infligeant des dégâts. Étourdit également les ennemis proches pendant 3 secondes.",
+            "Augmente la vitesse de déplacement de 40% et l'énergie max de 50. Confère aux alliés 50% de chances de restaurer de l'énergie en infligeant des dégâts."
+          ] 
+        },
+        boomeranger: { 
+          name: "Boomeranger", 
+          ability: "Bomba-Cot", 
+          desc: [
+            "Petites Bombes devient une Bomba-Cot. Génère des poulets qui attaquent les ennemis pendant une courte durée.",
+            "Grosse Bombe devient une Bomba-Cot. Génère des poulets qui attaquent les ennemis pendant une courte durée."
+          ] 
+        },
+        candybarbarian: { name: "Barbare Sucré", ability: "Cuillère & Glu", desc: "Crash Sucré saute désormais de 4 blocs vers le haut et s'écrase, infligeant des dégâts de zone, aspirant les ennemis dans un rayon de 3-4 blocs vers vous et appliquant un court ralentissement." },
+        chloromancer: { name: "Chloromancien", ability: "Pouvoir Botanique", desc: "Lorsque Croissance Renforcée est active, le Chloromancien soigne les plantes et alliés proches de 10% toutes les 1,5s pendant 12s." },
+        dinotamer: { name: "Dompteur de Dinos", ability: "Heure Dino", desc: "Augmente la durée et la vitesse d'attaque de la Monture Dino." },
+        dracolyte: { name: "Dracolyte", ability: "Aura Brûlante", desc: "Lorsqu'une Offrande Brûlée détonne, elle fait également apparaître un mini dracolyte qui attaque les ennemis pendant une courte durée." },
+        faetrickster: { name: "Farfadotier", ability: "Égo Préservé", desc: "Le Farfadotier peut subir un coup supplémentaire avant de perdre le bonus de dégâts d'Égo Blast. Se réinitialise après 4s sans subir de dégâts." },
+        gunslinger: { name: "Pistoléro", ability: "Surcharge", desc: "Tir en Courant n'augmente plus la vitesse d'attaque mais la réduit de 25%. Tous les tirs deviennent des Tirs Chargés au maximum." },
+        icesage: { name: "Sage de Glace", ability: "Gel Dououreux", desc: "En plus des effets de Cœur Glacé, la première attaque de base gèle la cible pendant 1s, et les ennemis touchés par 3 attaques de base explosent." },
+        knight: { name: "Chevalier", ability: "Écuyer Spectral", desc: "Charge ne vous propulse plus vers l'avant. À la place, un Écuyer Spectral charge à travers plusieurs ennemis, infligeant des dégâts et les étourdissant pendant 1s." },
+        lunarlancer: { name: "Lancier Lunaire", ability: "Lancier Sombre", desc: "Les attaques de base à la lance ont une chance de faire apparaître un double d'ombre qui attaque les ennemis. En forme lunaire, la chance est augmentée." },
+        neonninja: { name: "Ninja Néon", ability: "Haxstar Heuristique", desc: "Les shurikens d'Étoile Brillante sont remplacés par une scie circulaire géante qui perce les ennemis et applique l'immobilisation de Lame de Stase." },
+        pirate: { name: "Capitaine Pirate", ability: "ARR-tillerie", desc: "Permet au Second de déployer une tourelle supplémentaire. Les deux tourelles s'améliorent avec les mêmes Doublons." },
+        revenant: { name: "Revenant", ability: "Assaut de l'Égide", desc: "Coup de Bouclier n'a plus de temps de recharge et applique un effet de dégâts sur la durée cumulable infligeant 66% de dégâts physiques par seconde." },
+        shadowhunter: { name: "Chasseur d'Ombres", ability: "Blitz Sombre", desc: "L'attaque de base devient une rafale continue de flèches à haute vitesse." },
+        solarion: { name: "Solarion", ability: "Lien Prismatique", desc: "Éclat Prismatique pulse désormais autour du Phénix ainsi que du Solarion, lui permettant de maintenir sa distance tout en infligeant des dégâts de zone autour du Phénix." },
+        tombraiser: { name: "Invocateur de Tombes", ability: "Invocatrice Banshee", desc: "Bénédiction de la Banshee invoque également une banshee qui soigne vos squelettes et blesse les ennemis. De plus, quand elle meurt, elle attire une Âme Inquiète." },
+        vanguardian: { name: "Vanguardien", ability: "Manteau du Héros", desc: "Chaque troisième attaque de base de mêlée et chaque quatrième attaque de base à distance réduit les temps de recharge des capacités de 2s." }
+      }
     },
-    rewritesAbility: {
-      title: "Modifie une capacité",
-      desc: "Au lieu de fournir simplement des statistiques supplémentaires, une Gemme de Classe modifie l'une des capacités de la classe, changeant souvent considérablement son fonctionnement."
+  levelingSection: {
+  step: "06",
+  title: "Montée en Niveau & Évolution du Power Rank",
+  subtitle: "Améliorations & Progression",
+  intro: "Infuser vos gemmes avec de la Poussière augmente leurs attributs de base et accroît votre Power Rank global. Les niveaux clés offrent des gains majeurs de PR tout en débloquant des améliorations de statistiques supplémentaires.",
+  sim: {
+    radiant: "Radieuse",
+    stellar: "Stellaire",
+    crystal: "Cristalline",
+    mystic: "Mystique",
+    empowered: "Renforcée",
+    lesser: "Mineure",
+    level: "NIVEAU",
+    powerRank: "POWER RANK",
+    dragonBonus: "Dragon Primordial (+10% PR)",
+    perfectDesc: "Une gemme de départ idéale possède ses 3 statistiques actives dès le niveau 1. Déplacez le curseur pour simuler la progression.",
+  },
+  boosters: {
+    title: "Modificateurs de Chance (Boosters)",
+    desc: "Chaque tentative d'amélioration teste votre chance : monter d'un niveau ou réussir un saut de deux niveaux. Les gemmes ne se brisent jamais en cas d'échec. L'utilisation de boosters maximise vos probabilités de succès et réduit drastiquement les coûts.",
+    levelUp: "Taux de Réussite",
+    doubleLevel: "Taux Double Niveau",
+    strength: "Efficacité",
+    allButMystic: "RADIANTE À CRISTAL",
+    mysticOnly: "EXCLUSIF MYSTIQUE",
+    note: "<strong>Neuvième Vie et Dixième Vie</strong> possèdent des multiplicateurs identiques mais sont strictement séparés : Neuvième Vie s'utilise jusqu'au rang Cristal, tandis que les gemmes Mystiques exigent la Dixième Vie."
+  },
+  upcycling: {
+    title: "Le Cycle d'Upcycling de Poussière",
+    desc: "Recycler des gemmes améliorées restitue de la Poussière de Gemme. Une gemme Cristalline montée au niveau 25 génère un surplus net de poussière. Cumuler le Gem Fixture de club avec la Journée des Gemmes augmente considérablement vos bénéfices :",
+    fixtureTitle: "Fixture de Club (−20% Coût)",
+    fixtureValue: "+4 045 666",
+    fixtureSub: "gain net / 50 gemmes",
+    gemDayTitle: "Fixture + Journée Gemmes (−40% Coût)",
+    gemDayValue: "+4 854 799",
+    gemDaySub: "gain net / 50 gemmes",
+    alertNever: "N'utilisez jamais de boosters lors du farm par upcycling. Le coût du booster dépasse la valeur de la poussière récupérée.",
+    alertTip: "Montez toutes vos gemmes Cristallines secondaires au niveau 25 avant de les recycler. C'est la méthode idéale pour stocker des millions de poussières."
+  }
+},
+strategySection: {
+  title: "La méthode efficace pour améliorer les gemmes (Endgame)",
+  note: "Dans cette courte section, nous voyons comment améliorer une gemme mystique sans gaspiller des quantités inutiles de boosters.",
+  steps: [
+    {
+      tag: "01",
+      title: "Prenons une gemme mystique",
+      desc: "Les gemmes mystiques s'obtiennent en farmant les mondes d'aventure D15 ou en faisant des Delves 165+. Les gemmes renforcées sont plus difficiles à obtenir, mais vous savez déjà où les trouver."
     },
-    howToGet: {
-      title: "Comment l'obtenir",
-      desc: "Terminez un Colisée des Ombres dans les Rivages de l'Éternelle Obscurité. Une fois terminé, ouvrez le coffre avec une clé de gemme de classe."
+    {
+      tag: "02",
+      title: "Améliorer les gemmes mineures",
+      desc: "Prenez une gemme mineure au niveau 30. Au-delà du niveau 30, améliorez sans booster jusqu'au niveau 32. Ensuite, utilisez des Lapis Luckbugs jusqu'au niveau 35."
+    },
+    {
+      tag: "03",
+      title: "Améliorer les gemmes renforcées",
+      desc: "Les gemmes renforcées dépendent davantage des boosters et sont limitées dans le temps. Utilisez des Luckbugs du niveau 30 à 33. Dès le niveau 33, utilisez 1 Tenth Life (pour tenter un double niveau vers 35), puis repassez aux Luckbugs du niveau 34 à 35."
+    },
+    {
+      tag: "04",
+      title: "Pourquoi procéder ainsi ?",
+      desc: "Cette méthode permet d'économiser beaucoup de boosters et d'améliorer plus de gemmes en une seule session. Dans Trove, l'amélioration des gemmes est fondamentale : autant le faire de façon optimale !"
+    },
+    {
+      tag: "05",
+      title: "Comment se préparer ?",
+      desc: "Farmez vos boîtes et votre poussière de gemme principalement le mercredi (Gem Day) pour doubler les gains, augmenter l'efficacité des boîtes et les bonus de Karma (idéal avec Patron). Rejoignez aussi des groupes d'Obélisques pour accumuler des Éclats de gemme mystique."
+    },
+    {
+      tag: "06",
+      title: "Raffinage et rééquilibrage des stats",
+      desc: "Une fois la gemme au niveau max, utilisez des Contained Chaos Sparks pour changer les stats, des Flares pour déplacer les boosts vers les bons attributs, et des Builder's Focus pour maximiser leurs pourcentages."
+    }
+  ]
+},
+perfectingSection: {
+  step: "07",
+  title: "Perfectionnement",
+  note: "Atteindre le niveau maximum n'est que le début. La véritable puissance en endgame provient du déplacement des boosts vers les bonnes stats et de la maximisation de leurs pourcentages à la Gem Forge.",
+  items: {
+    spark: {
+      name: "Contained Chaos Spark",
+      desc: "Relance aléatoirement l'une des stats d'une gemme pour une autre. Indispensable pour corriger de mauvais tirages sans détruire la gemme."
+    },
+    flare: {
+      name: "Contained Chaos Flare",
+      desc: "Déplace aléatoirement un boost de stat (perle) vers une autre stat. Essentiel pour concentrer les boosts sur la Lumière ou les Dégâts Critiques."
+    },
+    focus: {
+      name: "Builder's Focus",
+      desc: "Augmente le pourcentage d'une stat jusqu'à 100%. Disponible en paliers Brut (Rough), Précis (Precise) et Supérieur (Superior)."
     }
   },
-  selectorTitle: "Sélectionnez une Gemme de Classe pour voir sa capacité :",
-  selectedLabel: "GEMME DE CLASSE SÉLECTIONNÉE",
-  gems: {
-    bard: { 
-      name: "Barde", 
-      ability: "Maître de la Mélodie", 
-      desc: [
-        "L'explosion inflige 800% de dégâts magiques aux ennemis proches et redirige temporairement l'aggro. Confère aux alliés proches +45% de dégâts physiques/magiques et +45% de dégâts critiques.",
-        "Soigne les alliés proches de 45% des PV max et confère 15% de vol de vie en infligeant des dégâts. Étourdit également les ennemis proches pendant 3 secondes.",
-        "Augmente la vitesse de déplacement de 40% et l'énergie max de 50. Confère aux alliés 50% de chances de restaurer de l'énergie en infligeant des dégâts."
-      ] 
+  bbHeading: "Bound Brilliance & Âmes lunaires",
+  bbNote: "Fabriquer ces objets de perfectionnement requiert d'énormes quantités de Bound Brilliance et d'Âmes lunaires. Voici comment les farmer efficacement chaque semaine.",
+  sources: {
+    vaults: {
+      title: "Âmes lunaires (Vaults)",
+      yield: "18 / semaine",
+      desc: "À partir de la profondeur 110, les Shadowy Vaults apparaissent tous les 3 étages. Ouvrir un coffre rapporte 3 âmes lunaires, limité à 6 coffres réclamés (18 âmes) par semaine.",
+      extraLabel: "Profondeurs :",
+      extraTags: ["112", "115", "118", "..."]
     },
-    boomeranger: { 
-      name: "Boomeranger", 
-      ability: "Bomba-Cot", 
-      desc: [
-        "Petites Bombes devient une Bomba-Cot. Génère des poulets qui attaquent les ennemis pendant une courte durée.",
-        "Grosse Bombe devient une Bomba-Cot. Génère des poulets qui attaquent les ennemis pendant une courte durée."
-      ] 
+    monday: {
+      title: "5 de plus, uniquement le lundi",
+      yield: "5 / semaine",
+      desc: "Récupérez un fragment de Shadowkey de Delve un lundi pour débloquer une quête hebdomadaire. Terminez n'importe quelle profondeur de Delve pour recevoir 5 âmes lunaires bonus.",
+      extraLabel: "Règle :",
+      extraTags: ["Toute profondeur"]
     },
-    candybarbarian: { name: "Barbare Sucré", ability: "Cuillère & Glu", desc: "Crash Sucré saute désormais de 4 blocs vers le haut et s'écrase, infligeant des dégâts de zone, aspirant les ennemis dans un rayon de 3-4 blocs vers vous et appliquant un court ralentissement." },
-    chloromancer: { name: "Chloromancien", ability: "Pouvoir Botanique", desc: "Lorsque Croissance Renforcée est active, le Chloromancien soigne les plantes et alliés proches de 10% toutes les 1,5s pendant 12s." },
-    dinotamer: { name: "Dompteur de Dinos", ability: "Heure Dino", desc: "Augmente la durée et la vitesse d'attaque de la Monture Dino." },
-    dracolyte: { name: "Dracolyte", ability: "Aura Brûlante", desc: "Lorsqu'une Offrande Brûlée détonne, elle fait également apparaître un mini dracolyte qui attaque les ennemis pendant une courte durée." },
-    faetrickster: { name: "Farfadotier", ability: "Égo Préservé", desc: "Le Farfadotier peut subir un coup supplémentaire avant de perdre le bonus de dégâts d'Égo Blast. Se réinitialise après 4s sans subir de dégâts." },
-    gunslinger: { name: "Pistoléro", ability: "Surcharge", desc: "Tir en Courant n'augmente plus la vitesse d'attaque mais la réduit de 25%. Tous les tirs deviennent des Tirs Chargés au maximum." },
-    icesage: { name: "Sage de Glace", ability: "Gel Dououreux", desc: "En plus des effets de Cœur Glacé, la première attaque de base gèle la cible pendant 1s, et les ennemis touchés par 3 attaques de base explosent." },
-    knight: { name: "Chevalier", ability: "Écuyer Spectral", desc: "Charge ne vous propulse plus vers l'avant. À la place, un Écuyer Spectral charge à travers plusieurs ennemis, infligeant des dégâts et les étourdissant pendant 1s." },
-    lunarlancer: { name: "Lancier Lunaire", ability: "Lancier Sombre", desc: "Les attaques de base à la lance ont une chance de faire apparaître un double d'ombre qui attaque les ennemis. En forme lunaire, la chance est augmentée." },
-    neonninja: { name: "Ninja Néon", ability: "Haxstar Heuristique", desc: "Les shurikens d'Étoile Brillante sont remplacés par une scie circulaire géante qui perce les ennemis et applique l'immobilisation de Lame de Stase." },
-    pirate: { name: "Capitaine Pirate", ability: "ARR-tillerie", desc: "Permet au Second de déployer une tourelle supplémentaire. Les deux tourelles s'améliorent avec les mêmes Doublons." },
-    revenant: { name: "Revenant", ability: "Assaut de l'Égide", desc: "Coup de Bouclier n'a plus de temps de recharge et applique un effet de dégâts sur la durée cumulable infligeant 66% de dégâts physiques par seconde." },
-    shadowhunter: { name: "Chasseur d'Ombres", ability: "Blitz Sombre", desc: "L'attaque de base devient une rafale continue de flèches à haute vitesse." },
-    solarion: { name: "Solarion", ability: "Lien Prismatique", desc: "Éclat Prismatique pulse désormais autour du Phénix ainsi que du Solarion, lui permettant de maintenir sa distance tout en infligeant des dégâts de zone autour du Phénix." },
-    tombraiser: { name: "Invocateur de Tombes", ability: "Invocatrice Banshee", desc: "Bénédiction de la Banshee invoque également une banshee qui soigne vos squelettes et blesse les ennemis. De plus, quand elle meurt, elle attire une Âme Inquiète." },
-    vanguardian: { name: "Vanguardien", ability: "Manteau du Héros", desc: "Chaque troisième attaque de base de mêlée et chaque quatrième attaque de base à distance réduit les temps de recharge des capacités de 2s." }
+    tome: {
+      title: "Book of Bound Brilliance",
+      yield: "5 / semaine",
+      desc: "Fabriquez ce tome légendaire à l'Établi de l'Aventurier. Équipé, il se charge en donjons et Delves pour rapporter 5 Bound Brilliance par semaine.",
+      extraLabel: "Coût :",
+      extraTags: ["2 000 Poussières", "10 Flammes primordiales", "2 Âmes forgées penta"]
+    },
+    bomber: {
+      title: "Échange de Burnt Coins",
+      yield: "10 / semaine",
+      desc: "Gagnez des Blast Coins en Bomber Royale, convertissez-les en Burnt Coins et échangez-en 30 à l'établi du mode contre 10 Bound Brilliance. Disponible une fois par semaine.",
+      extraLabel: "Échange :",
+      extraTags: ["30 Burnt Coins"]
+    },
+    leaderboard: {
+      title: "Trois classements, chaque semaine",
+      yield: "21 / semaine",
+      desc: "Terminez dans le top 125 des trois classements d'Effort de classe pour obtenir 7 Brilliance chacun (jusqu'à 21 au total). Sécurisez votre rang en validant 4 défis de collection ou en battant 4 boss de Delve consécutifs.",
+      extraLabel: "Objectif :",
+      extraTags: ["Top 125", "3 Classes"]
+    },
+    events: {
+      title: "Pendant un événement",
+      yield: "Variable",
+      desc: "Les événements temporaires proposent souvent des recettes permettant d'échanger la monnaie de l'événement contre du Bound Brilliance. Les taux et limites varient selon l'événement.",
+      extraLabel: "Disponibilité :",
+      extraTags: ["Temps limité"]
+    }
   }
 }
   },
@@ -576,14 +859,13 @@ export const gemsGuideContent = {
       description: "Guía completa para optimizar tus Gemas Mejoradas y Menores, cambiar estadísticas, mover mejoras y aumentar hasta alcanzar el Power Rank y la Luz máximos."
     },
     dock: {
-      tiers: "Rangos de Gemas",
-      lesserEmpowered: "Menores y Mejoradas",
-      classGems: "Gemas de Clase",
-      structure: "Estructura",
-      stats: "Estadísticas Óptimas",
-      leveling: "Nivelación",
+      tiers: "Rangos de gemas",
+      lesserEmpowered: "Menores vs Potenciadas",
+      classGems: "Gemas de clase",
+      anatomy: "Anatomía de gemas",
+      stats: "Estadísticas óptimas",
+      leveling: "Subida de nivel & PR",
       perfecting: "Perfeccionamiento",
-      builds: "Builds de Gemas"
     },
     scrolly: {
       title: "Aprende lo básico sobre gemas",
@@ -797,63 +1079,205 @@ export const gemsGuideContent = {
       }
     },
     classGemsSection: {
-  step: "05",
-  title: "Gemas de Clase",
-  subtitle: "Poderes Definitorios de Build",
-  intro: "Cada clase tiene su propia gema única. Una Gema de Clase es una Gema Mejorada especial vinculada a una clase específica que modifica una de sus habilidades, proporcionando una mejora potente que se puede equipar como cualquier otra Gema Mejorada.",
-  cards: {
-    onePerClass: {
-      title: "Una por clase",
-      desc: "Cada clase tiene su propia Gema de Clase única y solo puede ser equipada por esa clase. Cambiar de clase significa cambiar a una Gema de Clase diferente."
+      step: "05",
+      title: "Gemas de Clase",
+      subtitle: "Poderes Definitorios de Build",
+      intro: "Cada clase tiene su propia gema única. Una Gema de Clase es una Gema Mejorada especial vinculada a una clase específica que modifica una de sus habilidades, proporcionando una mejora potente que se puede equipar como cualquier otra Gema Mejorada.",
+      cards: {
+        onePerClass: {
+          title: "Una por clase",
+          desc: "Cada clase tiene su propia Gema de Clase única y solo puede ser equipada por esa clase. Cambiar de clase significa cambiar a una Gema de Clase diferente."
+        },
+        rewritesAbility: {
+          title: "Modifica una habilidad",
+          desc: "En lugar de simplemente proporcionar estadísticas adicionales, una Gema de Clase modifica una de las habilidades de la clase, cambiando significativamente su funcionamiento."
+        },
+        howToGet: {
+          title: "Cómo obtenerla",
+          desc: "Completa un Coliseo Sombrío en las Orillas de la Oscuridad Eterna. Al terminar, abre el cofre con una llave de gema de clase."
+        }
+      },
+      selectorTitle: "Selecciona una Gema de Clase para ver su habilidad:",
+      selectedLabel: "GEMA DE CLASE SELECCIONADA",
+      gems: {
+        bard: { 
+          name: "Bardo", 
+          ability: "Maestro de la Melodía", 
+          desc: [
+            "La explosión inflige un 800% de daño mágico a los enemigos cercanos y redirige temporalmente la amenaza. Otorga a los aliados cercanos +45% de daño físico/mágico y +45% de daño crítico.",
+            "Cura a los aliados cercanos un 45% de la salud máxima y otorga un 15% de robo de vida al infligir daño. Además, aturde a los enemigos cercanos durante 3 segundos.",
+            "Aumenta la velocidad de movimiento un 40% y la energía máxima en 50. Otorga a los aliados un 50% de probabilidad de restaurar energía al infligir daño."
+          ] 
+        },
+        boomeranger: { 
+          name: "Boomeranger", 
+          ability: "Bomba-Cocorocó", 
+          desc: [
+            "Bombas Pequeñas se convierte en Bomba-Cocorocó. Genera pollos que atacan a los enemigos durante un breve período.",
+            "Bomba Grande se convierte en Bomba-Cocorocó. Genera pollos que atacan a los enemigos durante un breve período."
+          ] 
+        },
+        candybarbarian: { name: "Bárbaro Dulce", ability: "Cuchara y Engrudo", desc: "Choque de Azúcar ahora salta 4 bloques hacia arriba y cae en picado, infligiendo daño en área, aspirando a los enemigos en un radio de 3-4 bloques hacia ti y aplicando una breve ralentización." },
+        chloromancer: { name: "Cloromante", ability: "Poder Botánico", desc: "Cuando Crecimiento Mejorado está activo, el Cloromante cura a las plantas y aliados cercanos un 10% cada 1.5s durante 12s." },
+        dinotamer: { name: "Domador de Dinos", ability: "Hora Dino", desc: "Aumenta la duración y la velocidad de ataque de la Montura Dino." },
+        dracolyte: { name: "Dracolito", ability: "Protección Ardiente", desc: "Cuando una Ofrenda Quemada detona, genera un mini dracolito que ataca a los enemigos durante un breve período." },
+        faetrickster: { name: "Duende Truquero", ability: "Ego Protegido", desc: "El Duende Truquero puede recibir un golpe adicional antes de perder el bono de daño de Ego Blast. Se reinicia tras 4s sin recibir daño." },
+        gunslinger: { name: "Pistolero", ability: "Sobrecargado", desc: "Correr y Disparar ya no aumenta la velocidad de ataque, sino que la reduce un 25%. Todos los disparos se convierten en Disparos Cargados al máximo." },
+        icesage: { name: "Sabio de Hielo", ability: "Congelación Dolorosa", desc: "Además de los efectos de Corazón Helado, el primer ataque básico congela al objetivo durante 1s, y los enemigos alcanzados por 3 ataques básicos explotan." },
+        knight: { name: "Caballero", ability: "Escudero Espiritual", desc: "Carga ya no te impulsa hacia adelante. En su lugar, un Escudero Espiritual carga a través de múltiples enemigos, infligiendo daño y aturdiéndolos durante 1s." },
+        lunarlancer: { name: "Lancero Lunar", ability: "Lancero Sombrío", desc: "Los ataques básicos con lanza tienen la probabilidad de invocar una sombra oscura que ataca a los enemigos. En forma lunar la probabilidad aumenta." },
+        neonninja: { name: "Ninja Neón", ability: "Haxstar Heurística", desc: "Los shurikens de Estrella Brillante se reemplazan por una sierra circular gigante que atraviesa enemigos y aplica la inmovilización de Hoja de Estasis." },
+        pirate: { name: "Capitán Pirata", ability: "ARR-tillería", desc: "Permite al Segundo de Bordo desplegar una torreta adicional. Ambas torretas se mejorarán con los mismos Doblones." },
+        revenant: { name: "Revenant", ability: "Asalto de la Hégida", desc: "Golpe de Baluarte pierde su tiempo de recarga y aplica un efecto de daño continuo acumulable que inflige un 66% de daño físico por segundo." },
+        shadowhunter: { name: "Cazador de Sombras", ability: "Ráfaga Sombría", desc: "El ataque básico se convierte en una ráfaga continua de flechas a alta velocidad." },
+        solarion: { name: "Solarion", ability: "Enlace Prismático", desc: "Ráfaga Prismática ahora pulsa alrededor del Fénix además del Solarion, permitiendo mantener la distancia mientras ataca e infligir daño en área alrededor del Fénix." },
+        tombraiser: { name: "Profanador de Tumbas", ability: "Invocación de Banshee", desc: "Bendición de Banshee también invoca una banshee que cura a tus esqueletos y daña a los enemigos. Además, cuando muere atrae un Alma Inquieta." },
+        vanguardian: { name: "Vanguardiano", ability: "Manto del Héroe", desc: "Cada tercer ataque básico cuerpo a cuerpo y cada cuarto ataque básico a distancia reduce el tiempo de recarga de las habilidades en 2s." }
+      }
     },
-    rewritesAbility: {
-      title: "Modifica una habilidad",
-      desc: "En lugar de simplemente proporcionar estadísticas adicionales, una Gema de Clase modifica una de las habilidades de la clase, cambiando significativamente su funcionamiento."
+levelingSection: {
+  step: "06",
+  title: "Nivelación y Escala de Power Rank",
+  subtitle: "Mejoras y Progresión",
+  intro: "Infundir Polvo de Gemas eleva las estadísticas base de tus gemas y amplifica tu Power Rank total. Alcanzar niveles clave proporciona aumentos masivos de PR y desbloquea mejoras adicionales en los atributos.",
+  sim: {
+    radiant: "Radiante",
+    stellar: "Estelar",
+    crystal: "Cristal",
+    mystic: "Mística",
+    empowered: "Mejorada",
+    lesser: "Menor",
+    level: "NIVEL",
+    powerRank: "POWER RANK",
+    dragonBonus: "Dragón Primordial (+10% PR)",
+    perfectDesc: "Una gema inicial perfecta cuenta con sus 3 estadísticas activas desde el nivel 1. Desliza la barra para previsualizar el escalado.",
+  },
+  boosters: {
+    title: "Modificadores de Probabilidad (Boosters)",
+    desc: "Cada intento de subida evalúa el éxito: avanzar un nivel o conseguir un doble nivel crítico. Las gemas ya no se rompen tras fallar. Los potenciadores incrementan drásticamente las probabilidades de acierto, reduciendo la inversión de materiales.",
+    levelUp: "Tasa de Éxito",
+    doubleLevel: "Tasa Doble Nivel",
+    strength: "Efectividad",
+    allButMystic: "RADIANTE A CRISTAL",
+    mysticOnly: "EXCLUSIVO MÍSTICO",
+    note: "<strong>Novena y Décima Vida</strong> comparten multiplicadores idénticos pero para rangos distintos: Novena Vida cubre hasta Cristal, mientras que las gemas Místicas requieren obligatoriamente Décima Vida."
+  },
+  upcycling: {
+    title: "Ciclo de Reciclaje de Polvo (Upcycling)",
+    desc: "Desarmar gemas mejoradas devuelve Polvo de Gemas. Una gema de Cristal llevada al nivel 25 genera una ganancia neta superior a su coste de mejora. Sumar el Gem Fixture del club al Día de Gemas maximiza notablemente la rentabilidad :",
+    fixtureTitle: "Fixture de Club (−20% Coste)",
+    fixtureValue: "+4,045,666",
+    fixtureSub: "beneficio neto / 50 gemas",
+    gemDayTitle: "Fixture + Día de Gemas (−40% Coste)",
+    gemDayValue: "+4,854,799",
+    gemDaySub: "beneficio neto / 50 gemas",
+    alertNever: "Nunca gastes potenciadores mientras farmeas polvo mediante reciclaje. El coste del potenciador supera el beneficio obtenido.",
+    alertTip: "Lleva todas tus gemas de Cristal sobrantes al nivel 25 antes de desarmarlas. Es la estrategia más fiable para acumular polvo de cara al endgame."
+  }
+},
+strategySection: {
+  title: "La forma eficiente de mejorar gemas (Endgame)",
+  note: "En esta breve sección veremos cómo mejorar una gema mística sin gastar cantidades innecesarias de potenciadores.",
+  steps: [
+    {
+      tag: "01",
+      title: "Tomemos una gema mística",
+      desc: "Las gemas místicas se obtienen farmeando en mundos de aventura D15 o completando Delves 165+. Las gemas potenciadas son más difíciles de conseguir, pero ya sabemos cómo obtenerlas."
     },
-    howToGet: {
-      title: "Cómo obtenerla",
-      desc: "Completa un Coliseo Sombrío en las Orillas de la Oscuridad Eterna. Al terminar, abre el cofre con una llave de gema de clase."
+    {
+      tag: "02",
+      title: "Mejorar gemas menores",
+      desc: "Imagina que tienes una gema menor en nivel 30. Por encima del nivel 30, mejora sin potenciadores hasta el nivel 32. Luego usa Luckbugs hasta alcanzar el nivel 35."
+    },
+    {
+      tag: "03",
+      title: "Mejorar gemas potenciadas",
+      desc: "Las gemas potenciadas dependen más de los potenciadores y de rotaciones semanales. Comienza usando Luckbugs del nivel 30 al 33. Al llegar al 33, usa 1 Tenth Life (por si consigues subida doble al 35), y desde el 34 continúa con Luckbugs hasta el 35."
+    },
+    {
+      tag: "04",
+      title: "¿Por qué hacerlo de esta manera?",
+      desc: "Este método ahorra muchos potenciadores y te permite mejorar más gemas en una misma rotación. En Trove, mejorar gemas es fundamental, así que vale la pena hacerlo de forma óptima."
+    },
+    {
+      tag: "05",
+      title: "¿Cómo prepararte para mejorar?",
+      desc: "Farmea cajas y polvo de gemas principalmente los miércoles (Gem Day) para duplicar el polvo, mejorar la eficiencia de las cajas y el karma (mejor aún con Patron). Únete a grupos de Obeliscos para conseguir Gem Shards místicos."
+    },
+    {
+      tag: "06",
+      title: "Refinado y balance de estadísticas",
+      desc: "Cuando la gema alcance el nivel máximo, usa Contained Chaos Sparks para cambiar estadísticas, Flares para mover los aumentos a las posiciones deseadas y Builder's Focus para maximizar sus porcentajes."
+    }
+  ]
+},
+perfectingSection: {
+  step: "07",
+  title: "Perfeccionamiento",
+  note: "Alcanzar el nivel máximo es solo el comienzo. El verdadero poder de endgame se logra moviendo los aumentos a las estadísticas correctas y maximizando sus porcentajes en la Gem Forge.",
+  items: {
+    spark: {
+      name: "Contained Chaos Spark",
+      desc: "Cambia aleatoriamente una de las estadísticas de una gema por otra diferente. Crucial para corregir tiradas malas sin perder la gema."
+    },
+    flare: {
+      name: "Contained Chaos Flare",
+      desc: "Mueve un aumento de estadística (perla) aleatorio a otra estadística. Esencial para concentrar las mejoras en Luz o Daño Crítico."
+    },
+    focus: {
+      name: "Builder's Focus",
+      desc: "Aumenta el porcentaje de una estadística hacia el 100%. Viene en niveles Rústico (Rough), Preciso (Precise) y Superior (Superior)."
     }
   },
-  selectorTitle: "Selecciona una Gema de Clase para ver su habilidad:",
-  selectedLabel: "GEMA DE CLASE SELECCIONADA",
-  gems: {
-    bard: { 
-      name: "Bardo", 
-      ability: "Maestro de la Melodía", 
-      desc: [
-        "La explosión inflige un 800% de daño mágico a los enemigos cercanos y redirige temporalmente la amenaza. Otorga a los aliados cercanos +45% de daño físico/mágico y +45% de daño crítico.",
-        "Cura a los aliados cercanos un 45% de la salud máxima y otorga un 15% de robo de vida al infligir daño. Además, aturde a los enemigos cercanos durante 3 segundos.",
-        "Aumenta la velocidad de movimiento un 40% y la energía máxima en 50. Otorga a los aliados un 50% de probabilidad de restaurar energía al infligir daño."
-      ] 
+  bbHeading: "Bound Brilliance y Almas lunares",
+  bbNote: "Fabricar estos objetos de perfeccionamiento requiere una gran cantidad de Bound Brilliance y Almas lunares. Aquí tienes cómo farmearlos eficientemente cada semana.",
+  sources: {
+    vaults: {
+      title: "Almas lunares (Vaults)",
+      yield: "18 / semana",
+      desc: "A partir de la profundidad 110, los Shadowy Vaults aparecen cada tres pisos. Abrir un cofre otorga 3 Almas lunares, con un límite semanal de 6 cofres (18 almas).",
+      extraLabel: "Profundidades:",
+      extraTags: ["112", "115", "118", "..."]
     },
-    boomeranger: { 
-      name: "Boomeranger", 
-      ability: "Bomba-Cocorocó", 
-      desc: [
-        "Bombas Pequeñas se convierte en Bomba-Cocorocó. Genera pollos que atacan a los enemigos durante un breve período.",
-        "Bomba Grande se convierte en Bomba-Cocorocó. Genera pollos que atacan a los enemigos durante un breve período."
-      ] 
+    monday: {
+      title: "Cinco más, solo los lunes",
+      yield: "5 / semana",
+      desc: "Consigue un fragmento de llave de Delve un lunes para activar una misión semanal. Completa cualquier profundidad de Delve para recibir 5 Almas lunares extra.",
+      extraLabel: "Regla:",
+      extraTags: ["Cualquier profundidad"]
     },
-    candybarbarian: { name: "Bárbaro Dulce", ability: "Cuchara y Engrudo", desc: "Choque de Azúcar ahora salta 4 bloques hacia arriba y cae en picado, infligiendo daño en área, aspirando a los enemigos en un radio de 3-4 bloques hacia ti y aplicando una breve ralentización." },
-    chloromancer: { name: "Cloromante", ability: "Poder Botánico", desc: "Cuando Crecimiento Mejorado está activo, el Cloromante cura a las plantas y aliados cercanos un 10% cada 1.5s durante 12s." },
-    dinotamer: { name: "Domador de Dinos", ability: "Hora Dino", desc: "Aumenta la duración y la velocidad de ataque de la Montura Dino." },
-    dracolyte: { name: "Dracolito", ability: "Protección Ardiente", desc: "Cuando una Ofrenda Quemada detona, genera un mini dracolito que ataca a los enemigos durante un breve período." },
-    faetrickster: { name: "Duende Truquero", ability: "Ego Protegido", desc: "El Duende Truquero puede recibir un golpe adicional antes de perder el bono de daño de Ego Blast. Se reinicia tras 4s sin recibir daño." },
-    gunslinger: { name: "Pistolero", ability: "Sobrecargado", desc: "Correr y Disparar ya no aumenta la velocidad de ataque, sino que la reduce un 25%. Todos los disparos se convierten en Disparos Cargados al máximo." },
-    icesage: { name: "Sabio de Hielo", ability: "Congelación Dolorosa", desc: "Además de los efectos de Corazón Helado, el primer ataque básico congela al objetivo durante 1s, y los enemigos alcanzados por 3 ataques básicos explotan." },
-    knight: { name: "Caballero", ability: "Escudero Espiritual", desc: "Carga ya no te impulsa hacia adelante. En su lugar, un Escudero Espiritual carga a través de múltiples enemigos, infligiendo daño y aturdiéndolos durante 1s." },
-    lunarlancer: { name: "Lancero Lunar", ability: "Lancero Sombrío", desc: "Los ataques básicos con lanza tienen la probabilidad de invocar una sombra oscura que ataca a los enemigos. En forma lunar la probabilidad aumenta." },
-    neonninja: { name: "Ninja Neón", ability: "Haxstar Heurística", desc: "Los shurikens de Estrella Brillante se reemplazan por una sierra circular gigante que atraviesa enemigos y aplica la inmovilización de Hoja de Estasis." },
-    pirate: { name: "Capitán Pirata", ability: "ARR-tillería", desc: "Permite al Segundo de Bordo desplegar una torreta adicional. Ambas torretas se mejorarán con los mismos Doblones." },
-    revenant: { name: "Revenant", ability: "Asalto de la Hégida", desc: "Golpe de Baluarte pierde su tiempo de recarga y aplica un efecto de daño continuo acumulable que inflige un 66% de daño físico por segundo." },
-    shadowhunter: { name: "Cazador de Sombras", ability: "Ráfaga Sombría", desc: "El ataque básico se convierte en una ráfaga continua de flechas a alta velocidad." },
-    solarion: { name: "Solarion", ability: "Enlace Prismático", desc: "Ráfaga Prismática ahora pulsa alrededor del Fénix además del Solarion, permitiendo mantener la distancia mientras ataca e infligir daño en área alrededor del Fénix." },
-    tombraiser: { name: "Profanador de Tumbas", ability: "Invocación de Banshee", desc: "Bendición de Banshee también invoca una banshee que cura a tus esqueletos y daña a los enemigos. Además, cuando muere atrae un Alma Inquieta." },
-    vanguardian: { name: "Vanguardiano", ability: "Manto del Héroe", desc: "Cada tercer ataque básico cuerpo a cuerpo y cada cuarto ataque básico a distancia reduce el tiempo de recarga de las habilidades en 2s." }
+    tome: {
+      title: "Book of Bound Brilliance",
+      yield: "5 / semana",
+      desc: "Fabrica este tomo legendario en el banco de aventurero. Al equiparlo, se cargará en mazmorras y Delves para otorgar 5 Bound Brilliance semanales.",
+      extraLabel: "Coste:",
+      extraTags: ["2.000 Polvo", "10 Llama primordial", "2 Alma forjada penta"]
+    },
+    bomber: {
+      title: "Intercambio de Burnt Coins",
+      yield: "10 / semana",
+      desc: "Gana Blast Coins en Bomber Royale, conviértelas en Burnt Coins y canjea 30 en el banco del modo por 10 Bound Brilliance. Disponible una vez por semana.",
+      extraLabel: "Intercambio:",
+      extraTags: ["30 Burnt Coins"]
+    },
+    leaderboard: {
+      title: "Tres tablas, cada semana",
+      yield: "21 / semana",
+      desc: "Queda en el top 125 en las tres tablas de Esfuerzo de clase semanales para obtener 7 Brilliance en cada una (hasta 21 en total). Asegura tu rango completando 4 desafíos de colección o venciendo 4 jefes de Delve seguidos.",
+      extraLabel: "Objetivo:",
+      extraTags: ["Top 125", "3 Clases"]
+    },
+    events: {
+      title: "Durante un evento",
+      yield: "Variable",
+      desc: "Los eventos de tiempo limitado a menudo incluyen recetas para cambiar la moneda del evento por Bound Brilliance. Las tasas y límites varían según el evento.",
+      extraLabel: "Disponibilidad:",
+      extraTags: ["Tiempo limitado"]
+    }
   }
 }
   },
+
   zh: {
     hero: {
       badge: "终局进度",
@@ -861,14 +1285,13 @@ export const gemsGuideContent = {
       description: "关于优化强化宝石与次级宝石、洗练属性、转移加成以及提升以达到最大战斗力等级与光芒值的完整指南。"
     },
     dock: {
-      tiers: "宝石阶位",
-      lesserEmpowered: "次级与强化",
+      tiers: "宝石阶级",
+      lesserEmpowered: "普通 vs 强能宝石",
       classGems: "职业宝石",
-      structure: "宝石结构",
+      anatomy: "宝石结构",
       stats: "最佳属性",
-      leveling: "升级",
-      perfecting: "完美化",
-      builds: "宝石构建"
+      leveling: "升级与战力",
+      perfecting: "宝石精炼",
     },
     scrolly: {
       title: "了解宝石基础知识",
@@ -948,62 +1371,204 @@ export const gemsGuideContent = {
       cosmic: { title: "特殊宇宙插槽", desc: "必定包含光芒值。", highlight: "唯一光芒值来源！", uniqueFeature: "独特属性：", stats: ["光芒值"], abilitiesTitle: "宇宙技能：", abilities: "狂暴战士..." },
       dragonBonus: { badge: "被动属性加成", title: "始源龙", desc: "+10%属性提升。" }
     },
-classGemsSection: {
-  step: "05",
-  title: "职业宝石",
-  subtitle: "重塑机制的核心力量",
-  intro: "每个职业都有其专属的独特宝石。职业宝石是一种绑定的特殊强化宝石，能够修改该职业的核心技能，提供强大的流派重塑造效果，装备方式与其他强化宝石相同。",
-  cards: {
-    onePerClass: {
-      title: "专职专用",
-      desc: "每个职业都有其专属的职业宝石，且只能由该职业装备。切换职业意味着需要更换对应的职业宝石。"
+    classGemsSection: {
+      step: "05",
+      title: "职业宝石",
+      subtitle: "重塑机制的核心力量",
+      intro: "每个职业都有其专属的独特宝石。职业宝石是一种绑定的特殊强化宝石，能够修改该职业的核心技能，提供强大的流派重塑造效果，装备方式与其他强化宝石相同。",
+      cards: {
+        onePerClass: {
+          title: "专职专用",
+          desc: "每个职业都有其专属的职业宝石，且只能由该职业装备。切换职业意味着需要更换对应的职业宝石。"
+        },
+        rewritesAbility: {
+          title: "技能机制重写",
+          desc: "职业宝石并非单纯提供额外属性，而是直接修改职业的核心技能，通常会显著改变其运作方式。"
+        },
+        howToGet: {
+          title: "获取途径",
+          desc: "前往永夜之海岸完成阴影竞技场挑战。通关后使用职业宝石钥匙开启宝箱即可获得。"
+        }
+      },
+      selectorTitle: "点击下方职业宝石查看技能重写效果：",
+      selectedLabel: "当前选择的职业宝石",
+      gems: {
+        bard: { 
+          name: "吟游诗人", 
+          ability: "旋律大师", 
+          desc: [
+            "爆炸对周围敌人造成 800% 魔法伤害并强行吸引仇恨。为附近盟友提供 +45% 物理/魔法伤害和 +45% 暴击伤害加成。",
+            "治疗附近盟友 45% 最大生命值，并在造成伤害时提供 15% 生命吸取。此外，使周围敌人眩晕 3 秒。",
+            "提升 40% 移动速度和 50 点最大能量。为盟友提供造成伤害时 50% 概率恢复能量的被动加成。"
+          ] 
+        },
+        boomeranger: { 
+          name: "回旋镖手", 
+          ability: "咕咕炸弹", 
+          desc: [
+            "微型炸弹变为咕咕炸弹，召唤小鸡持续攻击敌人。",
+            "大型炸弹变为咕咕炸弹，召唤小鸡持续攻击敌人。"
+          ] 
+        },
+        candybarbarian: { name: "糖果野蛮人", ability: "冰淇淋猛砸", desc: "糖分冲撞改为向上跳跃 4 格后重重砸下，造成范围伤害并将 3-4 格内的敌人强行拉拽至身旁，施加短暂束缚。" },
+        chloromancer: { name: "植物学者", ability: "植物潜能", desc: "强化生长激活时，植物学者可治疗附近植物与盟友，每 1.5 秒恢复 10% 生命值，持续 12 秒。" },
+        dinotamer: { name: "驯龙师", ability: "恐龙时刻", desc: "延长恐龙坐骑的持续时间并提升攻击速度。" },
+        dracolyte: { name: "龙法师", ability: "灼烧结界", desc: "献祭炸弹引爆时，会额外召唤一只小龙法师随从协助攻击敌人。" },
+        faetrickster: { name: "仙子幻客", ability: "自我防护", desc: "仙子幻客在失去自尊冲击的额外伤害加成前可额外承受一次攻击。4 秒内未受伤害后重置。" },
+        gunslinger: { name: "枪手", ability: "极限过载", desc: "移动射击不再提升攻击速度，反而降低 25% 攻速，但发射的所有子弹全部变为满蓄力炮弹。" },
+        icesage: { name: "寒冰贤者", ability: "痛苦冻结", desc: "除了冷酷无情的原有效果外，对敌人的首次普通攻击会冻结目标 1 秒，被普通攻击命中 3 次的敌人会发生爆炸。" },
+        knight: { name: "骑士", ability: "精神侍从", desc: "冲锋不再将自身向前推进，而是召唤一名精神侍从向前冲锋贯穿多个敌人，造成伤害并眩晕 1 秒。" },
+        lunarlancer: { name: "月枪手", ability: "暗影枪手", desc: "长枪普通攻击有概率召唤暗影分身协助攻击敌人。变身月灵形态后召唤概率大幅提升。" },
+        neonninja: { name: "霓虹忍者", ability: "启发式锯星", desc: "闪耀之星的手里剑替换为巨型电锯，穿透敌人并施加定身之刃的束缚效果。" },
+        pirate: { name: "海盗船长", ability: "火力全开", desc: "允许大副额外部署一台炮台，两台炮台共享金币升级效果。" },
+        revenant: { name: "亡灵骑士", ability: "神圣突袭", desc: "壁垒重击取消冷却时间，改为施加可叠加的持续伤害效果，每秒造成 66% 物理伤害。" },
+        shadowhunter: { name: "暗影猎手", ability: "暗影速射", desc: "普通攻击变为加特林高射速箭雨形态。" },
+        solarion: { name: "日轮者", ability: "棱镜链接", desc: "棱镜爆发现在会在凤凰与日轮者周围同时脉冲，允许日轮者保持距离攻击并在凤凰周围造成范围伤害。" },
+        tombraiser: { name: "墓穴召唤师", ability: "女妖呼唤", desc: "女妖赐福会额外召唤一只女妖治疗你的骷髅并伤害敌人。女妖死亡时还会吸引一个躁动灵魂。" },
+        vanguardian: { name: "前锋", ability: "英雄披风", desc: "近战普通攻击每第 3 次、远程普通攻击每第 4 次均可缩短技能冷却时间 2 秒。" }
+      }
     },
-    rewritesAbility: {
-      title: "技能机制重写",
-      desc: "职业宝石并非单纯提供额外属性，而是直接修改职业的核心技能，通常会显著改变其运作方式。"
+    // zh (Kínai)
+levelingSection: {
+  step: "06",
+  title: "宝石强化与战力成长体系",
+  subtitle: "强化与进阶",
+  intro: "消耗宝石尘强化宝石可稳步提高基础属性并大幅提升总战力等级 (PR)。当升级至核心突破等级时，不仅会迎来战力暴涨，还会触发额外的属性增强点数。",
+  sim: {
+    radiant: "光辉",
+    stellar: "恒星",
+    crystal: "水晶",
+    mystic: "神秘",
+    empowered: "强化宝石",
+    lesser: "普通宝石",
+    level: "等级",
+    powerRank: "战斗力 (PR)",
+    dragonBonus: "始源龙加成 (+10% PR)",
+    perfectDesc: "完美的初始胚子在 1 级时即拥有全部 3 条属性。拖动下方滑块即可平滑模拟升级过程中的战力变化。",
+  },
+  boosters: {
+    title: "升级概率增幅道具 (Boosters)",
+    desc: "每次升级都会进行概率判定：正常升 1 级或触发暴击连升 2 级。现在的宝石升级失败不再破碎。使用幸运道具可显著拉高成功率和连升几率，大幅降低材料开销。",
+    levelUp: "成功率",
+    doubleLevel: "双倍升级率",
+    strength: "道具效能",
+    allButMystic: "光辉至水晶通用",
+    mysticOnly: "神秘宝石专属",
+    note: "<strong>九命猫与十命猫</strong>拥有完全一致的倍率加成，但适用阶位相互独立：九命猫覆盖至水晶阶位，而神秘宝石仅支持消耗十命猫。"
+  },
+  upcycling: {
+    title: "水晶宝石分解循环 (Upcycling)",
+    desc: "分解已强化的宝石将返还大量宝石尘。将水晶宝石强化至 25 级后分解，其产出将大幅超过升级投入。配合公会装置 (Fixture) 与会员宝石日加成可使纯收益最大化：",
+    fixtureTitle: "公会装置 (−20% 消耗)",
+    fixtureValue: "+4,045,666",
+    fixtureSub: "每 50 颗净利润",
+    gemDayTitle: "公会装置 + 宝石日 (−40% 消耗)",
+    gemDayValue: "+4,854,799",
+    gemDaySub: "每 50 颗净利润",
+    alertNever: "在进行宝石循环刷粉时切勿使用幸运道具，道具本身的价值远高于产出的额外粉末。",
+    alertTip: "将获得的多余水晶宝石统一升至 25 级后再行分解，这是为毕业宝石筹备数百万宝石尘最稳定的途径。"
+  }
+},
+strategySection: {
+  title: "高效宝石升级策略（后期毕业指南）",
+  note: "在这一简短章节中，我们将了解如何升级秘法阶级宝石，同时避免浪费不必要的加速药水。",
+  steps: [
+    {
+      tag: "01",
+      title: "以秘法宝石为例",
+      desc: "秘法宝石可通过刷 D15 冒险世界或通关 165+ 深入探险（Delves）获得。强能宝石虽然获取难度更高，但获取方式基本一致。"
     },
-    howToGet: {
-      title: "获取途径",
-      desc: "前往永夜之海岸完成阴影竞技场挑战。通关后使用职业宝石钥匙开启宝箱即可获得。"
+    {
+      tag: "02",
+      title: "升级普通宝石",
+      desc: "假设你有一颗 30 级的普通宝石。在 30 级以上时，裸点升级至 32 级（不使用道具），随后使用青金石幸运虫（Luckbug）升级至 35 级。"
+    },
+    {
+      tag: "03",
+      title: "升级强能宝石",
+      desc: "强能宝石对加速道具依赖更高且受时间限制。从 30 级到 33 级建议使用幸运虫；到达 33 级后使用 1 个第十命（Tenth Life，争取双倍升级直接冲到 35 级）；从 34 级起继续使用幸运虫升至 35 级。"
+    },
+    {
+      tag: "04",
+      title: "为什么要这样做？",
+      desc: "这种升级方式能为你节省大量高级加速道具，让你在一个升级周期内强化更多宝石。在 Trove 中，宝石强化至关重要，合理的策略能事半功倍。"
+    },
+    {
+      tag: "05",
+      title: "如何做好升级准备？",
+      desc: "尽量在周三（宝石日）集中刷宝石箱和宝石尘，享受双倍粉尘掉落、开箱效率提升及 Karma 加成（配合特权会员更佳）。同时建议积极组队参与方尖碑（Obelisk）活动，快速收集秘法宝石碎片。"
+    },
+    {
+      tag: "06",
+      title: "精炼与属性调整",
+      desc: "宝石升至满级后，使用混沌火花重随属性，使用混沌火炬转移加成（珍珠），最后利用工匠焦点将属性百分比拉满。"
+    }
+  ]
+},
+perfectingSection: {
+  step: "07",
+  title: "宝石精炼与强化",
+  note: "升满等级仅仅是第一步。真正的毕业战力来自于在宝石锻造台（Gem Forge）中将属性加成转移至核心词条，并将属性百分比提升至 100%。",
+  items: {
+    spark: {
+      name: "Contained Chaos Spark（混沌火花）",
+      desc: "随机将宝石上的一条属性重置为其他属性。在不摧毁宝石的前提下修正废词条的核心道具。"
+    },
+    flare: {
+      name: "Contained Chaos Flare（混沌火炬）",
+      desc: "将随机一条属性加成（强化珍珠）转移到其他属性上。用于将强化点数集中到光能（Light）或暴击伤害上的必备道具。"
+    },
+    focus: {
+      name: "Builder's Focus（工匠焦点）",
+      desc: "将属性百分比逐步提升至 100%。分为粗糙（Rough）、精确（Precise）和卓越（Superior）三个等级。"
     }
   },
-  selectorTitle: "点击下方职业宝石查看技能重写效果：",
-  selectedLabel: "当前选择的职业宝石",
-  gems: {
-    bard: { 
-      name: "吟游诗人", 
-      ability: "旋律大师", 
-      desc: [
-        "爆炸对周围敌人造成 800% 魔法伤害并强行吸引仇恨。为附近盟友提供 +45% 物理/魔法伤害和 +45% 暴击伤害加成。",
-        "治疗附近盟友 45% 最大生命值，并在造成伤害时提供 15% 生命吸取。此外，使周围敌人眩晕 3 秒。",
-        "提升 40% 移动速度和 50 点最大能量。为盟友提供造成伤害时 50% 概率恢复能量的被动加成。"
-      ] 
+  bbHeading: "束缚光辉（Bound Brilliance）与月神之魂（Lunar Souls）",
+  bbNote: "制作这些精炼道具需要消耗海量的束缚光辉与月神之魂。以下是每周最高效的获取途径。",
+  sources: {
+    vaults: {
+      title: "月神之魂（暗影密室）",
+      yield: "18 / 周",
+      desc: "从深度 110 开始，暗影密室每隔 3 层出现一次。开启每个密室获得 3 个月神之魂，每周上限结算 6 个密室（共 18 个灵魂）。",
+      extraLabel: "出现深度：",
+      extraTags: ["112", "115", "118", "..."]
     },
-    boomeranger: { 
-      name: "回旋镖手", 
-      ability: "咕咕炸弹", 
-      desc: [
-        "微型炸弹变为咕咕炸弹，召唤小鸡持续攻击敌人。",
-        "大型炸弹变为咕咕炸弹，召唤小鸡持续攻击敌人。"
-      ] 
+    monday: {
+      title: "周一限定额外获取",
+      yield: "5 / 周",
+      desc: "在周一拾取探险暗影钥匙碎片可触发周常任务。完成任意深度的深入探险即可交付任务，额外获得 5 个月神之魂。",
+      extraLabel: "要求：",
+      extraTags: ["任意深度均可"]
     },
-    candybarbarian: { name: "糖果野蛮人", ability: "冰淇淋猛砸", desc: "糖分冲撞改为向上跳跃 4 格后重重砸下，造成范围伤害并将 3-4 格内的敌人强行拉拽至身旁，施加短暂束缚。" },
-    chloromancer: { name: "植物学者", ability: "植物潜能", desc: "强化生长激活时，植物学者可治疗附近植物与盟友，每 1.5 秒恢复 10% 生命值，持续 12 秒。" },
-    dinotamer: { name: "驯龙师", ability: "恐龙时刻", desc: "延长恐龙坐骑的持续时间并提升攻击速度。" },
-    dracolyte: { name: "龙法师", ability: "灼烧结界", desc: "献祭炸弹引爆时，会额外召唤一只小龙法师随从协助攻击敌人。" },
-    faetrickster: { name: "仙子幻客", ability: "自我防护", desc: "仙子幻客在失去自尊冲击的额外伤害加成前可额外承受一次攻击。4 秒内未受伤害后重置。" },
-    gunslinger: { name: "枪手", ability: "极限过载", desc: "移动射击不再提升攻击速度，反而降低 25% 攻速，但发射的所有子弹全部变为满蓄力炮弹。" },
-    icesage: { name: "寒冰贤者", ability: "痛苦冻结", desc: "除了冷酷无情的原有效果外，对敌人的首次普通攻击会冻结目标 1 秒，被普通攻击命中 3 次的敌人会发生爆炸。" },
-    knight: { name: "骑士", ability: "精神侍从", desc: "冲锋不再将自身向前推进，而是召唤一名精神侍从向前冲锋贯穿多个敌人，造成伤害并眩晕 1 秒。" },
-    lunarlancer: { name: "月枪手", ability: "暗影枪手", desc: "长枪普通攻击有概率召唤暗影分身协助攻击敌人。变身月灵形态后召唤概率大幅提升。" },
-    neonninja: { name: "霓虹忍者", ability: "启发式锯星", desc: "闪耀之星的手里剑替换为巨型电锯，穿透敌人并施加定身之刃的束缚效果。" },
-    pirate: { name: "海盗船长", ability: "火力全开", desc: "允许大副额外部署一台炮台，两台炮台共享金币升级效果。" },
-    revenant: { name: "亡灵骑士", ability: "神圣突袭", desc: "壁垒重击取消冷却时间，改为施加可叠加的持续伤害效果，每秒造成 66% 物理伤害。" },
-    shadowhunter: { name: "暗影猎手", ability: "暗影速射", desc: "普通攻击变为加特林高射速箭雨形态。" },
-    solarion: { name: "日轮者", ability: "棱镜链接", desc: "棱镜爆发现在会在凤凰与日轮者周围同时脉冲，允许日轮者保持距离攻击并在凤凰周围造成范围伤害。" },
-    tombraiser: { name: "墓穴召唤师", ability: "女妖呼唤", desc: "女妖赐福会额外召唤一只女妖治疗你的骷髅并伤害敌人。女妖死亡时还会吸引一个躁动灵魂。" },
-    vanguardian: { name: "前锋", ability: "英雄披风", desc: "近战普通攻击每第 3 次、远程普通攻击每第 4 次均可缩短技能冷却时间 2 秒。" }
+    tome: {
+      title: "Book of Bound Brilliance（光辉法典）",
+      yield: "5 / 周",
+      desc: "在冒险者工作台制作这本传奇法典。装备后通过刷副本和深入探险为其充能，充盈后每周可产出 5 个束缚光辉。",
+      extraLabel: "制作成本：",
+      extraTags: ["2000 宝石尘", "10 原初之火", "2 五级暗影之魂"]
+    },
+    bomber: {
+      title: "焦黑硬币兑换",
+      yield: "10 / 周",
+      desc: "参与炸弹皇家大乱斗获得爆破硬币并转化为焦黑硬币，在专属工作台使用 30 个焦黑硬币兑换 10 个束缚光辉。每周重置一次。",
+      extraLabel: "兑换消耗：",
+      extraTags: ["30 焦黑硬币"]
+    },
+    leaderboard: {
+      title: "每周三大职业榜单",
+      yield: "21 / 周",
+      desc: "在每周进行的三大职业竞赛榜单中排名前 125 名，每个职业可得 7 个光辉（最多 21 个）。每个职业可通过完成 4 次收集挑战或在探险中连续击败 4 个 Boss 来锁定排名。",
+      extraLabel: "目标：",
+      extraTags: ["前 125 名", "3 个职业"]
+    },
+    events: {
+      title: "限时活动期间",
+      yield: "视活动而定",
+      desc: "特定的限时活动通常包含专属制作配方，允许将活动代币直接兑换为束缚光辉。兑换比例与上限随活动调整。",
+      extraLabel: "获取时间：",
+      extraTags: ["限时活动"]
+    }
   }
 }
-  },
+  }
 };

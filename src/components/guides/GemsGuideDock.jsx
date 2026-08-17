@@ -64,10 +64,10 @@ export function GemsGuideDock() {
       onClick: (e) => scrollToSection(e, "#class-gems")
     },
     {
-      title: d.structure,
-      icon: <img src="/gemnav/collage.png" alt={d.structure} className="max-w-full max-h-full object-contain" />,
-      href: "#structure",
-      onClick: (e) => scrollToSection(e, "#structure")
+      title: d.anatomy,
+      icon: <img src="/gemnav/collage.png" alt={d.anatomy} className="max-w-full max-h-full object-contain" />,
+      href: "#anatomy",
+      onClick: (e) => scrollToSection(e, "#anatomy")
     },
     {
       title: d.stats,
@@ -87,12 +87,12 @@ export function GemsGuideDock() {
       href: "#perfecting",
       onClick: (e) => scrollToSection(e, "#perfecting")
     },
-    {
+    /*{
       title: d.builds,
       icon: <img src="/gemnav/gembuild.png" alt={d.builds} className="max-w-full max-h-full object-contain" />,
       href: "#gem-builds",
       onClick: (e) => scrollToSection(e, "#gem-builds")
-    },
+    },*/
   ];
 
   return (
