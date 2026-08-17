@@ -14,7 +14,7 @@ export const gemsGuideContent = {
       stats: "Optimal Stats",
       leveling: "Leveling",
       perfecting: "Perfecting",
-      builds: "Gem Builds"
+      gemTypes: "Gem Types"
     },
     scrolly: {
       title: "Learn the basics of gems",

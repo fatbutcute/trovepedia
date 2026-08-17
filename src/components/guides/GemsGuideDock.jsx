@@ -46,6 +46,18 @@ export function GemsGuideDock() {
 
   const links = [
     {
+      title: d.anatomy,
+      icon: <img src="/gemnav/collage.png" alt={d.anatomy} className="max-w-full max-h-full object-contain" />,
+      href: "#anatomy",
+      onClick: (e) => scrollToSection(e, "#anatomy")
+    },
+    {
+      title: d.stats,
+      icon: <img src="/gemnav/stats.png" alt={d.stats} className="max-w-full max-h-full object-contain" />,
+      href: "#optimal",
+      onClick: (e) => scrollToSection(e, "#optimal")
+    },
+    {
       title: d.tiers,
       icon: <img src="/gemnav/tiers.png" alt={d.tiers} className="max-w-full max-h-full object-contain" />,
       href: "#tiers",
@@ -58,22 +70,16 @@ export function GemsGuideDock() {
       onClick: (e) => scrollToSection(e, "#lesser-empowered")
     },
     {
+      title: d.gemTypes,
+      icon: <img src="/gemnav/perspective.png" alt={d.gemTypes} className="max-w-full max-h-full object-contain" />,
+      href: "#gem-types",
+      onClick: (e) => scrollToSection(e, "#gem-types")
+    },
+    {
       title: d.classGems,
       icon: <img src="/gemnav/classgems.png" alt={d.classGems} className="max-w-full max-h-full object-contain" />,
       href: "#class-gems",
       onClick: (e) => scrollToSection(e, "#class-gems")
-    },
-    {
-      title: d.anatomy,
-      icon: <img src="/gemnav/collage.png" alt={d.anatomy} className="max-w-full max-h-full object-contain" />,
-      href: "#anatomy",
-      onClick: (e) => scrollToSection(e, "#anatomy")
-    },
-    {
-      title: d.stats,
-      icon: <img src="/gemnav/stats.png" alt={d.stats} className="max-w-full max-h-full object-contain" />,
-      href: "#optimal",
-      onClick: (e) => scrollToSection(e, "#optimal")
     },
     {
       title: d.leveling,
@@ -87,12 +93,6 @@ export function GemsGuideDock() {
       href: "#perfecting",
       onClick: (e) => scrollToSection(e, "#perfecting")
     },
-    /*{
-      title: d.builds,
-      icon: <img src="/gemnav/gembuild.png" alt={d.builds} className="max-w-full max-h-full object-contain" />,
-      href: "#gem-builds",
-      onClick: (e) => scrollToSection(e, "#gem-builds")
-    },*/
   ];
 
   return (
