@@ -224,7 +224,6 @@ export default function GemsGuide() {
           id="Anatomy"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
         >
           <span className={styles.badge}>{c.hero.badge}</span>
           <h1 className={styles.title}>{c.hero.title}</h1>
@@ -242,6 +241,7 @@ export default function GemsGuide() {
           initial={{ opacity: 0, y: 35 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <span className={styles.sectionStep}>{c.rerollSection.step}</span>
           <h2 className={styles.sectionTitle}>{c.rerollSection.title}</h2>
@@ -264,6 +264,7 @@ export default function GemsGuide() {
           initial={{ opacity: 0, y: 35 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <h2 className={styles.sectionTitle}>{c.statsSection.title}</h2>
           
@@ -329,6 +330,7 @@ export default function GemsGuide() {
           initial={{ opacity: 0, y: 35 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <GemTiersSection />
         </motion.section>
@@ -338,6 +340,7 @@ export default function GemsGuide() {
           initial={{ opacity: 0, y: 35 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <h2 className={styles.sectionTitle}>{c.convertersSection.title}</h2>
           
@@ -373,6 +376,7 @@ export default function GemsGuide() {
           initial={{ opacity: 0, y: 35 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <SectionDivider />
           <span className={styles.sectionStep}>{c.lesserVsEmpowered.step}</span>
@@ -485,6 +489,7 @@ export default function GemsGuide() {
           initial={{ opacity: 0, y: 35 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <SectionDivider />
           <span className={styles.sectionStep}>{c.gemTypes.step}</span>
@@ -560,6 +565,7 @@ export default function GemsGuide() {
             initial={{ opacity: 0, y: 35 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
           >
             <SectionDivider />
             <span className={styles.sectionStep}>{classGemsSec.step}</span>
@@ -625,7 +631,6 @@ export default function GemsGuide() {
                 key={selectedClassGem}
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.2 }}
                 className={styles.cgToolboxPanel}
                 style={{ '--cg-accent': currentGemConfig.color }}
               >
@@ -702,6 +707,7 @@ export default function GemsGuide() {
             initial={{ opacity: 0, y: 35 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
           >
             <SectionDivider />
             <span className={styles.sectionStep}>{levelingSec.step}</span>
@@ -915,7 +921,6 @@ export default function GemsGuide() {
                       key={step.tag}
                       className={styles.strategyCard}
                       whileHover={{ x: 10, borderColor: 'rgba(56, 189, 248, 0.6)' }}
-                      transition={{ duration: 0.05 }}
                     >
                       <div className={styles.strategyCardHeader}>
                         <span className={styles.strategyTag}>{step.tag}</span>
@@ -939,6 +944,7 @@ export default function GemsGuide() {
             initial={{ opacity: 0, y: 35 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
           >
             <SectionDivider />
             <span className={styles.sectionStep}>{perfectingSec.step || "07"}</span>
