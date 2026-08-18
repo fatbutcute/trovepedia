@@ -31,6 +31,29 @@ function getDailyBuffIcon(buffData) {
   return '/icons/power.png';
 }
 
+// 🌐 Segédfüggvény a napi és heti buffok lefordításához
+function translateBuffText(rawText, t) {
+  if (!rawText || typeof rawText !== 'string') return rawText;
+
+  let text = rawText.trim();
+
+  // 1. Ha van közvetlen egyezés a buffDescriptions szótárban
+  if (t?.buffDescriptions?.[text]) {
+    return t.buffDescriptions[text];
+  }
+
+  // 2. Ha a szöveg összetett vagy kis- és nagybetű eltérés van
+  const dict = t?.buffDescriptions || {};
+  let translated = text;
+  Object.keys(dict).forEach((key) => {
+    const escaped = key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const regex = new RegExp(escaped, 'gi');
+    translated = translated.replace(regex, dict[key]);
+  });
+
+  return translated;
+}
+
 function formatClock(unixSeconds) {
   if (!Number.isFinite(unixSeconds)) return '--:--:--';
   const d = new Date(unixSeconds * 1000);
@@ -674,7 +697,7 @@ export default function TokenCall() {
 
                       <div>
                         <div className="td-buff-name" style={{ fontSize: '1.05rem', fontWeight: '700' }}>
-                          {dailyBuffs.current?.name ?? t.buffs.unknown}
+                          {t.buffNames?.[dailyBuffs.current?.name] || dailyBuffs.current?.name || t.buffs.unknown}
                         </div>
                         <div className="td-buff-weekday" style={{ fontSize: '0.8rem', color: 'var(--text-dim)' }}>
                           {dailyBuffs.current?.weekday ?? (todayWeekday !== null ? t.clock.weekdays[todayWeekday] : '')}
@@ -684,17 +707,23 @@ export default function TokenCall() {
 
                   <div className="td-tag-row">
                     {Array.isArray(dailyBuffs.current?.normal_buffs) &&
-                      dailyBuffs.current.normal_buffs.map((buff, i) => (
-                        <span className="td-tag" key={`n-${i}`}>
-                          {typeof buff === 'string' ? buff : buff?.name}
-                        </span>
-                      ))}
+                      dailyBuffs.current.normal_buffs.map((buff, i) => {
+                        const rawBuff = typeof buff === 'string' ? buff : buff?.name;
+                        return (
+                          <span className="td-tag" key={`n-${i}`}>
+                            {translateBuffText(rawBuff, t)}
+                          </span>
+                        );
+                      })}
                     {Array.isArray(dailyBuffs.current?.premium_buffs) &&
-                      dailyBuffs.current.premium_buffs.map((buff, i) => (
-                        <span className="td-tag premium" key={`p-${i}`}>
-                          ✦ {typeof buff === 'string' ? buff : buff?.name}
-                        </span>
-                      ))}
+                      dailyBuffs.current.premium_buffs.map((buff, i) => {
+                        const rawBuff = typeof buff === 'string' ? buff : buff?.name;
+                        return (
+                          <span className="td-tag premium" key={`p-${i}`}>
+                            ✦ {translateBuffText(rawBuff, t)}
+                          </span>
+                        );
+                      })}
                   </div>
                 </div>
               ) : (
@@ -762,6 +791,9 @@ export default function TokenCall() {
                         }
 
                         const iconSrc = getBonusIcon(item.name);
+                        const rawDesc = Array.isArray(item.buffs) 
+                          ? item.buffs.join(' ') 
+                          : item.description || item.buff || t.weeklyBonus.defaultDesc;
 
                         return (
                           <div 
@@ -776,7 +808,9 @@ export default function TokenCall() {
                                   className="td-weekly-bonus-icon"
                                   onError={(e) => { e.target.style.display = 'none'; }}
                                 />
-                                <span className="td-weekly-bonus-name">{item.name}</span>
+                                <span className="td-weekly-bonus-name">
+                                  {t.buffNames?.[item.name] || item.name}
+                                </span>
                               </div>
 
                               <div className={`td-weekly-bonus-status${isActive ? ' active-text' : ''}`}>
@@ -789,9 +823,7 @@ export default function TokenCall() {
                             </div>
 
                             <div className="td-weekly-bonus-desc">
-                              {Array.isArray(item.buffs) 
-                                ? item.buffs.join(' ') 
-                                : item.description || item.buff || t.weeklyBonus.defaultDesc}
+                              {translateBuffText(rawDesc, t)}
                             </div>
                           </div>
                         );
