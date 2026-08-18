@@ -241,7 +241,7 @@ export default function GemsGuide() {
           initial={{ opacity: 0, y: 35 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
         >
           <span className={styles.sectionStep}>{c.rerollSection.step}</span>
           <h2 className={styles.sectionTitle}>{c.rerollSection.title}</h2>
@@ -264,7 +264,7 @@ export default function GemsGuide() {
           initial={{ opacity: 0, y: 35 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
         >
           <h2 className={styles.sectionTitle}>{c.statsSection.title}</h2>
           
@@ -330,7 +330,7 @@ export default function GemsGuide() {
           initial={{ opacity: 0, y: 35 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
         >
           <GemTiersSection />
         </motion.section>
@@ -340,7 +340,7 @@ export default function GemsGuide() {
           initial={{ opacity: 0, y: 35 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
         >
           <h2 className={styles.sectionTitle}>{c.convertersSection.title}</h2>
           
@@ -376,7 +376,7 @@ export default function GemsGuide() {
           initial={{ opacity: 0, y: 35 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
         >
           <SectionDivider />
           <span className={styles.sectionStep}>{c.lesserVsEmpowered.step}</span>
@@ -489,7 +489,7 @@ export default function GemsGuide() {
           initial={{ opacity: 0, y: 35 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
         >
           <SectionDivider />
           <span className={styles.sectionStep}>{c.gemTypes.step}</span>
@@ -565,7 +565,7 @@ export default function GemsGuide() {
             initial={{ opacity: 0, y: 35 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
           >
             <SectionDivider />
             <span className={styles.sectionStep}>{classGemsSec.step}</span>
@@ -707,7 +707,7 @@ export default function GemsGuide() {
             initial={{ opacity: 0, y: 35 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
           >
             <SectionDivider />
             <span className={styles.sectionStep}>{levelingSec.step}</span>
@@ -944,7 +944,7 @@ export default function GemsGuide() {
             initial={{ opacity: 0, y: 35 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
           >
             <SectionDivider />
             <span className={styles.sectionStep}>{perfectingSec.step || "07"}</span>

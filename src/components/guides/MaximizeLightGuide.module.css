@@ -1,0 +1,373 @@
+/* ── KÖZÖS, EGYSÉGES GUIDE ALAPOK ── */
+.container {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  color: #f1f5f9;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  box-sizing: border-box;
+  padding: 0 1rem 4rem;
+}
+
+/* ── HERO HEADER ── */
+.hero {
+  background: linear-gradient(135deg, rgba(14, 18, 48, 0.8) 0%, rgba(2, 6, 23, 0.85) 100%);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  border-radius: 20px;
+  padding: 3rem 2rem;
+  text-align: center;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.badge {
+  display: inline-block;
+  background: rgba(56, 189, 248, 0.12);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  padding: 0.35rem 0.85rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+  transition: all 0.25s ease;
+  cursor: default;
+}
+
+.badge:hover {
+  background: rgba(56, 189, 248, 0.22);
+  border-color: rgba(56, 189, 248, 0.6);
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.25);
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #f8fafc;
+  margin: 0 0 0.75rem 0;
+  letter-spacing: -0.02em;
+}
+
+.description {
+  font-size: 1.05rem;
+  color: #94a3b8;
+  max-width: 750px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* ── EGYSÉGES SZEKCIÓ BEÁLLÍTÁSOK ── */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  width: 100%;
+}
+
+.sectionStep {
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  color: #38bdf8;
+  text-transform: uppercase;
+}
+
+.sectionTitle {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #e8f8ff;
+    letter-spacing: -0.01em;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.note {
+  font-size: 0.95rem;
+  color: #94a3b8;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ── EGYEDI LIGHT JELVÉNYEK ── */
+.tagRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.lightBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid;
+  width: fit-content;
+}
+
+.badgeCyan   { color: #2effee; border-color: rgba(46, 255, 238, 0.35); background: rgba(46, 255, 238, 0.08); }
+.badgePurple { color: #c084fc; border-color: rgba(192, 132, 252, 0.35); background: rgba(192, 132, 252, 0.08); }
+.badgeGold   { color: #fbbf24; border-color: rgba(251, 191, 36, 0.35); background: rgba(251, 191, 36, 0.08); }
+
+/* ── KÁRTYA RÁCSOK ── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+  width: 100%;
+}
+
+.card {
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  box-sizing: border-box;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  min-height: 250px;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  background: rgba(20, 30, 55, 0.85);
+  border-color: rgba(56, 189, 248, 0.35);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), 0 0 16px rgba(56, 189, 248, 0.1);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.cardHeader img {
+    width: 70px;
+    height: 70px;
+    flex-shrink: 0;
+    background: rgba(30, 41, 59, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+}
+
+.stepNum {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.12);
+  padding: 0.25rem 0.55rem;
+  border-radius: 6px;
+}
+
+.cardHeader h3 {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: #f1f5f9;
+  margin: 0;
+}
+
+.card p {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.card p strong {
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+/* ── KÉPTARTÓ BLOKKOK (GLOW KERETTEL) ── */
+.imageWrapper {
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #090d16;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+}
+
+.imageWrapper img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ── CRAFTING KÖLTSÉGPANEL ── */
+.costPanelGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+  width: 100%;
+}
+
+.costCard {
+  background: rgba(10, 15, 30, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-left: 4px solid #38bdf8;
+  border-radius: 10px;
+  padding: 1.25rem;
+  box-sizing: border-box;
+  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+
+.costCard:hover {
+  transform: translateY(-2px);
+  background: rgba(15, 23, 42, 0.95);
+  border-color: rgba(56, 189, 248, 0.3);
+  border-left-color: #2effee;
+}
+
+.costCardPurple {
+  border-left-color: rgb(192, 132, 252); /* Alap lila szegély */
+}
+
+.costCardPurple:hover {
+  border-left-color: #e879f9;
+  border-color: rgba(192, 132, 252, 0.3);
+}
+
+.costTitle {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #e2e8f0;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.costCard ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.9rem;
+  color: #94a3b8;
+}
+
+/* ── SÁRKÁNY / FEGYVER LISTA ELEMEK ── */
+.dragonList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  width: 100%;
+}
+
+.dragonRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-left: 4px solid #fbbf24;
+  border-radius: 10px;
+  padding: 1.2rem 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+  transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dragonRow:hover {
+  transform: translateX(4px);
+  background: rgba(22, 33, 58, 0.85);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+}
+
+.dragonIdentity h4 {
+  margin: 0 0 0.25rem 0;
+  font-size: 1.05rem;
+  color: #f8fafc;
+}
+
+.dragonCost {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #94a3b8;
+}
+
+.dragonLight {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #fbbf24;
+}
+
+/* ── INFO ALERT DOBOZ ── */
+.infoBox {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.2rem 1.5rem;
+  background: rgba(56, 189, 248, 0.08);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  border-radius: 12px;
+  color: #cbd5e1;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  box-sizing: border-box;
+}
+
+.infoBox i {
+  font-size: 1.5rem;
+  color: #38bdf8;
+  flex-shrink: 0;
+}
+
+/* ── VÉGSŐ ÖSSZESÍTŐ PRO TIP ── */
+
+.summaryBanner h3 {
+    font-size: 1.2rem;
+    color: #64748b;
+    border-left: 2px solid #334155;
+    padding-left: 12px;
+    font-family: Quicksand;
+}
+
+.summaryList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  font-size: 1.05rem;
+  color: #e2e8f0;
+  margin-top: 20px;
+
+}
+
+.summaryMax {
+    font-size: 1.4rem;
+    color: #26ccff;
+    border-left: 2px solid #1ebdda;
+    padding-left: 12px;
+    font-family: Quicksand;
+}
+
+/* ── RESZPONZIVITÁS ── */
+@media (max-width: 768px) {
+  .hero {
+    padding: 2rem 1.25rem;
+  }
+  .title {
+    font-size: 2rem;
+  }
+  .dragonRow {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
