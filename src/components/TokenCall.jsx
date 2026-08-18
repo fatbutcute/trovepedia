@@ -167,7 +167,10 @@ function LuxionTracker({ luxion, serverTime, nowTick, t }) {
 
               <div className="td-luxion-section">
                 <h4 className="td-luxion-subtitle">{t.luxion.progressionTitle}</h4>
-                <p className="td-luxion-desc">{t.luxion.progressionDesc}</p>
+                <p 
+                  className="td-luxion-desc" 
+                  dangerouslySetInnerHTML={{ __html: t.luxion.progressionDesc }} 
+                />
                 <ul className="td-luxion-list">
                   <li><strong>{t.luxion.completeTrials}</strong> {t.luxion.completeTrialsDesc}</li>
                   <li><strong>{t.luxion.progressTrials}</strong> {t.luxion.progressTrialsDesc}</li>
