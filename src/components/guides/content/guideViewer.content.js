@@ -161,7 +161,7 @@ export const guideViewerContent = {
   },
   zh: {
     title: "Trove 指南与教程",
-    subtitle: "浏览下方由社区打造的指南集合，快速提升终局进度、优化你的构建，并精通核心游戏机制。",
+    subtitle: "浏览下方由社区打造的指南集合，快速提升终局进度、<br /> 优化你的构建，并精通核心游戏机制。",
     backButton: "返回指南列表",
     loading: "正在加载指南...",
     notFound: "未找到指南",
@@ -175,7 +175,7 @@ export const guideViewerContent = {
       tinyquest: {
         subtitle: "微型任务更新指南",
         title: "微型任务与盟友精通",
-        description: "精通盟友升级、远征策略、代金券刷取等丰富内容。"
+        description: "精通盟友升级、远征策略、<br />代金券刷取等丰富内容。"
       },
       craftingpaths: {
         subtitle: "星图与符文砧",
@@ -190,7 +190,7 @@ export const guideViewerContent = {
       mysticgear: {
         subtitle: "终局装备进阶",
         title: "神秘装备",
-        description: "完整的升级材料消耗、刷取路线及 8 周养成策略。"
+        description: "完整的升级材料消耗、<br />刷取路线及 8 周养成策略。"
       },
       towersships: {
         subtitle: "裂隙高地五星副本",

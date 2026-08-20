@@ -37,10 +37,16 @@ export default function GuideViewer() {
             transition={{ duration: 0.3 }}
             className={styles.gridWrapper}
           >
-            <div className={styles.header}>
-              <h1 className={styles.mainTitle}>{c.title}</h1>
-              <p className={styles.mainSub}>{c.subtitle}</p>
-            </div>
+          <div className={styles.header}>
+            <h1 
+              className={styles.mainTitle} 
+              dangerouslySetInnerHTML={{ __html: c.title }} 
+            />
+            <p 
+              className={styles.mainSub} 
+              dangerouslySetInnerHTML={{ __html: c.subtitle }} 
+            />
+          </div>
 
             <div className={styles.grid}>
               {Object.values(GUIDES_DATA).map((guide) => {
@@ -65,9 +71,18 @@ export default function GuideViewer() {
                     whileTap={{ scale: 0.98 }}
                     onClick={() => handleSelectGuide(guide.id)}
                   >
-                    <span className={styles.cardSubtitle}>{cardText.subtitle}</span>
-                    <h3 className={styles.cardTitle}>{cardText.title}</h3>
-                    <p className={styles.cardDesc}>{cardText.description || cardText.desc}</p>
+                    <span 
+                      className={styles.cardSubtitle} 
+                      dangerouslySetInnerHTML={{ __html: cardText.subtitle }} 
+                    />
+                    <h3 
+                      className={styles.cardTitle} 
+                      dangerouslySetInnerHTML={{ __html: cardText.title }} 
+                    />
+                    <p 
+                      className={styles.cardDesc} 
+                      dangerouslySetInnerHTML={{ __html: cardText.description || cardText.desc || '' }} 
+                    />
                   </motion.div>
                 );
               })}

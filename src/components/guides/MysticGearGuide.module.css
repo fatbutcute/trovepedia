@@ -1,0 +1,444 @@
+/* ── KÖZÖS GUIDE KONTÉNER ── */
+.container {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  color: #f1f5f9;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  box-sizing: border-box;
+  padding: 0 1rem 4rem;
+}
+
+/* ── HERO HEADER ── */
+.hero {
+  background: linear-gradient(135deg, rgba(28, 15, 48, 0.85) 0%, rgba(2, 6, 23, 0.9) 100%);
+  border: 1px solid rgba(192, 132, 252, 0.35);
+  border-radius: 20px;
+  padding: 3rem 2rem;
+  text-align: center;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.5), 0 0 25px rgba(192, 132, 252, 0.15);
+}
+
+.badge {
+  display: inline-block;
+  background: rgba(192, 132, 252, 0.15);
+  color: #c084fc;
+  border: 1px solid rgba(192, 132, 252, 0.4);
+  padding: 0.35rem 0.85rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+  transition: all 0.25s ease;
+  cursor: default;
+}
+
+.badge:hover {
+  background: rgba(192, 132, 252, 0.25);
+  border-color: rgba(192, 132, 252, 0.7);
+  box-shadow: 0 0 15px rgba(192, 132, 252, 0.35);
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #f8fafc;
+  margin: 0 0 0.75rem 0;
+  letter-spacing: -0.02em;
+}
+
+.description {
+  font-size: 1.05rem;
+  color: #94a3b8;
+  max-width: 680px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* ── SZEKCIÓ ALAPOK ── */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  width: 100%;
+}
+
+.sectionStep {
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  color: #c084fc;
+  text-transform: uppercase;
+}
+
+.sectionTitle {
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #f3e8ff;
+  letter-spacing: -0.01em;
+  margin: 0;
+  font-family: 'Ubuntu', sans-serif;
+}
+
+.note {
+  font-size: 0.95rem;
+  color: #94a3b8;
+  line-height: 1.6;
+  margin: 0;
+  width: 70%;
+}
+
+/* ── JELVÉNYEK ── */
+.lightBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid;
+  width: fit-content;
+}
+
+.badgePurple { color: #c084fc; border-color: rgba(192, 132, 252, 0.35); background: rgba(192, 132, 252, 0.08); }
+.badgeCyan   { color: #2effee; border-color: rgba(46, 255, 238, 0.35); background: rgba(46, 255, 238, 0.08); }
+.badgeGold   { color: #fbbf24; border-color: rgba(251, 191, 36, 0.35); background: rgba(251, 191, 36, 0.08); }
+
+/* ── KÁRTYA RÁCSOK ÉS HOVEREK ── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+  width: 100%;
+}
+
+.card {
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  box-sizing: border-box;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  background: rgba(25, 20, 50, 0.85);
+  border-color: rgba(192, 132, 252, 0.4);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), 0 0 16px rgba(192, 132, 252, 0.15);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.stepNum {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #c084fc;
+  background: rgba(192, 132, 252, 0.15);
+  padding: 0.25rem 0.55rem;
+  border-radius: 6px;
+}
+
+.cardHeader h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #f1f5f9;
+  margin: 0;
+}
+
+/* ── KÖLTSÉGKÁRTYÁK (TOTAL COSTS) ── */
+.costCard {
+  background: rgba(14, 16, 32, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-left: 4px solid #c084fc;
+  border-radius: 12px;
+  padding: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.costCard:hover {
+  transform: translateY(-3px);
+  border-left-color: #e879f9;
+  border-color: rgba(192, 132, 252, 0.4);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+}
+
+.costCardTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #f8fafc;
+}
+
+.costCardAmount {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #c084fc;
+}
+
+.costCardMeta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #94a3b8;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.costCardMeta span:first-child {
+  color: #fbbf24;
+}
+
+/* ── KATTINTHATÓ KÉP KÁRTYÁK (IMAGE PREVIEW BOX) ── */
+.imageCard {
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 10px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.imageCard:hover {
+  transform: translateY(-3px);
+  border-color: rgba(192, 132, 252, 0.5);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 15px rgba(192, 132, 252, 0.15);
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #090d16;
+  aspect-ratio: 16 / 9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.imageWrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
+
+.imageCard:hover .imageWrapper img {
+  transform: scale(1.03);
+}
+
+.expandBadge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 32px;
+  height: 32px;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(6px);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.expandBadge img {
+  width: 100px !important;
+  height: 100px !important;
+  object-fit: contain !important;
+}
+
+.imageCard:hover .expandBadge {
+  transform: scale(1.1);
+  background: rgba(192, 132, 252, 0.3);
+  border-color: rgba(192, 132, 252, 0.6);
+}
+
+.imageCaption {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  font-weight: 600;
+  text-align: center;
+  padding: 0 4px 4px;
+}
+
+/* ── BULLET LISTA DOBOZOK ── */
+.bulletList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.bulletItem {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-left: 3px solid #c084fc;
+  border-radius: 8px;
+  padding: 0.85rem 1.1rem;
+  font-size: 0.9rem;
+  color: #cbd5e1;
+  line-height: 1.5;
+}
+
+/* ── LIGHTBOX MODAL ── */
+.modalBackdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(4, 7, 18, 0.88);
+  backdrop-filter: blur(12px);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  box-sizing: border-box;
+}
+
+.modalContent {
+  position: relative;
+  max-width: 90vw;
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.modalContent img {
+  max-width: 100%;
+  max-height: 80vh;
+  object-fit: contain;
+  border-radius: 14px;
+  border: 1px solid rgba(192, 132, 252, 0.4);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(192, 132, 252, 0.2);
+}
+
+.modalCaption {
+  font-size: 0.95rem;
+  color: #e2e8f0;
+  font-weight: 600;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.closeBtn {
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #f1f5f9;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.closeBtn:hover {
+  background: #ef4444;
+  border-color: #f87171;
+  transform: scale(1.1);
+}
+
+/* ── KÉTOSZLOPOS ELRENDEZÉS (SZÖVEG + KÉP EGYMÁS MELLETT) ── */
+.twoColRow {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 1.5rem;
+  align-items: center;
+  width: 100%;
+}
+
+.bulletList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.bulletItem {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-left: 3px solid #c084fc;
+  border-radius: 8px;
+  padding: 0.85rem 1.1rem;
+  font-size: 0.9rem;
+  color: #cbd5e1;
+  line-height: 1.55;
+}
+
+.bulletItem strong {
+  color: #f1f5f9;
+}
+
+/* Kompakt képkonténer a táblázatos képekhez */
+.compactImageWrap {
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto;
+}
+
+.compactImageWrap .imageWrapper {
+  aspect-ratio: auto;
+  max-height: 260px;
+  background: rgba(10, 15, 30, 0.9);
+}
+
+.compactImageWrap .imageWrapper img {
+  object-fit: contain;
+  padding: 6px;
+}
+
+/* ── RESZPONZIVITÁS ── */
+@media (max-width: 860px) {
+  .twoColRow {
+    grid-template-columns: 1fr;
+  }
+  .compactImageWrap {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 2rem 1.25rem;
+  }
+  .title {
+    font-size: 2rem;
+  }
+}
