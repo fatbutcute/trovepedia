@@ -306,7 +306,6 @@ export const gemsGuideContent = {
     desc: "Every upgrade attempt rolls for success: advancing by one level or triggering a critical double-level jump. Gems never break on failure — only dust and flux are consumed. Utilizing luck boosters drastically improves success rates and triggers frequent double level-ups, minimizing material costs.",
     levelUp: "Success Rate",
     doubleLevel: "Double Up Rate",
-    strength: "Effectiveness",
     allButMystic: "RADIANT TO CRYSTAL",
     mysticOnly: "MYSTIC EXCLUSIVE",
     note: "<strong>Ninth Life & Tenth Life</strong> feature identical multiplier rates but cater to different tiers: Ninth Life applies to all tiers up to Crystal, whereas Mystic gems exclusively demand Tenth Life."
@@ -732,7 +731,6 @@ strategySection: {
     desc: "Chaque tentative d'amélioration teste votre chance : monter d'un niveau ou réussir un saut de deux niveaux. Les gemmes ne se brisent jamais en cas d'échec. L'utilisation de boosters maximise vos probabilités de succès et réduit drastiquement les coûts.",
     levelUp: "Taux de Réussite",
     doubleLevel: "Taux Double Niveau",
-    strength: "Efficacité",
     allButMystic: "RADIANTE À CRISTAL",
     mysticOnly: "EXCLUSIF MYSTIQUE",
     note: "<strong>Neuvième Vie et Dixième Vie</strong> possèdent des multiplicateurs identiques mais sont strictement séparés : Neuvième Vie s'utilise jusqu'au rang Cristal, tandis que les gemmes Mystiques exigent la Dixième Vie."
@@ -1157,7 +1155,6 @@ levelingSection: {
     desc: "Cada intento de subida evalúa el éxito: avanzar un nivel o conseguir un doble nivel crítico. Las gemas ya no se rompen tras fallar. Los potenciadores incrementan drásticamente las probabilidades de acierto, reduciendo la inversión de materiales.",
     levelUp: "Tasa de Éxito",
     doubleLevel: "Tasa Doble Nivel",
-    strength: "Efectividad",
     allButMystic: "RADIANTE A CRISTAL",
     mysticOnly: "EXCLUSIVO MÍSTICO",
     note: "<strong>Novena y Décima Vida</strong> comparten multiplicadores idénticos pero para rangos distintos: Novena Vida cubre hasta Cristal, mientras que las gemas Místicas requieren obligatoriamente Décima Vida."
@@ -1451,7 +1448,6 @@ levelingSection: {
     desc: "每次升级都会进行概率判定：正常升 1 级或触发暴击连升 2 级。现在的宝石升级失败不再破碎。使用幸运道具可显著拉高成功率和连升几率，大幅降低材料开销。",
     levelUp: "成功率",
     doubleLevel: "双倍升级率",
-    strength: "道具效能",
     allButMystic: "光辉至水晶通用",
     mysticOnly: "神秘宝石专属",
     note: "<strong>九命猫与十命猫</strong>拥有完全一致的倍率加成，但适用阶位相互独立：九命猫覆盖至水晶阶位，而神秘宝石仅支持消耗十命猫。"
