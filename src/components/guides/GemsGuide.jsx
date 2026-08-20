@@ -914,13 +914,19 @@ export default function GemsGuide() {
                   <h3 className={styles.strategyMainTitle}>{strategySec.title}</h3>
                   <p className={styles.note}>{strategySec.note}</p>
                 </div>
-
                 <div className={styles.strategyGrid}>
                   {strategySec.steps?.map((step) => (
                     <motion.div
                       key={step.tag}
                       className={styles.strategyCard}
-                      whileHover={{ x: 10, borderColor: 'rgba(56, 189, 248, 0.6)' }}
+                      whileHover={{ 
+                        x: 8, 
+                        borderColor: 'rgba(56, 189, 248, 0.6)' 
+                      }}
+                      transition={{ 
+                        duration: 0.2, 
+                        ease: "easeOut" 
+                      }}
                     >
                       <div className={styles.strategyCardHeader}>
                         <span className={styles.strategyTag}>{step.tag}</span>

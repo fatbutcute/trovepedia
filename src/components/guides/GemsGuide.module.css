@@ -2221,7 +2221,7 @@
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
   position: relative;
   overflow: hidden;
-  transition: all 0.25s ease;
+  transition: box-shadow 0.2s ease;
 }
 
 .strategyCard::before {
