@@ -55,6 +55,7 @@ function pyRound(num) {
   return Math.round(num);
 }
 
+
 export default function GemsGuide() {
   const [activeTab, setActiveTab] = useState('empowered');
   const [selectedClassGem, setSelectedClassGem] = useState('bard');
@@ -258,7 +259,7 @@ export default function GemsGuide() {
           </div>
         </motion.section>
 
-        {/* Optimal Stat Distribution */}
+      {/* Optimal Stat Distribution */}
         <motion.section 
           className={styles.section}
           initial={{ opacity: 0, y: 35 }}
@@ -266,20 +267,22 @@ export default function GemsGuide() {
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.4, ease: "easeOut" }}
         >
-          <h2 className={styles.sectionTitle}>{c.statsSection.title}</h2>
+          <h2 className={styles.sectionTitle}>
+            {c.statsSection?.title || gemsGuideContent.en.statsSection.title}
+          </h2>
           
           <div className={styles.tabContainer}>
             <button
               className={`${styles.tab} ${activeTab === 'empowered' ? styles.activeTab : ''}`}
               onClick={() => setActiveTab('empowered')}
             >
-              {c.statsSection.tabs.empowered}
+              {c.statsSection?.tabs?.empowered || gemsGuideContent.en.statsSection.tabs.empowered}
             </button>
             <button
               className={`${styles.tab} ${activeTab === 'elemental' ? styles.activeTab : ''}`}
               onClick={() => setActiveTab('elemental')}
             >
-              {c.statsSection.tabs.elemental}
+              {c.statsSection?.tabs?.elemental || gemsGuideContent.en.statsSection.tabs.elemental}
             </button>
           </div>
 
@@ -292,7 +295,7 @@ export default function GemsGuide() {
           >
             {activeTab === 'empowered' ? (
               <div className={styles.statList}>
-                {c.statsSection.cosmicStats.map((st, i) => (
+                {(c.statsSection?.cosmicStats || gemsGuideContent.en.statsSection.cosmicStats).map((st, i) => (
                   <div key={i} className={styles.statItem}>
                     <span className={styles.statName}>{st.name}</span>
                     <span className={styles.statPriority}>{st.priority}</span>
@@ -301,7 +304,7 @@ export default function GemsGuide() {
               </div>
             ) : (
               <div className={styles.statList}>
-                {c.statsSection.elementalStats.map((st, i) => (
+                {(c.statsSection?.elementalStats || gemsGuideContent.en.statsSection.elementalStats).map((st, i) => (
                   <div key={i} className={styles.statItem}>
                     <span className={styles.statName}>{st.name}</span>
                     <span className={styles.statPriority}>{st.priority}</span>

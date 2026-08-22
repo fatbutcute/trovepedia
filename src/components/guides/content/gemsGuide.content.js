@@ -1277,102 +1277,256 @@ perfectingSection: {
 
   zh: {
     hero: {
-      badge: "终局进度",
+      badge: "终局进阶指南",
       title: "最大化宝石属性",
-      description: "关于优化强化宝石与次级宝石、洗练属性、转移加成以及提升以达到最大战斗力等级与光芒值的完整指南。"
+      description: "关于优化强能宝石与普通宝石、洗练属性、转移加成点数以及增幅洗满以达到极限战斗力等级 (PR) 与光能值 (Light) 的完整指南。"
     },
     dock: {
-      tiers: "宝石阶级",
-      lesserEmpowered: "普通 vs 强能宝石",
+      tiers: "宝石品阶",
+      lesserEmpowered: "普通 vs 强能",
       classGems: "职业宝石",
       anatomy: "宝石结构",
+      structure: "宝石机制",
       stats: "最佳属性",
       leveling: "升级与战力",
-      perfecting: "宝石精炼",
+      perfecting: "完美精炼",
+      gemTypes: "宝石类型"
     },
     scrolly: {
       title: "了解宝石基础知识",
-      subtitle: "游戏中的每一颗宝石都遵循此规则。一旦了解了基础知识，您就可以深入探索细节。",
+      subtitle: "游戏中的每一颗宝石都遵循此规则。一旦掌握了基础机制，你就可以深入探索高阶养成细节。",
       steps: [
         {
           num: "1",
-          tier: "阶位上限",
-          title: "阶位决定其潜力",
-          description: "宝石的阶位决定了其最大潜力，包括等级上限和属性上限。核心阶位为：<strong style=\"color: #e2e8f0;\">辉耀</strong>、<strong style=\"color: #f59e0b;\">恒星</strong>、<strong style=\"color: #2effee;\">水晶</strong> 与 <strong style=\"color: #c084fc;\">神秘</strong>。"
+          tier: "品阶上限",
+          title: "品阶决定最终潜力",
+          description: "宝石的品阶决定了其最大潜力，包括等级上限和属性上限。核心品阶为：<strong style=\"color: #e2e8f0;\">辉煌 (Radiant)</strong>、<strong style=\"color: #f59e0b;\">星辰 (Stellar)</strong>、<strong style=\"color: #2effee;\">水晶 (Crystal)</strong> 与 <strong style=\"color: #c084fc;\">神秘 (Mystic)</strong>。宝石品阶无法通过普通升级改变，但可以使用转化器在完整保留所有进度的前提下直接升阶。"
         },
         {
           num: "2",
-          tier: "分类",
-          title: "次级宝石 vs 强化宝石",
-          description: "次级宝石仅提供基础属性。强化宝石解除伤害限制，提供更强属性，并附带独特的特殊技能。"
+          tier: "分类机制",
+          title: "普通宝石 vs 强能宝石",
+          description: "普通宝石仅限制单种伤害类型且无被动效果。强能宝石解除了伤害类型限制，提供更高的基础属性，并附带强大的专属技能。由于可装备的强能宝石数量极少，挑选正确的强能技能至关重要。"
         },
         {
           num: "3",
-          tier: "插槽",
+          tier: "插槽匹配",
           title: "元素决定插槽",
-          description: "每颗宝石属于水、火、气或宇宙四大元素之一。宝石只能放入对应元素的插槽中。"
+          description: "每颗宝石属于水、火、气或星界四大元素之一。宝石只能放入对应元素的插槽中。星界宝石非常特殊，因为其必定包含无法洗掉的光能值 (Light) 属性。"
         },
         {
           num: "4",
           tier: "属性生成",
-          title: "理解属性生成",
-          description: "宝石掉落时会随机生成2或3条属性。在投入资源之前务必检查属性，并仅保留初始具备3条属性的宝石。"
+          title: "理解初始词条生成",
+          description: "宝石掉落时会随机从伤害、暴击伤害、暴击率和生命值池中生成 2 或 3 条属性。在投入强化资源前务必检查词条，且仅保留初始具备 3 条满属性的胚子。"
         },
         {
           num: "5",
-          tier: "优化",
-          title: "最大化其潜力",
-          description: "获得优秀的宝石后，使用宝石粉末升级以提升战斗力。随后使用聚焦器将每项属性提升至100%，打造出完美宝石。"
+          tier: "极致优化",
+          title: "拉满最终潜力",
+          description: "获得优秀胚子后，使用宝石粉末升级以提升战力并解锁阶段性强化点数。随后在宝石锻造台使用聚焦器将每项属性增幅至 100%，打造出终极完美宝石。"
         }
       ]
     },
     rerollSection: {
       step: "01",
-      title: "洗练与转移属性",
+      title: "洗练与转移词条属性",
       cards: [
-        { num: "01", title: "封印混沌火花", body: "重置不理想的属性。" },
-        { num: "02", title: "封印混沌耀斑", body: "转移属性加成点数。" },
-        { num: "03", title: "建造者聚焦器", body: "提升属性基础百分比至100%。" }
+        {
+          num: "01",
+          title: "封印混沌火花 (Chaos Spark)",
+          body: "在宝石锻造台使用混沌火花<strong>重置不理想的属性</strong>，将其洗为核心属性，如<em>光能值 (Light)、物理/魔法伤害或暴击伤害</em>。"
+        },
+        {
+          num: "02",
+          title: "封印混沌耀斑 (Chaos Flare)",
+          body: "使用混沌耀斑<strong>转移属性强化加成（珍珠点数）</strong>至你最关键的属性上——星界宝石优先拉满<em>光能值 (Light)</em>，元素宝石优先伤害/爆伤。"
+        },
+        {
+          num: "03",
+          title: "建造者聚焦器 (Builder's Focus)",
+          body: "使用粗糙、精确及卓越聚焦器将每条属性的基础百分比逐步提升至 <strong>100%</strong>，实现满战力加成。"
+        }
       ]
     },
+    // ✅ ITT VOLT A NAGYBETŰS ELÍRÁS: tiersSection (és a struktúra javítva)
     tiersSection: {
       step: "02",
-      title: "宝石的阶位划分",
-      subtitle: "仅核心阶位值得在终局内容中投入资源。",
-      labels: { maxLevel: "最大等级", maxLevelSub: "等级上限。", eachRoll: "全新提升", eachRollSub: "里程碑等级获得。", maxPr: "最大战斗力", maxPrSub: "完美满级强化宝石。", levelCap: "等级上限:" },
+      title: "宝石品阶划分 (Gem Tiers)",
+      subtitle: "虽然 Trove 中存在多种宝石品阶，但只有 <strong style=\"color: rgb(226, 232, 240);\">辉煌</strong>、<strong style=\"color: #f59e0b;\">星辰</strong>、<strong style=\"color: #2effee;\">水晶</strong> 和 <strong style=\"color: #c084fc;\">神秘</strong> 值得在终局阶段进行深度培养。点击下方卡片查看等级上限、战力成长与转化机制。",
+      labels: {
+        maxLevel: "等级上限",
+        maxLevelSub: "该品阶的最高强化等级。",
+        eachRoll: "每次突破强化",
+        eachRollSub: "在关键里程碑等级 (5 / 10 / 15) 获得。",
+        maxPr: "最高战力 (MAX PR)",
+        maxPrSub: "完美满级强能宝石数值。",
+        levelCap: "等级上限："
+      },
       tiersData: {
-        radiant: { title: "辉耀", desc: "中期过渡宝石。" },
-        stellar: { title: "恒星", desc: "刷怪基础。" },
-        crystal: { title: "水晶", desc: "终局战力起点。" },
-        mystic: { title: "神秘", desc: "巅峰阶位。" }
+        radiant: { 
+          title: "辉煌 (Radiant)", 
+          desc: "中期过渡宝石。适合开荒高难度 Uber 世界，但在终局阶段会被迅速替换。" 
+        },
+        stellar: { 
+          title: "星辰 (Stellar)", 
+          desc: "高阶刷图的主力基石。在升级至水晶品阶前，是通往 Uber 10 难度的必备装备。", 
+          convCost: "1,000 信用币 或 10,000 古币", 
+          convNote: "完全保留宝石等级与洗练增幅进度！" 
+        },
+        crystal: { 
+          title: "水晶 (Crystal)", 
+          desc: "终局核心战力的起点。每级提供极高战力成长，是探索 Uber 11+ 必不可少的装备。", 
+          convCost: "1,500 信用币 或 15,000 古币", 
+          convNote: "完全保留宝石等级与洗练增幅进度！" 
+        },
+        mystic: { 
+          title: "神秘 (Mystic)", 
+          desc: "Trove 全服巅峰宝石品阶。提供整个游戏中最高的光能值 (Light)、战力等级与全属性上限。" 
+        }
       }
     },
     statsSection: {
       title: "最佳属性分配",
-      tabs: { empowered: "宇宙宝石", elemental: "元素宝石（水 / 火 / 气）" },
-      cosmicStats: [{ name: "属性 1: 光芒值", priority: "必备" }],
-      elementalStats: [{ name: "属性 1: 物理 / 魔法伤害", priority: "核心" }]
+      tabs: {
+        empowered: "星界宝石 (Cosmic)",
+        elemental: "元素宝石 (水 / 火 / 气)"
+      },
+      cosmicStats: [
+        { name: "属性 1: 光能值 (Light)", priority: "核心必备 (3次强化加成)" },
+        { name: "属性 2: 物理 / 魔法伤害", priority: "强烈推荐" },
+        { name: "属性 3: 暴击伤害", priority: "强烈推荐" }
+      ],
+      elementalStats: [
+        { name: "属性 1: 物理 / 魔法伤害", priority: "核心输出属性" },
+        { name: "属性 2: 暴击伤害", priority: "核心输出属性" },
+        { name: "属性 3: 暴击率 (堆至 100% 前)", priority: "自适应补充属性" }
+      ]
     },
-    proTip: { title: "请牢记！", body: "务必从具备3条初始属性的宝石开始培养。" },
-    convertersSection: { title: "水晶与神秘宝石转换器", crystal: { title: "水晶宝石转换器", text: "进阶为水晶宝石。" }, mystic: { title: "神秘宝石转换器", text: "进阶至神秘阶位。" }, note: "注意：转换器需要特定材料。" },
+    proTip: {
+      title: "请牢记！",
+      body: "在 1 级时务必挑选<strong>初始具备 3 条属性的星辰/水晶宝石</strong>开始培养。若掉落时仅有 2 条属性，宝石会在 5 级时白白浪费 1 次强化加成，其最终上限将永远低于完美的 3 词条胚子！"
+    },
+    convertersSection: {
+      title: "神秘与水晶宝石转化器 (Gem Converters)",
+      crystal: {
+        title: "水晶宝石转化器 (Crystal Gem Converter)",
+        text: "将一件满级 25 级的 <strong>星辰宝石</strong> 直接升级为 <strong>水晶宝石</strong>。<strong>完全保留所有现有的词条属性分布、等级进度以及洗炼增幅百分比</strong>，无需从零开始重新赌词条。"
+      },
+      mystic: {
+        title: "神秘宝石转化器 (Mystic Gem Converter)",
+        text: "将一件满级 30 级的 <strong>水晶宝石</strong> 直接升至巅峰 <strong>神秘品阶</strong>。<strong>专为追求极致光能与满战力的终局玩家打造</strong>，彻底免除重复刷取极品宝石胚子的精力消耗。"
+      },
+      note: "<strong>说明：</strong> 转化器并非强制要求，但在特定场景下收益极高。虽然高阶世界能自然掉落宝石胚子，但当你已经拥有一颗完美洗炼加成的满级宝石时，使用转化器可以直接无损保留全部心血并进阶至下一品阶。"
+    },
+    // ✅ KIEGÉSZÍTVE A TELJES LESSER VS EMPOWERED TARTALOM
     lesserVsEmpowered: {
-      step: "03", title: "次级宝石 vs 强化宝石", intro: "分为两大核心类别。",
-      lesser: { tag: "普通 - 受限", title: "次级宝石", intro: "普通宝石，限制单种伤害类型。", list: ["限制伤害类型"] },
-      empowered: { tag: "\"无限制\" & 稀有", title: "强化宝石", intro: "解除伤害限制并提供专属技能。", list: ["提供独特技能"] },
-      obtainLesser: { title: "如何获得次级宝石？", worlds: { title: "世界", note: "根据难度掉落。" }, delves: { title: "地窖", info: "掉落宝石箱。", note: "地窖捷径。" } },
-      obtainEmpowered: { title: "如何获得强化宝石？", cards: [{ tag: "制作", title: "强化宝石箱", desc: "阴影市场兑换。" }] }
+      step: "03",
+      title: "普通宝石 vs 强能宝石",
+      intro: "Trove 中的宝石分为两大核心类别。普通宝石构成你的基础数值底座，而强能宝石则通过强力的专属被动技能直接决定你的流派玩法。",
+      lesser: {
+        tag: "常见 - 属性受限",
+        title: "普通宝石 (Lesser Gem)",
+        intro: "普通宝石属于基础配置。它们被锁定为单一伤害流派且无专属特殊技能，但由于可装备数量较多，叠加起来的数值极其可观。",
+        list: [
+          "<strong>伤害限制：</strong> 狂怒 (Fierce) 宝石仅生成物理属性，奥术 (Arcane) 宝石仅生成魔法属性。",
+          "<strong>词条生成：</strong> 掉落时随机携带 2 或 3 条属性，且数值强度随机波动。",
+          "<strong>属性增幅：</strong> 使用聚焦器逐步提升基础百分比，直至达到 100% 满属性。"
+        ]
+      },
+      empowered: {
+        tag: "“无限制” & 稀有",
+        title: "强能宝石 (Empowered Gem)",
+        intro: "强能宝石更加强力且稀有。它们解除了伤害流派的锁定限制，拥有更高的基础属性成长区间，并自带独特的特殊被动技能。",
+        list: [
+          "<strong>专属技能：</strong> 提供强力的特殊被动，职业专属宝石则直接重写职业技能。",
+          "<strong>唯一性：</strong> 每个技能独一无二，同时装备的两颗宝石绝不能包含相同的强能技能。",
+          "<strong>更高基础属性：</strong> 属性成长上限更高，初始即额外提供 +100 战力等级。",
+          "<strong>极高影响力：</strong> 可装备数量极少，每一颗替换都是战斗力的质变。"
+        ]
+      },
+      obtainLesser: {
+        title: "如何获取普通宝石？",
+        worlds: {
+          title: "冒险世界 (Worlds)",
+          note: "在冒险世界中，掉落的普通宝石品阶直接取决于世界难度。高阶冒险世界有严格的光能值 (Light) 门槛要求。"
+        },
+        delves: {
+          title: "深入探险 (Delves)",
+          info: "160+ 层深度：<span class=\"styles_delvetext\">探索 160 层以上的深渊即可获取与 D15 世界完全相同的宝石箱。</span><br />战力门槛：<span class=\"styles_delvetext\">进入高层深渊仅需满足最低 <strong class=\"styles_prStrong\">15,000</strong> 战力要求。</span><br />无光能要求：<span class=\"styles_delvetext\">深渊完全不受光能值限制，新手可无视光能直接越级挑战。</span>",
+          note: "深渊是直通神秘宝石的终极捷径。通关 <strong class=\"styles_noteStrong\">165+ 层深渊</strong> 的收益等同于 D15 世界，但门槛极低，是跳过星辰与水晶过渡期的最佳手段。"
+        }
+      },
+      obtainEmpowered: {
+        title: "如何获取强能宝石？",
+        cards: [
+          {
+            tag: "制作 & 暗影之塔",
+            title: "强能宝石箱 (Empowered Gem Box)",
+            desc: "在暗影市场使用 <span class=\"styles_lunarsouls\">月神之魂 (Lunar Souls)</span> 兑换。可开出 <span class=\"styles_radiant\">辉煌</span> 或 <span class=\"styles_stellar\">星辰</span> 强能宝石，极小概率掉落 <span class=\"styles_classgemkey\">职业宝石钥匙碎片</span> 或 <span class=\"styles_dragonegg\">钻石龙蛋</span>。"
+          },
+          {
+            tag: "保底星辰品阶",
+            title: "星辰强能宝石箱 (Stellar Emp Box)",
+            desc: "开启必定保底获得 <span class=\"styles_stellar\">星辰 (Stellar)</span> 品阶强能宝石。跳过低阶辉煌宝石的必备手段，可在冒险者工作台合成。"
+          },
+          {
+            tag: "每周典籍产出",
+            title: "强能宝石箱典籍 (Tome Reward)",
+            desc: "通过充盈强能宝石传说典籍或参与高阶活动获得。<br />终局稳定获取强能宝石的核心来源，每周可充能领取一次。"
+          },
+          {
+            tag: "每周竞技榜单",
+            title: "排行榜奖励 (Leaderboard)",
+            desc: "最轻松的日常获取方式之一。每周有 3 个指定职业竞赛，<br />达到 125 积分即可在下周一重置时直接领取强能宝石箱奖励。"
+          },
+          {
+            tag: "光辉商人兑换",
+            title: "光辉君主金币 (Radiant Sovereigns)",
+            desc: "在主城光辉商人处使用君主金币直接购买强能宝石箱。在游戏商城充值信用币即可按比例额外附赠君主金币。"
+          },
+          {
+            tag: "高阶全品类制作",
+            title: "冒险者工作台 (Adventure Bench)",
+            desc: "可在冒险者工作台直接合成各类专属宝石箱，但神秘阶宝石箱所需材料极其高昂，长期来看性价比不高。"
+          }
+        ]
+      }
     },
+    // ✅ KIEGÉSZÍTVE A TELJES GEM TYPES TARTALOM
     gemTypes: {
-      step: "04", title: "宝石类型与元素", note: "元素决定插槽。",
-      elemental: { title: "三大元素插槽", desc: "共享属性池与技能池。", canRoll: "可生成属性：", stats: ["伤害", "暴击伤害"], abilitiesTitle: "共享技能：", abilities: "刺骨诅咒 | 烈焰光盘...", restriction: "同一技能只能装备一颗。" },
-      cosmic: { title: "特殊宇宙插槽", desc: "必定包含光芒值。", highlight: "唯一光芒值来源！", uniqueFeature: "独特属性：", stats: ["光芒值"], abilitiesTitle: "宇宙技能：", abilities: "狂暴战士..." },
-      dragonBonus: { badge: "被动属性加成", title: "始源龙", desc: "+10%属性提升。" }
+      step: "04",
+      title: "宝石类型与元素机制",
+      note: "元素决定了宝石可装备的插槽位置以及可生成的词条池。三大基础元素宝石遵循通用规则，而星界宝石拥有其独特的专属机制。",
+      elemental: {
+        title: "三大基础元素插槽",
+        desc: "水、火、气三大元素宝石共享完全相同的词条属性池与强能技能池——唯一的区别仅在于它们对应的插槽颜色。根据职业需求与空余插槽合理搭配即可。",
+        canRoll: "可生成属性：",
+        stats: ["伤害 (物理 / 魔法)", "暴击伤害", "暴击率", "最大生命值", "最大生命加成 %"],
+        abilitiesTitle: "基础强能技能池：",
+        abilities: "刺骨诅咒 (Stinging Curse) | 极速射击 (Volatile Velocity) | 灵能爆发 (Spirit Surge) | 泥潭魔咒 (Mired Mojo) | 震击爆破 (Stunburst) | 烈焰光盘 (Pyrodisc) | 爆炸尾声 (Explosive Epilogue) | 立方帷幕 (Cubic Curtain)",
+        restriction: "<strong>唯一性限制：</strong> 同一种强能技能全身上下只能装备一个，无法同时佩戴两个相同的技能。"
+      },
+      cosmic: {
+        title: "专属星界元素插槽 (Cosmic)",
+        desc: "星界宝石与其他元素截然不同。其三条属性中必定有且仅有一条锁定为 <strong>光能值 (Light)</strong>——这是探索晶洞世界与终局星界内容的核心属性。",
+        highlight: "星界宝石拥有其专属的强能技能池，并装备于三个独立的星界插槽中，是拉满角色总光能值最核心的途径。",
+        uniqueFeature: "专属机制：",
+        stats: ["锁定光能属性 (Light)", "物理 / 魔法伤害", "暴击伤害"],
+        abilitiesTitle: "星界专属强能技能：",
+        abilities: "狂暴战将 (Berserk Battler) | 苍穹护盾 (Empyrean Barrier) | 嗜血征服者 (Vampirian Vanquisher) | 繁花之力 (Flower Power)"
+      },
+      dragonBonus: {
+        badge: "被动属性大幅跃升",
+        title: "始源巨龙加成 (Primordial Dragons)",
+        desc: "四大元素均拥有其专属的始源巨龙，可直接为该元素的所有宝石提供 +10% 属性与战力加成。集齐水、火、气、星界四条始源龙是将宝石战力提升至极限的必经之路。"
+      }
     },
     classGemsSection: {
       step: "05",
-      title: "职业宝石",
+      title: "职业宝石 (Class Gems)",
       subtitle: "重塑机制的核心力量",
-      intro: "每个职业都有其专属的独特宝石。职业宝石是一种绑定的特殊强化宝石，能够修改该职业的核心技能，提供强大的流派重塑造效果，装备方式与其他强化宝石相同。",
+      intro: "每个职业都有其专属的独特宝石。职业宝石是一种绑定的特殊强能宝石，能够修改该职业的核心技能，提供强大的流派重塑效果，装备方式与其他强能宝石相同。",
       cards: {
         onePerClass: {
           title: "专职专用",
@@ -1384,7 +1538,7 @@ perfectingSection: {
         },
         howToGet: {
           title: "获取途径",
-          desc: "前往永夜之海岸完成阴影竞技场挑战。通关后使用职业宝石钥匙开启宝箱即可获得。"
+          desc: "前往永夜之海岸完成暗影竞技场挑战。通关后使用职业宝石钥匙开启宝箱即可获得。"
         }
       },
       selectorTitle: "点击下方职业宝石查看技能重写效果：",
@@ -1425,146 +1579,145 @@ perfectingSection: {
         vanguardian: { name: "前锋", ability: "英雄披风", desc: "近战普通攻击每第 3 次、远程普通攻击每第 4 次均可缩短技能冷却时间 2 秒。" }
       }
     },
-    // zh (Kínai)
-levelingSection: {
-  step: "06",
-  title: "宝石强化与战力成长体系",
-  subtitle: "强化与进阶",
-  intro: "消耗宝石尘强化宝石可稳步提高基础属性并大幅提升总战力等级 (PR)。当升级至核心突破等级时，不仅会迎来战力暴涨，还会触发额外的属性增强点数。",
-  sim: {
-    radiant: "光辉",
-    stellar: "恒星",
-    crystal: "水晶",
-    mystic: "神秘",
-    empowered: "强化宝石",
-    lesser: "普通宝石",
-    level: "等级",
-    powerRank: "战斗力 (PR)",
-    dragonBonus: "始源龙加成 (+10% PR)",
-    perfectDesc: "完美的初始胚子在 1 级时即拥有全部 3 条属性。拖动下方滑块即可平滑模拟升级过程中的战力变化。",
-  },
-  boosters: {
-    title: "升级概率增幅道具 (Boosters)",
-    desc: "每次升级都会进行概率判定：正常升 1 级或触发暴击连升 2 级。现在的宝石升级失败不再破碎。使用幸运道具可显著拉高成功率和连升几率，大幅降低材料开销。",
-    levelUp: "成功率",
-    doubleLevel: "双倍升级率",
-    allButMystic: "光辉至水晶通用",
-    mysticOnly: "神秘宝石专属",
-    note: "<strong>九命猫与十命猫</strong>拥有完全一致的倍率加成，但适用阶位相互独立：九命猫覆盖至水晶阶位，而神秘宝石仅支持消耗十命猫。"
-  },
-  upcycling: {
-    title: "水晶宝石分解循环 (Upcycling)",
-    desc: "分解已强化的宝石将返还大量宝石尘。将水晶宝石强化至 25 级后分解，其产出将大幅超过升级投入。配合公会装置 (Fixture) 与会员宝石日加成可使纯收益最大化：",
-    fixtureTitle: "公会装置 (−20% 消耗)",
-    fixtureValue: "+4,045,666",
-    fixtureSub: "每 50 颗净利润",
-    gemDayTitle: "公会装置 + 宝石日 (−40% 消耗)",
-    gemDayValue: "+4,854,799",
-    gemDaySub: "每 50 颗净利润",
-    alertNever: "在进行宝石循环刷粉时切勿使用幸运道具，道具本身的价值远高于产出的额外粉末。",
-    alertTip: "将获得的多余水晶宝石统一升至 25 级后再行分解，这是为毕业宝石筹备数百万宝石尘最稳定的途径。"
-  }
-},
-strategySection: {
-  title: "高效宝石升级策略（后期毕业指南）",
-  note: "在这一简短章节中，我们将了解如何升级秘法阶级宝石，同时避免浪费不必要的加速药水。",
-  steps: [
-    {
-      tag: "01",
-      title: "以秘法宝石为例",
-      desc: "秘法宝石可通过刷 D15 冒险世界或通关 165+ 深入探险（Delves）获得。强能宝石虽然获取难度更高，但获取方式基本一致。"
+    levelingSection: {
+      step: "06",
+      title: "宝石强化与战力成长体系",
+      subtitle: "强化与进阶",
+      intro: "消耗宝石尘强化宝石可稳步提高基础属性并大幅提升总战力等级 (PR)。当升级至核心突破等级时，不仅会迎来战力暴涨，还会触发额外的属性增强点数。",
+      sim: {
+        radiant: "辉煌",
+        stellar: "星辰",
+        crystal: "水晶",
+        mystic: "神秘",
+        empowered: "强能宝石",
+        lesser: "普通宝石",
+        level: "等级",
+        powerRank: "战斗力 (PR)",
+        dragonBonus: "始源龙加成 (+10% PR)",
+        perfectDesc: "完美的初始胚子在 1 级时即拥有全部 3 条属性。拖动下方滑块即可平滑模拟升级过程中的战力变化。",
+      },
+      boosters: {
+        title: "升级概率增幅道具 (Boosters)",
+        desc: "每次升级都会进行概率判定：正常升 1 级或触发暴击连升 2 级。现在的宝石升级失败不再破碎。使用幸运道具可显著拉高成功率和连升几率，大幅降低材料开销。",
+        levelUp: "成功率",
+        doubleLevel: "双倍升级率",
+        allButMystic: "辉煌至水晶通用",
+        mysticOnly: "神秘宝石专属",
+        note: "<strong>九命猫与十命猫</strong>拥有完全一致的倍率加成，但适用阶位相互独立：九命猫覆盖至水晶阶位，而神秘宝石仅支持消耗十命猫。"
+      },
+      upcycling: {
+        title: "水晶宝石分解循环 (Upcycling)",
+        desc: "分解已强化的宝石将返还大量宝石尘。将水晶宝石强化至 25 级后分解，其产出将大幅超过升级投入。配合公会装置 (Fixture) 与会员宝石日加成可使纯收益最大化：",
+        fixtureTitle: "公会装置 (−20% 消耗)",
+        fixtureValue: "+4,045,666",
+        fixtureSub: "每 50 颗净利润",
+        gemDayTitle: "公会装置 + 宝石日 (−40% 消耗)",
+        gemDayValue: "+4,854,799",
+        gemDaySub: "每 50 颗净利润",
+        alertNever: "在进行宝石循环刷粉时切勿使用幸运道具，道具本身的价值远高于产出的额外粉末。",
+        alertTip: "将获得的多余水晶宝石统一升至 25 级后再行分解，这是为毕业宝石筹备数百万宝石尘最稳定的途径。"
+      }
     },
-    {
-      tag: "02",
-      title: "升级普通宝石",
-      desc: "假设你有一颗 30 级的普通宝石。在 30 级以上时，裸点升级至 32 级（不使用道具），随后使用青金石幸运虫（Luckbug）升级至 35 级。"
+    strategySection: {
+      title: "高效宝石升级策略（终局毕业指南）",
+      note: "在这一简短章节中，我们将了解如何升级神秘阶级宝石，同时避免浪费不必要的加速药水。",
+      steps: [
+        {
+          tag: "01",
+          title: "以神秘宝石为例",
+          desc: "神秘宝石可通过刷 D15 冒险世界或通关 165+ 深入探险 (Delves) 获得。强能宝石虽然获取难度更高，但获取方式基本一致。"
+        },
+        {
+          tag: "02",
+          title: "升级普通宝石",
+          desc: "假设你有一颗 30 级的普通宝石。在 30 级以上时，裸点升级至 32 级（不使用道具），随后使用青金石幸运虫 (Luckbug) 升级至 35 级。"
+        },
+        {
+          tag: "03",
+          title: "升级强能宝石",
+          desc: "强能宝石对加速道具依赖更高且受时间限制。从 30 级到 33 级建议使用幸运虫；到达 33 级后使用 1 个第十命 (Tenth Life，争取双倍升级直接冲到 35 级)；从 34 级起继续使用幸运虫升至 35 级。"
+        },
+        {
+          tag: "04",
+          title: "为什么要这样做？",
+          desc: "这种升级方式能为你节省大量高级加速道具，让你在一个升级周期内强化更多宝石。在 Trove 中，宝石强化至关重要，合理的策略能事半功倍。"
+        },
+        {
+          tag: "05",
+          title: "如何做好升级准备？",
+          desc: "尽量在周三（宝石日）集中刷宝石箱和宝石尘，享受双倍粉尘掉落、开箱效率提升及 Karma 加成（配合特权会员更佳）。同时建议积极组队参与方尖碑 (Obelisk) 活动，快速收集神秘宝石碎片。"
+        },
+        {
+          tag: "06",
+          title: "精炼与属性调整",
+          desc: "宝石升至满级后，使用混沌火花重随属性，使用混沌火炬转移加成（珍珠），最后利用工匠焦点将属性百分比拉满。"
+        }
+      ]
     },
-    {
-      tag: "03",
-      title: "升级强能宝石",
-      desc: "强能宝石对加速道具依赖更高且受时间限制。从 30 级到 33 级建议使用幸运虫；到达 33 级后使用 1 个第十命（Tenth Life，争取双倍升级直接冲到 35 级）；从 34 级起继续使用幸运虫升至 35 级。"
-    },
-    {
-      tag: "04",
-      title: "为什么要这样做？",
-      desc: "这种升级方式能为你节省大量高级加速道具，让你在一个升级周期内强化更多宝石。在 Trove 中，宝石强化至关重要，合理的策略能事半功倍。"
-    },
-    {
-      tag: "05",
-      title: "如何做好升级准备？",
-      desc: "尽量在周三（宝石日）集中刷宝石箱和宝石尘，享受双倍粉尘掉落、开箱效率提升及 Karma 加成（配合特权会员更佳）。同时建议积极组队参与方尖碑（Obelisk）活动，快速收集秘法宝石碎片。"
-    },
-    {
-      tag: "06",
-      title: "精炼与属性调整",
-      desc: "宝石升至满级后，使用混沌火花重随属性，使用混沌火炬转移加成（珍珠），最后利用工匠焦点将属性百分比拉满。"
+    perfectingSection: {
+      step: "07",
+      title: "宝石精炼与强化",
+      note: "升满等级仅仅是第一步。真正的毕业战力来自于在宝石锻造台 (Gem Forge) 中将属性加成转移至核心词条，并将属性百分比提升至 100%。",
+      items: {
+        spark: {
+          name: "封印混沌火花 (Chaos Spark)",
+          desc: "随机将宝石上的一条属性重置为其他属性。在不摧毁宝石的前提下修正废词条的核心道具。"
+        },
+        flare: {
+          name: "封印混沌耀斑 (Chaos Flare)",
+          desc: "将随机一条属性加成（强化珍珠）转移到其他属性上。用于将强化点数集中到光能 (Light) 或暴击伤害上的必备道具。"
+        },
+        focus: {
+          name: "建造者聚焦器 (Builder's Focus)",
+          desc: "将属性百分比逐步提升至 100%。分为粗糙 (Rough)、精确 (Precise) 和卓越 (Superior) 三个等级。"
+        }
+      },
+      bbHeading: "束缚光辉 (Bound Brilliance) 与月神之魂 (Lunar Souls)",
+      bbNote: "制作这些精炼道具需要消耗海量的束缚光辉与月神之魂。以下是每周最高效的获取途径。",
+      sources: {
+        vaults: {
+          title: "月神之魂 (暗影密室)",
+          yield: "18 / 周",
+          desc: "从深度 110 开始，暗影密室每隔 3 层出现一次。开启每个密室获得 3 个月神之魂，每周上限结算 6 个密室（共 18 个灵魂）。",
+          extraLabel: "出现深度：",
+          extraTags: ["112", "115", "118", "..."]
+        },
+        monday: {
+          title: "周一限定额外获取",
+          yield: "5 / 周",
+          desc: "在周一拾取探险暗影钥匙碎片可触发周常任务。完成任意深度的深入探险即可交付任务，额外获得 5 个月神之魂。",
+          extraLabel: "要求：",
+          extraTags: ["任意深度均可"]
+        },
+        tome: {
+          title: "束缚光辉典籍 (Tome)",
+          yield: "5 / 周",
+          desc: "在冒险者工作台制作这本传奇法典。装备后通过刷副本和深入探险为其充能，充盈后每周可产出 5 个束缚光辉。",
+          extraLabel: "制作成本：",
+          extraTags: ["2000 宝石尘", "10 原初之火", "2 五级暗影之魂"]
+        },
+        bomber: {
+          title: "焦黑硬币兑换",
+          yield: "10 / 周",
+          desc: "参与炸弹皇家大乱斗获得爆破硬币并转化为焦黑硬币，在专属工作台使用 30 个焦黑硬币兑换 10 个束缚光辉。每周重置一次。",
+          extraLabel: "兑换消耗：",
+          extraTags: ["30 焦黑硬币"]
+        },
+        leaderboard: {
+          title: "每周三大职业榜单",
+          yield: "21 / 周",
+          desc: "在每周进行的三大职业竞赛榜单中排名前 125 名，每个职业可得 7 个光辉（最多 21 个）。每个职业可通过完成 4 次收集挑战或在探险中连续击败 4 个 Boss 来锁定排名。",
+          extraLabel: "目标：",
+          extraTags: ["前 125 名", "3 个职业"]
+        },
+        events: {
+          title: "限时活动期间",
+          yield: "视活动而定",
+          desc: "特定的限时活动通常包含专属制作配方，允许将活动代币直接兑换为束缚光辉。兑换比例与上限随活动调整。",
+          extraLabel: "获取时间：",
+          extraTags: ["限时活动"]
+        }
+      }
     }
-  ]
-},
-perfectingSection: {
-  step: "07",
-  title: "宝石精炼与强化",
-  note: "升满等级仅仅是第一步。真正的毕业战力来自于在宝石锻造台（Gem Forge）中将属性加成转移至核心词条，并将属性百分比提升至 100%。",
-  items: {
-    spark: {
-      name: "Contained Chaos Spark（混沌火花）",
-      desc: "随机将宝石上的一条属性重置为其他属性。在不摧毁宝石的前提下修正废词条的核心道具。"
-    },
-    flare: {
-      name: "Contained Chaos Flare（混沌火炬）",
-      desc: "将随机一条属性加成（强化珍珠）转移到其他属性上。用于将强化点数集中到光能（Light）或暴击伤害上的必备道具。"
-    },
-    focus: {
-      name: "Builder's Focus（工匠焦点）",
-      desc: "将属性百分比逐步提升至 100%。分为粗糙（Rough）、精确（Precise）和卓越（Superior）三个等级。"
-    }
-  },
-  bbHeading: "束缚光辉（Bound Brilliance）与月神之魂（Lunar Souls）",
-  bbNote: "制作这些精炼道具需要消耗海量的束缚光辉与月神之魂。以下是每周最高效的获取途径。",
-  sources: {
-    vaults: {
-      title: "月神之魂（暗影密室）",
-      yield: "18 / 周",
-      desc: "从深度 110 开始，暗影密室每隔 3 层出现一次。开启每个密室获得 3 个月神之魂，每周上限结算 6 个密室（共 18 个灵魂）。",
-      extraLabel: "出现深度：",
-      extraTags: ["112", "115", "118", "..."]
-    },
-    monday: {
-      title: "周一限定额外获取",
-      yield: "5 / 周",
-      desc: "在周一拾取探险暗影钥匙碎片可触发周常任务。完成任意深度的深入探险即可交付任务，额外获得 5 个月神之魂。",
-      extraLabel: "要求：",
-      extraTags: ["任意深度均可"]
-    },
-    tome: {
-      title: "Book of Bound Brilliance（光辉法典）",
-      yield: "5 / 周",
-      desc: "在冒险者工作台制作这本传奇法典。装备后通过刷副本和深入探险为其充能，充盈后每周可产出 5 个束缚光辉。",
-      extraLabel: "制作成本：",
-      extraTags: ["2000 宝石尘", "10 原初之火", "2 五级暗影之魂"]
-    },
-    bomber: {
-      title: "焦黑硬币兑换",
-      yield: "10 / 周",
-      desc: "参与炸弹皇家大乱斗获得爆破硬币并转化为焦黑硬币，在专属工作台使用 30 个焦黑硬币兑换 10 个束缚光辉。每周重置一次。",
-      extraLabel: "兑换消耗：",
-      extraTags: ["30 焦黑硬币"]
-    },
-    leaderboard: {
-      title: "每周三大职业榜单",
-      yield: "21 / 周",
-      desc: "在每周进行的三大职业竞赛榜单中排名前 125 名，每个职业可得 7 个光辉（最多 21 个）。每个职业可通过完成 4 次收集挑战或在探险中连续击败 4 个 Boss 来锁定排名。",
-      extraLabel: "目标：",
-      extraTags: ["前 125 名", "3 个职业"]
-    },
-    events: {
-      title: "限时活动期间",
-      yield: "视活动而定",
-      desc: "特定的限时活动通常包含专属制作配方，允许将活动代币直接兑换为束缚光辉。兑换比例与上限随活动调整。",
-      extraLabel: "获取时间：",
-      extraTags: ["限时活动"]
-    }
-  }
-}
   }
 };
