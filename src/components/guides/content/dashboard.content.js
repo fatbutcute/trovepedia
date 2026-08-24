@@ -138,6 +138,15 @@ export const dashboardContent = {
       fastTrialsEndsIn: "Fast trials ends in",
       nextFastTrialsIn: "Next fast trials in"
     },
+    trials: {
+      whatIsTitle: "What is Fast Trials?",
+      whatIsP1: "Fast Trials is a special event rotation during which the spawn rate of Invaders is increased. This 3-hour window allows players to collect as many Venturines as possible.",
+      whatIsP2: "When this rotation is active, players must open a D13 Portal to a Trials World. Every player participating must be on either the EU or NA server; otherwise, they will not be able to join the same world as the others. Players then AFK in a designated flat area, which they must find themselves, allowing them to collect thousands of Venturines during the 3-hour rotation.",
+      methodTitle: "What is the method?",
+      methodP1: "One player announces the 3-hour rotation so that other players can join the same hub as the announcer. After that, every participating player must open a D13 Portal and decide which server they will host on — either EU or NA.",
+      methodP2: "Most players usually set a timer so that everyone can join the portals at roughly the same time. Once the players have joined, one of them needs to find a suitable flat area where the AFK session will take place.",
+      methodP3: "When a player finds a suitable area, they need to place an Origin Portal, which allows the rest of the players to travel to the location where the AFK session will take place. The AFK session usually lasts for the full 3 hours, but each player can decide for themselves whether they want to stay until the end or leave the host earlier."
+    },
     news: {
       title: "Trove News",
       loading: "Loading latest news...",
@@ -286,6 +295,15 @@ export const dashboardContent = {
       eventCalendarBtn: "Calendrier de l'Événement",
       fastTrialsEndsIn: "Les épreuves rapides se terminent dans",
       nextFastTrialsIn: "Prochaines épreuves rapides dans"
+    },
+    trials: {
+      whatIsTitle: "Que sont les Épreuves Rapides ?",
+      whatIsP1: "Les Épreuves Rapides sont une rotation spéciale au cours de laquelle le taux d'apparition des envahisseurs est augmenté. Cette fenêtre de 3 heures permet de récolter autant de Venturines que possible.",
+      whatIsP2: "Lorsque cette rotation est active, les joueurs doivent ouvrir un Portail D13 vers un Monde d'Épreuves. Chaque joueur doit être sur le serveur EU ou NA, sinon il ne pourra pas rejoindre le même monde. Les joueurs restent ensuite AFK dans une zone plate pour collecter des milliers de Venturines.",
+      methodTitle: "Quelle est la méthode ?",
+      methodP1: "Un joueur annonce la rotation de 3 heures afin que les autres puissent rejoindre le même hub. Ensuite, chaque participant ouvre un Portail D13 et choisit le serveur hôte (EU ou NA).",
+      methodP2: "La plupart des joueurs utilisent un minuteur pour entrer dans les portails en même temps. Une fois réunis, un joueur part en repérage pour trouver une zone plate adaptée à la session AFK.",
+      methodP3: "Dès que la zone est trouvée, il place un Portail d'Origine permettant aux autres de se téléporter. La session AFK dure généralement 3 heures complètes, mais chacun est libre de partir plus tôt."
     },
     news: {
       title: "Actualités Trove",
@@ -436,6 +454,15 @@ export const dashboardContent = {
       fastTrialsEndsIn: "Las pruebas rápidas terminan en",
       nextFastTrialsIn: "Próximas pruebas rápidas en"
     },
+    trials: {
+      whatIsTitle: "¿Qué son las Pruebas Rápidas?",
+      whatIsP1: "Las Pruebas Rápidas son una rotación especial donde aumenta la tasa de aparición de los invasores. Esta ventana de 3 horas permite recolectar la mayor cantidad de Venturina posible.",
+      whatIsP2: "Cuando esta rotación está activa, los jugadores deben abrir un Portal D13 a un Mundo de Pruebas. Todos los participantes deben estar en el servidor de la UE o de NA; de lo contrario, no podrán unirse al mismo mundo. Luego se quedan AFK en un área plana para recolectar miles de Venturinas durante la rotación de 3 horas.",
+      methodTitle: "¿Cuál es el método?",
+      methodP1: "Un jugador anuncia la rotación de 3 horas para que otros jugadores puedan unirse al mismo centro que el anfitrión. Luego, cada participante debe abrir un Portal D13 y decidir en qué servidor alojarán (UE o NA).",
+      methodP2: "La mayoría de los jugadores suelen poner un temporizador para unirse a los portales al mismo tiempo. Una vez dentro, uno de ellos busca un área plana adecuada donde se llevará a cabo la sesión AFK.",
+      methodP3: "Cuando se encuentra el área, colocan un Portal de Origen que permite viajar al resto de jugadores. La sesión suele durar las 3 horas completas, pero cada jugador puede decidir si quedarse hasta el final o salir antes."
+    },
     news: {
       title: "Noticias de Trove",
       loading: "Cargando últimas noticias...",
@@ -584,6 +611,15 @@ export const dashboardContent = {
       eventCalendarBtn: "活动日程表",
       fastTrialsEndsIn: "狂速试炼结束倒计时",
       nextFastTrialsIn: "下次狂速试炼倒计时"
+    },
+    trials: {
+      whatIsTitle: "什么是狂速试炼？",
+      whatIsP1: "狂速试炼是一种特殊的活动轮换机制，期间入侵者的刷新率大幅提高。在这个持续 3 小时的窗口期内，玩家可以尽可能多地收集冒险币 (Venturine)。",
+      whatIsP2: "当此轮换激活时，玩家必须开启前往试炼世界的 D13 传送门。所有参与者必须统一在欧洲 (EU) 或北美 (NA) 服务器，否则无法进入同一世界。随后大家在平坦地形处挂机 (AFK)，便可在 3 小时内轻松获取数千冒险币。",
+      methodTitle: "具体操作流程是什么？",
+      methodP1: "一名玩家发起 3 小时轮换通知，其他玩家进入同一主城集结。之后每位参与者开启 D13 传送门，并统一下注的主机服务器（EU 或 NA）。",
+      methodP2: "大家通常会设定倒计时以便在同一时刻同时进入传送门。进入世界后，由一名玩家在地图中寻找适合整队挂机刷怪的平坦地形。",
+      methodP3: "找到理想区域后放置回城传送门 (Origin Portal)，其他队员通过传送门快速集合并开启 3 小时 AFK 挂机。玩家可根据个人时间选择全程挂满或提前离场。"
     },
     news: {
       title: "Trove 官方新闻",

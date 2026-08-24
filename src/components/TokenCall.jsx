@@ -1330,35 +1330,40 @@ export default function TokenCall() {
             <div className="result-value">{calcTotal}</div>
           </div>
 
-          {/* EGYBEVONT, TELJES TARTALMÚ INFO DOBOZ */}
           <div className="td-fast-trials-info-card">
             <div className="td-info-section">
               <div className="td-info-card-header">
-                <h4>What is Fast Trials?</h4>
+                <h4>{rotT.whatIsTitle || "What is Fast Trials?"}</h4>
               </div>
               <p className="td-info-card-desc">
-                Fast Trials is a special event rotation during which the spawn rate of Invaders is increased. This 3-hour window allows players to collect as many Venturines as possible.
+                {rotT.whatIsP1 || "Fast Trials is a special event rotation during which the spawn rate of Invaders is increased. This 3-hour window allows players to collect as many Venturines as possible."}
               </p>
-              <p className="td-info-card-desc">
-                When this rotation is active, players must open a <strong>D13 Portal</strong> to a Trials World. Every player participating must be on either the <strong>EU or NA</strong> server; otherwise, they will not be able to join the same world as the others. Players then AFK in a designated flat area, which they must find themselves, allowing them to collect thousands of Venturines during the 3-hour rotation.
-              </p>
+              <p 
+                className="td-info-card-desc"
+                dangerouslySetInnerHTML={{
+                  __html: rotT.whatIsP2 || "When this rotation is active, players must open a <strong>D13 Portal</strong> to a Trials World. Every player participating must be on either the <strong>EU or NA</strong> server; otherwise, they will not be able to join the same world as the others. Players then AFK in a designated flat area, which they must find themselves, allowing them to collect thousands of Venturines during the 3-hour rotation."
+                }}
+              />
             </div>
 
             <div className="td-info-divider" />
 
             <div className="td-info-section">
               <div className="td-info-card-header">
-                <h4>What is the method?</h4>
+                <h4>{rotT.methodTitle || "What is the method?"}</h4>
               </div>
               <p className="td-info-card-desc">
-                One player announces the 3-hour rotation so that other players can join the same hub as the announcer. After that, every participating player must open a D13 Portal and decide which server they will host on — either EU or NA.
+                {rotT.methodP1 || "One player announces the 3-hour rotation so that other players can join the same hub as the announcer. After that, every participating player must open a D13 Portal and decide which server they will host on — either EU or NA."}
               </p>
               <p className="td-info-card-desc">
-                Most players usually set a timer so that everyone can join the portals at roughly the same time. Once the players have joined, one of them needs to find a suitable flat area where the AFK session will take place.
+                {rotT.methodP2 || "Most players usually set a timer so that everyone can join the portals at roughly the same time. Once the players have joined, one of them needs to find a suitable flat area where the AFK session will take place."}
               </p>
-              <p className="td-info-card-desc">
-                When a player finds a suitable area, they need to place an <strong>Origin Portal</strong>, which allows the rest of the players to travel to the location where the AFK session will take place. The AFK session usually lasts for the full 3 hours, but each player can decide for themselves whether they want to stay until the end or leave the host earlier.
-              </p>
+              <p 
+                className="td-info-card-desc"
+                dangerouslySetInnerHTML={{
+                  __html: rotT.methodP3 || "When a player finds a suitable area, they need to place an <strong>Origin Portal</strong>, which allows the rest of the players to travel to the location where the AFK session will take place. The AFK session usually lasts for the full 3 hours, but each player can decide for themselves whether they want to stay until the end or leave the host earlier."
+                }}
+              />
             </div>
           </div>
 
