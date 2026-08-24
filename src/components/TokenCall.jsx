@@ -156,8 +156,12 @@ function ModalCustomDropdown({ value, options, onChange, label }) {
 }
 
 /* ── Fast Trials Tracker Komponens ── */
+/* ── Fast Trials Tracker Komponens ── */
 function LuxionTracker({ luxion, nowTick, t, onOpenCalendar }) {
-  // A naptárral megegyező 27 órás ciklus / 3 órás időablak kiszámítása
+  // 1. Luxion Event fenti státusza az API szerint
+  const isLuxionInHub = !!luxion?.active;
+
+  // 2. Fast Trials 27h/3h ciklusának számítása az alsó dobozhoz
   const BASE_UNIX = Date.UTC(1900, 0, 3, 11, 0, 0) / 1000;
   const CYCLE_SEC = 27 * 3600;
   const DURATION_SEC = 3 * 3600;
@@ -168,10 +172,10 @@ function LuxionTracker({ luxion, nowTick, t, onOpenCalendar }) {
   const cycleStart = BASE_UNIX + cycleIndex * CYCLE_SEC;
   const cycleEnd = cycleStart + DURATION_SEC;
 
-  // Éppen aktív-e a 3 órás Fast Trials
+  // Éppen aktív-e a 3 órás Fast Trials ablak
   const isFastTrialsLive = currentUnix >= cycleStart && currentUnix < cycleEnd;
   
-  // Hátralévő másodpercek az esemény végéig VAGY a következő kezdetéig
+  // Visszaszámlálás az ablak végéig vagy a következő kezdetéig
   const remainingSeconds = isFastTrialsLive 
     ? cycleEnd - currentUnix 
     : (currentUnix < cycleStart ? cycleStart - currentUnix : (cycleStart + CYCLE_SEC) - currentUnix);
@@ -190,18 +194,22 @@ function LuxionTracker({ luxion, nowTick, t, onOpenCalendar }) {
           </div>
 
           <div className="td-header-actions-group">
-            <button 
-              type="button" 
-              className="td-calendar-trigger-btn"
-              onClick={onOpenCalendar}
-            >
-              {t.luxion?.eventCalendarBtn || 'Event Calendar'}
-            </button>
+            {/* Gomb elérhetősége */}
+            {isLuxionInHub && (
+              <button 
+                type="button" 
+                className="td-calendar-trigger-btn"
+                onClick={onOpenCalendar}
+              >
+                {t.luxion?.eventCalendarBtn || 'Event Calendar'}
+              </button>
+            )}
 
+            {/* FEJLÉC JELVÉNY: Kizárólag a valós API státuszt jelzi */}
             <StatusBadge 
               state={luxion ? 'ok' : 'loading'} 
-              label={isFastTrialsLive ? (t.badges?.live || 'LIVE') : (t.badges?.away || 'AWAY')} 
-              customClass={isFastTrialsLive ? 'badge-green' : 'muted'} 
+              label={isLuxionInHub ? (t.badges?.activeInHub || 'ACTIVE IN HUB') : (t.badges?.away || 'AWAY')} 
+              customClass={isLuxionInHub ? 'badge-amber' : 'muted'} 
               t={t}
             />
           </div>
@@ -249,7 +257,7 @@ function LuxionTracker({ luxion, nowTick, t, onOpenCalendar }) {
             </div>
           </div>
 
-          {/* Dinamikus Fast Trials Visszaszámláló */}
+          {/* ALSÓ DOBOZ: Fast Trials státusz és visszaszámlálás */}
           <div className="td-luxion-timer-box">
             <div className="td-luxion-timer-label">
               {isFastTrialsLive 
