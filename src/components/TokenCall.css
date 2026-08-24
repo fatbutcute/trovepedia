@@ -2436,6 +2436,152 @@
   color: #fff;
 }
 
+/* ── FŐ MODAL MÉRETEK ÉS RÁCS ── */
+.td-trials-modal-sidebyside {
+  max-width: 1300px !important;
+  width: 96% !important;
+  max-height: 92vh !important;
+  overflow-y: auto !important;
+  padding: 24px 28px !important;
+}
+
+.td-trials-sidebyside-grid {
+  display: grid !important;
+  grid-template-columns: 1fr 400px !important; /* Szélesebb jobb sáv a szövegekhez */
+  gap: 20px !important;
+  align-items: stretch !important;
+}
+
+/* ── JOBB OLDALI SÁV (KALKULÁTOR + INFÓ DOBOZOK) ── */
+.venturine-calc-container.td-calc-sidebar {
+  display: flex !important;
+  flex-direction: column !important;
+  grid-template-columns: none !important;
+  justify-content: flex-start !important;
+  gap: 12px !important;
+  background: var(--card-alt) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 16px !important;
+  padding: 16px 18px !important;
+  height: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.td-calc-sidebar .td-calc-header-block {
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 6px;
+}
+
+.td-calc-sidebar .td-calc-sidebar-title {
+  margin: 0;
+  font-family: 'Comfortaa', sans-serif;
+  font-size: 1.1rem;
+  color: #ff0077;
+}
+
+.td-calc-sidebar .calc-inputs {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+  width: 100% !important;
+}
+
+.td-calc-sidebar .input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.85rem !important;
+}
+
+.td-calc-sidebar .calc-input-field {
+  width: 100% !important;
+  margin-bottom: 0 !important;
+  padding: 8px 12px !important;
+  font-size: 1rem !important;
+}
+
+.td-calc-sidebar .calc-result {
+  margin: 0 !important;
+  padding: 8px 12px !important;
+  background: rgba(255, 0, 119, 0.06) !important;
+  border: 1px dashed rgba(255, 0, 119, 0.35) !important;
+  border-radius: 10px !important;
+  text-align: center !important;
+}
+
+.td-calc-sidebar .calc-result h3 {
+  font-size: 0.72rem !important;
+  color: #94a3b8 !important;
+  margin: 0 0 2px 0 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.04em !important;
+}
+
+.td-calc-sidebar .result-value {
+  font-size: 2.2rem !important;
+  line-height: 1 !important;
+  color: #ff0077 !important;
+  font-weight: 900 !important;
+  font-family: 'Quicksand', monospace !important;
+}
+
+/* ── 2 DARAB ALSÓ INFÓ DOBOZ ── */
+.td-fast-trials-info-card {
+  background: rgba(183, 0, 61, 0.06);
+  border: 1px solid rgba(255, 0, 119, 0.2);
+  border-radius: 10px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  box-sizing: border-box;
+}
+
+.td-info-card-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.td-info-card-icon {
+  color: #ff0077;
+  font-size: 0.85rem;
+  line-height: 1;
+}
+
+.td-info-card-header h4 {
+  margin: 0;
+  font-family: 'Comfortaa', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #ff4d8d;
+  letter-spacing: 0.02em;
+}
+
+.td-info-card-desc {
+  margin: 0;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 0.72rem;
+  line-height: 1.35;
+  color: #cbd5e1;
+}
+
+.td-info-card-desc + .td-info-card-desc {
+  margin-top: 3px;
+}
+
+.td-info-card-desc strong {
+  color: #fff;
+}
+
+/* Reszponzív nézet kisebb képernyőn */
+@media (max-width: 1100px) {
+  .td-trials-sidebyside-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
 /* Reszponzív nézet kisebb kijelzőn */
 @media (max-width: 900px) {
   .td-trials-top-layout {
