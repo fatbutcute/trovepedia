@@ -1239,7 +1239,7 @@ export default function TokenCall() {
         </div>
       </div>
 
-      {/* 2 OSZLOPOS TARTALOM (Balra: Naptár, Jobbra: Kalkulátor + 2 Info Doboz) */}
+      {/* 2 OSZLOPOS TARTALOM (Balra: Naptár, Jobbra: Kalkulátor + Egybefüggő Info Doboz) */}
       <div className="td-trials-sidebyside-grid">
         
         {/* BAL OSZLOP: NAPTÁR */}
@@ -1296,7 +1296,7 @@ export default function TokenCall() {
           </div>
         </div>
 
-        {/* JOBB OSZLOP: KALKULÁTOR + 2 INFÓ DOBOZ */}
+        {/* JOBB OSZLOP: KALKULÁTOR + 1 KÖZÖS INFÓ DOBOZ */}
         <div className="venturine-calc-container td-calc-sidebar fade-in-up">
           <div className="td-calc-header-block">
             <h3 className="td-calc-sidebar-title">{rotT.tabCalculator || "Venturine Calculator"}</h3>
@@ -1330,30 +1330,36 @@ export default function TokenCall() {
             <div className="result-value">{calcTotal}</div>
           </div>
 
-          {/* 1. DOBOZ: WHAT IS FAST TRIALS */}
+          {/* EGYBEVONT, TELJES TARTALMÚ INFO DOBOZ */}
           <div className="td-fast-trials-info-card">
-            <div className="td-info-card-header">
-              <h4>What is Fast Trials?</h4>
+            <div className="td-info-section">
+              <div className="td-info-card-header">
+                <h4>What is Fast Trials?</h4>
+              </div>
+              <p className="td-info-card-desc">
+                Fast Trials is a special event rotation during which the spawn rate of Invaders is increased. This 3-hour window allows players to collect as many Venturines as possible.
+              </p>
+              <p className="td-info-card-desc">
+                When this rotation is active, players must open a <strong>D13 Portal</strong> to a Trials World. Every player participating must be on either the <strong>EU or NA</strong> server; otherwise, they will not be able to join the same world as the others. Players then AFK in a designated flat area, which they must find themselves, allowing them to collect thousands of Venturines during the 3-hour rotation.
+              </p>
             </div>
-            <p className="td-info-card-desc">
-              Fast Trials is a special event rotation during which the spawn rate of Invaders is increased. This 3-hour window allows players to collect as many Venturines as possible.
-            </p>
-            <p className="td-info-card-desc">
-              When this rotation is active, players must open a <strong>D13 Portal</strong> to a Trials World. Every participant must be on either the <strong>EU or NA</strong> server to join the same world. Players then AFK in a designated flat area to collect thousands of Venturines.
-            </p>
-          </div>
 
-          {/* 2. DOBOZ: WHAT IS THE METHOD */}
-          <div className="td-fast-trials-info-card">
-            <div className="td-info-card-header">
-              <h4>What is the Method?</h4>
+            <div className="td-info-divider" />
+
+            <div className="td-info-section">
+              <div className="td-info-card-header">
+                <h4>What is the method?</h4>
+              </div>
+              <p className="td-info-card-desc">
+                One player announces the 3-hour rotation so that other players can join the same hub as the announcer. After that, every participating player must open a D13 Portal and decide which server they will host on — either EU or NA.
+              </p>
+              <p className="td-info-card-desc">
+                Most players usually set a timer so that everyone can join the portals at roughly the same time. Once the players have joined, one of them needs to find a suitable flat area where the AFK session will take place.
+              </p>
+              <p className="td-info-card-desc">
+                When a player finds a suitable area, they need to place an <strong>Origin Portal</strong>, which allows the rest of the players to travel to the location where the AFK session will take place. The AFK session usually lasts for the full 3 hours, but each player can decide for themselves whether they want to stay until the end or leave the host earlier.
+              </p>
             </div>
-            <p className="td-info-card-desc">
-              One player announces the 3-hour rotation so others can join the hub. Everyone opens a D13 Portal and syncs with a timer to join at roughly the same time.
-            </p>
-            <p className="td-info-card-desc">
-              Once inside, one player scouts a suitable flat area and places an <strong>Origin Portal</strong> so the rest can teleport there. The AFK session lasts the full 3 hours, though players can leave earlier if desired.
-            </p>
           </div>
 
         </div>
