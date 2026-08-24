@@ -1289,13 +1289,15 @@ export default function TokenCall() {
           </div>
         </div>
 
-        {/* JOBB OSZLOP: KALKULÁTOR */}
+        {/* JOBB OSZLOP: KALKULÁTOR & WHAT IS FAST TRIALS BLOKK */}
         <div className="venturine-calc-container td-calc-sidebar fade-in-up">
-          <h3 className="td-calc-sidebar-title">{rotT.tabCalculator}</h3>
+          <div className="td-calc-header-block">
+            <h3 className="td-calc-sidebar-title">{rotT.tabCalculator || "Venturine Calculator"}</h3>
+          </div>
           
           <div className="calc-inputs">
             <div className="input-group">
-              <label>{rotT.calcInitialCost}</label>
+              <label>{rotT.calcInitialCost || "Initial Cost"}</label>
               <input 
                 type="number" 
                 className="calc-input-field"
@@ -1305,7 +1307,7 @@ export default function TokenCall() {
               />
             </div>
             <div className="input-group">
-              <label>{rotT.calcProductionQuantity}</label>
+              <label>{rotT.calcProductionQuantity || "Production Quantity"}</label>
               <input 
                 type="number" 
                 className="calc-input-field"
@@ -1317,8 +1319,20 @@ export default function TokenCall() {
           </div>
 
           <div className="calc-result">
-            <h3>{rotT.calcTotalNeeded}</h3>
+            <h3>{rotT.calcTotalNeeded || "TOTAL MATERIALS NEEDED"}</h3>
             <div className="result-value">{calcTotal}</div>
+          </div>
+
+          {/* ── WHAT IS FAST TRIALS KÁRTYA ── */}
+          <div className="td-fast-trials-info-card">
+            <div className="td-info-card-header">
+              <span className="td-info-card-icon">✦</span>
+              <h4>{rotT.whatIsFastTrialsTitle || "What is Fast Trials?"}</h4>
+            </div>
+            <p className="td-info-card-desc">
+              {rotT.whatIsFastTrialsDesc || 
+                "Fast Trials is a special event rotation where Speed Police challenges in the Geode Hub run on accelerated schedules. Completing them rewards Venturine, allowing you to craft high-tier companions, modules, and mastery items faster."}
+            </p>
           </div>
         </div>
 
