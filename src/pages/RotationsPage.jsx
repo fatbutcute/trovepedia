@@ -2,7 +2,8 @@ import { useState, useEffect, useCallback, useMemo } from 'react'
 import { getLongShadeRotation, formatCountdown } from '../lib/rotations'
 import { useReveal } from '../hooks/useReveal'
 import './RotationsPage.css'
-import StaffCard from '../components/StaffCard'
+import { useLanguage } from '../context/LanguageContext';
+import { rotationsContent } from '../components/guides/content/rotations.content';
 
 const SLOTS_TO_SHOW = 4
 
@@ -701,6 +702,9 @@ useEffect(() => {
 }
 
 export default function RotationsPage() {
+
+  const { langCode } = useLanguage();
+  const t = rotationsContent[langCode] || rotationsContent.en;
   const [activeTab, setActiveTab] = useState(ROTATION_TABS[0].id)
 
   const CORRUXION_ANCHOR = Date.UTC(2026, 4, 15, 11, 0, 0)

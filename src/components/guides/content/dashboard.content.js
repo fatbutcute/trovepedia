@@ -134,6 +134,9 @@ export const dashboardContent = {
       leavesHubIn: "Leaves the Hub in",
       nextArrival: "Next arrival",
       scheduleTba: "Schedule TBA",
+      eventCalendarBtn: "Event Calendar",
+      fastTrialsEndsIn: "Fast trials ends in",
+      nextFastTrialsIn: "Next fast trials in"
     },
     news: {
       title: "Trove News",
@@ -280,6 +283,9 @@ export const dashboardContent = {
       leavesHubIn: "Quitte le Hub dans",
       nextArrival: "Prochaine arrivée",
       scheduleTba: "Calendrier à venir",
+      eventCalendarBtn: "Calendrier de l'Événement",
+      fastTrialsEndsIn: "Les épreuves rapides se terminent dans",
+      nextFastTrialsIn: "Prochaines épreuves rapides dans"
     },
     news: {
       title: "Actualités Trove",
@@ -426,6 +432,9 @@ export const dashboardContent = {
       leavesHubIn: "Sale del Hub en",
       nextArrival: "Próxima llegada",
       scheduleTba: "Horario por confirmar",
+      eventCalendarBtn: "Calendario del Evento",
+      fastTrialsEndsIn: "Las pruebas rápidas terminan en",
+      nextFastTrialsIn: "Próximas pruebas rápidas en"
     },
     news: {
       title: "Noticias de Trove",
@@ -572,6 +581,9 @@ export const dashboardContent = {
       leavesHubIn: "离开主城倒计时",
       nextArrival: "距离下次到来",
       scheduleTba: "具体排期待定",
+      eventCalendarBtn: "活动日程表",
+      fastTrialsEndsIn: "狂速试炼结束倒计时",
+      nextFastTrialsIn: "下次狂速试炼倒计时"
     },
     news: {
       title: "Trove 官方新闻",

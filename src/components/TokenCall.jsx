@@ -183,7 +183,7 @@ function LuxionTracker({ luxion, serverTime, nowTick, t, onOpenCalendar }) {
                 className="td-calendar-trigger-btn"
                 onClick={onOpenCalendar}
               >
-                Event Calendar
+                📅 {t.luxion?.eventCalendarBtn || 'Event Calendar'}
               </button>
             )}
 
@@ -240,7 +240,7 @@ function LuxionTracker({ luxion, serverTime, nowTick, t, onOpenCalendar }) {
 
           <div className="td-luxion-timer-box">
             <div className="td-luxion-timer-label">
-              {isActive ? "Fast trials ends in" : "Next fast trials in"}
+              {isActive ? (t.luxion?.fastTrialsEndsIn || "Fast trials ends in") : (t.luxion?.nextFastTrialsIn || "Next fast trials in")}
             </div>
             <div className="td-luxion-timer-value">
               {isActive 
@@ -359,6 +359,7 @@ export default function TokenCall() {
 
   // Calendar Modal State
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
   const [view, setView] = useState('calendar');
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth());
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
@@ -367,6 +368,14 @@ export default function TokenCall() {
   const [produceCount, setProduceCount] = useState(1);
 
   const sectionRefs = useRef({});
+
+  const handleCloseCalendar = () => {
+    setIsClosing(true);
+    setTimeout(() => {
+      setIsCalendarOpen(false);
+      setIsClosing(false);
+    }, 200);
+  };
 
   const calcTotal = useMemo(() => {
     const s = parseInt(startCost) || 0;
@@ -1193,17 +1202,17 @@ export default function TokenCall() {
       {/* Fast Trials Event Calendar & Calculator Modal */}
       {isCalendarOpen && (
         <div 
-          className="td-trials-modal-overlay"
-          onClick={() => setIsCalendarOpen(false)}
+          className={`td-trials-modal-overlay ${isClosing ? 'closing' : ''}`}
+          onClick={handleCloseCalendar}
         >
           <div 
-            className="td-trials-modal-content"
+            className={`td-trials-modal-content ${isClosing ? 'closing' : ''}`}
             onClick={(e) => e.stopPropagation()}
           >
             <button 
               type="button"
               className="td-modal-close-btn"
-              onClick={() => setIsCalendarOpen(false)}
+              onClick={handleCloseCalendar}
             >
               ✕
             </button>
