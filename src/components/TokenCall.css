@@ -2102,26 +2102,45 @@
 
 .td-modal-close-btn {
   position: absolute;
-  top: 16px;
-  right: 16px;
+  top: 18px;
+  right: 18px;
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  color: #94a3b8;
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.9rem;
-  transition: all 0.2s ease;
+  padding: 0;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 10;
+  backdrop-filter: blur(8px);
 }
 
+.td-modal-close-icon {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  filter: brightness(0) invert(1); /* Tiszta fehéret csinál a képből */
+  opacity: 0.85;
+  transition: opacity 0.2s ease, transform 0.2s ease, filter 0.2s ease;
+}
 .td-modal-close-btn:hover {
-  background: rgba(239, 68, 68, 0.2);
-  color: #ef4444;
-  border-color: rgba(239, 68, 68, 0.4);
+  background: rgba(255, 0, 119, 0.2);
+  border-color: rgba(255, 0, 119, 0.5);
+  box-shadow: 0 0 12px rgba(255, 0, 119, 0.35);
+  transform: scale(1.05);
+}
+
+.td-modal-close-btn:hover .td-modal-close-icon {
+  opacity: 1;
+  transform: rotate(90deg);
+}
+
+.td-modal-close-btn:active {
+  transform: scale(0.95);
 }
 
 /* ── GOMB ÉS CSOPORT AZ "ACTIVE IN HUB" MELLETT ── */
@@ -2243,15 +2262,15 @@
 
 /* ── WHAT IS FAST TRIALS KÁRTYA ── */
 .td-fast-trials-info-card {
-  margin-top: auto !important; /* Automatikusan kitölti az alatta maradt teret */
-  background: rgba(183, 0, 61, 0.08);
-  border: 1px solid rgba(255, 0, 119, 0.25);
-  border-radius: 12px;
-  padding: 14px 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  box-sizing: border-box;
+    background: #b7003d14;
+    border: 1px solid rgba(255, 0, 119, .25);
+    border-radius: 12px;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    box-sizing: border-box;
+    margin-top: 50px;
 }
 
 .td-fast-trials-info-card:hover {
@@ -2273,8 +2292,8 @@
 
 .td-info-card-header h4 {
   margin: 0;
-  font-family: 'Comfortaa', sans-serif;
-  font-size: 0.88rem;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1rem;
   font-weight: 700;
   color: #ff4d8d;
   letter-spacing: 0.03em;
@@ -2357,6 +2376,75 @@
   color: #ff0077 !important;
   font-weight: 900 !important;
   font-family: 'Quicksand', monospace !important;
+}
+
+/* ── FELSŐ FEJLÉC ÉS INFÓSÁV ELRENDEZÉS ── */
+.td-trials-top-layout {
+  display: flex !important;
+  align-items: stretch !important;
+  justify-content: space-between !important;
+  gap: 24px !important;
+  margin-bottom: 20px !important;
+  padding-right: 40px; /* Hely a bezárás [X] gombnak */
+}
+
+.td-trials-top-layout .trials-header-left {
+  flex-shrink: 0;
+  min-width: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* A piros keretes rész: 2 oszlopos felső doboz */
+.td-trials-header-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  flex: 1;
+}
+
+.td-trials-header-card {
+  background: rgba(183, 0, 61, 0.08);
+  border: 1px solid rgba(255, 0, 119, 0.25);
+  border-radius: 12px;
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  backdrop-filter: blur(8px);
+}
+
+.td-trials-header-card h4 {
+  margin: 0;
+  font-family: 'Comfortaa', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #ff4d8d;
+  letter-spacing: 0.02em;
+}
+
+.td-trials-header-card p {
+  margin: 0;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 0.74rem;
+  line-height: 1.38;
+  color: #cbd5e1;
+}
+
+.td-trials-header-card strong {
+  color: #fff;
+}
+
+/* Reszponzív nézet kisebb kijelzőn */
+@media (max-width: 900px) {
+  .td-trials-top-layout {
+    flex-direction: column !important;
+    padding-right: 0;
+  }
+  .td-trials-header-info-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Reszponzív nézet kisebb kijelzőkre / tabletre */

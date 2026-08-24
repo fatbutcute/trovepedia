@@ -1220,52 +1220,70 @@ export default function TokenCall() {
         ✕
       </button>
 
-      {/* FEJLÉC */}
-      <div className="trials-header">
+      {/* FEJLÉC ÉS FELSŐ INFÓSÁV EGYBEN */}
+      <div className="trials-header td-trials-top-layout">
         <div className="trials-header-left">
           <h1 className="rot-title tracker-main-title tracker-title-trials" style={{ fontSize: '1.8rem', margin: 0 }}>
-            <span className="rot-title-accent" style={{ color: '#ff0077' }}>Fast {rotT.title}</span>
+            <span className="rot-title-accent" style={{ color: '#ff0077' }}>Fast {rotT.title || "Trials"}</span>
           </h1>
-          <p className="trials-credits" style={{ margin: '4px 0 0 0' }}>
-            {rotT.credits}<span className="trials-credit-names">Ginnne, __reisalin__, MewsCat, とても残念だ</span>
+          <p className="trials-credits" style={{ margin: '6px 0 0 0' }}>
+            {rotT.credits || "ORIGINAL CREATORS OF THE TRIALS CALENDAR:"} <br />
+            <span className="trials-credit-names">GINNNE, __REISALIN__, MEWSCAT, とても残念だ</span>
           </p>
+        </div>
+
+        {/* FELSŐ PIROS KERETES RÉSZ: 2 RÉSZRE OSZTOTT INFÓ DOBOZ */}
+        <div className="td-trials-header-info-grid">
+          <div className="td-trials-header-card">
+            <h4>✦ What is Fast Trials?</h4>
+            <p>
+              A special <strong>3-hour rotation</strong> with heavily increased Invader spawn rates to collect thousands of Venturines. Players must open a <strong>D13 Portal</strong> and match the host's server region (<strong>EU or NA</strong>) to join the same world.
+            </p>
+          </div>
+
+          <div className="td-trials-header-card">
+            <h4>✦ What is the Method?</h4>
+            <p>
+              The host announces the hub, all players sync timers to enter D13 portals together, and one scout finds a flat spot to drop an <strong>Origin Portal</strong> for the group to gather and AFK for the full session.
+            </p>
+          </div>
         </div>
       </div>
 
-      {/* 2 OSZLOPOS TARTALOM (Balra: Naptár, Jobbra: Kalkulátor) */}
+      {/* ALSÓ RÁCS (Balra: Naptár, Jobbra: Kalkulátor) */}
       <div className="td-trials-sidebyside-grid">
         
         {/* BAL OSZLOP: NAPTÁR */}
         <div className="trials-calendar-container fade-in-up">
           <div className="calendar-controls">
             <ModalCustomDropdown 
-              label={rotT.dropdownYear}
+              label={rotT.dropdownYear || "Year"}
               value={selectedYear} 
               options={[2025, 2026, 2027].map(y => ({ value: y, label: y }))}
               onChange={setSelectedYear} 
             />
             <ModalCustomDropdown 
-              label={rotT.dropdownMonth}
+              label={rotT.dropdownMonth || "Month"}
               value={selectedMonth} 
-              options={rotT.months.map((m, i) => ({ value: i, label: m }))}
+              options={rotT.months || ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]}
               onChange={setSelectedMonth} 
             />
             <ModalCustomDropdown 
-              label={rotT.dropdownTimezone}
+              label={rotT.dropdownTimezone || "Timezone"}
               value={timezone} 
               options={[
-                { value: 'local', label: rotT.timezones.local },
-                { value: 'utc', label: rotT.timezones.utc },
-                { value: 'cet', label: rotT.timezones.cet },
-                { value: 'est', label: rotT.timezones.est },
-                { value: 'pst', label: rotT.timezones.pst }
+                { value: 'local', label: rotT.timezones?.local || 'Local Time (Auto)' },
+                { value: 'utc', label: rotT.timezones?.utc || 'UTC / Server Time' },
+                { value: 'cet', label: rotT.timezones?.cet || 'CET (Central European)' },
+                { value: 'est', label: rotT.timezones?.est || 'EST (Eastern / NY)' },
+                { value: 'pst', label: rotT.timezones?.pst || 'PST (Pacific / LA)' }
               ]}
               onChange={setTimezone} 
             />
           </div>
 
           <div className="calendar-grid">
-            {rotT.weekdays.map(d => (
+            {(rotT.weekdays || ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]).map(d => (
               <div key={d} className="calendar-day-label">{d}</div>
             ))}
             
@@ -1289,7 +1307,7 @@ export default function TokenCall() {
           </div>
         </div>
 
-        {/* JOBB OSZLOP: KALKULÁTOR & WHAT IS FAST TRIALS BLOKK */}
+        {/* JOBB OSZLOP: KALKULÁTOR (Letisztult, feszes méret) */}
         <div className="venturine-calc-container td-calc-sidebar fade-in-up">
           <div className="td-calc-header-block">
             <h3 className="td-calc-sidebar-title">{rotT.tabCalculator || "Venturine Calculator"}</h3>
@@ -1321,17 +1339,6 @@ export default function TokenCall() {
           <div className="calc-result">
             <h3>{rotT.calcTotalNeeded || "TOTAL MATERIALS NEEDED"}</h3>
             <div className="result-value">{calcTotal}</div>
-          </div>
-
-          {/* ── WHAT IS FAST TRIALS KÁRTYA ── */}
-          <div className="td-fast-trials-info-card">
-            <div className="td-info-card-header">
-              <h4>{rotT.whatIsFastTrialsTitle || "What is Fast Trials?"}</h4>
-            </div>
-            <p className="td-info-card-desc">
-              {rotT.whatIsFastTrialsDesc || 
-                "Fast Trials is a special event rotation where Speed Police challenges in the Geode Hub run on accelerated schedules. Completing them rewards Venturine, allowing you to craft high-tier companions, modules, and mastery items faster."}
-            </p>
           </div>
         </div>
 
