@@ -119,7 +119,43 @@ function getBiomeImageUrl(biome) {
   return null;
 }
 
-function LuxionTracker({ luxion, serverTime, nowTick, t }) {
+/* ── Custom Dropdown a Modalhoz ── */
+function ModalCustomDropdown({ value, options, onChange, label }) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div className="custom-dropdown-container">
+      <label className="dropdown-label">{label}</label>
+      <div className={`custom-dropdown ${isOpen ? 'open' : ''}`} onClick={() => setIsOpen(!isOpen)}>
+        <div className="selected-value">
+          {options.find(opt => opt.value === value)?.label || value}
+          <span className={`arrow ${isOpen ? 'up' : ''}`}>▼</span>
+        </div>
+        
+        {isOpen && (
+          <div className="dropdown-options fade-in-down">
+            {options.map(opt => (
+              <div 
+                key={opt.value} 
+                className={`dropdown-option ${opt.value === value ? 'active' : ''}`}
+                onClick={(e) => { 
+                  e.stopPropagation();
+                  onChange(opt.value); 
+                  setIsOpen(false); 
+                }}
+              >
+                {opt.label}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+/* ── Fast Trials Tracker Komponens ── */
+function LuxionTracker({ luxion, serverTime, nowTick, t, onOpenCalendar }) {
   const isActive = luxion?.active;
   const secondsRemaining = luxion?.seconds_remaining ?? 0;
   const targetTime = serverTime?.now_unix && secondsRemaining > 0 
@@ -138,12 +174,26 @@ function LuxionTracker({ luxion, serverTime, nowTick, t }) {
               {t.luxion.title}
             </span>
           </div>
-          <StatusBadge 
-            state={luxion ? 'ok' : 'loading'} 
-            label={isActive ? t.badges.activeInHub : t.badges.away} 
-            customClass={isActive ? 'badge-amber' : 'muted'} 
-            t={t}
-          />
+
+          <div className="td-header-actions-group">
+            {/* Gomb kizárólag aktív Fast Trials esetén, a badge mellett balra */}
+            {isActive && (
+              <button 
+                type="button" 
+                className="td-calendar-trigger-btn"
+                onClick={onOpenCalendar}
+              >
+                📅 Event Calendar
+              </button>
+            )}
+
+            <StatusBadge 
+              state={luxion ? 'ok' : 'loading'} 
+              label={isActive ? t.badges.activeInHub : t.badges.away} 
+              customClass={isActive ? 'badge-amber' : 'muted'} 
+              t={t}
+            />
+          </div>
         </div>
 
         <div className="td-luxion-body">
@@ -190,7 +240,7 @@ function LuxionTracker({ luxion, serverTime, nowTick, t }) {
 
           <div className="td-luxion-timer-box">
             <div className="td-luxion-timer-label">
-              {isActive ? t.luxion.leavesHubIn : t.luxion.nextArrival}
+              {isActive ? "Fast trials ends in" : "Next fast trials in"}
             </div>
             <div className="td-luxion-timer-value">
               {isActive 
@@ -307,12 +357,91 @@ export default function TokenCall() {
   const [searchValue, setSearchValue] = useState('');
   const [playerQuery, setPlayerQuery] = useState('');
 
-  // Calendar Modal & Calculator State
+  // Calendar Modal State
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
-  const [calcTier, setCalcTier] = useState(5);
-  const [calcCount, setCalcCount] = useState(10);
+  const [view, setView] = useState('calendar');
+  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth());
+  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
+  const [timezone, setTimezone] = useState('local');
+  const [startCost, setStartCost] = useState(7);
+  const [produceCount, setProduceCount] = useState(1);
 
   const sectionRefs = useRef({});
+
+  const calcTotal = useMemo(() => {
+    const s = parseInt(startCost) || 0;
+    const n = parseInt(produceCount) || 0;
+    if (s < 7 || n < 1) return 0;
+    const floorN4 = Math.floor(n / 4);
+    return (n * s) + (floorN4 * (n - 2 * floorN4 - 2));
+  }, [startCost, produceCount]);
+
+  const daysInMonth = new Date(selectedYear, selectedMonth + 1, 0).getDate();
+  const firstDay = new Date(selectedYear, selectedMonth, 1).getDay();
+
+  const convertToUTC = (localDate, tzName) => {
+    const options = {
+      year: 'numeric', month: 'numeric', day: 'numeric',
+      hour: 'numeric', minute: 'numeric', second: 'numeric',
+      timeZone: tzName, hour12: false
+    };
+    return new Date(localDate.toLocaleString('en-US', options));
+  };
+
+  const convertFromUTC = (utcDate, tzName) => {
+    const options = {
+      year: 'numeric', month: 'numeric', day: 'numeric',
+      hour: 'numeric', minute: 'numeric', second: 'numeric',
+      timeZone: tzName, hour12: false
+    };
+    return new Date(utcDate.toLocaleString('en-US', options));
+  };
+
+  const getIntervals = (day) => {
+    const intervals = [];
+    const tzMap = {
+      'local': Intl.DateTimeFormat().resolvedOptions().timeZone,
+      'utc': 'UTC',
+      'cet': 'Europe/Paris',
+      'est': 'America/New_York',
+      'pst': 'America/Los_Angeles'
+    };
+    const currentTimezone = tzMap[timezone] || 'UTC';
+    const currentDate = new Date(selectedYear, selectedMonth, day);
+    const baseTime = new Date(Date.UTC(1900, 0, 3, 11, 0, 0));
+    
+    const startOfDay = new Date(selectedYear, selectedMonth, day);
+    startOfDay.setHours(0, 0, 0, 0);
+    const startOfDayUTC = convertToUTC(startOfDay, currentTimezone);
+    
+    const hoursSinceBase = (startOfDayUTC.getTime() - baseTime.getTime()) / (1000 * 60 * 60);
+    const cycleLength = 27;
+    let cycleIndex = Math.floor(hoursSinceBase / cycleLength);
+    
+    for (let i = -2; i <= 2; i++) {
+      const currentCycle = cycleIndex + i;
+      const startTimeUTC = new Date(baseTime.getTime() + currentCycle * cycleLength * 60 * 60 * 1000);
+      const endTimeUTC = new Date(startTimeUTC.getTime() + 3 * 60 * 60 * 1000);
+      const startTimeLocal = convertFromUTC(startTimeUTC, currentTimezone);
+      
+      if (startTimeLocal.getDate() === currentDate.getDate() &&
+          startTimeLocal.getMonth() === currentDate.getMonth() &&
+          startTimeLocal.getFullYear() === currentDate.getFullYear()) {
+          
+          const timeFormat = { 
+              hour: '2-digit', 
+              minute: '2-digit',
+              hour12: false,
+              timeZone: currentTimezone
+          };
+          
+          const startFormatted = startTimeUTC.toLocaleTimeString('en-US', timeFormat);
+          const endFormatted = endTimeUTC.toLocaleTimeString('en-US', timeFormat);
+          intervals.push(`${startFormatted} - ${endFormatted}`);
+      }
+    }
+    return intervals;
+  };
 
   async function loadData(forPlayer) {
     const startTime = Date.now();
@@ -399,43 +528,6 @@ export default function TokenCall() {
     if (!Number.isFinite(serverTime?.trove_day)) return null;
     return ((serverTime.trove_day % 7) + 7) % 7;
   }, [serverTime]);
-
-  // Fast Trials aktivitásának ellenőrzése
-  const isFastTrialsActive = useMemo(() => {
-    const currentName = typeof weeklyBuffs?.current === 'object' 
-      ? weeklyBuffs.current?.name 
-      : weeklyBuffs?.current;
-    const nameLower = (currentName || '').toLowerCase();
-    return nameLower.includes('fast') || nameLower.includes('invasion') || nameLower.includes('trial');
-  }, [weeklyBuffs]);
-
-  // Naptár napok generálása az aktuális hónapra
-  const calendarDays = useMemo(() => {
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = now.getMonth();
-    const firstDay = new Date(year, month, 1).getDay(); // 0 = Sun
-    const daysInMonth = new Date(year, month + 1, 0).getDate();
-    const todayDate = now.getDate();
-
-    // Hétfővel induló eltolás (Mon=0, Sun=6)
-    const startOffset = (firstDay + 6) % 7;
-    const days = [];
-
-    for (let i = 0; i < startOffset; i++) {
-      days.push({ empty: true });
-    }
-
-    for (let d = 1; d <= daysInMonth; d++) {
-      days.push({
-        day: d,
-        isToday: d === todayDate,
-        hasEvent: isFastTrialsActive
-      });
-    }
-
-    return days;
-  }, [isFastTrialsActive]);
 
   function handleNavClick(id) {
     setActiveSection(id);
@@ -785,17 +877,6 @@ export default function TokenCall() {
                   />
                   {t.weeklyBonus.title}
                 </div>
-
-                {/* CSAK AKKOR JELENIK MEG, HA AKTÍV A FAST TRIALS */}
-                {isFastTrialsActive && (
-                  <button 
-                    type="button" 
-                    className="td-fast-trials-btn"
-                    onClick={() => setIsCalendarOpen(true)}
-                  >
-                    📅 Trials Calendar
-                  </button>
-                )}
               </div>
 
               {weeklyBuffs ? (
@@ -1093,12 +1174,13 @@ export default function TokenCall() {
               )}
             </section>
             
-            {/* Luxion Tracker */}
+            {/* Fast Trials Tracker */}
             <LuxionTracker 
               luxion={luxion} 
               serverTime={serverTime} 
               nowTick={nowTick} 
               t={t}
+              onOpenCalendar={() => setIsCalendarOpen(true)}
             />
 
             {/* Trove News */}
@@ -1108,7 +1190,7 @@ export default function TokenCall() {
         </main>
       </div>
 
-      {/* Fast Trials Calendar & Calculator Modal */}
+      {/* Fast Trials Event Calendar & Calculator Modal */}
       {isCalendarOpen && (
         <div 
           className="td-trials-modal-overlay"
@@ -1128,68 +1210,119 @@ export default function TokenCall() {
 
             <div className="trials-header">
               <div className="trials-header-left">
-                <h3 style={{ color: '#ff0077', margin: 0, fontFamily: 'Comfortaa, sans-serif', fontSize: '1.3rem' }}>
-                  Fast Trials Calendar & Calculator
-                </h3>
-                <span className="trials-credits">
-                  Active Event Rotation Tracker
-                </span>
+                <h1 className="rot-title tracker-main-title tracker-title-trials" style={{ fontSize: '1.8rem', margin: 0 }}>
+                  <span className="rot-title-accent" style={{ color: '#ff0077' }}>Fast Trials</span>
+                </h1>
+                <p className="trials-credits" style={{ margin: '4px 0 0 0' }}>
+                  Original creators: <span className="trials-credit-names">Ginnne, __reisalin__, MewsCat, とても残念だ</span>
+                </p>
               </div>
 
-              {/* Mini kalkulátor a fejlécben */}
-              <div className="trials-mini-calc">
-                <div className="mini-calc-title">Venturine Calculator</div>
-                <div className="mini-calc-body">
-                  <div className="mini-calc-input">
-                    <label>Tier:</label>
-                    <input 
-                      type="number" 
-                      min="1" 
-                      max="5" 
-                      value={calcTier} 
-                      onChange={(e) => setCalcTier(Math.max(1, Number(e.target.value)))} 
-                    />
-                  </div>
-                  <div className="mini-calc-input">
-                    <label>Runs:</label>
-                    <input 
-                      type="number" 
-                      min="1" 
-                      value={calcCount} 
-                      onChange={(e) => setCalcCount(Math.max(1, Number(e.target.value)))} 
-                    />
-                  </div>
-                  <div className="mini-calc-result">
-                    <span className="mini-result-label">Total:</span>
-                    <span className="mini-result-value">{calcTier * calcCount * 4}</span>
-                  </div>
+              <div className="trials-toggle">
+                <div 
+                  className="toggle-active-bg" 
+                  style={{ transform: `translateX(${view === 'calendar' ? '0px' : '200px'})` }}
+                />
+                <button 
+                  type="button"
+                  className={view === 'calendar' ? 'active' : ''} 
+                  onClick={() => setView('calendar')}
+                >
+                  Event Calendar
+                </button>
+                <button 
+                  type="button"
+                  className={view === 'calculator' ? 'active' : ''} 
+                  onClick={() => setView('calculator')}
+                >
+                  Venturine Calculator
+                </button>
+              </div>
+            </div>
+
+            {view === 'calendar' ? (
+              <div key="calendar-view" className="trials-calendar-container fade-in-up">
+                <div className="calendar-controls">
+                  <ModalCustomDropdown 
+                    label="Year"
+                    value={selectedYear} 
+                    options={[2025, 2026, 2027].map(y => ({ value: y, label: y }))}
+                    onChange={setSelectedYear} 
+                  />
+                  <ModalCustomDropdown 
+                    label="Month"
+                    value={selectedMonth} 
+                    options={["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"].map((m, i) => ({ value: i, label: m }))}
+                    onChange={setSelectedMonth} 
+                  />
+                  <ModalCustomDropdown 
+                    label="Timezone"
+                    value={timezone} 
+                    options={[
+                      { value: 'local', label: 'Local Time (Auto)' },
+                      { value: 'utc', label: 'UTC / Server Time' },
+                      { value: 'cet', label: 'CET (Central European)' },
+                      { value: 'est', label: 'EST (Eastern / NY)' },
+                      { value: 'pst', label: 'PST (Pacific / LA)' }
+                    ]}
+                    onChange={setTimezone} 
+                  />
+                </div>
+
+                <div className="calendar-grid">
+                  {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map(d => (
+                    <div key={d} className="calendar-day-label">{d}</div>
+                  ))}
+                  
+                  {Array.from({ length: firstDay === 0 ? 6 : firstDay - 1 }).map((_, i) => (
+                    <div key={`empty-${i}`} className="calendar-day empty" />
+                  ))}
+                  
+                  {Array.from({ length: daysInMonth }).map((_, i) => {
+                    const day = i + 1;
+                    const intervals = getIntervals(day);
+                    const isToday = new Date().getDate() === day && new Date().getMonth() === selectedMonth && new Date().getFullYear() === selectedYear;
+                    return (
+                      <div key={day} className={`calendar-day ${isToday ? 'today' : ''} ${intervals.length > 0 ? 'has-event' : ''}`}>
+                        <span className="day-number">{day}</span>
+                        {intervals.map((int, idx) => (
+                          <div key={idx} className="day-interval">{int}</div>
+                        ))}
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
-            </div>
-
-            <div className="trials-calendar-container">
-              <div className="calendar-grid">
-                {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((day) => (
-                  <div key={day} className="calendar-day-label">{day}</div>
-                ))}
-
-                {calendarDays.map((item, idx) => (
-                  <div 
-                    key={idx} 
-                    className={`calendar-day ${item.empty ? 'empty' : ''} ${item.isToday ? 'today' : ''} ${item.hasEvent ? 'has-event' : ''}`}
-                  >
-                    {!item.empty && (
-                      <>
-                        <span className="day-number">{item.day}</span>
-                        {item.hasEvent && (
-                          <span className="day-interval">Fast Trials</span>
-                        )}
-                      </>
-                    )}
+            ) : (
+              <div key="calc-view" className="venturine-calc-container fade-in-up">
+                <div className="calc-inputs">
+                  <div className="input-group">
+                    <label>Initial Cost</label>
+                    <input 
+                      type="number" 
+                      className="calc-input-field"
+                      value={startCost} 
+                      min="7" 
+                      onChange={(e) => setStartCost(e.target.value)} 
+                    />
                   </div>
-                ))}
+                  <div className="input-group">
+                    <label>Production Quantity</label>
+                    <input 
+                      type="number" 
+                      className="calc-input-field"
+                      value={produceCount} 
+                      min="1" 
+                      onChange={(e) => setProduceCount(e.target.value)} 
+                    />
+                  </div>
+                </div>
+                <div className="calc-result">
+                  <h3>Total Materials Needed</h3>
+                  <div className="result-value">{calcTotal}</div>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       )}
