@@ -352,16 +352,17 @@
 }
 
 .rot-title {
-  font-family: 'Outfit', sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-size: clamp(3rem, 5vw, 4.5rem);
   font-weight: 400;
   line-height: 1;
   text-transform: uppercase;
   letter-spacing: -0.02em;
   gap: 20px;
-  align-items: center;
-  justify-content: center;
+  align-items: left;
+  justify-content: left;
   display: flex;
+  margin-bottom: 30px !important;
 }
 
 .rot-title-accent {
@@ -744,15 +745,16 @@ font-family: 'Blinker', monospace;
 }
 
 .trials-toggle {
-  position: relative;
-  display: flex;
-  background: rgba(255, 255, 255, 0.05);
-  padding: 4px; 
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  align-items: center;
-  justify-content: flex-start; 
-  width: 408px;
+    position: relative;
+    display: flex;
+    background: #ffffff0d;
+    padding: 4px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, .1);
+    align-items: center;
+    justify-content: flex-start;
+    width: 408px;
+    margin-bottom: -70px;
 }
 
 .toggle-active-bg {

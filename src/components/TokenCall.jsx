@@ -183,7 +183,7 @@ function LuxionTracker({ luxion, serverTime, nowTick, t, onOpenCalendar }) {
                 className="td-calendar-trigger-btn"
                 onClick={onOpenCalendar}
               >
-                📅 Event Calendar
+                Event Calendar
               </button>
             )}
 
