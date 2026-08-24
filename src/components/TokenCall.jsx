@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import './TokenCall.css';
 import { useLanguage } from '../context/LanguageContext';
 import { dashboardContent } from './guides/content/dashboard.content';
+import { rotationsContent } from './guides/content/rotations.content';
 
 const REFRESH_INTERVAL_MS = 30_000;
 
@@ -183,7 +184,7 @@ function LuxionTracker({ luxion, serverTime, nowTick, t, onOpenCalendar }) {
                 className="td-calendar-trigger-btn"
                 onClick={onOpenCalendar}
               >
-                📅 {t.luxion?.eventCalendarBtn || 'Event Calendar'}
+                {t.luxion?.eventCalendarBtn || 'Event Calendar'}
               </button>
             )}
 
@@ -345,6 +346,7 @@ function DashboardNews({ t }) {
 export default function TokenCall() {
   const { langCode } = useLanguage();
   const t = dashboardContent[langCode] || dashboardContent.en;
+  const rotT = (rotationsContent[langCode] || rotationsContent.en)?.trials || {};
 
   const [payload, setPayload] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -1200,141 +1202,130 @@ export default function TokenCall() {
       </div>
 
       {/* Fast Trials Event Calendar & Calculator Modal */}
-      {isCalendarOpen && (
-        <div 
-          className={`td-trials-modal-overlay ${isClosing ? 'closing' : ''}`}
-          onClick={handleCloseCalendar}
-        >
-          <div 
-            className={`td-trials-modal-content ${isClosing ? 'closing' : ''}`}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button 
-              type="button"
-              className="td-modal-close-btn"
-              onClick={handleCloseCalendar}
-            >
-              ✕
-            </button>
+      {/* Fast Trials Event Calendar & Calculator Modal */}
+{isCalendarOpen && (
+  <div 
+    className={`td-trials-modal-overlay ${isClosing ? 'closing' : ''}`}
+    onClick={handleCloseCalendar}
+  >
+    <div 
+      className={`td-trials-modal-content td-trials-modal-sidebyside ${isClosing ? 'closing' : ''}`}
+      onClick={(e) => e.stopPropagation()}
+    >
+      <button 
+        type="button"
+        className="td-modal-close-btn"
+        onClick={handleCloseCalendar}
+      >
+        ✕
+      </button>
 
-            <div className="trials-header">
-              <div className="trials-header-left">
-                <h1 className="rot-title tracker-main-title tracker-title-trials" style={{ fontSize: '1.8rem', margin: 0 }}>
-                  <span className="rot-title-accent" style={{ color: '#ff0077' }}>Fast Trials</span>
-                </h1>
-                <p className="trials-credits" style={{ margin: '4px 0 0 0' }}>
-                  Original creators: <span className="trials-credit-names">Ginnne, __reisalin__, MewsCat, とても残念だ</span>
-                </p>
-              </div>
+      {/* FEJLÉC */}
+      <div className="trials-header">
+        <div className="trials-header-left">
+          <h1 className="rot-title tracker-main-title tracker-title-trials" style={{ fontSize: '1.8rem', margin: 0 }}>
+            <span className="rot-title-accent" style={{ color: '#ff0077' }}>Fast {rotT.title}</span>
+          </h1>
+          <p className="trials-credits" style={{ margin: '4px 0 0 0' }}>
+            {rotT.credits}<span className="trials-credit-names">Ginnne, __reisalin__, MewsCat, とても残念だ</span>
+          </p>
+        </div>
+      </div>
 
-              <div className="trials-toggle">
-                <div 
-                  className="toggle-active-bg" 
-                  style={{ transform: `translateX(${view === 'calendar' ? '0px' : '200px'})` }}
-                />
-                <button 
-                  type="button"
-                  className={view === 'calendar' ? 'active' : ''} 
-                  onClick={() => setView('calendar')}
-                >
-                  Event Calendar
-                </button>
-                <button 
-                  type="button"
-                  className={view === 'calculator' ? 'active' : ''} 
-                  onClick={() => setView('calculator')}
-                >
-                  Venturine Calculator
-                </button>
-              </div>
-            </div>
+      {/* 2 OSZLOPOS TARTALOM (Balra: Naptár, Jobbra: Kalkulátor) */}
+      <div className="td-trials-sidebyside-grid">
+        
+        {/* BAL OSZLOP: NAPTÁR */}
+        <div className="trials-calendar-container fade-in-up">
+          <div className="calendar-controls">
+            <ModalCustomDropdown 
+              label={rotT.dropdownYear}
+              value={selectedYear} 
+              options={[2025, 2026, 2027].map(y => ({ value: y, label: y }))}
+              onChange={setSelectedYear} 
+            />
+            <ModalCustomDropdown 
+              label={rotT.dropdownMonth}
+              value={selectedMonth} 
+              options={rotT.months.map((m, i) => ({ value: i, label: m }))}
+              onChange={setSelectedMonth} 
+            />
+            <ModalCustomDropdown 
+              label={rotT.dropdownTimezone}
+              value={timezone} 
+              options={[
+                { value: 'local', label: rotT.timezones.local },
+                { value: 'utc', label: rotT.timezones.utc },
+                { value: 'cet', label: rotT.timezones.cet },
+                { value: 'est', label: rotT.timezones.est },
+                { value: 'pst', label: rotT.timezones.pst }
+              ]}
+              onChange={setTimezone} 
+            />
+          </div>
 
-            {view === 'calendar' ? (
-              <div key="calendar-view" className="trials-calendar-container fade-in-up">
-                <div className="calendar-controls">
-                  <ModalCustomDropdown 
-                    label="Year"
-                    value={selectedYear} 
-                    options={[2025, 2026, 2027].map(y => ({ value: y, label: y }))}
-                    onChange={setSelectedYear} 
-                  />
-                  <ModalCustomDropdown 
-                    label="Month"
-                    value={selectedMonth} 
-                    options={["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"].map((m, i) => ({ value: i, label: m }))}
-                    onChange={setSelectedMonth} 
-                  />
-                  <ModalCustomDropdown 
-                    label="Timezone"
-                    value={timezone} 
-                    options={[
-                      { value: 'local', label: 'Local Time (Auto)' },
-                      { value: 'utc', label: 'UTC / Server Time' },
-                      { value: 'cet', label: 'CET (Central European)' },
-                      { value: 'est', label: 'EST (Eastern / NY)' },
-                      { value: 'pst', label: 'PST (Pacific / LA)' }
-                    ]}
-                    onChange={setTimezone} 
-                  />
-                </div>
-
-                <div className="calendar-grid">
-                  {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map(d => (
-                    <div key={d} className="calendar-day-label">{d}</div>
+          <div className="calendar-grid">
+            {rotT.weekdays.map(d => (
+              <div key={d} className="calendar-day-label">{d}</div>
+            ))}
+            
+            {Array.from({ length: firstDay === 0 ? 6 : firstDay - 1 }).map((_, i) => (
+              <div key={`empty-${i}`} className="calendar-day empty" />
+            ))}
+            
+            {Array.from({ length: daysInMonth }).map((_, i) => {
+              const day = i + 1;
+              const intervals = getIntervals(day);
+              const isToday = new Date().getDate() === day && new Date().getMonth() === selectedMonth && new Date().getFullYear() === selectedYear;
+              return (
+                <div key={day} className={`calendar-day ${isToday ? 'today' : ''} ${intervals.length > 0 ? 'has-event' : ''}`}>
+                  <span className="day-number">{day}</span>
+                  {intervals.map((int, idx) => (
+                    <div key={idx} className="day-interval">{int}</div>
                   ))}
-                  
-                  {Array.from({ length: firstDay === 0 ? 6 : firstDay - 1 }).map((_, i) => (
-                    <div key={`empty-${i}`} className="calendar-day empty" />
-                  ))}
-                  
-                  {Array.from({ length: daysInMonth }).map((_, i) => {
-                    const day = i + 1;
-                    const intervals = getIntervals(day);
-                    const isToday = new Date().getDate() === day && new Date().getMonth() === selectedMonth && new Date().getFullYear() === selectedYear;
-                    return (
-                      <div key={day} className={`calendar-day ${isToday ? 'today' : ''} ${intervals.length > 0 ? 'has-event' : ''}`}>
-                        <span className="day-number">{day}</span>
-                        {intervals.map((int, idx) => (
-                          <div key={idx} className="day-interval">{int}</div>
-                        ))}
-                      </div>
-                    );
-                  })}
                 </div>
-              </div>
-            ) : (
-              <div key="calc-view" className="venturine-calc-container fade-in-up">
-                <div className="calc-inputs">
-                  <div className="input-group">
-                    <label>Initial Cost</label>
-                    <input 
-                      type="number" 
-                      className="calc-input-field"
-                      value={startCost} 
-                      min="7" 
-                      onChange={(e) => setStartCost(e.target.value)} 
-                    />
-                  </div>
-                  <div className="input-group">
-                    <label>Production Quantity</label>
-                    <input 
-                      type="number" 
-                      className="calc-input-field"
-                      value={produceCount} 
-                      min="1" 
-                      onChange={(e) => setProduceCount(e.target.value)} 
-                    />
-                  </div>
-                </div>
-                <div className="calc-result">
-                  <h3>Total Materials Needed</h3>
-                  <div className="result-value">{calcTotal}</div>
-                </div>
-              </div>
-            )}
+              );
+            })}
           </div>
         </div>
-      )}
+
+        {/* JOBB OSZLOP: KALKULÁTOR */}
+        <div className="venturine-calc-container td-calc-sidebar fade-in-up">
+          <h3 className="td-calc-sidebar-title">{rotT.tabCalculator}</h3>
+          
+          <div className="calc-inputs">
+            <div className="input-group">
+              <label>{rotT.calcInitialCost}</label>
+              <input 
+                type="number" 
+                className="calc-input-field"
+                value={startCost} 
+                min="7" 
+                onChange={(e) => setStartCost(e.target.value)} 
+              />
+            </div>
+            <div className="input-group">
+              <label>{rotT.calcProductionQuantity}</label>
+              <input 
+                type="number" 
+                className="calc-input-field"
+                value={produceCount} 
+                min="1" 
+                onChange={(e) => setProduceCount(e.target.value)} 
+              />
+            </div>
+          </div>
+
+          <div className="calc-result">
+            <h3>{rotT.calcTotalNeeded}</h3>
+            <div className="result-value">{calcTotal}</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+)}
     </div>
   );
 }

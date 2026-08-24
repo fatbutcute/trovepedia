@@ -2222,6 +2222,58 @@
   border-color: rgba(239, 68, 68, 0.4);
 }
 
+/* ── EGYMÁS MELLETTI MODAL ELRENDEZÉS ── */
+.td-trials-modal-sidebyside {
+  max-width: 1240px !important;
+  width: 95% !important;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.td-trials-sidebyside-grid {
+  display: grid;
+  grid-template-columns: 1fr 360px; /* Balra a széles naptár, jobbra a kompakt kalkulátor */
+  gap: 20px;
+  align-items: stretch;
+}
+
+/* Jobb oldali kalkulátor sáv */
+.td-calc-sidebar {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  grid-template-columns: none !important;
+  padding: 24px !important;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.td-calc-sidebar-title {
+  margin: 0 0 16px 0;
+  font-family: 'Comfortaa', sans-serif;
+  font-size: 1.1rem;
+  color: #ff0077;
+  text-align: center;
+}
+
+.td-calc-sidebar .calc-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.td-calc-sidebar .calc-result {
+  margin-top: 16px;
+  padding: 20px 10px;
+}
+
+/* Reszponzív nézet kisebb kijelzőkre / tabletre */
+@media (max-width: 1024px) {
+  .td-trials-sidebyside-grid {
+    grid-template-columns: 1fr; /* Egymás alá kerülnek kis képernyőn */
+  }
+}
+
 @keyframes tdModalFadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
