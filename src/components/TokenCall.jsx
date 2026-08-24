@@ -1326,7 +1326,6 @@ export default function TokenCall() {
           {/* ── WHAT IS FAST TRIALS KÁRTYA ── */}
           <div className="td-fast-trials-info-card">
             <div className="td-info-card-header">
-              <span className="td-info-card-icon">✦</span>
               <h4>{rotT.whatIsFastTrialsTitle || "What is Fast Trials?"}</h4>
             </div>
             <p className="td-info-card-desc">
