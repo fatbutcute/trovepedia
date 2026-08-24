@@ -1203,6 +1203,7 @@ export default function TokenCall() {
 
       {/* Fast Trials Event Calendar & Calculator Modal */}
       {/* Fast Trials Event Calendar & Calculator Modal */}
+{/* Fast Trials Event Calendar & Calculator Modal */}
 {isCalendarOpen && (
   <div 
     className={`td-trials-modal-overlay ${isClosing ? 'closing' : ''}`}
@@ -1216,41 +1217,29 @@ export default function TokenCall() {
         type="button"
         className="td-modal-close-btn"
         onClick={handleCloseCalendar}
+        aria-label="Close"
       >
-        ✕
+        <img 
+          src="/icons/icons8-close-80.png" 
+          alt="Close" 
+          className="td-modal-close-icon"
+        />
       </button>
 
-      {/* FEJLÉC ÉS FELSŐ INFÓSÁV EGYBEN */}
-      <div className="trials-header td-trials-top-layout">
+      {/* FEJLÉC */}
+      <div className="trials-header">
         <div className="trials-header-left">
           <h1 className="rot-title tracker-main-title tracker-title-trials" style={{ fontSize: '1.8rem', margin: 0 }}>
             <span className="rot-title-accent" style={{ color: '#ff0077' }}>Fast {rotT.title || "Trials"}</span>
           </h1>
-          <p className="trials-credits" style={{ margin: '6px 0 0 0' }}>
-            {rotT.credits || "ORIGINAL CREATORS OF THE TRIALS CALENDAR:"} <br />
+          <p className="trials-credits" style={{ margin: '4px 0 0 0' }}>
+            {rotT.credits || "ORIGINAL CREATORS OF THE TRIALS CALENDAR:"}{' '}
             <span className="trials-credit-names">GINNNE, __REISALIN__, MEWSCAT, とても残念だ</span>
           </p>
         </div>
-
-        {/* FELSŐ PIROS KERETES RÉSZ: 2 RÉSZRE OSZTOTT INFÓ DOBOZ */}
-        <div className="td-trials-header-info-grid">
-          <div className="td-trials-header-card">
-            <h4>✦ What is Fast Trials?</h4>
-            <p>
-              A special <strong>3-hour rotation</strong> with heavily increased Invader spawn rates to collect thousands of Venturines. Players must open a <strong>D13 Portal</strong> and match the host's server region (<strong>EU or NA</strong>) to join the same world.
-            </p>
-          </div>
-
-          <div className="td-trials-header-card">
-            <h4>✦ What is the Method?</h4>
-            <p>
-              The host announces the hub, all players sync timers to enter D13 portals together, and one scout finds a flat spot to drop an <strong>Origin Portal</strong> for the group to gather and AFK for the full session.
-            </p>
-          </div>
-        </div>
       </div>
 
-      {/* ALSÓ RÁCS (Balra: Naptár, Jobbra: Kalkulátor) */}
+      {/* 2 OSZLOPOS TARTALOM (Balra: Naptár, Jobbra: Kalkulátor + 2 Info Doboz) */}
       <div className="td-trials-sidebyside-grid">
         
         {/* BAL OSZLOP: NAPTÁR */}
@@ -1307,7 +1296,7 @@ export default function TokenCall() {
           </div>
         </div>
 
-        {/* JOBB OSZLOP: KALKULÁTOR (Letisztult, feszes méret) */}
+        {/* JOBB OSZLOP: KALKULÁTOR + 2 INFÓ DOBOZ */}
         <div className="venturine-calc-container td-calc-sidebar fade-in-up">
           <div className="td-calc-header-block">
             <h3 className="td-calc-sidebar-title">{rotT.tabCalculator || "Venturine Calculator"}</h3>
@@ -1340,6 +1329,33 @@ export default function TokenCall() {
             <h3>{rotT.calcTotalNeeded || "TOTAL MATERIALS NEEDED"}</h3>
             <div className="result-value">{calcTotal}</div>
           </div>
+
+          {/* 1. DOBOZ: WHAT IS FAST TRIALS */}
+          <div className="td-fast-trials-info-card">
+            <div className="td-info-card-header">
+              <h4>What is Fast Trials?</h4>
+            </div>
+            <p className="td-info-card-desc">
+              Fast Trials is a special event rotation during which the spawn rate of Invaders is increased. This 3-hour window allows players to collect as many Venturines as possible.
+            </p>
+            <p className="td-info-card-desc">
+              When this rotation is active, players must open a <strong>D13 Portal</strong> to a Trials World. Every participant must be on either the <strong>EU or NA</strong> server to join the same world. Players then AFK in a designated flat area to collect thousands of Venturines.
+            </p>
+          </div>
+
+          {/* 2. DOBOZ: WHAT IS THE METHOD */}
+          <div className="td-fast-trials-info-card">
+            <div className="td-info-card-header">
+              <h4>What is the Method?</h4>
+            </div>
+            <p className="td-info-card-desc">
+              One player announces the 3-hour rotation so others can join the hub. Everyone opens a D13 Portal and syncs with a timer to join at roughly the same time.
+            </p>
+            <p className="td-info-card-desc">
+              Once inside, one player scouts a suitable flat area and places an <strong>Origin Portal</strong> so the rest can teleport there. The AFK session lasts the full 3 hours, though players can leave earlier if desired.
+            </p>
+          </div>
+
         </div>
 
       </div>
