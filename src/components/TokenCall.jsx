@@ -699,9 +699,6 @@ export default function TokenCall() {
                   </div>
                   <div>
                     <div className="td-chaos-name">{chaosChest.item?.name ?? t.sidebar.mysteryItem}</div>
-                    {chaosChest.item?.blueprint && (
-                      <div className="td-chaos-blueprint">{chaosChest.item.blueprint}</div>
-                    )}
                   </div>
                 </div>
 

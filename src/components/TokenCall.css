@@ -792,6 +792,10 @@
   color: #fff;
 }
 
+.td-chaos-blueprint {
+  display: none !important;
+}
+
 /* ── Animációk ── */
 @keyframes tdModalFadeIn {
   from { opacity: 0; }
