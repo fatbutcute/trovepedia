@@ -241,7 +241,7 @@
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.td-sidebar-card:hover { transform: scale(1.02); }
+.td-sidebar-card:hover { transform: scale(1.05); }
 .td-sidebar-card.glow-green { border-color: rgba(74, 222, 128, 0.25); box-shadow: 0 0 12px rgba(74, 222, 128, 0.08); }
 .td-sidebar-card.glow-green:hover { border-color: rgba(74, 222, 128, 0.6); box-shadow: 0 0 20px rgba(74, 222, 128, 0.25); }
 .td-sidebar-card.glow-blue { border-color: rgba(56, 189, 248, 0.25); box-shadow: 0 0 12px rgba(56, 189, 248, 0.08); }

@@ -156,12 +156,25 @@ function ModalCustomDropdown({ value, options, onChange, label }) {
 }
 
 /* ── Fast Trials Tracker Komponens ── */
-function LuxionTracker({ luxion, serverTime, nowTick, t, onOpenCalendar }) {
-  const isActive = luxion?.active;
-  const secondsRemaining = luxion?.seconds_remaining ?? 0;
-  const targetTime = serverTime?.now_unix && secondsRemaining > 0 
-    ? serverTime.now_unix + secondsRemaining 
-    : null;
+function LuxionTracker({ luxion, nowTick, t, onOpenCalendar }) {
+  // A naptárral megegyező 27 órás ciklus / 3 órás időablak kiszámítása
+  const BASE_UNIX = Date.UTC(1900, 0, 3, 11, 0, 0) / 1000;
+  const CYCLE_SEC = 27 * 3600;
+  const DURATION_SEC = 3 * 3600;
+
+  const currentUnix = nowTick || Math.floor(Date.now() / 1000);
+  const diff = currentUnix - BASE_UNIX;
+  const cycleIndex = Math.floor(diff / CYCLE_SEC);
+  const cycleStart = BASE_UNIX + cycleIndex * CYCLE_SEC;
+  const cycleEnd = cycleStart + DURATION_SEC;
+
+  // Éppen aktív-e a 3 órás Fast Trials
+  const isFastTrialsLive = currentUnix >= cycleStart && currentUnix < cycleEnd;
+  
+  // Hátralévő másodpercek az esemény végéig VAGY a következő kezdetéig
+  const remainingSeconds = isFastTrialsLive 
+    ? cycleEnd - currentUnix 
+    : (currentUnix < cycleStart ? cycleStart - currentUnix : (cycleStart + CYCLE_SEC) - currentUnix);
 
   return (
     <section id="luxion-tracker" className="td-card span-2 glow-amber td-luxion-card-bg">
@@ -177,21 +190,18 @@ function LuxionTracker({ luxion, serverTime, nowTick, t, onOpenCalendar }) {
           </div>
 
           <div className="td-header-actions-group">
-            {/* Gomb kizárólag aktív Fast Trials esetén, a badge mellett balra */}
-            {isActive && (
-              <button 
-                type="button" 
-                className="td-calendar-trigger-btn"
-                onClick={onOpenCalendar}
-              >
-                {t.luxion?.eventCalendarBtn || 'Event Calendar'}
-              </button>
-            )}
+            <button 
+              type="button" 
+              className="td-calendar-trigger-btn"
+              onClick={onOpenCalendar}
+            >
+              {t.luxion?.eventCalendarBtn || 'Event Calendar'}
+            </button>
 
             <StatusBadge 
               state={luxion ? 'ok' : 'loading'} 
-              label={isActive ? t.badges.activeInHub : t.badges.away} 
-              customClass={isActive ? 'badge-amber' : 'muted'} 
+              label={isFastTrialsLive ? (t.badges?.live || 'LIVE') : (t.badges?.away || 'AWAY')} 
+              customClass={isFastTrialsLive ? 'badge-green' : 'muted'} 
               t={t}
             />
           </div>
@@ -239,14 +249,15 @@ function LuxionTracker({ luxion, serverTime, nowTick, t, onOpenCalendar }) {
             </div>
           </div>
 
+          {/* Dinamikus Fast Trials Visszaszámláló */}
           <div className="td-luxion-timer-box">
             <div className="td-luxion-timer-label">
-              {isActive ? (t.luxion?.fastTrialsEndsIn || "Fast trials ends in") : (t.luxion?.nextFastTrialsIn || "Next fast trials in")}
+              {isFastTrialsLive 
+                ? (t.luxion?.fastTrialsEndsIn || "Fast trials ends in") 
+                : (t.luxion?.nextFastTrialsIn || "Next fast trials in")}
             </div>
-            <div className="td-luxion-timer-value">
-              {isActive 
-                ? (targetTime ? (formatCountdown(targetTime, nowTick) ?? formatDuration(secondsRemaining)) : formatDuration(secondsRemaining))
-                : (secondsRemaining > 0 ? formatDuration(secondsRemaining) : t.luxion.scheduleTba)}
+            <div className="td-luxion-timer-value" style={{ color: isFastTrialsLive ? '#4ade80' : '#f59e0b' }}>
+              {formatDuration(remainingSeconds)}
             </div>
           </div>
         </div>
