@@ -1,11 +1,12 @@
-// src/components/guides/index.js
 import GemsGuide from './GemsGuide';
 import { lazy } from 'react';
 
 const MaximizeLightGuide = lazy(() => import('./MaximizeLightGuide'));
 const SkillChartGuide = lazy(() => import('./SkillChartGuide'));
 const MysticGearGuide = lazy(() => import('./MysticGearGuide'));
-const TowersShipsGuide = lazy(() => import('./TowersShipsGuide')); // 👈 ÚJ IMPORT
+const TowersShipsGuide = lazy(() => import('./TowersShipsGuide'));
+const LeviathanTorchGuide = lazy(() => import('./LeviathanTorchGuide'));
+const GeodeGuide = lazy(() => import('./GeodeGuide')); // 👈 ÚJ IMPORT
 
 export const GUIDES_DATA = {
   'gems': {
@@ -50,5 +51,19 @@ export const GUIDES_DATA = {
     subtitle: '5★ Dungeons Farming',
     description: 'Best strategies for D13 Ship XP grinding and D14 Tower Phoenix Mote farming.',
     component: TowersShipsGuide,
+  },
+  'leviathan-torch': {
+    id: 'leviathan-torch',
+    title: 'Leviathans & Torches',
+    subtitle: 'Boss Hunting & Banners',
+    description: 'Learn boss mechanics, Light requirements, and how to obtain permanent torches.',
+    component: LeviathanTorchGuide,
+  },
+  'geode': {
+    id: 'geode',
+    title: 'Geode Basics & Caving',
+    subtitle: 'Sanctuary & Modules',
+    description: 'Master Geode Sanctuary workbenches, cavern Tier exploration, companion eggs, and Module Forge upgrades.',
+    component: GeodeGuide,
   },
 };

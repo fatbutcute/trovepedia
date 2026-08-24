@@ -5,7 +5,6 @@ import { dashboardContent } from './guides/content/dashboard.content';
 
 const REFRESH_INTERVAL_MS = 30_000;
 
-// Ikon választó függvény a nap neve vagy a buff típusa alapján
 function getDailyBuffIcon(buffData) {
   if (!buffData) return '/icons/power.png';
 
@@ -31,18 +30,15 @@ function getDailyBuffIcon(buffData) {
   return '/icons/power.png';
 }
 
-// 🌐 Segédfüggvény a napi és heti buffok lefordításához
 function translateBuffText(rawText, t) {
   if (!rawText || typeof rawText !== 'string') return rawText;
 
   let text = rawText.trim();
 
-  // 1. Ha van közvetlen egyezés a buffDescriptions szótárban
   if (t?.buffDescriptions?.[text]) {
     return t.buffDescriptions[text];
   }
 
-  // 2. Ha a szöveg összetett vagy kis- és nagybetű eltérés van
   const dict = t?.buffDescriptions || {};
   let translated = text;
   Object.keys(dict).forEach((key) => {
@@ -123,7 +119,6 @@ function getBiomeImageUrl(biome) {
   return null;
 }
 
-/* --- Luxion / Trials of Luxion Tracker Komponens --- */
 function LuxionTracker({ luxion, serverTime, nowTick, t }) {
   const isActive = luxion?.active;
   const secondsRemaining = luxion?.seconds_remaining ?? 0;
@@ -209,7 +204,6 @@ function LuxionTracker({ luxion, serverTime, nowTick, t }) {
   );
 }
 
-/* --- Trove News Dashboard Komponens --- */
 function DashboardNews({ t }) {
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -313,6 +307,11 @@ export default function TokenCall() {
   const [searchValue, setSearchValue] = useState('');
   const [playerQuery, setPlayerQuery] = useState('');
 
+  // Calendar Modal & Calculator State
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+  const [calcTier, setCalcTier] = useState(5);
+  const [calcCount, setCalcCount] = useState(10);
+
   const sectionRefs = useRef({});
 
   async function loadData(forPlayer) {
@@ -400,6 +399,43 @@ export default function TokenCall() {
     if (!Number.isFinite(serverTime?.trove_day)) return null;
     return ((serverTime.trove_day % 7) + 7) % 7;
   }, [serverTime]);
+
+  // Fast Trials aktivitásának ellenőrzése
+  const isFastTrialsActive = useMemo(() => {
+    const currentName = typeof weeklyBuffs?.current === 'object' 
+      ? weeklyBuffs.current?.name 
+      : weeklyBuffs?.current;
+    const nameLower = (currentName || '').toLowerCase();
+    return nameLower.includes('fast') || nameLower.includes('invasion') || nameLower.includes('trial');
+  }, [weeklyBuffs]);
+
+  // Naptár napok generálása az aktuális hónapra
+  const calendarDays = useMemo(() => {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth();
+    const firstDay = new Date(year, month, 1).getDay(); // 0 = Sun
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const todayDate = now.getDate();
+
+    // Hétfővel induló eltolás (Mon=0, Sun=6)
+    const startOffset = (firstDay + 6) % 7;
+    const days = [];
+
+    for (let i = 0; i < startOffset; i++) {
+      days.push({ empty: true });
+    }
+
+    for (let d = 1; d <= daysInMonth; d++) {
+      days.push({
+        day: d,
+        isToday: d === todayDate,
+        hasEvent: isFastTrialsActive
+      });
+    }
+
+    return days;
+  }, [isFastTrialsActive]);
 
   function handleNavClick(id) {
     setActiveSection(id);
@@ -749,6 +785,17 @@ export default function TokenCall() {
                   />
                   {t.weeklyBonus.title}
                 </div>
+
+                {/* CSAK AKKOR JELENIK MEG, HA AKTÍV A FAST TRIALS */}
+                {isFastTrialsActive && (
+                  <button 
+                    type="button" 
+                    className="td-fast-trials-btn"
+                    onClick={() => setIsCalendarOpen(true)}
+                  >
+                    📅 Trials Calendar
+                  </button>
+                )}
               </div>
 
               {weeklyBuffs ? (
@@ -1060,6 +1107,92 @@ export default function TokenCall() {
           </div>
         </main>
       </div>
+
+      {/* Fast Trials Calendar & Calculator Modal */}
+      {isCalendarOpen && (
+        <div 
+          className="td-trials-modal-overlay"
+          onClick={() => setIsCalendarOpen(false)}
+        >
+          <div 
+            className="td-trials-modal-content"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button 
+              type="button"
+              className="td-modal-close-btn"
+              onClick={() => setIsCalendarOpen(false)}
+            >
+              ✕
+            </button>
+
+            <div className="trials-header">
+              <div className="trials-header-left">
+                <h3 style={{ color: '#ff0077', margin: 0, fontFamily: 'Comfortaa, sans-serif', fontSize: '1.3rem' }}>
+                  Fast Trials Calendar & Calculator
+                </h3>
+                <span className="trials-credits">
+                  Active Event Rotation Tracker
+                </span>
+              </div>
+
+              {/* Mini kalkulátor a fejlécben */}
+              <div className="trials-mini-calc">
+                <div className="mini-calc-title">Venturine Calculator</div>
+                <div className="mini-calc-body">
+                  <div className="mini-calc-input">
+                    <label>Tier:</label>
+                    <input 
+                      type="number" 
+                      min="1" 
+                      max="5" 
+                      value={calcTier} 
+                      onChange={(e) => setCalcTier(Math.max(1, Number(e.target.value)))} 
+                    />
+                  </div>
+                  <div className="mini-calc-input">
+                    <label>Runs:</label>
+                    <input 
+                      type="number" 
+                      min="1" 
+                      value={calcCount} 
+                      onChange={(e) => setCalcCount(Math.max(1, Number(e.target.value)))} 
+                    />
+                  </div>
+                  <div className="mini-calc-result">
+                    <span className="mini-result-label">Total:</span>
+                    <span className="mini-result-value">{calcTier * calcCount * 4}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="trials-calendar-container">
+              <div className="calendar-grid">
+                {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((day) => (
+                  <div key={day} className="calendar-day-label">{day}</div>
+                ))}
+
+                {calendarDays.map((item, idx) => (
+                  <div 
+                    key={idx} 
+                    className={`calendar-day ${item.empty ? 'empty' : ''} ${item.isToday ? 'today' : ''} ${item.hasEvent ? 'has-event' : ''}`}
+                  >
+                    {!item.empty && (
+                      <>
+                        <span className="day-number">{item.day}</span>
+                        {item.hasEvent && (
+                          <span className="day-interval">Fast Trials</span>
+                        )}
+                      </>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
