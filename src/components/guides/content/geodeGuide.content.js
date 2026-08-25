@@ -369,7 +369,146 @@ export const geodeGuideContent = {
             iconUrl: "https://static.wikia.nocookie.net/trove/images/2/2b/Rocket_Boots.png/revision/latest?cb=20180525132748",
             type: "Delivers standard jetpack-style propulsion, just with significantly more style.",
             prio: "High (P2)",
-            max: "Rank 10"
+            max: "Rank 10",
+            upgrades: [
+              {
+                rank: 2,
+                stats: "Increase horizontal acceleration and speed by 15%",
+                costs: [
+                  { name: "Gleamstone", amount: "180" },
+                  { name: "Acrobat Bark", amount: "10" },
+                  { name: "Moonstone", amount: "30" },
+                  { name: "Day Drop", amount: "30" },
+                  { name: "Crystals", amount: "270" },
+                  { name: "Metamatter", amount: "2" },
+                ]
+              },
+              {
+                rank: 3,
+                stats: "Increase mining speed by 50% while boots are active",
+                costs: [
+                  { name: "Gleamstone", amount: "250" },
+                  { name: "Cave Birds", amount: "10" },
+                  { name: "Cave Kelp", amount: "10" },
+                  { name: "Moonlit Moss", amount: "40" },
+                  { name: "Crystals", amount: "510" },
+                  { name: "Metamatter", amount: "3" },
+                ]
+              },
+              {
+                rank: 4,
+                stats: "Halves N-Charge cost in Tier 1 of caves",
+                costs: [
+                  { name: "Gleamstone", amount: "510" },
+                  { name: "Quirkstone", amount: "80" },
+                  { name: "Sparkzite", amount: "80" },
+                  { name: "Sun Sap", amount: "20" },
+                  { name: "Crystals", amount: "760" },
+                  { name: "Metamatter", amount: "4" },
+                ]
+              },
+              {
+                rank: 5,
+                stats: "Increase horizontal acceleration and speed by 15%",
+                costs: [
+                  { name: "Builderite", amount: "380" },
+                  { name: "Chronozine", amount: "60" },
+                  { name: "Queen Trumpets", amount: "20" },
+                  { name: "Wallflowers", amount: "50" },
+                  { name: "Crystals", amount: "560" },
+                  { name: "Metamatter", amount: "5" },
+                ]
+              },
+              {
+                rank: 6,
+                stats: "No longer take falling damage",
+                costs: [
+                  { name: "Builderite", amount: "630" },
+                  { name: "Fireheart Flower", amount: "30" },
+                  { name: "Cogwine", amount: "30" },
+                  { name: "Sparkzite", amount: "100" },
+                  { name: "Crystals", amount: "950" },
+                  { name: "Metamatter", amount: "6" },
+                ]
+              },
+              {
+                rank: 7,
+                stats: "Halves N-Charge cost in Tier 2 of caves",
+                costs: [
+                  { name: "Builderite", amount: "1260" },
+                  { name: "Builder's Blossom", amount: "50" },
+                  { name: "Sparkzite", amount: "200" },
+                  { name: "Quirkstone", amount: "200" },
+                  { name: "Crystals", amount: "1890" },
+                  { name: "Metamatter", amount: "7" },
+                ]
+              },
+              {
+                rank: 8,
+                stats: "Increase horizontal acceleration and speed by 15%",
+                costs: [
+                  { name: "Ancient Gears", amount: "480" },
+                  { name: "Lunarium", amount: "80" },
+                  { name: "Quirkstone", amount: "80" },
+                  { name: "Wallflowers", amount: "60" },
+                  { name: "Crystals", amount: "710" },
+                  { name: "Metamatter", amount: "8" },
+                ]
+              },
+              {
+                rank: 9,
+                stats: "Increase mining speed by 50% while boots are active",
+                costs: [
+                  { name: "Ancient Gears", amount: "780" },
+                  { name: "Everlight", amount: "120" },
+                  { name: "Fireheart Flower", amount: "30" },
+                  { name: "Queen Trumpets", amount: "30" },
+                  { name: "Crystals", amount: "1170" },
+                  { name: "Metamatter", amount: "9" },
+                ]
+              },
+              {
+                rank: 10,
+                stats: "Halves N-Charge cost in Tier 3 of caves",
+                costs: [
+                  { name: "Ancient Gears", amount: "1540" },
+                  { name: "Mightstone", amount: "240" },
+                  { name: "Builder's Blossom", amount: "60" },
+                  { name: "Wallflowers", amount: "190" },
+                  { name: "Crystals", amount: "2310" },
+                  { name: "Metamatter", amount: "10" },
+                ]
+              },
+              {
+              rank: "Total Max ",
+              stats: "Total materials required to fully upgrade the module",
+              costs: [
+                { name: "Crystals", amount: "9000" },
+                { name: "Metamatter", amount: "54" },
+                { name: "Gleamstone", amount: "940" },
+                { name: "Acrobat Bark", amount: "10" },
+                { name: "Moonstone", amount: "30" },
+                { name: "Day Drop", amount: "30" },
+                { name: "Cave Birds", amount: "10" },
+                { name: "Cave Kelp", amount: "10" },
+                { name: "Moonlit Moss", amount: "40" },
+                { name: "Quirkstone", amount: "360" },
+                { name: "Sparkzite", amount: "380" },
+                { name: "Sun Sap", amount: "20" },
+                { name: "Builderite", amount: "2270" },
+                { name: "Chronozine", amount: "60" },
+                { name: "Queen Trumpets", amount: "50" },
+                { name: "Wallflowers", amount: "300" },
+                { name: "Fireheart Flower", amount: "60" },
+                { name: "Cogwine", amount: "30" },
+                { name: "Builder's Blossom", amount: "110" },
+                { name: "Ancient Gears", amount: "2800" },
+                { name: "Lunarium", amount: "80" },
+                { name: "Everlight", amount: "120" },
+                { name: "Mightstone", amount: "240" },
+              ]
+            }
+            ]
           },
           {
             name: "Climbing Claw",
@@ -666,7 +805,145 @@ export const geodeGuideContent = {
             iconUrl: "https://static.wikia.nocookie.net/trove/images/d/d8/Barrier_Generator.png/revision/latest/scale-to-width-down/200?cb=20180525132739",
             type: "Deploys a protective energy shield that blocks incoming projectiles, stuns aggressive mobs, and grants a passive movement speed boost while active.",
             prio: "Medium (P3)",
-            max: "Rank 10"
+            max: "Rank 10",
+            upgrades: [
+              {
+                rank: 2,
+                stats: "Stun critters in Tier 1 and 2 of caves",
+                costs: [
+                  { name: "Gleamstone", amount: "150" },
+                  { name: "Cave Birds", amount: "10" },
+                  { name: "Dream Dew", amount: "10" },
+                  { name: "Blazine", amount: "30" },
+                  { name: "Crystals", amount: "220" },
+                  { name: "Metamatter", amount: "2" },
+                ]
+              },
+              {
+                rank: 3,
+                stats: "Move 30% faster while active",
+                costs: [
+                  { name: "Gleamstone", amount: "250" },
+                  { name: "Quirkstone", amount: "40" },
+                  { name: "Geminite", amount: "40" },
+                  { name: "Moonlit Miss", amount: "40" },
+                  { name: "Crystals", amount: "380" },
+                  { name: "Metamatter", amount: "3" },
+                ]
+              },
+              {
+                rank: 4,
+                stats: "Gain 5 N-Charge each time you are hit while active",
+                costs: [
+                  { name: "Gleamstone", amount: "430" },
+                  { name: "Chronozine", amount: "70" },
+                  { name: "Sparkzite", amount: "70" },
+                  { name: "Acrobat Bark", amount: "20" },
+                  { name: "Crystals", amount: "640" },
+                  { name: "Metamatter", amount: "4" },
+                ]
+              },
+              {
+                rank: 5,
+                stats: "Stun critters in Tier 3 and 4 of caves",
+                costs: [
+                  { name: "Builderite", amount: "380" },
+                  { name: "Queen Trumpets", amount: "20" },
+                  { name: "Quirkstone", amount: "60" },
+                  { name: "Cogwine", amount: "20" },
+                  { name: "Crystals", amount: "560" },
+                  { name: "Metamatter", amount: "5" },
+                ]
+              },
+              {
+                rank: 6,
+                stats: "Reduce N-Charge cost to 40",
+                costs: [
+                  { name: "Builderite", amount: "630" },
+                  { name: "Fireheart Flower", amount: "30" },
+                  { name: "Wallflowers", amount: "80" },
+                  { name: "Quirkstone", amount: "100" },
+                  { name: "Crystals", amount: "950" },
+                  { name: "Metamatter", amount: "6" },
+                ]
+              },
+              {
+                rank: 7,
+                stats: "Move 60% Faster while active",
+                costs: [
+                  { name: "Builderite", amount: "760" },
+                  { name: "Builder's Blossom", amount: "30" },
+                  { name: "Queen Trumpets", amount: "30" },
+                  { name: "Sparkzite", amount: "120" },
+                  { name: "Crystals", amount: "1140" },
+                  { name: "Metamatter", amount: "7" },
+                ]
+              },
+              {
+                rank: 8,
+                stats: "Stun critters in Tier 5 caves",
+                costs: [
+                  { name: "Ancient Gears", amount: "480" },
+                  { name: "Lunarium", amount: "80" },
+                  { name: "Fireheart Flower", amount: "20" },
+                  { name: "Wallflowers", amount: "60" },
+                  { name: "Crystals", amount: "710" },
+                  { name: "Metamatter", amount: "8" },
+                ]
+              },
+              {
+                rank: 9,
+                stats: "Gain 10 total N-Charge each time you are hit while active",
+                costs: [
+                  { name: "Ancient Gears", amount: "780" },
+                  { name: "Everlight", amount: "120" },
+                  { name: "Queen Trumpets", amount: "30" },
+                  { name: "Builder's Blossom", amount: "30" },
+                  { name: "Crystals", amount: "1170" },
+                  { name: "Metamatter", amount: "9" },
+                ]
+              },
+              {
+                rank: 10,
+                stats: "Reduce N-Charge cost to 20",
+                costs: [
+                  { name: "Ancient Gears", amount: "930" },
+                  { name: "Mightstone", amount: "140" },
+                  { name: "Everlight", amount: "140" },
+                  { name: "Lunarium", amount: "140" },
+                  { name: "Crystals", amount: "1390" },
+                  { name: "Metamatter", amount: "10" },
+                ]
+              },
+              {
+              rank: "Total Max ",
+              stats: "Total materials required to fully upgrade the module",
+              costs: [
+                { name: "Crystals", amount: "7160" },
+                { name: "Metamatter", amount: "54" },
+                { name: "Gleamstone", amount: "830" },
+                { name: "Cabe Birds", amount: "10" },
+                { name: "Dream Dew", amount: "10" },
+                { name: "Blazine", amount: "30" },
+                { name: "Quirkstone", amount: "200" },
+                { name: "Geminite", amount: "40" },
+                { name: "Moonlit Miss", amount: "40" },
+                { name: "Chronozine", amount: "70" },
+                { name: "Sparkzite", amount: "190" },
+                { name: "Acrobat Bark", amount: "20" },
+                { name: "Builderite", amount: "1770" },
+                { name: "Queen Trumpets", amount: "80" },
+                { name: "Cogwine", amount: "20" },
+                { name: "Fireheart Flower", amount: "50" },
+                { name: "Wallflowrs", amount: "140" },
+                { name: "Builder's Blossom", amount: "60" },
+                { name: "Ancient Gears", amount: "2190" },
+                { name: "Lunarium", amount: "220" },
+                { name: "Everlight", amount: "260" },
+                { name: "Mightstone", amount: "140" },
+              ]
+            }
+            ]
           },
           {
             name: "Pathpainter",
@@ -919,11 +1196,11 @@ export const geodeGuideContent = {
                 rank: 10,
                 stats: "Increase duration by 100%",
                 costs: [
-                  { name: "Ancient Gears", amount: "1540" },
-                  { name: "Everlight", amount: "240" },
-                  { name: "Builder's Blossom", amount: "60" },
-                  { name: "Mightstone", amount: "240" },
-                  { name: "Crystals", amount: "2310" },
+                  { name: "Ancient Gears", amount: "930" },
+                  { name: "Everlight", amount: "140" },
+                  { name: "Builder's Blossom", amount: "40" },
+                  { name: "Mightstone", amount: "140" },
+                  { name: "Crystals", amount: "1390" },
                   { name: "Metamatter", amount: "10" },
                 ]
               },
