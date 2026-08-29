@@ -424,7 +424,6 @@ html {
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
   box-shadow: 0 8px 24px rgba(var(--calc-accent-rgb), 0.1);
-  margin-bottom: 1.375rem;
 }
 
 .calc-submit-btn:hover {
