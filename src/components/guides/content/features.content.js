@@ -17,9 +17,9 @@ export const featuresContent = {
         title: "Star Chart",
         desc: "This simulator helps you plan your Star Chart progression and optimize stats."
       },
-      rotations: {
-        title: "Rotations",
-        desc: "Current D15 rotations and a calendar of all daily/weekly events in one place."
+      hub: {
+        title: "Hub",
+        desc: "Live dashboard tracking server resets, daily buffs, Chaos Chest, Luxion timers, and leaderboard records."
       },
       events: {
         title: "Events",
@@ -47,11 +47,11 @@ export const featuresContent = {
       },
       starchart: {
         title: "Carte Céleste",
-        desc: "Ce模擬器 simulateur vous aide à planifier votre progression et optimiser vos stats."
+        desc: "Ce simulateur vous aide à planifier votre progression et optimiser vos stats."
       },
-      rotations: {
-        title: "Rotations",
-        desc: "Rotations D15 actuelles et calendrier des événements quotidiens/hebdomadaires."
+      hub: {
+        title: "Hub",
+        desc: "Tableau de bord en direct : réinitialisations, bonus quotidiens, Coffre du Chaos, Luxion et classements."
       },
       events: {
         title: "Événements",
@@ -81,9 +81,9 @@ export const featuresContent = {
         title: "Mapa Estelar",
         desc: "Este simulador te ayuda a planificar tu progresión en el Mapa Estelar y optimizar estadísticas."
       },
-      rotations: {
-        title: "Rotaciones",
-        desc: "Rotaciones D15 actuales y calendario de eventos diarios/semanales en un solo lugar."
+      hub: {
+        title: "Hub",
+        desc: "Panel en vivo con reinicios del servidor, ventajas diarias, Cofre del Caos, contadores de Luxion y récords."
       },
       events: {
         title: "Eventos",
@@ -113,9 +113,9 @@ export const featuresContent = {
         title: "星图",
         desc: "此模拟器可帮助你规划星图进度并优化各项属性。"
       },
-      rotations: {
-        title: "轮换",
-        desc: "汇总当前 D15 轮换及所有每日/每周活动日历。"
+      hub: {
+        title: "主城 (Hub)",
+        desc: "实时数据看板：追踪服务器重置、日常增益、混沌宝箱、Luxion 倒计时及全服排行榜纪录。"
       },
       events: {
         title: "活动",

@@ -6,7 +6,7 @@ const BASE_FEATURES = [
   { id: 'guides', icon: '/icons/bookmark.png', accent: 'gold', path: '/guides' },
   { id: 'classes', icon: '/icons/sword.png', accent: 'green', path: '/classes' },
   { id: 'starchart', icon: '/icons/web.png', accent: 'cyan', path: '/starchart' },
-  { id: 'rotations', icon: '/icons/time.png', accent: 'purple', path: '/rotations' },
+  { id: 'hub', icon: '/icons/smart.png', accent: 'purple', path: '/hub' },
   { id: 'events', icon: '/icons/calendar.png', accent: 'red', path: '/event' },
   { id: 'calculators', icon: '/icons/calculator.png', accent: 'blue', path: '/calculators' },
 ];
