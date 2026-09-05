@@ -156,7 +156,6 @@ function ModalCustomDropdown({ value, options, onChange, label }) {
 }
 
 /* ── Fast Trials Tracker Komponens ── */
-/* ── Fast Trials Tracker Komponens ── */
 function LuxionTracker({ luxion, nowTick, t, onOpenCalendar }) {
   // 1. Luxion Event fenti státusza az API szerint
   const isLuxionInHub = !!luxion?.active;
@@ -257,17 +256,19 @@ function LuxionTracker({ luxion, nowTick, t, onOpenCalendar }) {
             </div>
           </div>
 
-          {/* ALSÓ DOBOZ: Fast Trials státusz és visszaszámlálás */}
-          <div className="td-luxion-timer-box">
-            <div className="td-luxion-timer-label">
-              {isFastTrialsLive 
-                ? (t.luxion?.fastTrialsEndsIn || "Fast trials ends in") 
-                : (t.luxion?.nextFastTrialsIn || "Next fast trials in")}
+          {/* ALSÓ DOBOZ: Csak akkor jelenik meg, ha az esemény éppen aktív a Hubban */}
+          {isLuxionInHub && (
+            <div className="td-luxion-timer-box">
+              <div className="td-luxion-timer-label">
+                {isFastTrialsLive 
+                  ? (t.luxion?.fastTrialsEndsIn || "Fast trials ends in") 
+                  : (t.luxion?.nextFastTrialsIn || "Next fast trials in")}
+              </div>
+              <div className="td-luxion-timer-value" style={{ color: isFastTrialsLive ? '#4ade80' : '#f59e0b' }}>
+                {formatDuration(remainingSeconds)}
+              </div>
             </div>
-            <div className="td-luxion-timer-value" style={{ color: isFastTrialsLive ? '#4ade80' : '#f59e0b' }}>
-              {formatDuration(remainingSeconds)}
-            </div>
-          </div>
+          )}
         </div>
       </div>
     </section>
