@@ -16,7 +16,7 @@ import ClubsPage       from './pages/ClubsPage'
 import TroveNewsPage   from './components/TroveNewsPage'
 import FishingPage     from './pages/FishingPage'
 import CalculatorsPage from './components/CalculatorsPage'
-import TokenCall       from './components/TokenCall'
+import TokenCall       from './components/tokencall'
 
 import GuideViewer     from './components/guides/GuideViewer'
 
