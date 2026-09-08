@@ -1,7 +1,8 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
+import { dashboardContent } from './guides/content/dashboard.content';
 
 const LANGUAGES = [
   { code: 'en', label: 'English', flag: '🇬🇧' },
@@ -11,13 +12,160 @@ const LANGUAGES = [
   { code: 'zh', label: '中文', flag: '🇨🇳' },
 ];
 
+function getDailyBuffIcon(buffData) {
+  if (!buffData) return '/icons/power.png';
+  const weekday = (buffData.weekday || '').toLowerCase();
+  const buffName = (buffData.name || '').toLowerCase();
+
+  if (weekday.includes('mon')) return '/icons/pickaxe.png';
+  if (weekday.includes('tue')) return '/icons/fish.png';
+  if (weekday.includes('wed')) return '/icons/icons8-sparkling-diamond-80.png';
+  if (weekday.includes('thu')) return '/icons/quest.png';
+  if (weekday.includes('fri')) return '/icons/dragon.png';
+  if (weekday.includes('sat')) return '/icons/xp.png';
+  if (weekday.includes('sun')) return '/icons/lootbag.png';
+
+  if (buffName.includes('mining') || buffName.includes('gathering')) return '/icons/pickaxe.png';
+  if (buffName.includes('fish')) return '/icons/fish.png';
+  if (buffName.includes('gem')) return '/icons/icons8-sparkling-diamond-80.png';
+  if (buffName.includes('adventure') || buffName.includes('quest')) return '/icons/quest.png';
+  if (buffName.includes('dragon')) return '/icons/dragon.png';
+  if (buffName.includes('xp') || buffName.includes('experience')) return '/icons/xp.png';
+  if (buffName.includes('loot') || buffName.includes('karma')) return '/icons/lootbag.png';
+
+  return '/icons/power.png';
+}
+
+function getWeeklyBonusIcon(name) {
+  const lower = (name || '').toLowerCase();
+  if (lower.includes('star')) return '/icons/star.png';
+  if (lower.includes('xp') || lower.includes('experience')) return '/icons/xpweekly.png';
+  if (lower.includes('stat') || lower.includes('reroll')) return '/icons/stat.png';
+  if (lower.includes('invasion') || lower.includes('fast')) return '/icons/fastinv.png';
+  return '/icons/quest.png';
+}
+
+function formatClock(unixSeconds) {
+  if (!Number.isFinite(unixSeconds)) return '--:--';
+  const d = new Date(unixSeconds * 1000);
+  return d.toISOString().slice(11, 16);
+}
+
+const wrapperVariants = {
+  open: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.1,
+      ease: [0.25, 1, 0.5, 1],
+      when: "beforeChildren",
+      staggerChildren: 0.01,
+    },
+  },
+  closed: {
+    y: -15,
+    opacity: 0,
+    transition: {
+      duration: 0.2,
+      ease: [0.25, 1, 0.5, 1],
+      when: "afterChildren",
+      staggerChildren: 0.01,
+    },
+  },
+};
+
+const itemVariants = {
+  open: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.1 }
+  },
+  closed: {
+    opacity: 0,
+    y: -8,
+    transition: { duration: 0.1 }
+  },
+};
+
 export default function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
   const { langCode, setLangCode, t } = useLanguage();
+  const dashT = dashboardContent[langCode] || dashboardContent.en;
 
   const [open, setOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
+
+  // Status Bar adatok
+  const [navData, setNavData] = useState(null);
+  const [clockOffset, setClockOffset] = useState(0);
+  const [navTick, setNavTick] = useState(() => Math.floor(Date.now() / 1000));
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function fetchStatus() {
+      try {
+        // Közvetlen külső lekérés, hogy Vite localhost alatt is azonnal legyen adat
+        const [playerRes, weeklyRes] = await Promise.allSettled([
+          fetch('https://trove.aallyn.net/api/v1/meta').then((r) => r.json()),
+          fetch('https://trove.aallyn.net/static/assets/data/weekly_buffs.json').then((r) => r.json()),
+        ]);
+
+        if (cancelled) return;
+
+        const mainJson = playerRes.status === 'fulfilled' ? playerRes.value?.data || playerRes.value : null;
+        const weeklyJson = weeklyRes.status === 'fulfilled' ? weeklyRes.value : null;
+
+        if (mainJson) {
+          if (weeklyJson) mainJson.weeklyBuffsStatic = weeklyJson;
+          setNavData(mainJson);
+          if (Number.isFinite(mainJson?.serverTime?.now_unix)) {
+            setClockOffset(mainJson.serverTime.now_unix - Math.floor(Date.now() / 1000));
+          }
+        }
+      } catch (err) {
+        // Csendes fallback, az óra akkor is ketyeg
+      }
+    }
+
+    fetchStatus();
+    const interval = setInterval(fetchStatus, 60_000);
+    return () => {
+      cancelled = true;
+      clearInterval(interval);
+    };
+  }, []);
+
+  // Óra ketyegés
+  useEffect(() => {
+    const tick = setInterval(() => {
+      setNavTick(Math.floor(Date.now() / 1000) + clockOffset);
+    }, 1000);
+    return () => clearInterval(tick);
+  }, [clockOffset]);
+
+  // Online játékosok kinyerése
+  const onlineCount = useMemo(() => {
+    const J = navData?.playerActivity;
+    if (!J) return null;
+    let val = null;
+    if (J.series && Array.isArray(J.series) && J.series.length > 0) {
+      val = J.series[J.series.length - 1]?.active_players ?? J.series[J.series.length - 1]?.count;
+    } else if (Array.isArray(J) && J.length > 0) {
+      val = J[J.length - 1]?.active_players ?? J[J.length - 1]?.count;
+    } else if (Number.isFinite(J.latest)) {
+      val = J.latest;
+    } else if (typeof J === 'object') {
+      val = J.active_players ?? J.count;
+    }
+    return Number.isFinite(val) ? Math.round(val).toLocaleString() : null;
+  }, [navData]);
+
+  const currentDaily = navData?.dailyBuffs?.current;
+  const currentWeeklyName = typeof navData?.weeklyBuffsStatic?.current === 'object'
+    ? navData.weeklyBuffsStatic.current?.name
+    : navData?.weeklyBuffsStatic?.current || navData?.weeklyBuffs?.current;
 
   const currentLang = LANGUAGES.find((l) => l.code === langCode) || LANGUAGES[0];
 
@@ -25,20 +173,16 @@ export default function Navbar() {
     [t('nav.categories.navigation')]: [
       { label: t('nav.guides'), path: '/guides' },
       { label: t('nav.classes'), path: '/classes' },
-      /*{ label: t('nav.rotations'), path: '/rotations' },*/
       { label: t('nav.hub'), path: '/hub' },
     ],
     [t('nav.categories.tools')]: [
       { label: t('nav.calculators'), path: '/calculators' },
       { label: t('nav.starchart'), path: '/starchart' },
-      /*{ label: t('nav.archive'), path: '/archive' },*/
     ],
     [t('nav.categories.community')]: [
       { label: t('nav.discord'), href: 'https://discord.com/invite/trovegame' },
       { label: t('nav.trovesaurus'), href: 'https://trovesaurus.com/' },
       { label: t('nav.contributors'), path: '/contribute' },
-      /*{ label: t('nav.clubs'), path: '/clubs' },*/
-      /*{ label: t('nav.news'), path: '/news' },*/
     ],
   }), [langCode, t]);
 
@@ -64,11 +208,11 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="custom-navbar">
-      <div className="relative flex items-center justify-between w-[280px] sm:w-[600px]">
+    <nav className="custom-navbar w-full px-4 flex justify-center">
+      <div className="relative flex items-center justify-between w-full max-w-[880px]">
         
-        {/* LOGO GOMB A LEFORDÍTOTT ALCÍMMEL */}
-        <button className="nav-logo flex items-center gap-3 bg-transparent border-none cursor-pointer" onClick={goHome}>
+        {/* 1. LOGO */}
+        <button className="nav-logo flex items-center gap-3 bg-transparent border-none cursor-pointer flex-shrink-0" onClick={goHome}>
           <span className="diamond" />
           <div className="nav-logo-text text-left">
             <span className="nav-logo-title">Trovepedia</span>
@@ -76,8 +220,62 @@ export default function Navbar() {
           </div>
         </button>
 
-        {/* JOBB OLDALI GOMBOK */}
-        <div className="flex items-center gap-3">
+        {/* 2. KÖZÉPSŐ LIVE STÁTUSZ PILL */}
+        <div 
+          onClick={() => navigate('/hub')}
+          className="hidden sm:flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-[#111620]/90 border border-[#1f2733] hover:border-[#58a6ff]/40 transition-all cursor-pointer backdrop-blur-md text-[12px] font-['Quicksand'] font-medium shadow-[0_4px_20px_rgba(0,0,0,0.3)]"
+          title="Open Hub"
+        >
+          {/* Online játékosok */}
+          <div className="flex items-center gap-1.5 text-[#9aa4b2]">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#4ade80] opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#4ade80]"></span>
+            </span>
+            <span className="text-[#e6edf3] font-semibold">{onlineCount || '2,100+'}</span>
+          </div>
+
+          <span className="text-[#2a3648] text-xs">|</span>
+
+          {/* UTC Óra */}
+          <div className="flex items-center gap-1 text-[#9aa4b2]">
+            <span className="text-[10px] text-[#58a6ff] font-bold">UTC</span>
+            <span className="text-[#e6edf3] font-mono text-[11px]">{formatClock(navTick)}</span>
+          </div>
+
+          {/* Napi Buff */}
+          <span className="text-[#2a3648] text-xs">|</span>
+          <div className="flex items-center gap-1.5 text-[#e6edf3]">
+            <img 
+              src={getDailyBuffIcon(currentDaily)} 
+              alt="Daily" 
+              className="w-3.5 h-3.5 object-contain" 
+            />
+            <span className="text-[#f59e0b] font-semibold truncate max-w-[110px]">
+              {dashT?.buffNames?.[currentDaily?.name] || currentDaily?.name || 'Daily Buff'}
+            </span>
+          </div>
+
+          {/* Heti Bónusz (szélesebb nézetben) */}
+          {currentWeeklyName && (
+            <>
+              <span className="hidden md:inline text-[#2a3648] text-xs">|</span>
+              <div className="hidden md:flex items-center gap-1.5 text-[#e6edf3]">
+                <img 
+                  src={getWeeklyBonusIcon(currentWeeklyName)} 
+                  alt="Weekly" 
+                  className="w-3.5 h-3.5 object-contain" 
+                />
+                <span className="text-[#c084fc] font-semibold truncate max-w-[120px]">
+                  {dashT?.buffNames?.[currentWeeklyName] || currentWeeklyName}
+                </span>
+              </div>
+            </>
+          )}
+        </div>
+
+        {/* 3. JOBB OLDALI GOMBOK */}
+        <div className="flex items-center gap-3 flex-shrink-0">
           
           {/* NYELVVÁLASZTÓ GOMB & MENÜ */}
           <div className="relative">
@@ -210,39 +408,3 @@ export default function Navbar() {
     </nav>
   );
 }
-
-const wrapperVariants = {
-  open: {
-    y: 0,
-    opacity: 1,
-    transition: {
-      duration: 0.1,
-      ease: [0.25, 1, 0.5, 1],
-      when: "beforeChildren",
-      staggerChildren: 0.01,
-    },
-  },
-  closed: {
-    y: -15,
-    opacity: 0,
-    transition: {
-      duration: 0.2,
-      ease: [0.25, 1, 0.5, 1],
-      when: "afterChildren",
-      staggerChildren: 0.01,
-    },
-  },
-};
-
-const itemVariants = {
-  open: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.1 }
-  },
-  closed: {
-    opacity: 0,
-    y: -8,
-    transition: { duration: 0.1 }
-  },
-};
