@@ -8,7 +8,6 @@ const LANGUAGES = [
   { code: 'en', label: 'English', flag: '🇬🇧' },
   { code: 'fr', label: 'Français', flag: '🇫🇷' },
   { code: 'es', label: 'Español', flag: '🇪🇸' },
-  /*{ code: 'ru', label: 'Русский', flag: '🇷🇺' },*/
   { code: 'zh', label: '中文', flag: '🇨🇳' },
 ];
 
@@ -34,15 +33,6 @@ function getDailyBuffIcon(buffData) {
   if (buffName.includes('loot') || buffName.includes('karma')) return '/icons/lootbag.png';
 
   return '/icons/power.png';
-}
-
-function getWeeklyBonusIcon(name) {
-  const lower = (name || '').toLowerCase();
-  if (lower.includes('star')) return '/icons/star.png';
-  if (lower.includes('xp') || lower.includes('experience')) return '/icons/xpweekly.png';
-  if (lower.includes('stat') || lower.includes('reroll')) return '/icons/stat.png';
-  if (lower.includes('invasion') || lower.includes('fast')) return '/icons/fastinv.png';
-  return '/icons/quest.png';
 }
 
 function formatClock(unixSeconds) {
@@ -106,26 +96,18 @@ export default function Navbar() {
 
     async function fetchStatus() {
       try {
-        // Közvetlen külső lekérés, hogy Vite localhost alatt is azonnal legyen adat
-        const [playerRes, weeklyRes] = await Promise.allSettled([
-          fetch('https://trove.aallyn.net/api/v1/meta').then((r) => r.json()),
-          fetch('https://trove.aallyn.net/static/assets/data/weekly_buffs.json').then((r) => r.json()),
-        ]);
-
+        const res = await fetch('https://trove.aallyn.net/api/v1/meta').then((r) => r.json());
         if (cancelled) return;
 
-        const mainJson = playerRes.status === 'fulfilled' ? playerRes.value?.data || playerRes.value : null;
-        const weeklyJson = weeklyRes.status === 'fulfilled' ? weeklyRes.value : null;
-
+        const mainJson = res?.data || res;
         if (mainJson) {
-          if (weeklyJson) mainJson.weeklyBuffsStatic = weeklyJson;
           setNavData(mainJson);
           if (Number.isFinite(mainJson?.serverTime?.now_unix)) {
             setClockOffset(mainJson.serverTime.now_unix - Math.floor(Date.now() / 1000));
           }
         }
       } catch (err) {
-        // Csendes fallback, az óra akkor is ketyeg
+        // Csendes fallback
       }
     }
 
@@ -145,28 +127,7 @@ export default function Navbar() {
     return () => clearInterval(tick);
   }, [clockOffset]);
 
-  // Online játékosok kinyerése
-  const onlineCount = useMemo(() => {
-    const J = navData?.playerActivity;
-    if (!J) return null;
-    let val = null;
-    if (J.series && Array.isArray(J.series) && J.series.length > 0) {
-      val = J.series[J.series.length - 1]?.active_players ?? J.series[J.series.length - 1]?.count;
-    } else if (Array.isArray(J) && J.length > 0) {
-      val = J[J.length - 1]?.active_players ?? J[J.length - 1]?.count;
-    } else if (Number.isFinite(J.latest)) {
-      val = J.latest;
-    } else if (typeof J === 'object') {
-      val = J.active_players ?? J.count;
-    }
-    return Number.isFinite(val) ? Math.round(val).toLocaleString() : null;
-  }, [navData]);
-
   const currentDaily = navData?.dailyBuffs?.current;
-  const currentWeeklyName = typeof navData?.weeklyBuffsStatic?.current === 'object'
-    ? navData.weeklyBuffsStatic.current?.name
-    : navData?.weeklyBuffsStatic?.current || navData?.weeklyBuffs?.current;
-
   const currentLang = LANGUAGES.find((l) => l.code === langCode) || LANGUAGES[0];
 
   const NAV_GROUPS = useMemo(() => ({
@@ -209,7 +170,7 @@ export default function Navbar() {
 
   return (
     <nav className="custom-navbar w-full px-4 flex justify-center">
-      <div className="relative flex items-center justify-between w-full max-w-[880px]">
+      <div className="relative flex items-center justify-between w-full max-w-[840px]">
         
         {/* 1. LOGO */}
         <button className="nav-logo flex items-center gap-3 bg-transparent border-none cursor-pointer flex-shrink-0" onClick={goHome}>
@@ -220,64 +181,38 @@ export default function Navbar() {
           </div>
         </button>
 
-        {/* 2. KÖZÉPSŐ LIVE STÁTUSZ PILL */}
+        {/* 2. KÖZÉPSŐ LIVE STÁTUSZ PILL (Csak UTC óra + Napi Buff) */}
         <div 
           onClick={() => navigate('/hub')}
-          className="hidden sm:flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-[#111620]/90 border border-[#1f2733] hover:border-[#58a6ff]/40 transition-all cursor-pointer backdrop-blur-md text-[12px] font-['Quicksand'] font-medium shadow-[0_4px_20px_rgba(0,0,0,0.3)]"
+          className="hidden sm:flex items-center gap-3 px-3.5 py-1.5 rounded-full bg-[#111620]/90 border border-[#1f2733] hover:border-[#58a6ff]/40 transition-all cursor-pointer backdrop-blur-md text-[12px] font-['Quicksand'] font-medium shadow-[0_4px_20px_rgba(0,0,0,0.3)]"
           title="Open Hub"
         >
-          {/* Online játékosok */}
-          <div className="flex items-center gap-1.5 text-[#9aa4b2]">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#4ade80] opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#4ade80]"></span>
-            </span>
-            <span className="text-[#e6edf3] font-semibold">{onlineCount || '2,100+'}</span>
-          </div>
-
-          <span className="text-[#2a3648] text-xs">|</span>
-
           {/* UTC Óra */}
-          <div className="flex items-center gap-1 text-[#9aa4b2]">
+          <div className="flex items-center gap-1.5 text-[#9aa4b2]">
             <span className="text-[10px] text-[#58a6ff] font-bold">UTC</span>
             <span className="text-[#e6edf3] font-mono text-[11px]">{formatClock(navTick)}</span>
           </div>
 
-          {/* Napi Buff */}
           <span className="text-[#2a3648] text-xs">|</span>
+
+          {/* Napi Buff ikonnal és valós névvel */}
           <div className="flex items-center gap-1.5 text-[#e6edf3]">
             <img 
               src={getDailyBuffIcon(currentDaily)} 
               alt="Daily" 
-              className="w-3.5 h-3.5 object-contain" 
+              className="w-4 h-4 object-contain" 
+              onError={(e) => { e.target.style.display = 'none'; }}
             />
-            <span className="text-[#f59e0b] font-semibold truncate max-w-[110px]">
-              {dashT?.buffNames?.[currentDaily?.name] || currentDaily?.name || 'Daily Buff'}
+            <span className="text-[#f59e0b] font-semibold truncate max-w-[160px]">
+              {dashT?.buffNames?.[currentDaily?.name] || currentDaily?.name || 'Loading buff...'}
             </span>
           </div>
-
-          {/* Heti Bónusz (szélesebb nézetben) */}
-          {currentWeeklyName && (
-            <>
-              <span className="hidden md:inline text-[#2a3648] text-xs">|</span>
-              <div className="hidden md:flex items-center gap-1.5 text-[#e6edf3]">
-                <img 
-                  src={getWeeklyBonusIcon(currentWeeklyName)} 
-                  alt="Weekly" 
-                  className="w-3.5 h-3.5 object-contain" 
-                />
-                <span className="text-[#c084fc] font-semibold truncate max-w-[120px]">
-                  {dashT?.buffNames?.[currentWeeklyName] || currentWeeklyName}
-                </span>
-              </div>
-            </>
-          )}
         </div>
 
         {/* 3. JOBB OLDALI GOMBOK */}
         <div className="flex items-center gap-3 flex-shrink-0">
           
-          {/* NYELVVÁLASZTÓ GOMB & MENÜ */}
+          {/* NYELVVÁLASZTÓ */}
           <div className="relative">
             <button
               onClick={() => {
@@ -329,7 +264,7 @@ export default function Navbar() {
             </AnimatePresence>
           </div>
 
-          {/* DROPDOWN NYÍL GOMB & MENÜ */}
+          {/* MENÜ GOMB */}
           <div className="relative">
             <button
               onClick={() => {
@@ -349,7 +284,6 @@ export default function Navbar() {
               />
             </button>
 
-            {/* LEGÖRDÜLŐ MENÜ */}
             <AnimatePresence>
               {open && (
                 <motion.div
