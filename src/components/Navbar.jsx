@@ -1,149 +1,44 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
-import { dashboardContent } from './guides/content/dashboard.content';
 
 const LANGUAGES = [
   { code: 'en', label: 'English', flag: '🇬🇧' },
   { code: 'fr', label: 'Français', flag: '🇫🇷' },
   { code: 'es', label: 'Español', flag: '🇪🇸' },
+  /*{ code: 'ru', label: 'Русский', flag: '🇷🇺' },*/
   { code: 'zh', label: '中文', flag: '🇨🇳' },
 ];
-
-function getDailyBuffIcon(buffData) {
-  if (!buffData) return '/icons/power.png';
-  const weekday = (buffData.weekday || '').toLowerCase();
-  const buffName = (buffData.name || '').toLowerCase();
-
-  if (weekday.includes('mon')) return '/icons/pickaxe.png';
-  if (weekday.includes('tue')) return '/icons/fish.png';
-  if (weekday.includes('wed')) return '/icons/icons8-sparkling-diamond-80.png';
-  if (weekday.includes('thu')) return '/icons/quest.png';
-  if (weekday.includes('fri')) return '/icons/dragon.png';
-  if (weekday.includes('sat')) return '/icons/xp.png';
-  if (weekday.includes('sun')) return '/icons/lootbag.png';
-
-  if (buffName.includes('mining') || buffName.includes('gathering')) return '/icons/pickaxe.png';
-  if (buffName.includes('fish')) return '/icons/fish.png';
-  if (buffName.includes('gem')) return '/icons/icons8-sparkling-diamond-80.png';
-  if (buffName.includes('adventure') || buffName.includes('quest')) return '/icons/quest.png';
-  if (buffName.includes('dragon')) return '/icons/dragon.png';
-  if (buffName.includes('xp') || buffName.includes('experience')) return '/icons/xp.png';
-  if (buffName.includes('loot') || buffName.includes('karma')) return '/icons/lootbag.png';
-
-  return '/icons/power.png';
-}
-
-function formatClock(unixSeconds) {
-  if (!Number.isFinite(unixSeconds)) return '--:--';
-  const d = new Date(unixSeconds * 1000);
-  return d.toISOString().slice(11, 16);
-}
-
-const wrapperVariants = {
-  open: {
-    y: 0,
-    opacity: 1,
-    transition: {
-      duration: 0.1,
-      ease: [0.25, 1, 0.5, 1],
-      when: "beforeChildren",
-      staggerChildren: 0.01,
-    },
-  },
-  closed: {
-    y: -15,
-    opacity: 0,
-    transition: {
-      duration: 0.2,
-      ease: [0.25, 1, 0.5, 1],
-      when: "afterChildren",
-      staggerChildren: 0.01,
-    },
-  },
-};
-
-const itemVariants = {
-  open: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.1 }
-  },
-  closed: {
-    opacity: 0,
-    y: -8,
-    transition: { duration: 0.1 }
-  },
-};
 
 export default function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
   const { langCode, setLangCode, t } = useLanguage();
-  const dashT = dashboardContent[langCode] || dashboardContent.en;
 
   const [open, setOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
 
-  // Status Bar adatok
-  const [navData, setNavData] = useState(null);
-  const [clockOffset, setClockOffset] = useState(0);
-  const [navTick, setNavTick] = useState(() => Math.floor(Date.now() / 1000));
-
-  useEffect(() => {
-    let cancelled = false;
-
-    async function fetchStatus() {
-      try {
-        const res = await fetch('https://trove.aallyn.net/api/v1/meta').then((r) => r.json());
-        if (cancelled) return;
-
-        const mainJson = res?.data || res;
-        if (mainJson) {
-          setNavData(mainJson);
-          if (Number.isFinite(mainJson?.serverTime?.now_unix)) {
-            setClockOffset(mainJson.serverTime.now_unix - Math.floor(Date.now() / 1000));
-          }
-        }
-      } catch (err) {
-        // Csendes fallback
-      }
-    }
-
-    fetchStatus();
-    const interval = setInterval(fetchStatus, 60_000);
-    return () => {
-      cancelled = true;
-      clearInterval(interval);
-    };
-  }, []);
-
-  // Óra ketyegés
-  useEffect(() => {
-    const tick = setInterval(() => {
-      setNavTick(Math.floor(Date.now() / 1000) + clockOffset);
-    }, 1000);
-    return () => clearInterval(tick);
-  }, [clockOffset]);
-
-  const currentDaily = navData?.dailyBuffs?.current;
   const currentLang = LANGUAGES.find((l) => l.code === langCode) || LANGUAGES[0];
 
   const NAV_GROUPS = useMemo(() => ({
     [t('nav.categories.navigation')]: [
       { label: t('nav.guides'), path: '/guides' },
       { label: t('nav.classes'), path: '/classes' },
+      /*{ label: t('nav.rotations'), path: '/rotations' },*/
       { label: t('nav.hub'), path: '/hub' },
     ],
     [t('nav.categories.tools')]: [
       { label: t('nav.calculators'), path: '/calculators' },
       { label: t('nav.starchart'), path: '/starchart' },
+      /*{ label: t('nav.archive'), path: '/archive' },*/
     ],
     [t('nav.categories.community')]: [
       { label: t('nav.discord'), href: 'https://discord.com/invite/trovegame' },
       { label: t('nav.trovesaurus'), href: 'https://trovesaurus.com/' },
       { label: t('nav.contributors'), path: '/contribute' },
+      /*{ label: t('nav.clubs'), path: '/clubs' },*/
+      /*{ label: t('nav.news'), path: '/news' },*/
     ],
   }), [langCode, t]);
 
@@ -169,11 +64,11 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="custom-navbar w-full px-4 flex justify-center">
-      <div className="relative flex items-center justify-between w-full max-w-[840px]">
+    <nav className="custom-navbar">
+      <div className="relative flex items-center justify-between w-[280px] sm:w-[600px]">
         
-        {/* 1. LOGO */}
-        <button className="nav-logo flex items-center gap-3 bg-transparent border-none cursor-pointer flex-shrink-0" onClick={goHome}>
+        {/* LOGO GOMB A LEFORDÍTOTT ALCÍMMEL */}
+        <button className="nav-logo flex items-center gap-3 bg-transparent border-none cursor-pointer" onClick={goHome}>
           <span className="diamond" />
           <div className="nav-logo-text text-left">
             <span className="nav-logo-title">Trovepedia</span>
@@ -181,38 +76,10 @@ export default function Navbar() {
           </div>
         </button>
 
-        {/* 2. KÖZÉPSŐ LIVE STÁTUSZ PILL (Csak UTC óra + Napi Buff) */}
-        <div 
-          onClick={() => navigate('/hub')}
-          className="hidden sm:flex items-center gap-3 px-3.5 py-1.5 rounded-full bg-[#111620]/90 border border-[#1f2733] hover:border-[#58a6ff]/40 transition-all cursor-pointer backdrop-blur-md text-[12px] font-['Quicksand'] font-medium shadow-[0_4px_20px_rgba(0,0,0,0.3)]"
-          title="Open Hub"
-        >
-          {/* UTC Óra */}
-          <div className="flex items-center gap-1.5 text-[#9aa4b2]">
-            <span className="text-[10px] text-[#58a6ff] font-bold">UTC</span>
-            <span className="text-[#e6edf3] font-mono text-[11px]">{formatClock(navTick)}</span>
-          </div>
-
-          <span className="text-[#2a3648] text-xs">|</span>
-
-          {/* Napi Buff ikonnal és valós névvel */}
-          <div className="flex items-center gap-1.5 text-[#e6edf3]">
-            <img 
-              src={getDailyBuffIcon(currentDaily)} 
-              alt="Daily" 
-              className="w-4 h-4 object-contain" 
-              onError={(e) => { e.target.style.display = 'none'; }}
-            />
-            <span className="text-[#f59e0b] font-semibold truncate max-w-[160px]">
-              {dashT?.buffNames?.[currentDaily?.name] || currentDaily?.name || 'Loading buff...'}
-            </span>
-          </div>
-        </div>
-
-        {/* 3. JOBB OLDALI GOMBOK */}
-        <div className="flex items-center gap-3 flex-shrink-0">
+        {/* JOBB OLDALI GOMBOK */}
+        <div className="flex items-center gap-3">
           
-          {/* NYELVVÁLASZTÓ */}
+          {/* NYELVVÁLASZTÓ GOMB & MENÜ */}
           <div className="relative">
             <button
               onClick={() => {
@@ -264,7 +131,7 @@ export default function Navbar() {
             </AnimatePresence>
           </div>
 
-          {/* MENÜ GOMB */}
+          {/* DROPDOWN NYÍL GOMB & MENÜ */}
           <div className="relative">
             <button
               onClick={() => {
@@ -284,6 +151,7 @@ export default function Navbar() {
               />
             </button>
 
+            {/* LEGÖRDÜLŐ MENÜ */}
             <AnimatePresence>
               {open && (
                 <motion.div
@@ -342,3 +210,39 @@ export default function Navbar() {
     </nav>
   );
 }
+
+const wrapperVariants = {
+  open: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.1,
+      ease: [0.25, 1, 0.5, 1],
+      when: "beforeChildren",
+      staggerChildren: 0.01,
+    },
+  },
+  closed: {
+    y: -15,
+    opacity: 0,
+    transition: {
+      duration: 0.2,
+      ease: [0.25, 1, 0.5, 1],
+      when: "afterChildren",
+      staggerChildren: 0.01,
+    },
+  },
+};
+
+const itemVariants = {
+  open: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.1 }
+  },
+  closed: {
+    opacity: 0,
+    y: -8,
+    transition: { duration: 0.1 }
+  },
+};
