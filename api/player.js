@@ -66,7 +66,6 @@ async function fetchEndpoint(path, token) {
 }
 
 export default async function handler(req, res) {
-  // CORS fejezetek biztosítása, hogy bárhonnan hívható legyen
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -99,7 +98,7 @@ export default async function handler(req, res) {
     }
   });
 
-  // Játékos aktivitási adatok lekérése
+  // 1. Játékos aktivitási adatok lekérése
   try {
     const actRes = await fetch('https://api.aallyn.net/site/leaderboards/activity/series?period=1m', {
       headers: {
@@ -115,6 +114,24 @@ export default async function handler(req, res) {
     }
   } catch (e) {
     data.playerActivity = null;
+  }
+
+  // 2. Elérhető táblák / kategóriák lekérése a site végpontról
+  try {
+    const boardsRes = await fetch('https://api.aallyn.net/site/leaderboards/boards', {
+      headers: {
+        'Accept': 'application/json',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
+        'Referer': 'https://trove.aallyn.net/'
+      }
+    });
+    if (boardsRes.ok) {
+      data.availableBoards = await boardsRes.json();
+    } else {
+      data.availableBoards = null;
+    }
+  } catch (e) {
+    data.availableBoards = null;
   }
 
   res.setHeader('Cache-Control', 's-maxage=15, stale-while-revalidate=45');

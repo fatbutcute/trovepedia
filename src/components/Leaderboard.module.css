@@ -1,6 +1,6 @@
-.container {
-  max-width: 900px;
-  margin: 40px auto;
+.pageContainer {
+  max-width: 1300px;
+  margin: 30px auto;
   padding: 0 20px;
   font-family: 'Quicksand', sans-serif;
   color: #e6edf3;
@@ -8,7 +8,7 @@
 
 .hero {
   text-align: center;
-  margin-bottom: 36px;
+  margin-bottom: 30px;
 }
 
 .badge {
@@ -22,68 +22,176 @@
   text-transform: uppercase;
   letter-spacing: 0.15em;
   border-radius: 20px;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .title {
-  font-size: 2.2rem;
+  font-size: 2rem;
   font-weight: 900;
   color: #ffffff;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   font-family: 'Comfortaa', sans-serif;
 }
 
 .description {
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   color: #9aa4b2;
 }
 
-.boardCard {
+/* Felső játékos kereső */
+.playerSearchWrapper {
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.playerSearchInput {
+  width: 100%;
+  max-width: 600px;
+  background: rgba(19, 25, 34, 0.8);
+  border: 1px solid rgba(31, 39, 51, 0.9);
+  border-radius: 14px;
+  padding: 12px 18px;
+  color: #e6edf3;
+  font-size: 0.95rem;
+  font-family: 'Quicksand', sans-serif;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.playerSearchInput:focus {
+  border-color: rgba(88, 166, 255, 0.6);
+  box-shadow: 0 0 15px rgba(88, 166, 255, 0.15);
+}
+
+/* Fő elrendezés: bal oldalsáv + jobb oldali tartalom */
+.layoutGrid {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .layoutGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Bal oldali szűrő panel */
+.sidebar {
   background: rgba(19, 25, 34, 0.75);
   border: 1px solid rgba(31, 39, 51, 0.9);
-  border-radius: 20px;
-  padding: 24px;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+  border-radius: 18px;
+  padding: 18px;
   backdrop-filter: blur(12px);
+  max-height: 700px;
+  overflow-y: auto;
 }
 
-.catTabs {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  margin-bottom: 24px;
+.filterInput {
+  width: 100%;
+  background: rgba(11, 15, 25, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 10px 14px;
+  color: #e6edf3;
+  font-size: 0.85rem;
+  margin-bottom: 16px;
+  outline: none;
 }
 
-.catBtn {
-  background: rgba(15, 23, 42, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 12px;
-  padding: 12px;
+.filterInput:focus {
+  border-color: #58a6ff;
+}
+
+.categoryGroup {
+  margin-bottom: 18px;
+}
+
+.groupTitle {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #e8b84b;
+  margin-bottom: 8px;
+  padding-left: 6px;
+}
+
+.categoryItemList {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.catItemBtn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  padding: 10px 12px;
   color: #9aa4b2;
-  font-weight: 700;
   font-size: 0.9rem;
+  font-weight: 600;
+  text-align: left;
   cursor: pointer;
-  transition: all 0.25s ease;
+  transition: all 0.2s ease;
   font-family: 'Quicksand', sans-serif;
 }
 
-.catBtn:hover {
-  background: rgba(26, 33, 44, 0.9);
+.catItemBtn:hover {
+  background: rgba(26, 33, 44, 0.8);
   color: #e6edf3;
-  border-color: rgba(88, 166, 255, 0.3);
 }
 
-.catBtn.active {
-  background: linear-gradient(135deg, rgba(88, 166, 255, 0.2), rgba(139, 92, 246, 0.2));
-  border-color: #58a6ff;
+.catItemBtn.active {
+  background: rgba(88, 166, 255, 0.15);
+  border-color: rgba(88, 166, 255, 0.4);
+  color: #58a6ff;
+}
+
+.catTag {
+  font-size: 0.65rem;
+  padding: 2px 6px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #9aa4b2;
+  text-transform: uppercase;
+}
+
+/* Jobb oldali tartalom panel */
+.contentPanel {
+  background: rgba(19, 25, 34, 0.75);
+  border: 1px solid rgba(31, 39, 51, 0.9);
+  border-radius: 18px;
+  padding: 24px;
+  backdrop-filter: blur(12px);
+  min-height: 450px;
+}
+
+.panelHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding-bottom: 12px;
+}
+
+.panelTitle {
+  font-size: 1.25rem;
+  font-weight: 800;
   color: #ffffff;
-  box-shadow: 0 0 15px rgba(88, 166, 255, 0.2);
 }
 
 .tableWrapper {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 
 .rankRow {
@@ -92,48 +200,35 @@
   justify-content: space-between;
   background: rgba(11, 15, 25, 0.5);
   border: 1px solid rgba(255, 255, 255, 0.04);
-  border-radius: 14px;
-  padding: 16px 20px;
-  transition: transform 0.2s ease, border-color 0.2s ease;
+  border-radius: 12px;
+  padding: 14px 18px;
+  transition: transform 0.2s ease, background 0.2s ease;
 }
 
 .rankRow:hover {
   transform: translateX(4px);
-  border-color: rgba(255, 255, 255, 0.12);
   background: rgba(15, 23, 42, 0.8);
+  border-color: rgba(88, 166, 255, 0.2titles);
 }
 
 .rankInfo {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 16px;
 }
 
 .rankNumber {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 900;
   color: #e8b84b;
-  width: 32px;
+  width: 28px;
   text-align: center;
 }
 
-.playerDetails {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
 .playerName {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-weight: 700;
   color: #ffffff;
-}
-
-.playerSub {
-  font-size: 0.75rem;
-  color: #9aa4b2;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
 }
 
 .rankBadge {
@@ -143,24 +238,12 @@
   padding: 6px 14px;
   border-radius: 10px;
   font-weight: 800;
-  font-size: 0.95rem;
-}
-
-.rankBadge.geode {
-  background: rgba(45, 212, 191, 0.12);
-  border-color: rgba(45, 212, 191, 0.3);
-  color: #2dd4bf;
-}
-
-.rankBadge.power {
-  background: rgba(245, 158, 11, 0.12);
-  border-color: rgba(245, 158, 11, 0.3);
-  color: #fbbf24;
+  font-size: 0.9rem;
 }
 
 .stateBox {
   text-align: center;
-  padding: 40px;
+  padding: 60px 20px;
   color: #9aa4b2;
   font-weight: 600;
 }
@@ -174,10 +257,4 @@
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
-}
-
-@media (max-width: 640px) {
-  .catTabs {
-    grid-template-columns: 1fr;
-  }
 }
