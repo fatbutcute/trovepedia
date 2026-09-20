@@ -81,10 +81,9 @@ export default async function handler(req, res) {
   const token = process.env.KIWI_TOKEN || null;
   const boardQuery = typeof req.query?.board === 'string' ? req.query.board.trim() : '';
 
-  // Ha a frontend egy specifikus táblát kér (pl. /api/player?board=trove_mastery)
+  // Ha a frontend egy specifikus táblát kér
   if (boardQuery) {
     try {
-      // Megpróbáljuk lekérni a specifikus leaderboard végpontot
       const boardRes = await fetch(`${BASE_URL}/v1/leaderboards/${encodeURIComponent(boardQuery)}`, {
         headers: {
           'Accept': 'application/json',
@@ -98,7 +97,6 @@ export default async function handler(req, res) {
         return res.status(200).json({ ok: true, data: boardData });
       }
 
-      // Fallback: Ha az egyedi v1 út nem létezik, próbáljuk a records-ból kiszedni
       const recRes = await fetch(`${BASE_URL}/v1/leaderboards/records`, {
         headers: { Accept: 'application/json' }
       });
@@ -130,10 +128,14 @@ export default async function handler(req, res) {
     }
   });
 
-  // Elérhető táblák lekérése a site végpontról
+  // Hivatalos site/leaderboards/boards lekérése a teljes bal oldali sávhoz
   try {
     const boardsRes = await fetch(`${BASE_URL}/site/leaderboards/boards`, {
-      headers: { Accept: 'application/json' }
+      headers: { 
+        'Accept': 'application/json',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
+        'Referer': 'https://trove.aallyn.net/'
+      }
     });
     if (boardsRes.ok) {
       data.availableBoards = await boardsRes.json();
