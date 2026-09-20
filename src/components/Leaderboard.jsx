@@ -4,73 +4,89 @@ import styles from './Leaderboard.module.css';
 import { useLanguage } from '../context/LanguageContext';
 import { leaderboardContent } from './guides/content/leaderboard.content';
 
-// Alapértelmezett kategóriák, ha a site végpont nem adna vissza elemeket
-const FALLBOARD_CATEGORIES = [
-  { id: 'trove_mastery', label: 'Trove Mastery', group: 'General' },
-  { id: 'geode_mastery', label: 'Geode Mastery', group: 'General' },
-  { id: 'power_rank', label: 'Power Rank', group: 'General' },
-  { id: 'challenge_deepest', label: 'CHALLENGE: Deepest', group: 'Delves' },
-  { id: 'deepest_public', label: 'Deepest Diggers of PUBLIC', group: 'Delves' },
-  { id: 'deepest_private', label: 'Deepest PRIVATEers', group: 'Delves' },
-  { id: 'daily_leviathan', label: 'Daily Leviathan Kills', group: 'Daily Contests' },
+const FALLBACK_BOARDS = [
+  { id: 'trove_mastery', label: 'Trove Mastery' },
+  { id: 'geode_mastery', label: 'Geode Mastery' },
+  { id: 'power_rank', label: 'Power Rank' },
+  { id: 'challenge_deepest', label: 'CHALLENGE: Deepest' },
+  { id: 'deepest_public', label: 'Deepest Diggers of PUBLIC' },
+  { id: 'deepest_private', label: 'Deepest PRIVATEers' },
+  { id: 'daily_leviathan', label: 'Daily Leviathan Kills' },
 ];
 
 export default function Leaderboard() {
   const { langCode } = useLanguage();
   const c = leaderboardContent[langCode] || leaderboardContent.en;
 
-  const [records, setRecords] = useState(null);
-  const [availableBoards, setAvailableBoards] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
-  
+  const [availableBoards, setAvailableBoards] = useState(FALLBACK_BOARDS);
   const [activeBoard, setActiveBoard] = useState('trove_mastery');
+  const [boardEntries, setBoardEntries] = useState([]);
+  
+  const [loading, setLoading] = useState(false);
+  const [boardLoading, setBoardLoading] = useState(false);
+  const [error, setError] = useState(false);
+
   const [sidebarFilter, setSidebarFilter] = useState('');
   const [playerSearchQuery, setPlayerSearchQuery] = useState('');
 
+  // 1. Kezdeti betöltés: elérhető táblák listája
   useEffect(() => {
     fetch('/api/player')
-      .then((res) => {
-        if (!res.ok) throw new Error('Network error');
-        return res.json();
-      })
+      .then((res) => res.json())
       .then((json) => {
         const apiData = json?.data;
-        if (apiData?.leaderboardRecords) {
-          setRecords(apiData.leaderboardRecords);
-        }
         if (apiData?.availableBoards) {
-          // Ha tömbként vagy objektumként érkezik a site boards lista
-          const boardsList = Array.isArray(apiData.availableBoards) 
+          const list = Array.isArray(apiData.availableBoards) 
             ? apiData.availableBoards 
-            : apiData.availableBoards.boards || Object.keys(apiData.availableBoards);
-          setAvailableBoards(boardsList);
+            : apiData.availableBoards.boards || [];
+          if (list.length > 0) {
+            setAvailableBoards(list.map(b => typeof b === 'string' ? { id: b, label: b } : b));
+          }
         }
+      })
+      .catch(() => {});
+  }, []);
+
+  // 2. Amikor változik az activeBoard, lekérjük az adott tábla adatait
+  useEffect(() => {
+    if (!activeBoard) return;
+    setBoardLoading(true);
+    setError(false);
+
+    fetch(`/api/player?board=${encodeURIComponent(activeBoard)}`)
+      .then((res) => res.json())
+      .then((json) => {
+        const resultData = json?.data?.data || json?.data || json;
+        // Ha tömb vagy tartalmazza a rekordokat
+        const entries = Array.isArray(resultData) 
+          ? resultData 
+          : resultData.entries || resultData.records || resultData.leaderboardRecords || [];
+        setBoardEntries(entries);
       })
       .catch(() => {
         setError(true);
       })
       .finally(() => {
-        setLoading(false);
+        setBoardLoading(false);
       });
-  }, []);
-
-  // Összeállítjuk a megjelenítendő kategóriák listáját (API + Fallback)
-  const boardsList = useMemo(() => {
-    if (availableBoards && availableBoards.length > 0) {
-      return availableBoards.map(b => typeof b === 'string' ? { id: b, label: b, group: 'Boards' } : b);
-    }
-    return FALLBOARD_CATEGORIES;
-  }, [availableBoards]);
+  }, [activeBoard]);
 
   // Szűrt kategóriák a bal oldali sávban
   const filteredBoards = useMemo(() => {
-    return boardsList.filter((b) => 
-      (b.label || b.id).toLowerCase().includes(sidebarFilter.toLowerCase())
+    return availableBoards.filter((b) => 
+      (b.label || b.id || '').toLowerCase().includes(sidebarFilter.toLowerCase())
     );
-  }, [boardsList, sidebarFilter]);
+  }, [availableBoards, sidebarFilter]);
 
-  const currentBoardData = records?.[activeBoard];
+  // Játékos keresés a listában
+  const filteredEntries = useMemo(() => {
+    if (!Array.isArray(boardEntries)) return [];
+    if (!playerSearchQuery) return boardEntries;
+    return boardEntries.filter(entry => {
+      const name = entry.player_name || entry.player || entry.name || '';
+      return name.toLowerCase().includes(playerSearchQuery.toLowerCase());
+    });
+  }, [boardEntries, playerSearchQuery]);
 
   return (
     <div className={styles.pageContainer}>
@@ -85,7 +101,7 @@ export default function Leaderboard() {
         <p className={styles.description}>{c.description}</p>
       </motion.header>
 
-      {/* Játékos keresősáv felül */}
+      {/* Felső játékos keresősáv */}
       <div className={styles.playerSearchWrapper}>
         <input 
           type="text"
@@ -133,55 +149,39 @@ export default function Leaderboard() {
         <main className={styles.contentPanel}>
           <div className={styles.panelHeader}>
             <h2 className={styles.panelTitle}>
-              {boardsList.find(b => (b.id || b) === activeBoard)?.label || activeBoard}
+              {availableBoards.find(b => (b.id || b) === activeBoard)?.label || activeBoard}
             </h2>
           </div>
 
-          {loading ? (
+          {boardLoading ? (
             <div className={styles.stateBox}>
-              <span className={styles.spinner}>⟳</span> {c.loading}
+              <span className={styles.spinner}>⟳</span> Loading board entries...
             </div>
-          ) : error && !records ? (
+          ) : error ? (
             <div className={styles.stateBox} style={{ color: '#f87171' }}>
               {c.error}
             </div>
-          ) : !currentBoardData ? (
+          ) : filteredEntries.length === 0 ? (
             <div className={styles.stateBox}>
-              Pick a board on the left to load its ranked entries, or no records available for this board yet.
+              No records found for this board.
             </div>
           ) : (
             <div className={styles.tableWrapper}>
-              {Array.isArray(currentBoardData) ? (
-                currentBoardData.map((entry, index) => {
-                  const playerName = entry.player_name || entry.player || 'Unknown';
-                  if (playerSearchQuery && !playerName.toLowerCase().includes(playerSearchQuery.toLowerCase())) {
-                    return null;
-                  }
-                  return (
-                    <div key={index} className={styles.rankRow}>
-                      <div className={styles.rankInfo}>
-                        <span className={styles.rankNumber}>#{index + 1}</span>
-                        <span className={styles.playerName}>{playerName}</span>
-                      </div>
-                      <div className={styles.rankBadge}>
-                        {entry.level ?? entry.score ?? entry.value ?? '—'}
-                      </div>
+              {filteredEntries.map((entry, index) => {
+                const playerName = entry.player_name || entry.player || entry.name || 'Unknown';
+                const scoreValue = entry.level ?? entry.score ?? entry.value ?? '—';
+                return (
+                  <div key={index} className={styles.rankRow}>
+                    <div className={styles.rankInfo}>
+                      <span className={styles.rankNumber}>#{entry.rank || index + 1}</span>
+                      <span className={styles.playerName}>{playerName}</span>
                     </div>
-                  );
-                })
-              ) : (
-                <div className={styles.rankRow}>
-                  <div className={styles.rankInfo}>
-                    <span className={styles.rankNumber}>#1</span>
-                    <span className={styles.playerName}>
-                      {currentBoardData.player_name || currentBoardData.player || 'Unknown Player'}
-                    </span>
+                    <div className={styles.rankBadge}>
+                      {scoreValue}
+                    </div>
                   </div>
-                  <div className={styles.rankBadge}>
-                    {currentBoardData.level ?? currentBoardData.score ?? currentBoardData.value ?? '—'}
-                  </div>
-                </div>
-              )}
+                );
+              })}
             </div>
           )}
         </main>

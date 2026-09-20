@@ -79,8 +79,34 @@ export default async function handler(req, res) {
   }
 
   const token = process.env.KIWI_TOKEN || null;
-  const keys = Object.keys(ENDPOINTS);
+  const boardQuery = typeof req.query?.board === 'string' ? req.query.board.trim() : '';
 
+  // Ha a frontend egy adott tábla adatait kéri (pl. /api/player?board=trove_mastery)
+  if (boardQuery) {
+    try {
+      const boardRes = await fetch(`${BASE_URL}/v1/leaderboards/${encodeURIComponent(boardQuery)}`, {
+        headers: {
+          'Accept': 'application/json',
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
+          'Referer': 'https://trove.aallyn.net/'
+        }
+      });
+      const boardData = await boardRes.json();
+      return res.status(200).json({ ok: true, data: boardData });
+    } else {
+      // Próbáljuk a site végpontot is ha a v1 nem adná vissza
+      const siteRes = await fetch(`${BASE_URL}/site/leaderboards/boards`, {
+        headers: { Accept: 'application/json' }
+      });
+      const siteData = await siteRes.json();
+      return res.status(200).json({ ok: true, data: siteData });
+    } catch (e) {
+      return res.status(500).json({ error: { message: e.message } });
+    }
+  }
+
+  // Alapértelmezett globális adatok lekérése
+  const keys = Object.keys(ENDPOINTS);
   const settled = await Promise.all(
     keys.map((key) => fetchEndpoint(ENDPOINTS[key], token))
   );
@@ -98,41 +124,14 @@ export default async function handler(req, res) {
     }
   });
 
-  // 1. Játékos aktivitási adatok lekérése
   try {
-    const actRes = await fetch('https://api.aallyn.net/site/leaderboards/activity/series?period=1m', {
-      headers: {
-        'Accept': 'application/json',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-        'Referer': 'https://trove.aallyn.net/'
-      }
-    });
-    if (actRes.ok) {
-      data.playerActivity = await actRes.json();
-    } else {
-      data.playerActivity = null;
-    }
-  } catch (e) {
-    data.playerActivity = null;
-  }
-
-  // 2. Elérhető táblák / kategóriák lekérése a site végpontról
-  try {
-    const boardsRes = await fetch('https://api.aallyn.net/site/leaderboards/boards', {
-      headers: {
-        'Accept': 'application/json',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
-        'Referer': 'https://trove.aallyn.net/'
-      }
+    const boardsRes = await fetch(`${BASE_URL}/site/leaderboards/boards`, {
+      headers: { Accept: 'application/json' }
     });
     if (boardsRes.ok) {
       data.availableBoards = await boardsRes.json();
-    } else {
-      data.availableBoards = null;
     }
-  } catch (e) {
-    data.availableBoards = null;
-  }
+  } catch (e) {}
 
   res.setHeader('Cache-Control', 's-maxage=15, stale-while-revalidate=45');
 
