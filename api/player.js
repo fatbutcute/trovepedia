@@ -13,7 +13,7 @@ const ENDPOINTS = {
   luxion: '/v1/rotations/luxion',
 };
 
-const REQUEST_TIMEOUT_MS = 8000;
+const REQUEST_TIMEOUT_MS = 6000;
 
 function withTimeout(promise, ms) {
   let timer;
@@ -66,6 +66,15 @@ async function fetchEndpoint(path, token) {
 }
 
 export default async function handler(req, res) {
+  // CORS fejezetek biztosítása, hogy bárhonnan hívható legyen
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+
   if (req.method !== 'GET') {
     return res.status(405).json({ error: { message: 'Method not allowed' } });
   }
@@ -90,7 +99,7 @@ export default async function handler(req, res) {
     }
   });
 
-  // --- A TE PONTOS ÚTVONALAD DEDIKÁLT SZERVEROLDALI LEKÉRDEZÉSE ---
+  // Játékos aktivitási adatok lekérése
   try {
     const actRes = await fetch('https://api.aallyn.net/site/leaderboards/activity/series?period=1m', {
       headers: {
@@ -106,17 +115,6 @@ export default async function handler(req, res) {
     }
   } catch (e) {
     data.playerActivity = null;
-  }
-
-  const playerQuery = typeof req.query?.player === 'string' ? req.query.player.trim() : '';
-  if (playerQuery) {
-    const profileResult = await fetchEndpoint(
-      `/v1/leaderboards/players/${encodeURIComponent(playerQuery)}/profile`,
-      token
-    );
-    if (profileResult.ok) {
-      data.playerProfile = profileResult.data;
-    }
   }
 
   res.setHeader('Cache-Control', 's-maxage=15, stale-while-revalidate=45');
