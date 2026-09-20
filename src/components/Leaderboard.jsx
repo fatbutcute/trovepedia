@@ -4,94 +4,86 @@ import styles from './Leaderboard.module.css';
 import { useLanguage } from '../context/LanguageContext';
 import { leaderboardContent } from './guides/content/leaderboard.content';
 
-const FALLBACK_BOARDS = [
-  { id: 'trove_mastery', label: 'Trove Mastery' },
-  { id: 'geode_mastery', label: 'Geode Mastery' },
-  { id: 'power_rank', label: 'Power Rank' },
-  { id: 'challenge_deepest', label: 'CHALLENGE: Deepest' },
-  { id: 'deepest_public', label: 'Deepest Diggers of PUBLIC' },
-  { id: 'deepest_private', label: 'Deepest PRIVATEers' },
-  { id: 'daily_leviathan', label: 'Daily Leviathan Kills' },
-];
-
 export default function Leaderboard() {
   const { langCode } = useLanguage();
   const c = leaderboardContent[langCode] || leaderboardContent.en;
 
-  const [availableBoards, setAvailableBoards] = useState(FALLBACK_BOARDS);
-  const [activeBoard, setActiveBoard] = useState('trove_mastery');
+  const [categories, setCategories] = useState({});
+  const [activeBoard, setActiveBoard] = useState(null);
   const [boardEntries, setBoardEntries] = useState([]);
   
+  const [loading, setLoading] = useState(true);
   const [boardLoading, setBoardLoading] = useState(false);
-  const [error, setError] = useState(false);
-
   const [sidebarFilter, setSidebarFilter] = useState('');
   const [playerSearchQuery, setPlayerSearchQuery] = useState('');
 
-  // 1. Kezdeti lekérés a teljes kategórialistához
+  // 1. Boards és Kategóriák betöltése
   useEffect(() => {
     fetch('/api/player')
       .then((res) => res.json())
       .then((json) => {
-        const apiData = json?.data;
-        if (apiData?.availableBoards) {
-          // Ha tömb vagy objektum a válasz
-          const rawBoards = apiData.availableBoards;
-          let list = [];
-          if (Array.isArray(rawBoards)) {
-            list = rawBoards;
-          } else if (rawBoards.boards && Array.isArray(rawBoards.boards)) {
-            list = rawBoards.boards;
-          } else if (typeof rawBoards === 'object') {
-            // Ha kulcs-érték párok formájában jön
-            list = Object.keys(rawBoards).map(k => ({ id: k, label: rawBoards[k].name || k }));
-          }
+        const rawBoards = json?.data?.availableBoards;
+        if (!rawBoards) return;
 
-          if (list.length > 0) {
-            setAvailableBoards(list.map(b => {
-              if (typeof b === 'string') return { id: b, label: b };
-              return { id: b.id || b.key || b.name, label: b.label || b.name || b.id };
-            }));
+        let parsed = {};
+
+        // Ha csoportosított objektumként érkezik (kategória -> táblák)
+        if (typeof rawBoards === 'object' && !Array.isArray(rawBoards)) {
+          if (rawBoards.categories) {
+            parsed = rawBoards.categories;
+          } else {
+            parsed = rawBoards;
           }
+        } else if (Array.isArray(rawBoards)) {
+          // Ha sima tömb, csoportosítjuk group szerint
+          rawBoards.forEach((b) => {
+            const group = b.category || b.group || 'Contests';
+            if (!parsed[group]) parsed[group] = [];
+            parsed[group].push(b);
+          });
+        }
+
+        setCategories(parsed);
+
+        // Automatikus első aktív board kijelölés
+        const firstGroup = Object.keys(parsed)[0];
+        if (firstGroup) {
+          const firstItem = Array.isArray(parsed[firstGroup]) ? parsed[firstGroup][0] : null;
+          const firstKey = typeof firstItem === 'string' ? firstItem : firstItem?.name || firstItem?.id;
+          if (firstKey) setActiveBoard(firstKey);
         }
       })
-      .catch(() => {});
+      .catch(() => {})
+      .finally(() => setLoading(false));
   }, []);
 
-  // 2. Amikor változik az activeBoard, lekérjük az adott ranglistát
+  // 2. Kiválasztott Board adatainak betöltése
   useEffect(() => {
     if (!activeBoard) return;
     setBoardLoading(true);
-    setError(false);
 
     fetch(`/api/player?board=${encodeURIComponent(activeBoard)}`)
       .then((res) => res.json())
       .then((json) => {
-        const resultData = json?.data?.data || json?.data || json;
-        const entries = Array.isArray(resultData) 
-          ? resultData 
-          : resultData.entries || resultData.records || resultData.leaderboardRecords || [resultData];
-        setBoardEntries(Array.isArray(entries) ? entries : [entries]);
+        const result = json?.data?.data || json?.data || json;
+        const list = Array.isArray(result) 
+          ? result 
+          : result?.entries || result?.ranks || result?.players || [];
+        setBoardEntries(list);
       })
       .catch(() => {
-        setError(true);
+        setBoardEntries([]);
       })
       .finally(() => {
         setBoardLoading(false);
       });
   }, [activeBoard]);
 
-  const filteredBoards = useMemo(() => {
-    return availableBoards.filter((b) => 
-      (b.label || b.id || '').toLowerCase().includes(sidebarFilter.toLowerCase())
-    );
-  }, [availableBoards, sidebarFilter]);
-
+  // Játékos szerinti keresés a táblában
   const filteredEntries = useMemo(() => {
-    if (!Array.isArray(boardEntries)) return [];
     if (!playerSearchQuery) return boardEntries;
-    return boardEntries.filter(entry => {
-      const name = entry.player_name || entry.player || entry.name || '';
+    return boardEntries.filter((e) => {
+      const name = e.player_name || e.player || e.name || '';
       return name.toLowerCase().includes(playerSearchQuery.toLowerCase());
     });
   }, [boardEntries, playerSearchQuery]);
@@ -100,26 +92,28 @@ export default function Leaderboard() {
     <div className={styles.pageContainer}>
       <motion.header 
         className={styles.hero}
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
       >
         <span className={styles.badge}>{c.badge}</span>
         <h1 className={styles.title}>{c.title}</h1>
         <p className={styles.description}>{c.description}</p>
       </motion.header>
 
+      {/* Játékos kereső */}
       <div className={styles.playerSearchWrapper}>
         <input 
           type="text"
           className={styles.playerSearchInput}
-          placeholder="🔍 Search a player name across leaderboards..."
+          placeholder="🔍 Search player name across entries..."
           value={playerSearchQuery}
           onChange={(e) => setPlayerSearchQuery(e.target.value)}
         />
       </div>
 
       <div className={styles.layoutGrid}>
+        
+        {/* BAL OLDALI SÁV (Kategóriák és Táblák) */}
         <aside className={styles.sidebar}>
           <input 
             type="text" 
@@ -129,66 +123,80 @@ export default function Leaderboard() {
             onChange={(e) => setSidebarFilter(e.target.value)}
           />
 
-          <div className={styles.categoryGroup}>
-            <div className={styles.groupTitle}>Boards & Categories</div>
-            <div className={styles.categoryItemList}>
-              {filteredBoards.map((board) => {
-                const bId = board.id || board;
-                const bLabel = board.label || board;
-                return (
-                  <button
-                    key={bId}
-                    className={`${styles.catItemBtn} ${activeBoard === bId ? styles.active : ''}`}
-                    onClick={() => setActiveBoard(bId)}
-                  >
-                    <span className="truncate">{bLabel}</span>
-                    {board.tag && <span className={styles.catTag}>{board.tag}</span>}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
+          {loading ? (
+            <div className={styles.stateBox}><span className={styles.spinner}>⟳</span> Loading boards...</div>
+          ) : Object.keys(categories).length === 0 ? (
+            <div className={styles.stateBox}>No categories available.</div>
+          ) : (
+            Object.entries(categories).map(([groupName, items]) => {
+              const itemList = Array.isArray(items) ? items : [];
+              const matchingItems = itemList.filter(item => {
+                const name = typeof item === 'string' ? item : item.label || item.name || '';
+                return name.toLowerCase().includes(sidebarFilter.toLowerCase());
+              });
+
+              if (matchingItems.length === 0) return null;
+
+              return (
+                <div key={groupName} className={styles.categoryGroup}>
+                  <div className={styles.groupTitle}>
+                    {groupName} <span style={{ opacity: 0.6 }}>({matchingItems.length})</span>
+                  </div>
+                  <div className={styles.categoryItemList}>
+                    {matchingItems.map((item, idx) => {
+                      const id = typeof item === 'string' ? item : item.name || item.id || idx;
+                      const label = typeof item === 'string' ? item : item.label || item.name || id;
+                      const tag = item.tag || item.type || null;
+
+                      return (
+                        <button
+                          key={id}
+                          className={`${styles.catItemBtn} ${activeBoard === id ? styles.active : ''}`}
+                          onClick={() => setActiveBoard(id)}
+                        >
+                          <span className="truncate">{label}</span>
+                          {tag && <span className={styles.catTag}>{tag}</span>}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            })
+          )}
         </aside>
 
+        {/* JOBB OLDALI TARTALOM (Rangsor) */}
         <main className={styles.contentPanel}>
           <div className={styles.panelHeader}>
-            <h2 className={styles.panelTitle}>
-              {availableBoards.find(b => (b.id || b) === activeBoard)?.label || activeBoard}
-            </h2>
+            <h2 className={styles.panelTitle}>{activeBoard || 'Leaderboard'}</h2>
           </div>
 
           {boardLoading ? (
-            <div className={styles.stateBox}>
-              <span className={styles.spinner}>⟳</span> Loading board entries...
-            </div>
-          ) : error ? (
-            <div className={styles.stateBox} style={{ color: '#f87171' }}>
-              {c.error}
-            </div>
+            <div className={styles.stateBox}><span className={styles.spinner}>⟳</span> Fetching ranking...</div>
           ) : filteredEntries.length === 0 ? (
-            <div className={styles.stateBox}>
-              No records found for this board.
-            </div>
+            <div className={styles.stateBox}>No ranked entries found for this board.</div>
           ) : (
             <div className={styles.tableWrapper}>
-              {filteredEntries.map((entry, index) => {
-                const playerName = entry.player_name || entry.player || entry.name || 'Unknown';
-                const scoreValue = entry.level ?? entry.score ?? entry.value ?? '—';
+              {filteredEntries.map((entry, idx) => {
+                const rank = entry.rank || idx + 1;
+                const name = entry.player_name || entry.player || entry.name || 'Unknown';
+                const score = entry.score ?? entry.value ?? entry.level ?? '—';
+
                 return (
-                  <div key={index} className={styles.rankRow}>
+                  <div key={idx} className={styles.rankRow}>
                     <div className={styles.rankInfo}>
-                      <span className={styles.rankNumber}>#{entry.rank || index + 1}</span>
-                      <span className={styles.playerName}>{playerName}</span>
+                      <span className={styles.rankNumber}>#{rank}</span>
+                      <span className={styles.playerName}>{name}</span>
                     </div>
-                    <div className={styles.rankBadge}>
-                      {scoreValue}
-                    </div>
+                    <div className={styles.rankBadge}>{score}</div>
                   </div>
                 );
               })}
             </div>
           )}
         </main>
+
       </div>
     </div>
   );

@@ -13,140 +13,74 @@ const ENDPOINTS = {
   luxion: '/v1/rotations/luxion',
 };
 
-const REQUEST_TIMEOUT_MS = 6000;
-
-function withTimeout(promise, ms) {
-  let timer;
-  const timeout = new Promise((_, reject) => {
-    timer = setTimeout(() => reject(new Error('Request timed out')), ms);
-  });
-  return Promise.race([promise, timeout]).finally(() => clearTimeout(timer));
-}
-
-async function fetchJson(path, headers) {
-  const response = await withTimeout(
-    fetch(`${BASE_URL}${path}`, { headers, method: 'GET' }),
-    REQUEST_TIMEOUT_MS
-  );
-
-  let body = null;
-  try {
-    body = await response.json();
-  } catch {}
-
-  if (!response.ok) {
-    const message = (body && body.error && body.error.message) || `Upstream HTTP ${response.status}`;
-    const error = new Error(message);
-    error.status = response.status;
-    throw error;
-  }
-
-  return body;
-}
-
-async function fetchEndpoint(path, token) {
-  const authHeaders = token
-    ? { Authorization: `Bearer ${token}`, Accept: 'application/json' }
-    : { Accept: 'application/json' };
-
-  try {
-    const data = await fetchJson(path, authHeaders);
-    return { ok: true, data };
-  } catch (err) {
-    if (token && err.status === 401) {
-      try {
-        const data = await fetchJson(path, { Accept: 'application/json' });
-        return { ok: true, data };
-      } catch (fallbackErr) {
-        return { ok: false, error: fallbackErr.message };
-      }
-    }
-    return { ok: false, error: err.message };
-  }
-}
+const HEADERS = {
+  'Accept': 'application/json',
+  'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
+  'Referer': 'https://trove.aallyn.net/'
+};
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
-  if (req.method === 'OPTIONS') {
-    return res.status(200).end();
-  }
+  if (req.method === 'OPTIONS') return res.status(200).end();
+  if (req.method !== 'GET') return res.status(405).json({ error: { message: 'Method not allowed' } });
 
-  if (req.method !== 'GET') {
-    return res.status(405).json({ error: { message: 'Method not allowed' } });
-  }
-
-  const token = process.env.KIWI_TOKEN || null;
   const boardQuery = typeof req.query?.board === 'string' ? req.query.board.trim() : '';
+  const dateQuery = typeof req.query?.created_at === 'string' ? req.query.created_at.trim() : '';
 
-  // Ha a frontend egy specifikus táblát kér
+  // 1. Ha egy konkrét tábla bejegyzéseit kéri a frontend
   if (boardQuery) {
     try {
-      const boardRes = await fetch(`${BASE_URL}/v1/leaderboards/${encodeURIComponent(boardQuery)}`, {
-        headers: {
-          'Accept': 'application/json',
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
-          'Referer': 'https://trove.aallyn.net/'
-        }
-      });
+      const url = `${BASE_URL}/site/leaderboards/board?name=${encodeURIComponent(boardQuery)}${dateQuery ? `&created_at=${dateQuery}` : ''}`;
+      let response = await fetch(url, { headers: HEADERS });
       
-      if (boardRes.ok) {
-        const boardData = await boardRes.json();
-        return res.status(200).json({ ok: true, data: boardData });
+      // Fallback v1-re ha a site nem érhető el
+      if (!response.ok) {
+        response = await fetch(`${BASE_URL}/v1/leaderboards/${encodeURIComponent(boardQuery)}`, { headers: HEADERS });
       }
-
-      const recRes = await fetch(`${BASE_URL}/v1/leaderboards/records`, {
-        headers: { Accept: 'application/json' }
-      });
-      const recData = await recRes.json();
-      const specificRecord = recData?.data?.[boardQuery] || recData?.[boardQuery] || [];
       
-      return res.status(200).json({ ok: true, data: specificRecord });
+      const data = await response.json();
+      return res.status(200).json({ ok: true, data });
     } catch (e) {
       return res.status(500).json({ error: { message: e.message } });
     }
   }
 
-  // Alapértelmezett aggregált adatok lekérése
-  const keys = Object.keys(ENDPOINTS);
-  const settled = await Promise.all(
-    keys.map((key) => fetchEndpoint(ENDPOINTS[key], token))
+  // 2. Alap lekérés: Aggregált adatok + A TELJES BOARDS HIERARCHIA
+  const data = {};
+
+  // Standard v1 rotációk
+  await Promise.all(
+    Object.keys(ENDPOINTS).map(async (key) => {
+      try {
+        const r = await fetch(`${BASE_URL}${ENDPOINTS[key]}`, { headers: HEADERS });
+        if (r.ok) data[key] = await r.json();
+      } catch {
+        data[key] = null;
+      }
+    })
   );
 
-  const data = {};
-  const errors = {};
-
-  keys.forEach((key, i) => {
-    const result = settled[i];
-    if (result.ok) {
-      data[key] = result.data;
-    } else {
-      data[key] = null;
-      errors[key] = { message: result.error };
-    }
-  });
-
-  // Hivatalos site/leaderboards/boards lekérése a teljes bal oldali sávhoz
+  // Teljes Boards lista lekérése
   try {
-    const boardsRes = await fetch(`${BASE_URL}/site/leaderboards/boards`, {
-      headers: { 
-        'Accept': 'application/json',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
-        'Referer': 'https://trove.aallyn.net/'
-      }
-    });
-    if (boardsRes.ok) {
-      data.availableBoards = await boardsRes.json();
+    const timestamp = dateQuery || Math.floor(Date.now() / 1000);
+    // Megpróbáljuk időbélyeggel és anélkül is
+    let bRes = await fetch(`${BASE_URL}/site/leaderboards/boards?created_at=${timestamp}`, { headers: HEADERS });
+    if (!bRes.ok) {
+      bRes = await fetch(`${BASE_URL}/site/leaderboards/boards`, { headers: HEADERS });
     }
-  } catch (e) {}
+    if (bRes.ok) {
+      data.availableBoards = await bRes.json();
+    }
+  } catch (e) {
+    data.availableBoards = null;
+  }
 
   res.setHeader('Cache-Control', 's-maxage=15, stale-while-revalidate=45');
-
   return res.status(200).json({
     fetchedAt: Math.floor(Date.now() / 1000),
-    data,
-    errors: Object.keys(errors).length > 0 ? errors : null,
+    data
   });
 }
