@@ -14,7 +14,7 @@ export default function Leaderboard() {
   const [activeTab, setActiveTab] = useState('mastery');
 
   useEffect(() => {
-    fetch('https://trove.aallyn.net/api/v1/meta')
+    fetch('/api/v1/meta')
       .then((res) => {
         if (!res.ok) throw new Error('Network error');
         return res.json();
