@@ -22,7 +22,6 @@ export default function Leaderboard() {
   const [activeBoard, setActiveBoard] = useState('trove_mastery');
   const [boardEntries, setBoardEntries] = useState([]);
   
-  const [loading, setLoading] = useState(false);
   const [boardLoading, setBoardLoading] = useState(false);
   const [error, setError] = useState(false);
 
@@ -43,11 +42,16 @@ export default function Leaderboard() {
             setAvailableBoards(list.map(b => typeof b === 'string' ? { id: b, label: b } : b));
           }
         }
+        // Ha vannak alap leaderboardRecords adatok is a fő hívásban
+        if (apiData?.leaderboardRecords && apiData.leaderboardRecords[activeBoard]) {
+          const initialData = apiData.leaderboardRecords[activeBoard];
+          setBoardEntries(Array.isArray(initialData) ? initialData : [initialData]);
+        }
       })
       .catch(() => {});
   }, []);
 
-  // 2. Amikor változik az activeBoard, lekérjük az adott tábla adatait
+  // 2. Táblaváltáskor lekérjük az adott kategória adatait
   useEffect(() => {
     if (!activeBoard) return;
     setBoardLoading(true);
@@ -57,11 +61,10 @@ export default function Leaderboard() {
       .then((res) => res.json())
       .then((json) => {
         const resultData = json?.data?.data || json?.data || json;
-        // Ha tömb vagy tartalmazza a rekordokat
         const entries = Array.isArray(resultData) 
           ? resultData 
-          : resultData.entries || resultData.records || resultData.leaderboardRecords || [];
-        setBoardEntries(entries);
+          : resultData.entries || resultData.records || resultData.leaderboardRecords || [resultData];
+        setBoardEntries(Array.isArray(entries) ? entries : [entries]);
       })
       .catch(() => {
         setError(true);
@@ -71,14 +74,12 @@ export default function Leaderboard() {
       });
   }, [activeBoard]);
 
-  // Szűrt kategóriák a bal oldali sávban
   const filteredBoards = useMemo(() => {
     return availableBoards.filter((b) => 
       (b.label || b.id || '').toLowerCase().includes(sidebarFilter.toLowerCase())
     );
   }, [availableBoards, sidebarFilter]);
 
-  // Játékos keresés a listában
   const filteredEntries = useMemo(() => {
     if (!Array.isArray(boardEntries)) return [];
     if (!playerSearchQuery) return boardEntries;
@@ -101,7 +102,6 @@ export default function Leaderboard() {
         <p className={styles.description}>{c.description}</p>
       </motion.header>
 
-      {/* Felső játékos keresősáv */}
       <div className={styles.playerSearchWrapper}>
         <input 
           type="text"
@@ -113,8 +113,6 @@ export default function Leaderboard() {
       </div>
 
       <div className={styles.layoutGrid}>
-        
-        {/* BAL OLDALI SZŰRŐ ÉS KATEGÓRIA SÁV */}
         <aside className={styles.sidebar}>
           <input 
             type="text" 
@@ -145,7 +143,6 @@ export default function Leaderboard() {
           </div>
         </aside>
 
-        {/* JOBB OLDALI TARTALOM / LISTA */}
         <main className={styles.contentPanel}>
           <div className={styles.panelHeader}>
             <h2 className={styles.panelTitle}>
@@ -185,7 +182,6 @@ export default function Leaderboard() {
             </div>
           )}
         </main>
-
       </div>
     </div>
   );

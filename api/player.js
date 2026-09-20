@@ -81,9 +81,10 @@ export default async function handler(req, res) {
   const token = process.env.KIWI_TOKEN || null;
   const boardQuery = typeof req.query?.board === 'string' ? req.query.board.trim() : '';
 
-  // Ha a frontend egy adott tábla adatait kéri (pl. /api/player?board=trove_mastery)
+  // Ha a frontend egy specifikus táblát kér (pl. /api/player?board=trove_mastery)
   if (boardQuery) {
     try {
+      // Megpróbáljuk lekérni a specifikus leaderboard végpontot
       const boardRes = await fetch(`${BASE_URL}/v1/leaderboards/${encodeURIComponent(boardQuery)}`, {
         headers: {
           'Accept': 'application/json',
@@ -91,21 +92,26 @@ export default async function handler(req, res) {
           'Referer': 'https://trove.aallyn.net/'
         }
       });
-      const boardData = await boardRes.json();
-      return res.status(200).json({ ok: true, data: boardData });
-    } else {
-      // Próbáljuk a site végpontot is ha a v1 nem adná vissza
-      const siteRes = await fetch(`${BASE_URL}/site/leaderboards/boards`, {
+      
+      if (boardRes.ok) {
+        const boardData = await boardRes.json();
+        return res.status(200).json({ ok: true, data: boardData });
+      }
+
+      // Fallback: Ha az egyedi v1 út nem létezik, próbáljuk a records-ból kiszedni
+      const recRes = await fetch(`${BASE_URL}/v1/leaderboards/records`, {
         headers: { Accept: 'application/json' }
       });
-      const siteData = await siteRes.json();
-      return res.status(200).json({ ok: true, data: siteData });
+      const recData = await recRes.json();
+      const specificRecord = recData?.data?.[boardQuery] || recData?.[boardQuery] || [];
+      
+      return res.status(200).json({ ok: true, data: specificRecord });
     } catch (e) {
       return res.status(500).json({ error: { message: e.message } });
     }
   }
 
-  // Alapértelmezett globális adatok lekérése
+  // Alapértelmezett aggregált adatok lekérése
   const keys = Object.keys(ENDPOINTS);
   const settled = await Promise.all(
     keys.map((key) => fetchEndpoint(ENDPOINTS[key], token))
@@ -124,6 +130,7 @@ export default async function handler(req, res) {
     }
   });
 
+  // Elérhető táblák lekérése a site végpontról
   try {
     const boardsRes = await fetch(`${BASE_URL}/site/leaderboards/boards`, {
       headers: { Accept: 'application/json' }
