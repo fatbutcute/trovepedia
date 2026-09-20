@@ -28,30 +28,37 @@ export default function Leaderboard() {
   const [sidebarFilter, setSidebarFilter] = useState('');
   const [playerSearchQuery, setPlayerSearchQuery] = useState('');
 
-  // 1. Kezdeti betöltés: elérhető táblák listája
+  // 1. Kezdeti lekérés a teljes kategórialistához
   useEffect(() => {
     fetch('/api/player')
       .then((res) => res.json())
       .then((json) => {
         const apiData = json?.data;
         if (apiData?.availableBoards) {
-          const list = Array.isArray(apiData.availableBoards) 
-            ? apiData.availableBoards 
-            : apiData.availableBoards.boards || [];
-          if (list.length > 0) {
-            setAvailableBoards(list.map(b => typeof b === 'string' ? { id: b, label: b } : b));
+          // Ha tömb vagy objektum a válasz
+          const rawBoards = apiData.availableBoards;
+          let list = [];
+          if (Array.isArray(rawBoards)) {
+            list = rawBoards;
+          } else if (rawBoards.boards && Array.isArray(rawBoards.boards)) {
+            list = rawBoards.boards;
+          } else if (typeof rawBoards === 'object') {
+            // Ha kulcs-érték párok formájában jön
+            list = Object.keys(rawBoards).map(k => ({ id: k, label: rawBoards[k].name || k }));
           }
-        }
-        // Ha vannak alap leaderboardRecords adatok is a fő hívásban
-        if (apiData?.leaderboardRecords && apiData.leaderboardRecords[activeBoard]) {
-          const initialData = apiData.leaderboardRecords[activeBoard];
-          setBoardEntries(Array.isArray(initialData) ? initialData : [initialData]);
+
+          if (list.length > 0) {
+            setAvailableBoards(list.map(b => {
+              if (typeof b === 'string') return { id: b, label: b };
+              return { id: b.id || b.key || b.name, label: b.label || b.name || b.id };
+            }));
+          }
         }
       })
       .catch(() => {});
   }, []);
 
-  // 2. Táblaváltáskor lekérjük az adott kategória adatait
+  // 2. Amikor változik az activeBoard, lekérjük az adott ranglistát
   useEffect(() => {
     if (!activeBoard) return;
     setBoardLoading(true);
