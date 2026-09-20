@@ -14,15 +14,16 @@ export default function Leaderboard() {
   const [activeTab, setActiveTab] = useState('mastery');
 
   useEffect(() => {
-    fetch('/api/v1/meta')
+    fetch('/api/player')
       .then((res) => {
         if (!res.ok) throw new Error('Network error');
         return res.json();
       })
       .then((json) => {
-        const data = json?.data || json;
-        if (data?.leaderboardRecords) {
-          setRecords(data.leaderboardRecords);
+        // A player.js a json.data-n belül adja vissza az összes endpoint eredményét
+        const apiData = json?.data;
+        if (apiData?.leaderboardRecords) {
+          setRecords(apiData.leaderboardRecords);
         } else {
           setError(true);
         }
