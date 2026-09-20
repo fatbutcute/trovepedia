@@ -2,7 +2,7 @@ export const leaderboardContent = {
   en: {
     badge: "LEADERBOARDS",
     title: "Trove Leaderboards",
-    description: "Explore the top-ranked players across every leaderboard and see how the rankings change over time. Data is captured hourly, with 7 days of live history available alongside a complete archive of past rankings.",
+    description: "Explore the top-ranked players across every leaderboard and see how the rankings change over time. <br />Data is captured hourly, with 7 days of live history available alongside a complete archive of past rankings.",
     categories: {
       mastery: "Trove Mastery",
       geode: "Geode Mastery",
