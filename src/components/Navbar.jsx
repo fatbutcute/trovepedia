@@ -37,6 +37,7 @@ export default function Navbar() {
       { label: t('nav.discord'), href: 'https://discord.com/invite/trovegame' },
       { label: t('nav.trovesaurus'), href: 'https://trovesaurus.com/' },
       { label: t('nav.contributors'), path: '/contribute' },
+      { label: t('nav.leaderboard') || 'Leaderboard', path: '/leaderboard' },
       /*{ label: t('nav.clubs'), path: '/clubs' },*/
       /*{ label: t('nav.news'), path: '/news' },*/
     ],

@@ -17,6 +17,7 @@ import TroveNewsPage   from './components/TroveNewsPage'
 import FishingPage     from './pages/FishingPage'
 import CalculatorsPage from './components/CalculatorsPage'
 import TokenCall       from './components/tokencall'
+import Leaderboard from './components/Leaderboard'; // 👈 IMPORTÁLÁS
 
 import GuideViewer     from './components/guides/GuideViewer'
 
@@ -45,6 +46,7 @@ export default function App() {
           <Route path="/fishing" element={<FishingPage />} />
           <Route path="/calculators" element={<CalculatorsPage />} />
           <Route path="/hub" element={<TokenCall />} />
+          <Route path="/leaderboard" element={<Leaderboard />} />
 
           {/* Placeholders / 404 */}
           <Route
