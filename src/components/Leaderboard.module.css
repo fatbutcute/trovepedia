@@ -67,7 +67,7 @@
 /* Fő elrendezés */
 .layoutGrid {
   display: grid;
-  grid-template-columns: 310px 1fr;
+  grid-template-columns: 550px 1fr;
   gap: 20px;
   align-items: stretch;
 }

@@ -120,7 +120,7 @@ export default function Leaderboard() {
         <input 
           type="text"
           className={styles.playerSearchInput}
-          placeholder="🔍 Search a player name in this board..."
+          placeholder="Search a player name in this board..."
           value={playerSearchQuery}
           onChange={(e) => setPlayerSearchQuery(e.target.value)}
         />
@@ -194,8 +194,8 @@ export default function Leaderboard() {
                 <span style={{ fontSize: '0.8rem', color: '#9aa4b2' }}>{selectedBoard.category}</span>
               )}
             </div>
-            <span style={{ fontSize: '0.85rem', color: '#58a6ff', fontWeight: 700 }}>
-              {entries.length} entries loaded
+            <span style={{ fontSize: '0.85rem', color: '#14cccc', fontWeight: 700 }}>
+              Top {entries.length} players loaded
             </span>
           </div>
 
